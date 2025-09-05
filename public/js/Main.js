@@ -3,9 +3,9 @@ import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gsta
 import { getFirestore, doc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
-import { renderAllComponents } from './ui.js?v=1757102250978';
-import { setupEventListeners } from './handlers.js?v=1757102250978';
-import { setupGeminiChat } from "./Gemini.js?v=1757102250978";
+import { renderAllComponents } from './ui.js?v=1757102727628';
+import { setupEventListeners } from './handlers.js?v=1757102727628';
+import { setupGeminiChat } from "./Gemini.js?v=1757102727628";
 
 // --- Global State ---
 export let db, auth, storage, userId;
