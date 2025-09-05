@@ -42,10 +42,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- CSS Loading Order: Base → Utilities → Enhancements → Fixes -->
-    <link rel="stylesheet" href="/CSS/style.css?v=1757102250978">
-    <link rel="stylesheet" href="/CSS/utilities.css?v=1757102250978">
-    <link rel="stylesheet" href="/CSS/modal-enhancements.css?v=1757102250978">
-    <link rel="stylesheet" href="/CSS/css-cascade-fix.css?v=1757102250978">
+    <link rel="stylesheet" href="/CSS/style.css" id="css-style">
+    <link rel="stylesheet" href="/CSS/utilities.css" id="css-utilities">
+    <link rel="stylesheet" href="/CSS/modal-enhancements.css" id="css-modal">
+    <link rel="stylesheet" href="/CSS/css-cascade-fix.css" id="css-cascade">
 </head>
 
 <body class="bg-primary">
@@ -824,7 +824,10 @@
          <script src="/js/demo-protection.js"></script>
      <script type="module">
          // Automated cache busting - no more manual version updates!
-         import { VERSION } from './js/version.js';
+         import { VERSION, initCSSVersioning } from './js/version.js';
+         
+         // Initialize CSS versioning immediately
+         initCSSVersioning();
          
          // Load main script with automatic versioning
          import(`./js/Main.js?v=${VERSION}`).then(module => {

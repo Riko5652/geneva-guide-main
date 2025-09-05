@@ -25,6 +25,25 @@ export function versionedImport(path) {
 export function dynamicImport(path) {
     return import(versionedImport(path));
 }
+
+// Short helper function
 export function v(path) {
     return `${path}?v=${VERSION}`;
+}
+
+// CSS versioning system - automatically updates CSS files with cache busting
+export function initCSSVersioning() {
+    const cssFiles = [
+        { id: 'css-style', href: '/CSS/style.css' },
+        { id: 'css-utilities', href: '/CSS/utilities.css' },
+        { id: 'css-modal', href: '/CSS/modal-enhancements.css' },
+        { id: 'css-cascade', href: '/CSS/css-cascade-fix.css' }
+    ];
+    
+    cssFiles.forEach(({ id, href }) => {
+        const link = document.getElementById(id);
+        if (link) {
+            link.href = `${href}?v=${VERSION}`;
+        }
+    });
 }

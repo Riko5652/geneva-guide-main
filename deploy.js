@@ -74,6 +74,12 @@ try {
 
 console.log('\n🎉 Deployment completed successfully!');
 console.log('✅ Automatic cache busting is now active');
+console.log('✅ JavaScript AND CSS files automatically versioned');
 console.log('✅ No more manual version updates needed');
 console.log('✅ Site will cache-bust automatically on every deployment');
+console.log('\n📋 What gets automatically versioned:');
+console.log('   • All JavaScript modules');
+console.log('   • All CSS stylesheets');
+console.log('   • Dynamic imports');
+console.log('   • Build timestamp injection');
 console.log('\n💡 To deploy in the future, just run: node deploy.js');

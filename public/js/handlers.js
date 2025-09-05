@@ -1040,7 +1040,7 @@ export function handleWhatToWearRequest() {
     // Get weather data from currentData instead of DOM parsing
     if (!currentData || !currentData.weather || !currentData.weather.daily) {
         // If no weather data, fetch it first
-        import('./services.js?v=1757102250978').then(({ fetchAndRenderWeather }) => {
+        import(`./services.js?v=${VERSION}`).then(({ fetchAndRenderWeather }) => {
             fetchAndRenderWeather().then(() => {
                 // Try again after weather is fetched
                 setTimeout(() => handleWhatToWearRequest(), 1000);
