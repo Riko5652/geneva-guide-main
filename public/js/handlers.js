@@ -1,7 +1,8 @@
-import { currentData, setCurrentCategoryFilter, setCurrentTimeFilter, appId, db, userId, addNewlyAddedItem, storage } from './Main.js?v=1757121789456';
-import { openModal, closeModal, goBackModal, closeAllModals } from './utils.js?v=1757121789456';
-import { callGeminiWithParts } from './Gemini.js?v=1757121789456';
-import { populateFlightDetails, populateHotelDetails, renderPackingGuide, renderActivities, populateFamilyDetails, populateNearbyLocations, renderPhotoAlbum, renderBulletinBoard, renderFamilyMemories, renderInteractivePackingList, renderPackingPhotosGallery } from './ui.js?v=1757121789456';
+import { currentData, setCurrentCategoryFilter, setCurrentTimeFilter, appId, db, userId, addNewlyAddedItem, storage } from './Main.js';
+import { openModal, closeModal, goBackModal, closeAllModals } from './utils.js';
+import { callGeminiWithParts } from './Gemini.js';
+import { populateFlightDetails, populateHotelDetails, renderPackingGuide, renderActivities, populateFamilyDetails, populateNearbyLocations, renderPhotoAlbum, renderBulletinBoard, renderFamilyMemories, renderInteractivePackingList, renderPackingPhotosGallery } from './ui.js';
+import { VERSION } from './version.js';
 import { doc, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
@@ -387,7 +388,7 @@ export async function handleLoadMoreActivities() {
         window.displayedActivitiesCount = Math.min(currentDisplayed + 6, totalCachedActivities);
         
         // Re-render activities to show more from cache
-        import('./ui.js?v=1757121789456').then(({ renderActivities }) => {
+        import(`./ui.js?v=${VERSION}`).then(({ renderActivities }) => {
             renderActivities();
         });
     } else {
@@ -478,7 +479,7 @@ Respond with JSON array only:
             window.displayedActivitiesCount = (window.displayedActivitiesCount || 6) + newActivities.length;
             
             // Re-render activities with new ones
-            import('./ui.js?v=1757121789456').then(({ renderActivities }) => {
+            import(`./ui.js?v=${VERSION}`).then(({ renderActivities }) => {
                 renderActivities();
             });
             
@@ -714,7 +715,7 @@ function handlePhotoUpload() {
             currentData.photoAlbum.push(photoData);
             
             // Re-render photo album using correct import
-            import('./ui.js?v=1757121789456').then(({ renderPhotoAlbum }) => {
+            import(`./ui.js?v=${VERSION}`).then(({ renderPhotoAlbum }) => {
                 renderPhotoAlbum();
             });
             
@@ -1239,7 +1240,7 @@ export function handleOptimizeLuggage() {
         });
         
         // Re-render the luggage planner
-        import('./ui.js?v=1757121789456').then(({ renderLuggagePlanner }) => {
+        import(`./ui.js?v=${VERSION}`).then(({ renderLuggagePlanner }) => {
             if (renderLuggagePlanner) renderLuggagePlanner();
         });
         
@@ -1410,7 +1411,7 @@ async function applyAISuggestions(aiResponse) {
     }, 4000);
     
     // Re-render luggage planner to show updated suggestions
-    import('./ui.js?v=1757121789456').then(({ renderLuggagePlanner }) => {
+    import(`./ui.js?v=${VERSION}`).then(({ renderLuggagePlanner }) => {
         if (renderLuggagePlanner) renderLuggagePlanner();
     });
 }

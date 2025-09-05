@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="build-time" content="1757114414472">
     <meta name="description" content="המדריך האינטראקטיבי המלא לטיול משפחתי בז'נבה - פעילויות, מסלולים, מזג אוויר ועוד">
     <meta name="keywords" content="ז'נבה, שוויץ, טיול משפחתי, פעילויות לילדים, מדריך טיולים">
     <meta name="author" content="Dor Lipetz">
@@ -820,8 +821,18 @@
 
 
     <!-- Scripts -->
-         <script src="/js/demo-protection.js?v=1757121789456"></script>
-     <script type="module" src="/js/Main.js?v=1757121789456"></script>
+         <script src="/js/demo-protection.js"></script>
+     <script type="module">
+         // Automated cache busting - no more manual version updates!
+         import { VERSION } from './js/version.js';
+         
+         // Load main script with automatic versioning
+         import(`./js/Main.js?v=${VERSION}`).then(module => {
+             // Main.js will handle initialization
+         }).catch(error => {
+             console.error('Failed to load main application:', error);
+         });
+     </script>
     
     <!-- Demo Initialization -->
     <script>

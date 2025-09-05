@@ -1,5 +1,6 @@
-import { currentData } from './Main.js?v=1757121789456';
-import { getWeatherInfo } from './utils.js?v=1757121789456';
+import { currentData } from './Main.js';
+import { getWeatherInfo } from './utils.js';
+import { VERSION } from './version.js';
 
 // --- WEATHER SERVICE ---
 
@@ -54,7 +55,7 @@ export async function fetchAndRenderWeather() {
         renderWeather(data);
         
         // Update quick status after weather is loaded
-        import('./ui.js?v=1757121789456').then(({ renderQuickStatus }) => {
+        import(`./ui.js?v=${VERSION}`).then(({ renderQuickStatus }) => {
             if (renderQuickStatus) renderQuickStatus();
         }).catch(console.warn);
         

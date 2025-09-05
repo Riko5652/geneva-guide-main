@@ -1,4 +1,4 @@
-import { currentData as globalData } from './Main.js?v=1757121789456';
+import { currentData as globalData } from './Main.js';
 
 // Modal management system for handling nested modals and back navigation
 class ModalManager {

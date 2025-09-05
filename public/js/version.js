@@ -1,10 +1,30 @@
-// Centralized cache busting - update this one number to refresh all modules
-export const VERSION = '1757121789456';
+// Automated Cache Busting System
+// No more manual version updates needed!
 
-// Auto-generated timestamp for development
-export const BUILD_TIME = '2025-01-07T14:20:56.789Z';
+// Generate version automatically based on deployment time
+export const VERSION = (() => {
+    // Try to get build time from meta tag (set during build)
+    const buildMeta = document.querySelector('meta[name="build-time"]');
+    if (buildMeta) {
+        return buildMeta.content;
+    }
+    
+    // Fallback: Use current timestamp (will cache-bust on every page load)
+    return Date.now().toString();
+})();
 
-// Helper function to append version to imports
+// Build time for reference
+export const BUILD_TIME = new Date().toISOString();
+
+// Helper function to create versioned import URLs
+export function versionedImport(path) {
+    return `${path}?v=${VERSION}`;
+}
+
+// Helper function for dynamic imports
+export function dynamicImport(path) {
+    return import(versionedImport(path));
+}
 export function v(path) {
     return `${path}?v=${VERSION}`;
 }
