@@ -1,5 +1,5 @@
 // Centralized cache busting - update this one number to refresh all modules
-export const VERSION = '1757118456123';
+export const VERSION = '1757121789456';
 
 // Auto-generated timestamp for development
 export const BUILD_TIME = '2025-01-07T14:20:56.789Z';

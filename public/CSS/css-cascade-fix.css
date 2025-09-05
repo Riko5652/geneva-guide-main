@@ -1,6 +1,69 @@
 /* CSS Cascade Fix - Resolves conflicts between style.css, utilities.css, and modal-enhancements.css */
 /* This file should be loaded LAST to ensure proper cascade order */
 
+/* 0. CSS Conflict Resolution - Override conflicting styles from other files */
+
+/* Override conflicting z-index values from other CSS files */
+.modal-enhancements .modal,
+.style .modal,
+.utilities .modal {
+    z-index: 1000 !important;
+}
+
+/* Resolve modal backdrop conflicts */
+.modal {
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Resolve button styling conflicts */
+button,
+.btn-primary,
+.btn-secondary {
+    border: none !important;
+    outline: none !important;
+    cursor: pointer !important;
+}
+
+/* Resolve text color conflicts */
+.text-accent {
+    color: #0891b2 !important;
+}
+
+/* Resolve spacing conflicts */
+.space-y-1 > * + * { margin-top: 0.25rem !important; }
+.space-y-2 > * + * { margin-top: 0.5rem !important; }
+.space-y-3 > * + * { margin-top: 0.75rem !important; }
+.space-y-4 > * + * { margin-top: 1rem !important; }
+.space-y-6 > * + * { margin-top: 1.5rem !important; }
+.space-y-8 > * + * { margin-top: 2rem !important; }
+
+/* Resolve grid conflicts */
+.grid {
+    display: grid !important;
+}
+
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)) !important; }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+
+/* Resolve flexbox conflicts */
+.flex { display: flex !important; }
+.flex-col { flex-direction: column !important; }
+.flex-row { flex-direction: row !important; }
+.items-center { align-items: center !important; }
+.justify-center { justify-content: center !important; }
+.justify-between { justify-content: space-between !important; }
+
+/* Resolve border radius conflicts */
+.rounded { border-radius: 0.25rem !important; }
+.rounded-md { border-radius: 0.375rem !important; }
+.rounded-lg { border-radius: 0.5rem !important; }
+.rounded-xl { border-radius: 0.75rem !important; }
+.rounded-2xl { border-radius: 1rem !important; }
+.rounded-full { border-radius: 9999px !important; }
+
 /* 1. Modal System Reconciliation */
 /* Override style.css modal properties with enhanced versions */
 .modal {
@@ -1023,15 +1086,74 @@
     }
 }
 
-/* 6. Z-index Hierarchy Fix */
-/* Ensure proper stacking order */
-.modal { z-index: 1000 !important; }
-#packing-guide-modal { z-index: 100 !important; }
-#gemini-chat-modal { z-index: 50 !important; }
-#text-response-modal { z-index: 101 !important; }
-#photo-modal { z-index: 102 !important; }
+/* 6. Enhanced Modal System with Back Navigation */
+
+/* Modal Back Button Styling */
+.modal-back-btn {
+    position: fixed !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    color: white !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 2rem !important;
+    padding: 0.75rem 1.25rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    z-index: 10002 !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+.modal-back-btn:hover {
+    background: rgba(59, 130, 246, 0.9) !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 12px 35px rgba(59, 130, 246, 0.4) !important;
+}
+
+.modal-back-btn svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+}
+
+/* Enhanced Z-index Hierarchy for Nested Modals */
+.modal { 
+    z-index: 1000 !important; 
+}
+
+/* Base modal z-indexes - these will be overridden by JavaScript for nested modals */
+#packing-guide-modal { z-index: 1000 !important; }
+#gemini-chat-modal { z-index: 1010 !important; }
+#text-response-modal { z-index: 1020 !important; }
+#photo-modal { z-index: 1030 !important; }
+#flights-details-modal { z-index: 1040 !important; }
+#hotel-booking-modal { z-index: 1050 !important; }
+#family-details-modal { z-index: 1060 !important; }
+#map-modal { z-index: 1070 !important; }
+
+/* System UI elements - always on top */
 .toast-container { z-index: 9998 !important; }
 #family-loader { z-index: 9999 !important; }
+.modal-back-btn { z-index: 10002 !important; }
+
+/* Mobile close buttons should be above back buttons */
+@media (max-width: 640px) {
+    .modal button[id*="close-"],
+    .modal-close-btn {
+        z-index: 10003 !important;
+    }
+    
+    .modal-back-btn {
+        right: 4.5rem !important;
+        z-index: 10002 !important;
+    }
+}
 
 /* 7. Scrollbar Consistency */
 /* Apply warm scrollbar to all scrollable elements */

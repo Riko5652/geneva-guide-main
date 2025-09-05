@@ -1,40 +1,241 @@
-import { currentData as globalData } from './Main.js?v=1757108500245';
+import { currentData as globalData } from './Main.js?v=1757121789456';
 
-/**
- * Opens a modal dialog and optionally runs a callback to populate its content.
- * @param {string} modalId The ID of the modal element to open.
- * @param {function} [onOpenCallback] An optional function to run just before the modal is shown.
- */
-export function openModal(modalId, onOpenCallback) {
-    const modal = document.getElementById(modalId);
-    if (!modal) {
-        console.warn(`Modal with ID '${modalId}' not found.`);
-        return;
+// Modal management system for handling nested modals and back navigation
+class ModalManager {
+    constructor() {
+        this.modalStack = [];
+        this.setupBackNavigation();
     }
-    // Run the callback function to build the modal's content just-in-time.
-    if (onOpenCallback) {
-        onOpenCallback();
-    }
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden'; // Prevent background scroll
     
-    // Add smooth fade-in animation
-    setTimeout(() => {
-        modal.style.opacity = '1';
-    }, 10);
+    /**
+     * Opens a modal dialog and optionally runs a callback to populate its content.
+     * @param {string} modalId The ID of the modal element to open.
+     * @param {function} [onOpenCallback] An optional function to run just before the modal is shown.
+     */
+    openModal(modalId, onOpenCallback) {
+        const modal = document.getElementById(modalId);
+        if (!modal) {
+            console.warn(`Modal with ID '${modalId}' not found.`);
+            return;
+        }
+        
+        // Add to modal stack for back navigation
+        this.modalStack.push({
+            id: modalId,
+            element: modal,
+            callback: onOpenCallback,
+            scrollPosition: window.pageYOffset
+        });
+        
+        // Update z-index based on stack position
+        const baseZIndex = 1000;
+        const zIndex = baseZIndex + (this.modalStack.length * 10);
+        modal.style.zIndex = zIndex;
+        
+        // Run the callback function to build the modal's content just-in-time.
+        if (onOpenCallback) {
+            onOpenCallback();
+        }
+        
+        // Add back button if this is a nested modal
+        this.addBackButton(modal);
+        
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+        
+        // Add smooth fade-in animation
+        setTimeout(() => {
+            modal.style.opacity = '1';
+        }, 10);
+        
+        // Update browser history for back button support
+        if (this.modalStack.length === 1) {
+            history.pushState({ modalOpen: true }, '', window.location.href);
+        }
+    }
+    
+    /**
+     * Closes the topmost modal or a specific modal
+     * @param {HTMLElement|string} modal Modal element or modal ID
+     */
+    closeModal(modal) {
+        let modalElement;
+        let modalId;
+        
+        if (typeof modal === 'string') {
+            modalId = modal;
+            modalElement = document.getElementById(modal);
+        } else {
+            modalElement = modal;
+            modalId = modal?.id;
+        }
+        
+        if (!modalElement) return;
+        
+        // Find and remove from stack
+        const stackIndex = this.modalStack.findIndex(item => item.id === modalId);
+        if (stackIndex !== -1) {
+            this.modalStack.splice(stackIndex, 1);
+        }
+        
+        // Add fade-out animation
+        modalElement.style.opacity = '0';
+        
+        setTimeout(() => {
+            modalElement.classList.add('hidden');
+            modalElement.style.opacity = ''; // Reset for next time
+            
+            // Restore scroll if no modals are open
+            if (this.modalStack.length === 0) {
+                document.body.style.overflow = '';
+            }
+            
+            // Remove back button
+            this.removeBackButton(modalElement);
+        }, 200);
+    }
+    
+    /**
+     * Goes back to the previous modal or closes all modals
+     */
+    goBack() {
+        if (this.modalStack.length > 1) {
+            // Close current modal and show previous one
+            const currentModal = this.modalStack[this.modalStack.length - 1];
+            this.closeModal(currentModal.element);
+        } else if (this.modalStack.length === 1) {
+            // Close the last modal
+            const lastModal = this.modalStack[0];
+            this.closeModal(lastModal.element);
+            
+            // Restore scroll position
+            window.scrollTo(0, lastModal.scrollPosition);
+        }
+    }
+    
+    /**
+     * Closes all open modals
+     */
+    closeAllModals() {
+        const modalsToClose = [...this.modalStack];
+        this.modalStack = [];
+        
+        modalsToClose.forEach(modalInfo => {
+            modalInfo.element.style.opacity = '0';
+            setTimeout(() => {
+                modalInfo.element.classList.add('hidden');
+                modalInfo.element.style.opacity = '';
+                this.removeBackButton(modalInfo.element);
+            }, 200);
+        });
+        
+        document.body.style.overflow = '';
+        
+        // Restore scroll position to the first modal's position
+        if (modalsToClose.length > 0) {
+            window.scrollTo(0, modalsToClose[0].scrollPosition);
+        }
+    }
+    
+    /**
+     * Adds a back button to nested modals
+     */
+    addBackButton(modal) {
+        if (this.modalStack.length <= 1) return;
+        
+        // Remove existing back button
+        this.removeBackButton(modal);
+        
+        const backButton = document.createElement('button');
+        backButton.className = 'modal-back-btn';
+        backButton.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>חזרה</span>
+        `;
+        
+        backButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.goBack();
+        });
+        
+        modal.appendChild(backButton);
+    }
+    
+    /**
+     * Removes back button from modal
+     */
+    removeBackButton(modal) {
+        const backButton = modal.querySelector('.modal-back-btn');
+        if (backButton) {
+            backButton.remove();
+        }
+    }
+    
+    /**
+     * Sets up browser back button and keyboard navigation
+     */
+    setupBackNavigation() {
+        // Handle browser back button
+        window.addEventListener('popstate', (e) => {
+            if (this.modalStack.length > 0) {
+                e.preventDefault();
+                this.closeAllModals();
+            }
+        });
+        
+        // Handle ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modalStack.length > 0) {
+                e.preventDefault();
+                this.goBack();
+            }
+        });
+        
+        // Handle modal close button clicks
+        document.addEventListener('click', (e) => {
+            const closeBtn = e.target.closest('[id*="close-"], .modal-close-btn');
+            if (closeBtn) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const modal = closeBtn.closest('.modal');
+                if (modal) {
+                    this.closeModal(modal);
+                }
+            }
+        });
+        
+        // Handle modal backdrop clicks
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal') && this.modalStack.length > 0) {
+                e.preventDefault();
+                this.goBack();
+            }
+        });
+    }
+}
+
+// Create global modal manager instance
+const modalManager = new ModalManager();
+
+// Export the modal functions
+export function openModal(modalId, onOpenCallback) {
+    modalManager.openModal(modalId, onOpenCallback);
 }
 
 export function closeModal(modal) {
-    if (!modal) return;
-    
-    // Add fade-out animation
-    modal.style.opacity = '0';
-    
-    setTimeout(() => {
-        modal.classList.add('hidden');
-        document.body.style.overflow = ''; // Restore scroll
-        modal.style.opacity = ''; // Reset for next time
-    }, 200);
+    modalManager.closeModal(modal);
+}
+
+export function goBackModal() {
+    modalManager.goBack();
+}
+
+export function closeAllModals() {
+    modalManager.closeAllModals();
 }
 
 /**
