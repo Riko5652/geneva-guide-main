@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS for Geneva Guide */
+.nav-icon {
+    @apply h-5 w-5 ml-2;
+}
+
+.btn-primary {
+    @apply bg-accent text-white font-semibold hover:bg-opacity-90 transition-colors;
+}
+
+.btn-filter {
+    @apply bg-gray-200 text-gray-700 font-medium hover:bg-accent hover:text-white transition-colors;
+}
+
+.btn-filter.active {
+    @apply bg-accent text-white;
+}
+
+.modal {
+    @apply flex;
+}
+
+.section-title {
+    @apply text-3xl font-bold mb-4 text-center text-gray-800;
+}
+
+.section-subtitle {
+    @apply text-lg text-gray-600 mb-8 text-center max-w-4xl mx-auto;
+}
+
+.loader {
+    @apply animate-spin rounded-full h-6 w-6 border-b-2 border-accent;
+}
+
+.progress-bar-fill {
+    @apply transition-all duration-500 ease-in-out;
+}
+
+.chat-bubble {
+    @apply p-4 rounded-xl max-w-md;
+}
+
+.chat-bubble.user {
+    @apply bg-accent text-white self-end;
+}
+
+.chat-bubble.gemini {
+    @apply bg-gray-100 text-gray-800 self-start;
+}
+
+/* Accordion styles */
+.accordion-item {
+    @apply border-b border-gray-200;
+}
+
+.accordion-header {
+    @apply p-4 bg-gray-50 hover:bg-gray-100 cursor-pointer transition-colors;
+}
+
+.accordion-content {
+    @apply p-4 bg-white;
+}

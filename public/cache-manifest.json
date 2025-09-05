@@ -1,0 +1,22 @@
+{
+  "version": "1757094267155",
+  "timestamp": "2024-01-07T12:04:27.155Z",
+  "files": {
+    "Main.js": "1757094267155",
+    "handlers.js": "1757094267155", 
+    "ui.js": "1757094267155",
+    "services.js": "1757094267155",
+    "utils.js": "1757094267155",
+    "Map.js": "1757094267155",
+    "Gemini.js": "1757094267155",
+    "version.js": "1757094267155",
+    "style.css": "1757094267155-responsive-redesign",
+    "index.html": "1757094267155-responsive-redesign"
+  },
+  "mobile_fix": {
+    "applied": true,
+    "method": "merged-into-main-css",
+    "priority": "critical",
+    "status": "production-ready"
+  }
+}

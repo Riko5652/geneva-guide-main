@@ -1,0 +1,28 @@
+{
+  "name": "geneva-guide-project",
+  "version": "1.0.0",
+  "description": "Interactive family guide to Geneva, deployed on Netlify.",
+  "type": "module",
+  "main": "public/js/Main.js",
+  "scripts": {
+    "start": "netlify dev",
+    "cache-bust": "node build-cache.js",
+    "deploy": "node build-cache.js && netlify deploy --prod",
+    "build": "node build-cache.js",
+    "build-css": "tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --watch",
+    "build-css-prod": "tailwindcss -i ./src/input.css -o ./public/css/tailwind.css --minify"
+  },
+  "author": "Dor Lipetz",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^10.12.2",
+    "firebase-admin": "^12.1.1",
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.23.1",
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32"
+  }
+}
