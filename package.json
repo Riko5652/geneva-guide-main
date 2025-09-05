@@ -4,10 +4,6 @@
   "description": "Interactive family trip planner for Geneva",
   "type": "module",
   "main": "index.js",
-  "scripts": {
-    "build-cache": "node build-cache.js",
-    "generate-pdf": "node generate-pdf.js"
-  },
   "keywords": [
     "geneva",
     "travel",
