@@ -382,10 +382,10 @@ export function renderPackingGuide() {
         : defaultPackingList;
     
     modalContent.innerHTML = `
-        <div class="modal-checklist-container space-y-10">
+        <div class="modal-checklist-container space-y-6">
             <section id="packing-master-list" class="scroll-mt-24">
                 <h2 class="text-2xl font-bold mb-4 text-right">📋 רשימה מלאה</h2>
-                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <div class="bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-sm border border-gray-200">
                     <p class="text-gray-700 mb-4">רשימה מקיפה של כל הפריטים הדרושים לטיול משפחתי בז'נבה עם פעוטות.</p>
                     ${Object.entries(packingData).map(([category, items]) => `
                         <div class="mb-6">
@@ -408,7 +408,7 @@ export function renderPackingGuide() {
 
             <section id="packing-arsenal" class="scroll-mt-24">
                 <h2 class="text-2xl font-bold mb-4 text-right">🎒 ארסנל הכבודה</h2>
-                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <div class="bg-gradient-to-br from-white to-blue-50 p-6 rounded-xl shadow-sm border border-blue-200">
                     <p class="text-gray-700 mb-4">הפריטים החיוניים ביותר שאסור לשכוח:</p>
                     <div class="grid md:grid-cols-2 gap-4">
                         <div class="bg-red-50 border-r-4 border-red-400 p-4 rounded">
@@ -437,7 +437,7 @@ export function renderPackingGuide() {
 
             <section id="packing-vacuum-guide" class="scroll-mt-24">
                 <h2 class="text-2xl font-bold mb-4 text-right">💨 מדריך אריזת ואקום</h2>
-                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <div class="bg-gradient-to-br from-white to-green-50 p-6 rounded-xl shadow-sm border border-green-200">
                     <div class="space-y-4">
                         <p class="text-gray-700">טיפים לחיסכון במקום בתיק:</p>
                         <div class="bg-green-50 p-4 rounded-lg">
