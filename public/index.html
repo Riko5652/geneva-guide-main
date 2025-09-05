@@ -823,18 +823,45 @@
     <!-- Scripts -->
          <script src="/js/demo-protection.js"></script>
      <script type="module">
-         // Automated cache busting - no more manual version updates!
-         import { VERSION, initCSSVersioning } from './js/version.js';
-         
-         // Initialize CSS versioning immediately
-         initCSSVersioning();
-         
-         // Load main script with automatic versioning
-         import(`./js/Main.js?v=${VERSION}`).then(module => {
-             // Main.js will handle initialization
-         }).catch(error => {
-             console.error('Failed to load main application:', error);
-         });
+         try {
+             // Automated cache busting - no more manual version updates!
+             console.log('🔄 Loading version system...');
+             const { VERSION, initCSSVersioning } = await import('./js/version.js');
+             console.log('✅ Version system loaded, VERSION:', VERSION);
+             
+             // Initialize CSS versioning immediately
+             console.log('🎨 Initializing CSS versioning...');
+             initCSSVersioning();
+             console.log('✅ CSS versioning initialized');
+             
+             // Load main script with automatic versioning
+             console.log('🚀 Loading main application...');
+             const module = await import(`./js/Main.js?v=${VERSION}`);
+             console.log('✅ Main.js loaded, available exports:', Object.keys(module));
+             
+             // Call the initialization function from Main.js
+             if (module.initApp) {
+                 console.log('🎯 Calling initApp...');
+                 await module.initApp();
+                 console.log('✅ Application initialized successfully');
+             } else {
+                 console.error('❌ initApp function not found in Main.js, available:', Object.keys(module));
+             }
+         } catch (error) {
+             console.error('❌ Critical initialization error:', error);
+             // Fallback: try to load without versioning
+             try {
+                 console.log('🔄 Attempting fallback initialization...');
+                 const module = await import('./js/Main.js');
+                 if (module.initApp) {
+                     await module.initApp();
+                     console.log('✅ Fallback initialization successful');
+                 }
+             } catch (fallbackError) {
+                 console.error('❌ Fallback also failed:', fallbackError);
+                 document.body.innerHTML = '<div style="padding: 2rem; text-align: center; font-family: Arial;"><h2>🔧 Loading Issue</h2><p>Please refresh the page or contact support.</p></div>';
+             }
+         }
      </script>
     
     <!-- Demo Initialization -->

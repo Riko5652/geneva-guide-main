@@ -135,3 +135,21 @@ function setupFirebaseListeners() {
     setupEventListeners();
     setupGeminiChat();
 }
+
+// Export the initialization function
+export { initApp };
+
+// Auto-initialize when loaded directly (for backward compatibility)
+// Only auto-initialize if not being imported as a module
+if (typeof window !== 'undefined' && !window.moduleInitialized) {
+    // Mark that we're handling initialization
+    window.moduleInitialized = true;
+    
+    // Check if we're being loaded as a module or directly
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+        // Small delay to ensure DOM is ready
+        setTimeout(initApp, 100);
+    }
+}
