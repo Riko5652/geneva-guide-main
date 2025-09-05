@@ -1172,24 +1172,7 @@ export function renderInteractivePackingList() {
     `).join('');
 }
 
-// Helper function to get activity images - CORS-safe sources
-function getActivityImage(category, name) {
-    // Use CORS-friendly image sources
-    const imageMap = {
-        'משחקייה': 'https://picsum.photos/400/300?random=1',
-        'תרבות': 'https://picsum.photos/400/300?random=2', 
-        'קפה': 'https://picsum.photos/400/300?random=3',
-        'חוץ': 'https://picsum.photos/400/300?random=4',
-        'קניות': 'https://picsum.photos/400/300?random=5',
-        'אוכל': 'https://picsum.photos/400/300?random=6',
-        'בידור': 'https://picsum.photos/400/300?random=7',
-        'טבע': 'https://picsum.photos/400/300?random=8',
-        'בית מרקחת': 'https://picsum.photos/400/300?random=9'
-    };
-    
-    // Return category image or default
-    return imageMap[category] || 'https://picsum.photos/400/300?random=10';
-}
+// Duplicate function removed - already defined above
 
 // Global interval for time updates to prevent memory leaks
 let timeUpdateInterval = null;
