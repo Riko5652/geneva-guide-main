@@ -118,22 +118,153 @@ function setupBasicApp() {
 function setupFirebaseListeners() {
     const publicDataRef = doc(db, `artifacts/${appId}/public/genevaGuide`);
     
-    onSnapshot(publicDataRef, (snapshot) => {
-        if (snapshot.exists()) {
-            currentData = { ...currentData, ...snapshot.data() };
-            console.log("Data updated from Firebase:", Object.keys(currentData));
-            renderAllComponents();
-        } else {
-            console.log("No Firebase data found, using defaults");
+    // Enhanced Firebase listener with connection resilience
+    const unsubscribe = onSnapshot(publicDataRef, 
+        // Success callback
+        (snapshot) => {
+            if (snapshot.exists()) {
+                currentData = { ...currentData, ...snapshot.data() };
+                console.log("✅ Firebase data updated:", Object.keys(currentData));
+                renderAllComponents();
+                
+                // Reset retry counter on successful connection
+                if (window.firebaseRetryCount) {
+                    window.firebaseRetryCount = 0;
+                    console.log("🔄 Firebase connection restored");
+                }
+            } else {
+                console.log("⚠️ No Firebase data found, using defaults");
+                setupBasicApp();
+            }
+        }, 
+        // Error callback with enhanced handling
+        (error) => {
+            console.warn("🔥 Firebase listener error:", error.code, error.message);
+            
+            // Handle specific error types
+            switch (error.code) {
+                case 'unavailable':
+                case 'deadline-exceeded':
+                case 'resource-exhausted':
+                    console.log("🔄 Network issue detected, will retry connection...");
+                    handleFirebaseReconnection(unsubscribe);
+                    break;
+                    
+                case 'permission-denied':
+                    console.error("🚫 Firebase permission denied");
+                    familyToast.error('בעיית הרשאות - נסה להתחבר מחדש');
+                    break;
+                    
+                default:
+                    console.log("🔄 Unknown Firebase error, attempting recovery...");
+                    handleFirebaseReconnection(unsubscribe);
+            }
+            
+            // Continue with basic app functionality
             setupBasicApp();
         }
-    }, (error) => {
-        console.warn("Firebase listener error:", error);
-        setupBasicApp();
-    });
+    );
+    
+    // Store unsubscribe function for cleanup
+    window.firebaseUnsubscribe = unsubscribe;
     
     setupEventListeners();
     setupGeminiChat();
+}
+
+// Enhanced Firebase reconnection handler
+function handleFirebaseReconnection(currentUnsubscribe) {
+    // Initialize retry counter
+    if (!window.firebaseRetryCount) {
+        window.firebaseRetryCount = 0;
+    }
+    
+    window.firebaseRetryCount++;
+    const maxRetries = 5;
+    const baseDelay = 2000; // 2 seconds
+    const delay = Math.min(baseDelay * Math.pow(2, window.firebaseRetryCount - 1), 30000); // Max 30 seconds
+    
+    if (window.firebaseRetryCount <= maxRetries) {
+        console.log(`🔄 Attempting Firebase reconnection ${window.firebaseRetryCount}/${maxRetries} in ${delay/1000}s...`);
+        
+        // Clean up current listener
+        if (currentUnsubscribe) {
+            currentUnsubscribe();
+        }
+        
+        // Show user-friendly message
+        if (window.firebaseRetryCount === 1) {
+            familyToast.info('מתחבר מחדש לשרת... 🔄');
+        }
+        
+        // Retry connection after delay
+        setTimeout(() => {
+            try {
+                setupFirebaseListeners();
+            } catch (retryError) {
+                console.error("🔥 Firebase retry failed:", retryError);
+                if (window.firebaseRetryCount >= maxRetries) {
+                    familyToast.warning('עובדים במצב לא מקוון');
+                }
+            }
+        }, delay);
+    } else {
+        console.warn("🔥 Max Firebase retry attempts reached, continuing offline");
+        familyToast.warning('עובדים במצב לא מקוון');
+        window.firebaseRetryCount = 0; // Reset for future attempts
+    }
+}
+
+// Connection health monitoring
+function monitorFirebaseConnection() {
+    // Check connection health every 30 seconds
+    setInterval(() => {
+        if (window.firebaseRetryCount > 0) {
+            console.log(`🔄 Firebase connection status: ${window.firebaseRetryCount} retries`);
+        }
+    }, 30000);
+    
+    // Handle page visibility changes
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && window.firebaseRetryCount > 0) {
+            console.log('🔄 Page became visible, checking Firebase connection...');
+            // Reset retry count and attempt reconnection
+            window.firebaseRetryCount = 0;
+            if (window.firebaseUnsubscribe) {
+                window.firebaseUnsubscribe();
+            }
+            setTimeout(() => setupFirebaseListeners(), 1000);
+        }
+    });
+    
+    // Handle online/offline events
+    window.addEventListener('online', () => {
+        console.log('🌐 Network connection restored');
+        familyToast.success('חיבור לאינטרנט חזר! 🌐');
+        if (window.firebaseRetryCount > 0) {
+            window.firebaseRetryCount = 0;
+            setTimeout(() => setupFirebaseListeners(), 1000);
+        }
+    });
+    
+    window.addEventListener('offline', () => {
+        console.log('📴 Network connection lost');
+        familyToast.warning('אין חיבור לאינטרנט');
+    });
+}
+
+// Cleanup function for page unload
+function cleanupFirebaseConnections() {
+    if (window.firebaseUnsubscribe) {
+        window.firebaseUnsubscribe();
+        console.log('🧹 Firebase listeners cleaned up');
+    }
+}
+
+// Initialize connection monitoring
+if (typeof window !== 'undefined') {
+    monitorFirebaseConnection();
+    window.addEventListener('beforeunload', cleanupFirebaseConnections);
 }
 
 // Export the initialization function
