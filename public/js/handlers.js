@@ -387,7 +387,7 @@ export async function handleLoadMoreActivities() {
         window.displayedActivitiesCount = Math.min(currentDisplayed + 6, totalCachedActivities);
         
         // Re-render activities to show more from cache
-        import('./ui.js?v=1757108500245').then(({ renderActivities }) => {
+        import('./ui.js?v=1757121789456').then(({ renderActivities }) => {
             renderActivities();
         });
     } else {
@@ -478,7 +478,7 @@ Respond with JSON array only:
             window.displayedActivitiesCount = (window.displayedActivitiesCount || 6) + newActivities.length;
             
             // Re-render activities with new ones
-            import('./ui.js?v=1757108500245').then(({ renderActivities }) => {
+            import('./ui.js?v=1757121789456').then(({ renderActivities }) => {
                 renderActivities();
             });
             
@@ -714,7 +714,7 @@ function handlePhotoUpload() {
             currentData.photoAlbum.push(photoData);
             
             // Re-render photo album using correct import
-            import('./ui.js?v=1757108500245').then(({ renderPhotoAlbum }) => {
+            import('./ui.js?v=1757121789456').then(({ renderPhotoAlbum }) => {
                 renderPhotoAlbum();
             });
             
@@ -1239,7 +1239,7 @@ export function handleOptimizeLuggage() {
         });
         
         // Re-render the luggage planner
-        import('./ui.js?v=1757108500245').then(({ renderLuggagePlanner }) => {
+        import('./ui.js?v=1757121789456').then(({ renderLuggagePlanner }) => {
             if (renderLuggagePlanner) renderLuggagePlanner();
         });
         
@@ -1410,7 +1410,7 @@ async function applyAISuggestions(aiResponse) {
     }, 4000);
     
     // Re-render luggage planner to show updated suggestions
-    import('./ui.js?v=1757108500245').then(({ renderLuggagePlanner }) => {
+    import('./ui.js?v=1757121789456').then(({ renderLuggagePlanner }) => {
         if (renderLuggagePlanner) renderLuggagePlanner();
     });
 }

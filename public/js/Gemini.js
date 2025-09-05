@@ -1,4 +1,4 @@
-import { toBase64 } from "./utils.js?v=1757108500245";
+import { toBase64 } from "./utils.js?v=1757121789456";
 
 /**
  * Creates and injects the Gemini chat modal into the page, and sets up its event listeners.
