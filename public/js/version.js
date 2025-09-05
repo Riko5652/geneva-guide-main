@@ -1,8 +1,8 @@
 // Centralized cache busting - update this one number to refresh all modules
-export const VERSION = '1757103264976';
+export const VERSION = '1757110456789';
 
 // Auto-generated timestamp for development
-export const BUILD_TIME = '2024-01-07T12:04:27.155Z';
+export const BUILD_TIME = '2025-01-07T14:20:56.789Z';
 
 // Helper function to append version to imports
 export function v(path) {

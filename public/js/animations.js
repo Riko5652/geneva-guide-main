@@ -70,6 +70,9 @@ export class FamilyAnimations {
     // Ripple effect for buttons
     addRipple(event) {
         const button = event.currentTarget;
+        if (!button || typeof button.getBoundingClientRect !== 'function') {
+            return; // Exit if button is not a valid DOM element
+        }
         const ripple = document.createElement('span');
         const rect = button.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
@@ -174,9 +177,18 @@ export class FamilyAnimations {
         // Add ripple effect to all buttons
         document.addEventListener('click', (e) => {
             const button = e.target.closest('button, .btn-primary, .btn-secondary');
-            if (button) {
-                const mockEvent = { ...e, currentTarget: button };
-                this.addRipple(mockEvent);
+            if (button && !button.disabled) {
+                // Create a proper event object
+                const event = new MouseEvent('click', {
+                    clientX: e.clientX,
+                    clientY: e.clientY,
+                    bubbles: true
+                });
+                Object.defineProperty(event, 'currentTarget', {
+                    value: button,
+                    enumerable: true
+                });
+                this.addRipple(event);
             }
         });
         
