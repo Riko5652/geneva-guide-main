@@ -94,25 +94,42 @@ async function initApp() {
 }
 
 function setupBasicApp() {
-    console.log("Setting up basic app without Firebase");
-    setupEventListeners();
-    setupGeminiChat();
+    console.log("🔧 Setting up basic app without Firebase");
     
-    // Load demo data for basic functionality
-    currentData = {
-        activitiesData: [],
-        itineraryData: [],
-        flightData: { bookingRef: "Demo Mode" },
-        hotelData: { name: "Demo Hotel", bookingRef: "DEMO123" },
-        familyData: [{ name: "Demo Family", passport: "DEMO" }],
-        packingListData: {},
-        bulletinBoard: [],
-        photoAlbum: [],
-        familyMemories: [],
-        interactivePacking: []
-    };
-    
-    renderAllComponents();
+    try {
+        setupEventListeners();
+        setupGeminiChat();
+        
+        // Load demo data for basic functionality
+        currentData = {
+            activitiesData: [],
+            itineraryData: [],
+            flightData: { bookingRef: "Demo Mode" },
+            hotelData: { name: "Demo Hotel", bookingRef: "DEMO123" },
+            familyData: [{ name: "Demo Family", passport: "DEMO" }],
+            packingListData: {},
+            bulletinBoard: [],
+            photoAlbum: [],
+            familyMemories: [],
+            interactivePacking: []
+        };
+        
+        console.log("🎨 Calling renderAllComponents from setupBasicApp");
+        renderAllComponents();
+        
+        // Hide loading screen
+        familyLoader.hide();
+        
+    } catch (error) {
+        console.error("🔥 Error in setupBasicApp:", error);
+        // Force render even if there's an error
+        try {
+            renderAllComponents();
+        } catch (renderError) {
+            console.error("🔥 Critical render error:", renderError);
+        }
+        familyLoader.hide();
+    }
 }
 
 function setupFirebaseListeners() {
@@ -261,10 +278,16 @@ function cleanupFirebaseConnections() {
     }
 }
 
-// Initialize connection monitoring
+// Initialize connection monitoring and expose global functions
 if (typeof window !== 'undefined') {
     monitorFirebaseConnection();
     window.addEventListener('beforeunload', cleanupFirebaseConnections);
+    
+    // Expose renderAllComponents globally for debugging and force refresh
+    import('./ui.js').then(uiModule => {
+        window.renderAllComponents = uiModule.renderAllComponents;
+        console.log('🌐 renderAllComponents exposed globally');
+    });
 }
 
 // Export the initialization function

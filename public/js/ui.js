@@ -4,21 +4,74 @@ import { getFormattedOpeningHours, getStatusClass } from './utils.js';
 import { initMap } from './Map.js';
 
 export function renderAllComponents() {
-    if (!currentData) return;
+    console.log('🎨 renderAllComponents called, currentData:', !!currentData);
+    
+    // Always render basic components, even without Firebase data
     renderMobileMenu();
-    renderBookingInfo();
     renderQuickStatus();
-    renderPhotoAlbum();
-    renderBulletinBoard();
-    renderFamilyMemories();
-    renderInteractivePackingList();
-    renderPackingPhotosGallery();
     fetchAndRenderWeather();
     renderDailySpecial();
-    renderItinerary();
-    renderActivities();
-    initMap();
-    clearNewlyAddedItems();
+    
+    // Only render Firebase-dependent components if data is available
+    if (currentData) {
+        console.log('✅ Rendering Firebase-dependent components');
+        renderBookingInfo();
+        renderPhotoAlbum();
+        renderBulletinBoard();
+        renderFamilyMemories();
+        renderInteractivePackingList();
+        renderPackingPhotosGallery();
+        renderItinerary();
+        renderActivities();
+        initMap();
+        clearNewlyAddedItems();
+    } else {
+        console.log('⚠️ No currentData available, rendering fallback content');
+        renderFallbackContent();
+    }
+}
+
+// Render fallback content when Firebase data isn't available
+function renderFallbackContent() {
+    // Render basic itinerary
+    const itineraryContainer = document.getElementById('itinerary-container');
+    if (itineraryContainer) {
+        itineraryContainer.innerHTML = `
+            <div class="bg-white p-6 rounded-xl shadow-lg border-r-4 border-accent">
+                <h3 class="font-bold text-2xl mb-4 text-gray-800">טוען נתונים...</h3>
+                <p class="text-gray-600">מתחבר לשרת לטעינת תוכנית הטיול...</p>
+                <div class="mt-4">
+                    <div class="animate-pulse bg-gray-200 h-4 rounded mb-2"></div>
+                    <div class="animate-pulse bg-gray-200 h-4 rounded w-3/4"></div>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Render basic activities
+    const activitiesContainer = document.getElementById('activities-container');
+    if (activitiesContainer) {
+        activitiesContainer.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">טוען פעילויות...</h3>
+                        <p class="text-gray-600">מביא את הפעילויות הכי מומלצות בז'נבה</p>
+                        <div class="mt-4">
+                            <div class="animate-pulse bg-gray-200 h-3 rounded mb-2"></div>
+                            <div class="animate-pulse bg-gray-200 h-3 rounded w-2/3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Show connection status
+    const statusElement = document.getElementById('quick-weather');
+    if (statusElement) {
+        statusElement.innerHTML = '<span>🔄</span> מתחבר...';
+    }
 }
 
 function renderMobileMenu() {
