@@ -461,27 +461,76 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
-            <div class="p-6 border-b">
-                <h3 class="text-2xl font-bold text-center text-accent">מדריך אריזה אסטרטגי: טיסה לשווייץ 🇫🇭</h3>
-            </div>
-            <div class="sticky top-0 bg-white/90 backdrop-blur-sm z-10 p-4 border-b border-gray-200">
-                <div class="w-full bg-gray-200 rounded-full h-4 mb-4 shadow-inner">
-                    <div id="packingProgressBar" class="bg-green-500 h-4 rounded-full progress-bar-fill"
-                        style="width: 0%"></div>
+            <!-- Enhanced Header with Gradient -->
+            <div class="relative bg-gradient-to-l from-cyan-500 via-teal-500 to-blue-500 p-8 text-white overflow-hidden">
+                <div class="absolute inset-0 bg-black/10"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center justify-center gap-3 mb-2">
+                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                            <span class="text-2xl">🧳</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-center">מדריך אריזה אסטרטגי</h3>
+                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                            <span class="text-2xl">🇨🇭</span>
+                        </div>
+                    </div>
+                    <p class="text-center text-white/90 text-lg font-medium">טיסה לשווייץ - מדריך מקצועי לכל המשפחה</p>
                 </div>
-                <nav class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm sm:text-base">
-                    <a href="#packing-master-list"
-                        class="packing-nav-link font-semibold text-gray-600 hover:text-accent">רשימה מלאה</a>
-                    <a href="#packing-arsenal"
-                        class="packing-nav-link font-semibold text-gray-600 hover:text-accent">ארסנל הכבודה</a>
-                    <a href="#packing-vacuum-guide"
-                        class="packing-nav-link font-semibold text-gray-600 hover:text-accent">אריזת ואקום</a>
-                    <a href="#packing-plan" class="packing-nav-link font-semibold text-gray-600 hover:text-accent">תכנית
-                        אריזה</a>
-                    <a href="#packing-assistant"
-                        class="packing-nav-link font-semibold text-gray-600 hover:text-accent">עוזר חכם</a>
-                    <a href="#packing-action-plan"
-                        class="packing-nav-link font-semibold text-gray-600 hover:text-accent">תכנית פעולה</a>
+                <!-- Decorative elements -->
+                <div class="absolute top-4 left-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+                <div class="absolute bottom-4 right-4 w-16 h-16 bg-white/10 rounded-full blur-lg"></div>
+            </div>
+            
+            <!-- Enhanced Sticky Navigation -->
+            <div class="sticky top-0 bg-white/95 backdrop-blur-md z-20 border-b border-gray-200 shadow-sm">
+                <!-- Progress Bar -->
+                <div class="px-6 pt-4 pb-2">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium text-gray-600">התקדמות כללית</span>
+                        <span id="progress-percentage" class="text-sm font-bold text-teal-600">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3 shadow-inner overflow-hidden">
+                        <div id="packingProgressBar" class="bg-gradient-to-r from-teal-500 to-cyan-500 h-3 rounded-full progress-bar-fill transition-all duration-500 ease-out shadow-sm"
+                            style="width: 0%">
+                            <div class="h-full bg-white/30 rounded-full animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Pills -->
+                <nav class="px-4 pb-4">
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <a href="#packing-master-list" data-section="master-list"
+                            class="packing-nav-link nav-pill active">
+                            <span class="nav-icon">📋</span>
+                            <span class="nav-text">רשימה מלאה</span>
+                        </a>
+                        <a href="#packing-arsenal" data-section="arsenal"
+                            class="packing-nav-link nav-pill">
+                            <span class="nav-icon">🎒</span>
+                            <span class="nav-text">ארסנל הכבודה</span>
+                        </a>
+                        <a href="#packing-vacuum-guide" data-section="vacuum"
+                            class="packing-nav-link nav-pill">
+                            <span class="nav-icon">💨</span>
+                            <span class="nav-text">אריזת ואקום</span>
+                        </a>
+                        <a href="#packing-plan" data-section="plan"
+                            class="packing-nav-link nav-pill">
+                            <span class="nav-icon">📅</span>
+                            <span class="nav-text">תכנית אריזה</span>
+                        </a>
+                        <a href="#packing-assistant" data-section="assistant"
+                            class="packing-nav-link nav-pill">
+                            <span class="nav-icon">🤖</span>
+                            <span class="nav-text">עוזר חכם</span>
+                        </a>
+                        <a href="#packing-action-plan" data-section="action"
+                            class="packing-nav-link nav-pill">
+                            <span class="nav-icon">🎯</span>
+                            <span class="nav-text">תכנית פעולה</span>
+                        </a>
+                    </div>
                 </nav>
             </div>
             <div id="packing-modal-content" class="flex-1 overflow-y-auto p-6">
@@ -718,8 +767,8 @@
 
 
     <!-- Scripts -->
-         <script src="/js/demo-protection.js?v=1757112789456"></script>
-     <script type="module" src="/js/Main.js?v=1757112789456"></script>
+         <script src="/js/demo-protection.js?v=1757115123789"></script>
+     <script type="module" src="/js/Main.js?v=1757115123789"></script>
     
     <!-- Demo Initialization -->
     <script>

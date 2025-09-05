@@ -382,27 +382,55 @@ export function renderPackingGuide() {
         : defaultPackingList;
     
     modalContent.innerHTML = `
-        <div class="modal-checklist-container space-y-6">
-            <section id="packing-master-list" class="scroll-mt-24">
-                <h2 class="text-2xl font-bold mb-4 text-right">📋 רשימה מלאה</h2>
-                <div class="bg-gradient-to-br from-white to-gray-50 p-6 rounded-xl shadow-sm border border-gray-200">
-                    <p class="text-gray-700 mb-4">רשימה מקיפה של כל הפריטים הדרושים לטיול משפחתי בז'נבה עם פעוטות.</p>
-                    ${Object.entries(packingData).map(([category, items]) => `
-                        <div class="mb-6">
-                            <h3 class="text-lg font-semibold mb-3 text-right">${category}</h3>
-                            <div class="bg-gray-50 p-4 rounded-lg">
-                                <ul class="space-y-2">
-                                    ${Array.isArray(items) ? items.map((item, index) => `
-                                        <li><label class="flex items-center">
-                                            <input type="checkbox" class="ml-2 form-checkbox packing-checkbox" 
-                                                   data-category="${category}" data-index="${index}" 
-                                                   ${item.checked ? 'checked' : ''}> ${item.name}
-                                        </label></li>
-                                    `).join('') : '<li>אין פריטים זמינים</li>'}
-                                </ul>
-                            </div>
+        <div class="modal-checklist-container space-y-8 pb-8">
+            <!-- Master List Section -->
+            <section id="packing-master-list" class="scroll-mt-32 section-card">
+                <div class="section-header">
+                    <div class="section-icon-wrapper">
+                        <span class="section-icon">📋</span>
+                    </div>
+                    <div class="section-title-wrapper">
+                        <h2 class="section-title">רשימה מלאה</h2>
+                        <p class="section-subtitle">כל הפריטים הדרושים לטיול משפחתי מושלם</p>
+                    </div>
+                    <div class="section-progress">
+                        <div class="section-progress-circle" data-section="master-list">
+                            <span class="section-progress-text">0%</span>
                         </div>
-                    `).join('')}
+                    </div>
+                </div>
+                <div class="section-content bg-gradient-to-br from-white via-blue-50/30 to-cyan-50/50">
+                    <div class="content-intro">
+                        <p class="text-gray-700 mb-6 text-lg leading-relaxed">רשימה מקיפה של כל הפריטים הדרושים לטיול משפחתי בז'נבה עם פעוטות. סמנו כל פריט שארזתם כדי לעקוב אחר ההתקדמות.</p>
+                    </div>
+                    <div class="packing-categories-grid">
+                        ${Object.entries(packingData).map(([category, items]) => `
+                            <div class="category-card">
+                                <div class="category-header">
+                                    <h3 class="category-title">${category}</h3>
+                                    <div class="category-progress">
+                                        <span class="category-count">0/${Array.isArray(items) ? items.length : 0}</span>
+                                    </div>
+                                </div>
+                                <div class="category-content">
+                                    <ul class="packing-items-list">
+                                        ${Array.isArray(items) ? items.map((item, index) => `
+                                            <li class="packing-item-row">
+                                                <label class="packing-item-label">
+                                                    <input type="checkbox" class="packing-checkbox" 
+                                                           data-category="${category}" data-index="${index}" 
+                                                           ${item.checked ? 'checked' : ''}>
+                                                    <span class="checkbox-custom"></span>
+                                                    <span class="item-text">${item.name}</span>
+                                                    <span class="item-checkmark">✓</span>
+                                                </label>
+                                            </li>
+                                        `).join('') : '<li class="no-items">אין פריטים זמינים</li>'}
+                                    </ul>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
             </section>
 
@@ -618,16 +646,58 @@ export function renderPackingGuide() {
         checkbox.addEventListener('change', handlePackingCheckboxToggle);
     });
     
-    // Add event listeners to navigation links
+    // Enhanced navigation with active state management
     modal.querySelectorAll('.packing-nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1); // Remove #
+            
+            // Update active state
+            modal.querySelectorAll('.packing-nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            
+            // Smooth scroll to target
+            const targetId = link.getAttribute('href').substring(1);
             const targetElement = modal.querySelector(`#${targetId}`);
             if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                targetElement.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start',
+                    inline: 'nearest'
+                });
+                
+                // Add visual feedback
+                targetElement.style.transform = 'scale(1.02)';
+                targetElement.style.transition = 'transform 0.3s ease';
+                setTimeout(() => {
+                    targetElement.style.transform = 'scale(1)';
+                }, 300);
             }
         });
+    });
+    
+    // Intersection Observer for automatic active state updates
+    const observerOptions = {
+        root: modal.querySelector('#packing-modal-content'),
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0.1
+    };
+    
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.id;
+                const correspondingNav = modal.querySelector(`[href="#${sectionId}"]`);
+                if (correspondingNav) {
+                    modal.querySelectorAll('.packing-nav-link').forEach(l => l.classList.remove('active'));
+                    correspondingNav.classList.add('active');
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all sections
+    modal.querySelectorAll('section[id^="packing-"]').forEach(section => {
+        sectionObserver.observe(section);
     });
     
     // Render additional packing components
@@ -771,18 +841,144 @@ export function updatePackingProgress() {
     
     const progressPercentage = totalItems > 0 ? Math.round((checkedItems / totalItems) * 100) : 0;
     
-    // Update main progress bar in modal
+    // Update main progress bar with enhanced animation
     const progressBar = document.getElementById('packingProgressBar');
     if (progressBar) {
         progressBar.style.width = `${progressPercentage}%`;
+        
+        // Update percentage display with animation
+        const percentageDisplay = document.getElementById('progress-percentage');
+        if (percentageDisplay) {
+            animateNumber(percentageDisplay, parseInt(percentageDisplay.textContent) || 0, progressPercentage);
+        }
     }
     
-    // Update interactive packing progress if it exists
+    // Update interactive packing progress
     const overallProgress = document.getElementById('packing-overall-progress');
     if (overallProgress) {
         overallProgress.style.width = `${progressPercentage}%`;
         overallProgress.textContent = `${progressPercentage}%`;
     }
+    
+    // Update category progress counters
+    updateCategoryProgress();
+    
+    // Celebration animation at 100%
+    if (progressPercentage === 100) {
+        triggerCompletionCelebration();
+    }
+}
+
+// Enhanced animation functions
+function animateNumber(element, start, end) {
+    const duration = 500;
+    const startTime = performance.now();
+    
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = Math.round(start + (end - start) * easeOutQuad(progress));
+        
+        element.textContent = `${current}%`;
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+    
+    requestAnimationFrame(update);
+}
+
+function easeOutQuad(t) {
+    return t * (2 - t);
+}
+
+function updateCategoryProgress() {
+    document.querySelectorAll('.category-card').forEach(card => {
+        const checkboxes = card.querySelectorAll('.packing-checkbox');
+        const checkedBoxes = card.querySelectorAll('.packing-checkbox:checked');
+        const progressElement = card.querySelector('.category-count');
+        
+        if (progressElement && checkboxes.length > 0) {
+            progressElement.textContent = `${checkedBoxes.length}/${checkboxes.length}`;
+            
+            // Add visual feedback for completed categories
+            if (checkedBoxes.length === checkboxes.length) {
+                card.classList.add('category-completed');
+                // Add completion animation
+                card.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                }, 300);
+            } else {
+                card.classList.remove('category-completed');
+            }
+        }
+    });
+}
+
+function triggerCompletionCelebration() {
+    // Create celebration effect
+    const modal = document.getElementById('packing-guide-modal');
+    if (!modal) return;
+    
+    // Add confetti-like animation
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            createConfettiParticle();
+        }, i * 100);
+    }
+    
+    // Show completion message
+    showCompletionToast();
+}
+
+function createConfettiParticle() {
+    const particle = document.createElement('div');
+    particle.style.cssText = `
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        background: ${['#10b981', '#06b6d4', '#8b5cf6', '#f59e0b'][Math.floor(Math.random() * 4)]};
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        left: ${Math.random() * window.innerWidth}px;
+        top: -10px;
+        animation: confetti-fall 2s ease-out forwards;
+    `;
+    
+    document.body.appendChild(particle);
+    
+    setTimeout(() => {
+        particle.remove();
+    }, 2000);
+}
+
+function showCompletionToast() {
+    // Create a simple toast notification
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 0.75rem;
+        font-weight: 600;
+        z-index: 10001;
+        box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        animation: toast-slide-in 0.3s ease-out;
+    `;
+    toast.textContent = '🎉 כל הכבוד! סיימתם לארוז הכל!';
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'toast-slide-out 0.3s ease-in';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
 
 // Handle packing checkbox toggle
