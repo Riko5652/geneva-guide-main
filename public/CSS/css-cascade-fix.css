@@ -1200,13 +1200,16 @@ button.mobile-menu-item {
         z-index: 999 !important;
     }
     
-    /* Ensure mobile menu is hidden by default but can be shown */
-    #mobile-menu.hidden {
+    /* Custom mobile menu visibility control */
+    #mobile-menu.mobile-menu-hidden {
         display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
     }
     
-    /* When mobile menu is NOT hidden, force it to show */
-    #mobile-menu:not(.hidden) {
+    /* When mobile menu is shown */
+    #mobile-menu.mobile-menu-visible,
+    #mobile-menu:not(.mobile-menu-hidden) {
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
@@ -1336,7 +1339,15 @@ a,
 
 /* FINAL CRITICAL OVERRIDE - MUST BE LAST TO OVERRIDE EVERYTHING */
 @media screen and (max-width: 768px) {
+    /* Mobile menu button container */
+    .mobile-menu-btn-container {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
     /* ULTIMATE MOBILE MENU BUTTON OVERRIDE */
+    .mobile-menu-btn-container #menu-btn,
     body header nav #menu-btn,
     body header nav button#menu-btn,
     body nav #menu-btn,
@@ -1363,8 +1374,8 @@ a,
     }
     
     /* ULTIMATE MOBILE MENU OVERRIDE */
-    body #mobile-menu:not(.hidden),
-    #mobile-menu:not(.hidden) {
+    body #mobile-menu:not(.mobile-menu-hidden),
+    #mobile-menu:not(.mobile-menu-hidden) {
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
@@ -1384,5 +1395,22 @@ a,
         border-radius: 1rem !important;
         margin-top: 1rem !important;
         padding: 1rem !important;
+    }
+}
+
+/* DESKTOP OVERRIDE - Hide mobile elements on large screens */
+@media screen and (min-width: 769px) {
+    /* Hide mobile menu button container on desktop */
+    .mobile-menu-btn-container {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+    
+    /* Hide mobile menu on desktop */
+    #mobile-menu {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
     }
 }
