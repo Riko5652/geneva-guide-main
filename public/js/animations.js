@@ -173,8 +173,10 @@ export class FamilyAnimations {
     init() {
         // Add ripple effect to all buttons
         document.addEventListener('click', (e) => {
-            if (e.target.matches('button, .btn-primary, .btn-secondary')) {
-                this.addRipple(e);
+            const button = e.target.closest('button, .btn-primary, .btn-secondary');
+            if (button) {
+                const mockEvent = { ...e, currentTarget: button };
+                this.addRipple(mockEvent);
             }
         });
         
