@@ -19,6 +19,12 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="/favicon.svg">
     <meta name="theme-color" content="#0891b2">
+    
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://api.open-meteo.com">
+    <link rel="preconnect" href="https://firestore.googleapis.com">
+    <link rel="preconnect" href="https://generativelanguage.googleapis.com">
+    <link rel="dns-prefetch" href="https://tile.openstreetmap.org">
     <!-- Tailwind CSS via CDN (avoid Node build in browser) -->
     <script>
         window.tailwind = window.tailwind || {};
@@ -34,14 +40,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- CSS Loading Order: Base → Utilities → Enhancements → Fixes -->
     <link rel="stylesheet" href="/CSS/style.css?v=1757102250978">
+    <link rel="stylesheet" href="/CSS/utilities.css?v=1757102250978">
+    <link rel="stylesheet" href="/CSS/modal-enhancements.css?v=1757102250978">
+    <link rel="stylesheet" href="/CSS/css-cascade-fix.css?v=1757102250978">
 </head>
 
 <body class="bg-primary">
 
     <header class="bg-white backdrop-blur-sm sticky top-0 z-50 shadow-lg border-b border-gray-200" style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);">
         <nav class="container mx-auto px-6 py-3">
-            <div class="flex justify-between items-center min-h-[60px]">
+            <div class="flex justify-between items-center min-h-60px">
                 <a href="#" class="text-xl font-bold text-accent whitespace-nowrap" aria-label="דף הבית - ז'נבה עם קטנטנים">ז'נבה עם קטנטנים 🧸</a>
                 <div class="desktop-nav hidden lg:flex items-center space-x-6 space-x-reverse text-gray-700">
                     <!-- Essential Travel Info (Quick Access) -->
@@ -89,7 +99,7 @@
                     </div>
                 </div>
                 <div class="lg:hidden">
-                    <button id="menu-btn" class="text-gray-700 focus:outline-none" aria-label="תפריט ניווט" aria-expanded="false" aria-controls="mobile-menu">
+                    <button id="menu-btn" class="text-gray-700 focus:outline-none" aria-label="תפריט ניווט" aria-expanded="false" aria-controls="mobile-menu" role="button" tabindex="0">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
@@ -165,8 +175,11 @@
 
     <main class="container mx-auto px-6">
         <section class="text-center pt-16 pb-12">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight" style="background: linear-gradient(135deg, #0891b2, #14b8a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                🇨🇭 המדריך האינטראקטיבי<br>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                <span style="background: linear-gradient(135deg, #0891b2, #14b8a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    🇨🇭 המדריך האינטראקטיבי
+                </span>
+                <br>
                 <span class="text-yellow-500">לטיול משפחתי בז'נבה</span>
             </h1>
             <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
@@ -175,27 +188,39 @@
             
             <!-- Quick Status Panel for Mobile Users -->
             <div class="bg-gradient-to-r from-teal-50 to-blue-50 rounded-2xl p-6 max-w-4xl mx-auto border border-teal-200 shadow-sm">
-                <h2 class="text-lg font-bold text-gray-800 mb-4">🎯 סטטוס הטיול המהיר</h2>
+                <h2 class="text-lg font-bold text-gray-800 mb-4 text-center">🎯 סטטוס הטיול המהיר</h2>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
                     <div class="flex items-center justify-center p-3 bg-white rounded-lg shadow-sm">
-                        <span class="text-blue-600 font-semibold" id="quick-weather">🌤️ טוען מזג אוויר...</span>
+                        <span class="text-blue-600 font-semibold flex items-center gap-2" id="quick-weather">
+                            <span>🌤️</span>
+                            <span>טוען מזג אוויר...</span>
+                        </span>
                     </div>
                     <div class="flex items-center justify-center p-3 bg-white rounded-lg shadow-sm">
-                        <span class="text-green-600 font-semibold" id="quick-hotel">🏨 Mercure Meyrin</span>
+                        <span class="text-green-600 font-semibold flex items-center gap-2" id="quick-hotel">
+                            <span>🏨</span>
+                            <span>Mercure Meyrin</span>
+                        </span>
                     </div>
                     <div class="flex items-center justify-center p-3 bg-white rounded-lg shadow-sm">
-                        <span class="text-purple-600 font-semibold" id="quick-transport">🚊 Geneva Card</span>
+                        <span class="text-purple-600 font-semibold flex items-center gap-2" id="quick-transport">
+                            <span>🚊</span>
+                            <span>Geneva Card</span>
+                        </span>
                     </div>
                     <div class="flex items-center justify-center p-3 bg-white rounded-lg shadow-sm">
-                        <span class="text-orange-600 font-semibold" id="quick-time">🕐 <span id="current-time">--:--</span></span>
+                        <span class="text-orange-600 font-semibold flex items-center gap-2">
+                            <span>🕐</span>
+                            <span id="current-time">--:--</span>
+                        </span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="bookings" class="bg-secondary rounded-2xl p-12 mb-16">
-            <h2 class="section-title">✈️ מרכז ההזמנות שלכם 🏨</h2>
-            <p class="section-subtitle">גישה מהירה לפרטי הטיסות והמלון שלכם.</p>
+        <section id="bookings" class="bg-secondary rounded-2xl p-8 md:p-12 mb-16">
+            <h2 class="section-title text-center">✈️ מרכז ההזמנות שלכם 🏨</h2>
+            <p class="section-subtitle text-center">גישה מהירה לפרטי הטיסות והמלון שלכם.</p>
             <div id="flight-alert" class="hidden max-w-4xl mx-auto mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700">
                 <p class="font-bold">🚨 עדכון חשוב בטיסות!</p>
                 <p id="flight-alert-message"></p>
@@ -218,20 +243,19 @@
         </section>
 
         <section id="weather" class="py-16 mb-16">
-            <h2 class="section-title">☀️ תחזית מזג אוויר חיה בז'נבה 🌧️</h2>
-            <p class="section-subtitle">תכננו את היום שלכם בהתאם לשמש או לגשם. התחזית מתעדכנת אוטומטית.</p>
-            <div id="weather-forecast"
-                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 pb-4 max-w-5xl mx-auto">
-                <p class="text-center w-full col-span-full">טוען תחזית עדכנית...</p>
+            <h2 class="section-title text-center">☀️ תחזית מזג אוויר חיה בז'נבה 🌧️</h2>
+            <p class="section-subtitle text-center">תכננו את היום שלכם בהתאם לשמש או לגשם. התחזית מתעדכנת אוטומטית.</p>
+            <div id="weather-forecast" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 pb-4 max-w-5xl mx-auto">
+                <p class="text-center w-full col-span-full text-gray-500">טוען תחזית עדכנית...</p>
             </div>
             <div class="text-center mt-6">
                 <button id="what-to-wear-btn" class="btn-primary px-6 py-3 rounded-lg hidden">✨ מה ללבוש היום? ✨</button>
             </div>
         </section>
 
-        <section id="daily-special" class="bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 border-r-4 border-yellow-400 rounded-2xl shadow-lg">
+        <section id="daily-special" class="bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 border-r-4 border-yellow-400 rounded-2xl shadow-lg mb-16">
             <div class="p-8">
-                <h2 class="section-title !mb-6">🌟 ההמלצה המיוחדת שלנו לכם היום 🌟</h2>
+                <h2 class="section-title text-center mb-6">🌟 ההמלצה המיוחדת שלנו לכם היום 🌟</h2>
                 <div class="bg-white/80 backdrop-blur-sm rounded-xl p-6 max-w-3xl mx-auto shadow-md">
                     <div id="daily-special-content" class="text-center text-lg text-gray-700">
                         <p>טוען המלצה יומית מותאמת אישית...</p>
@@ -248,9 +272,9 @@
             </div>
         </section>
 
-        <section id="logistics" class="bg-secondary rounded-2xl">
-            <h2 class="section-title">📋 מרכז הבקרה של הטיול</h2>
-            <p class="section-subtitle">כל מה שצריך לדעת על נקודת המוצא שלכם והכלים שיעמדו לרשותכם.</p>
+        <section id="logistics" class="bg-secondary rounded-2xl p-8 md:p-12 mb-16">
+            <h2 class="section-title text-center">📋 מרכז הבקרה של הטיול</h2>
+            <p class="section-subtitle text-center">כל מה שצריך לדעת על נקודת המוצא שלכם והכלים שיעמדו לרשותכם.</p>
             <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 <div class="bg-white p-8 rounded-xl shadow-lg">
                     <h3 class="text-2xl font-bold mb-4 text-accent">🏠 בסיס הבית: Mercure Hotel Meyrin</h3>
@@ -265,8 +289,8 @@
         </section>
 
         <section id="stroller-guide" class="py-16 mb-16">
-            <h2 class="section-title">🚇 ניווט עם עגלה כמו מקומיים</h2>
-            <p class="section-subtitle">התחבורה הציבורית בז'נבה ידידותית להפליא למשפחות. כמה טיפים פשוטים יהפכו כל נסיעה לחלקה.</p>
+            <h2 class="section-title text-center">🚇 ניווט עם עגלה כמו מקומיים</h2>
+            <p class="section-subtitle text-center">התחבורה הציבורית בז'נבה ידידותית להפליא למשפחות. כמה טיפים פשוטים יהפכו כל נסיעה לחלקה.</p>
             <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto text-center">
                 <div class="bg-secondary p-6 rounded-xl">
                     <div class="text-4xl mb-4">🟠</div>
@@ -286,28 +310,27 @@
             </div>
         </section>
 
-        <section id="custom-plan-generator" class="bg-white rounded-2xl border-2 border-dashed border-accent">
-            <h2 class="section-title">✨ מתכנן הטיולים החכם ✨</h2>
-            <p class="section-subtitle">רוצים תוכנית יומית מותאמת אישית? ספרו לי מה מתחשק לכם (למשל: "יום רגוע עם גן שעשועים ואוכל פשוט"), והבינה המלאכותית תבנה לכם הצעה.</p>
+        <section id="custom-plan-generator" class="bg-white rounded-2xl border-2 border-dashed border-accent p-8 mb-16">
+            <h2 class="section-title text-center">✨ מתכנן הטיולים החכם ✨</h2>
+            <p class="section-subtitle text-center">רוצים תוכנית יומית מותאמת אישית? ספרו לי מה מתחשק לכם (למשל: "יום רגוע עם גן שעשועים ואוכל פשוט"), והבינה המלאכותית תבנה לכם הצעה.</p>
             <div class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-2">
-                <input type="text" id="custom-plan-prompt" class="flex-1 border border-gray-300 rounded-lg py-3 px-4" placeholder="למשל: יום רגוע עם גינה וגלידה...">
+                <input type="text" id="custom-plan-prompt" class="flex-1 border border-gray-300 rounded-lg py-3 px-4" placeholder="למשל: יום רגוע עם גינה וגלידה..." aria-label="תאר את התוכנית הרצויה">
                 <button id="generate-custom-plan-btn" class="btn-primary px-6 py-3 rounded-lg">צור לי תוכנית</button>
             </div>
             <div id="custom-plan-result" class="max-w-2xl mx-auto mt-6"></div>
         </section>
 
         <section id="plan" class="py-16 mb-16">
-            <h2 class="section-title">🗺️ מסלול יומי גמיש והיררכי</h2>
-            <p class="section-subtitle">זוהי הצעה מפורטת עם חלופות לכל יום. אתם מוזמנים לבחור את השילוב המושלם עבורכם.
-            </p>
+            <h2 class="section-title text-center">🗺️ מסלול יומי גמיש והיררכי</h2>
+            <p class="section-subtitle text-center">זוהי הצעה מפורטת עם חלופות לכל יום. אתם מוזמנים לבחור את השילוב המושלם עבורכם.</p>
             <div id="itinerary-container" class="space-y-8 max-w-4xl mx-auto">
                 <!-- Itinerary day cards will be populated by js based on Firebase itineraryData -->
             </div>
         </section>
 
         <section id="activities" class="py-16 mb-16">
-            <h2 class="section-title">🎈 מאגר הפעילויות האינטראקטיבי</h2>
-            <p class="section-subtitle">מצאו את הבילוי המושלם לכל רגע. <strong>חשוב:</strong> לחצו תמיד על "לאתר הרשמי" כדי לוודא שעות פתיחה ומחירים עדכניים לפני היציאה.</p>
+            <h2 class="section-title text-center">🎈 מאגר הפעילויות האינטראקטיבי</h2>
+            <p class="section-subtitle text-center">מצאו את הבילוי המושלם לכל רגע. <strong>חשוב:</strong> לחצו תמיד על "לאתר הרשמי" כדי לוודא שעות פתיחה ומחירים עדכניים לפני היציאה.</p>
 
             <div class="flex flex-wrap justify-center gap-3 mb-8 p-4 bg-white/50 backdrop-blur-sm rounded-2xl shadow-sm">
                 <p class="w-full text-center text-sm font-semibold text-gray-600 mb-2">סנן לפי סוג פעילות:</p>
@@ -340,9 +363,9 @@
         </section>
         
         <!-- Family Sharing & Documentation Section -->
-        <section id="family-sharing" class="bg-gradient-to-r from-purple-50 via-pink-50 to-blue-50 rounded-2xl border-2 border-purple-200">
-            <h2 class="section-title">👨‍👩‍👧‍👦 שתפו את החוויה המשפחתית</h2>
-            <p class="section-subtitle">תעדו, שתפו ושמרו את הרגעים המיוחדים שלכם בז'נבה - הכל במקום אחד לכל המשפחה</p>
+        <section id="family-sharing" class="bg-gradient-to-r from-purple-50 via-pink-50 to-blue-50 rounded-2xl border-2 border-purple-200 p-8 mb-16">
+            <h2 class="section-title text-center">👨‍👩‍👧‍👦 שתפו את החוויה המשפחתית</h2>
+            <p class="section-subtitle text-center">תעדו, שתפו ושמרו את הרגעים המיוחדים שלכם בז'נבה - הכל במקום אחד לכל המשפחה</p>
             
             <div class="max-w-6xl mx-auto">
                 <!-- Quick Share Buttons -->
@@ -430,8 +453,8 @@
 
     <!-- Modals -->
     <div id="packing-guide-modal"
-        class="modal fixed inset-0 bg-black bg-opacity-60 z-[100] hidden items-center justify-center p-4">
-        <div class="bg-primary rounded-lg shadow-xl w-full max-w-4xl h-full max-h-[90vh] flex flex-col relative">
+        class="modal fixed inset-0 bg-black bg-opacity-60 z-100 hidden items-center justify-center p-4">
+        <div class="bg-primary rounded-2xl shadow-2xl w-full max-w-4xl h-full max-h-[90vh] flex flex-col relative modal-warm">
             <button id="close-packing-modal-btn" class="absolute top-4 left-4 text-gray-500 hover:text-gray-800 z-20">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -469,7 +492,7 @@
 
     <div id="gemini-chat-modal"
         class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg h-full max-h-[80vh] flex flex-col p-4 relative">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg h-full max-h-[80vh] flex flex-col p-6 relative modal-warm">
             <button id="close-gemini-modal-btn" class="absolute top-4 left-4 text-gray-500 hover:text-gray-800">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -498,7 +521,7 @@
                     </svg>
                 </button>
                 <input type="text" id="chat-input" class="flex-1 border border-gray-300 rounded-full py-2 px-4 mx-2"
-                    placeholder="כתוב את שאלתך כאן...">
+                    placeholder="כתוב את שאלתך כאן..." aria-label="שאלה לצ'אט">
                 <button id="chat-send-btn" class="btn-primary rounded-full p-3">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -512,7 +535,7 @@
 
     <div id="story-modal"
         class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col p-6 relative">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col p-6 relative modal-warm">
             <button id="close-story-modal-btn" class="absolute top-4 left-4 text-gray-500 hover:text-gray-800">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -533,7 +556,7 @@
 
     <div id="nearby-modal"
         class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-full overflow-y-auto p-6 relative">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-full overflow-y-auto p-6 relative modal-warm">
             <button id="close-nearby-modal-btn" class="absolute top-4 left-4 text-gray-500 hover:text-gray-800">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -547,7 +570,7 @@
 
     <div id="hotel-booking-modal"
         class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-full overflow-y-auto p-6 relative">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-full overflow-y-auto p-6 relative modal-warm">
             <button id="close-hotel-modal-btn" class="absolute top-4 left-4 text-gray-500 hover:text-gray-800">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -563,7 +586,7 @@
 
     <div id="flights-details-modal"
         class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-full overflow-y-auto p-6 relative">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-full overflow-y-auto p-6 relative modal-warm">
             <button id="close-flights-modal-btn" class="absolute top-4 left-4 text-gray-500 hover:text-gray-800">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -579,7 +602,7 @@
 
     <div id="family-details-modal"
         class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-md max-h-full overflow-y-auto p-6 relative">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-full overflow-y-auto p-6 relative modal-warm">
             <button id="close-family-modal-btn" class="absolute top-4 left-4 text-gray-500 hover:text-gray-800">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -594,8 +617,8 @@
     </div>
 
     <div id="text-response-modal"
-        class="modal fixed inset-0 bg-black bg-opacity-50 z-[101] hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[80vh] flex flex-col p-4 relative">
+        class="modal fixed inset-0 bg-black bg-opacity-50 z-101 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[80vh] flex flex-col p-6 relative modal-warm">
             <button id="close-text-response-modal-btn" class="absolute top-4 left-4 text-gray-500 hover:text-gray-800">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -609,7 +632,7 @@
     </div>
 
     <div id="photo-modal"
-        class="modal fixed inset-0 bg-black bg-opacity-90 z-[102] hidden items-center justify-center p-4">
+        class="modal fixed inset-0 bg-black bg-opacity-90 z-102 hidden items-center justify-center p-4">
         <div class="relative w-full h-full flex items-center justify-center">
             <button id="close-photo-modal-btn" class="absolute top-4 left-4 text-white hover:text-gray-300 z-10">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
@@ -644,7 +667,7 @@
 
     <div id="map-modal"
         class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl h-full max-h-[80vh] flex flex-col relative">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl h-full max-h-[80vh] flex flex-col relative modal-warm">
             <button id="close-map-modal-btn" class="absolute top-4 left-4 text-gray-500 hover:text-gray-800 z-20">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -655,7 +678,7 @@
                 <h3 class="text-2xl font-bold text-center text-accent">🗺️ מפת האטרקציות</h3>
                 <p class="text-gray-600 text-center mt-2">כל המקומות המומלצים על מפה אינטראקטיבית</p>
             </div>
-            <div id="fullscreen-map" class="flex-1 w-full">
+            <div id="fullscreen-map" class="flex-1 w-full" role="application" aria-label="מפה אינטראקטיבית של ז'נבה">
                 <!-- Full screen map will be initialized here -->
             </div>
         </div>
@@ -663,7 +686,7 @@
 
     <div id="swap-activity-modal"
         class="modal fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col relative">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col relative modal-warm">
             <button id="close-swap-activity-modal-btn" class="absolute top-4 left-4 text-gray-500 hover:text-gray-800 z-20">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
@@ -695,9 +718,8 @@
 
 
     <!-- Scripts -->
-    <script src="/js/demo-protection.js?v=1757102250978"></script>
-    <script src="/js/demo-analytics.js?v=1757102250978"></script>
-    <script type="module" src="/js/Main.js?v=1757103264976"></script>
+         <script src="/js/demo-protection.js?v=1757102250978"></script>
+     <script type="module" src="/js/Main.js?v=1757108500245"></script>
     
     <!-- Demo Initialization -->
     <script>

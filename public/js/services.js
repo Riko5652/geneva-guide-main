@@ -1,5 +1,5 @@
-import { currentData } from './Main.js?v=1757103264976';
-import { getWeatherInfo } from './utils.js?v=1757103264976';
+import { currentData } from './Main.js?v=1757108500245';
+import { getWeatherInfo } from './utils.js?v=1757108500245';
 
 // --- WEATHER SERVICE ---
 
@@ -54,7 +54,7 @@ export async function fetchAndRenderWeather() {
         renderWeather(data);
         
         // Update quick status after weather is loaded
-        import('./ui.js?v=1757103264976').then(({ renderQuickStatus }) => {
+        import('./ui.js?v=1757108500245').then(({ renderQuickStatus }) => {
             if (renderQuickStatus) renderQuickStatus();
         }).catch(console.warn);
         
@@ -62,6 +62,14 @@ export async function fetchAndRenderWeather() {
     } catch (error) {
         console.warn("Failed to fetch weather:", error);
         forecastContainer.innerHTML = '<p class="text-center w-full col-span-full text-red-500">לא ניתן היה לטעון את תחזית מזג האוויר.</p>';
+        
+        // Show retry button
+        const retryBtn = document.createElement('button');
+        retryBtn.className = 'btn-primary px-4 py-2 mt-2 text-sm';
+        retryBtn.textContent = '🔄 נסה שוב';
+        retryBtn.onclick = () => fetchAndRenderWeather();
+        forecastContainer.appendChild(retryBtn);
+        
         return null;
     }
 }

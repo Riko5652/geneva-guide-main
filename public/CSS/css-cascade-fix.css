@@ -1,0 +1,240 @@
+/* CSS Cascade Fix - Resolves conflicts between style.css, utilities.css, and modal-enhancements.css */
+/* This file should be loaded LAST to ensure proper cascade order */
+
+/* 1. Modal System Reconciliation */
+/* Override style.css modal properties with enhanced versions */
+.modal {
+    /* From style.css but enhanced */
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-4);
+    
+    /* Enhanced properties from modal-enhancements.css */
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    background: rgba(0, 0, 0, 0.5) !important; /* Softer than style.css */
+    transition: all 0.3s ease !important;
+}
+
+/* Modal containers - merge best of both */
+.modal > div {
+    /* Keep style.css structure */
+    background: var(--bg-primary);
+    max-width: min(95vw, 1200px);
+    max-height: 95vh;
+    overflow-y: auto;
+    position: relative;
+    
+    /* Enhanced from modal-enhancements.css */
+    border-radius: 1rem !important; /* Warmer than style.css */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.04),
+                0 0 0 1px rgba(251, 191, 36, 0.05) !important;
+    border: 2px solid rgba(251, 191, 36, 0.1) !important;
+    animation: modal-slide-in 0.3s ease-out !important;
+}
+
+/* Modal close buttons - enhanced version wins */
+.modal button[id*="close-"],
+.modal-close-btn {
+    /* Reset style.css properties */
+    position: absolute;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: 10;
+    cursor: pointer;
+    
+    /* Enhanced properties */
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    border: none !important;
+}
+
+.modal button[id*="close-"]:hover,
+.modal-close-btn:hover {
+    background: #fbbf24 !important;
+    color: white !important;
+    transform: rotate(90deg) scale(1.1) !important;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3) !important;
+    border-color: transparent !important;
+}
+
+/* 2. Button System Reconciliation */
+/* Ensure warm design for all buttons */
+.btn-primary {
+    /* Keep the gradient from style.css */
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-teal));
+    
+    /* Ensure warm, rounded design */
+    border-radius: 0.75rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease-out !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+                0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 3. Card System Reconciliation */
+.activity-card {
+    /* Enhance with warmer shadows */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+                0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+    border: 1px solid rgba(251, 191, 36, 0.1) !important;
+    transition: all 0.2s ease-out !important;
+}
+
+.activity-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+                0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+    border-color: rgba(251, 191, 36, 0.2) !important;
+}
+
+/* 4. Specific Modal Enhancements */
+/* Ensure modal-specific styles take precedence */
+#packing-guide-modal .modal-content {
+    background: linear-gradient(to bottom, #ffffff 0%, #fef3c7 100%) !important;
+}
+
+#gemini-chat-modal .chat-bubble {
+    animation: bubble-pop-in 0.3s ease-out !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* 5. Mobile Responsiveness Fix */
+@media (max-width: 640px) {
+    .modal > div {
+        margin: 0.5rem !important;
+        max-height: calc(100vh - 1rem) !important;
+        width: calc(100% - 1rem) !important;
+        border-radius: 0.75rem !important;
+    }
+    
+    .modal button[id*="close-"],
+    .modal-close-btn {
+        width: 36px !important;
+        height: 36px !important;
+        top: 0.75rem !important;
+        left: 0.75rem !important;
+    }
+}
+
+/* 6. Z-index Hierarchy Fix */
+/* Ensure proper stacking order */
+.modal { z-index: 1000 !important; }
+#packing-guide-modal { z-index: 100 !important; }
+#gemini-chat-modal { z-index: 50 !important; }
+#text-response-modal { z-index: 101 !important; }
+#photo-modal { z-index: 102 !important; }
+.toast-container { z-index: 9998 !important; }
+#family-loader { z-index: 9999 !important; }
+
+/* 7. Scrollbar Consistency */
+/* Apply warm scrollbar to all scrollable elements */
+.modal-content::-webkit-scrollbar,
+.modal > div::-webkit-scrollbar,
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #fbbf24;
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #f59e0b;
+}
+
+/* 8. Animation Keyframes (ensure they exist) */
+@keyframes modal-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes bubble-pop-in {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 9. CSS Variable Overrides for Consistency */
+:root {
+    /* Ensure warm colors are available everywhere */
+    --warm-yellow: #fbbf24;
+    --warm-yellow-light: #fef3c7;
+    --warm-yellow-dark: #f59e0b;
+    
+    /* Override shadow variables for softer look */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+}
+
+/* 10. Final Overrides */
+/* Ensure no harsh transitions */
+* {
+    transition-timing-function: ease-out !important;
+}
+
+/* Ensure focus states are consistent */
+*:focus-visible {
+    outline: 2px solid var(--primary-blue) !important;
+    outline-offset: 2px !important;
+}
+
+/* Ensure all interactive elements have pointer cursor */
+button, 
+a, 
+.clickable, 
+[role="button"], 
+[onclick] {
+    cursor: pointer !important;
+}
+
+/* Ensure text remains readable */
+.modal * {
+    line-height: 1.6 !important;
+}
+
+/* RTL Support for Hebrew */
+[dir="rtl"] .modal button[id*="close-"],
+[dir="rtl"] .modal-close-btn {
+    left: auto !important;
+    right: var(--space-4) !important;
+}

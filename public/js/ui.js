@@ -1,7 +1,7 @@
-import { currentData, currentCategoryFilter, currentTimeFilter, newlyAddedItems, clearNewlyAddedItems } from './Main.js?v=1757103264976';
-import { fetchAndRenderWeather } from './services.js?v=1757103264976';
-import { getFormattedOpeningHours, getStatusClass } from './utils.js?v=1757103264976';
-import { initMap } from './Map.js?v=1757103264976';
+import { currentData, currentCategoryFilter, currentTimeFilter, newlyAddedItems, clearNewlyAddedItems } from './Main.js?v=1757108500245';
+import { fetchAndRenderWeather } from './services.js?v=1757108500245';
+import { getFormattedOpeningHours, getStatusClass } from './utils.js?v=1757108500245';
+import { initMap } from './Map.js?v=1757108500245';
 
 export function renderAllComponents() {
     if (!currentData) return;
@@ -160,6 +160,29 @@ function renderItinerary() {
             </div>
             </div>
     `).join('');
+}
+
+// Helper function to get placeholder images based on category
+function getActivityImage(category, name) {
+    const images = {
+        'משחקייה': 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=300&fit=crop',
+        'תרבות': 'https://images.unsplash.com/photo-1593642532973-d31b6557fa68?w=400&h=300&fit=crop',
+        'קפה': 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop',
+        'חוץ': 'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=400&h=300&fit=crop',
+        'מוזיאונים': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=400&h=300&fit=crop',
+        'פארקים': 'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=400&h=300&fit=crop',
+        'אטרקציות': 'https://images.unsplash.com/photo-1451440063999-77a8b2960d2b?w=400&h=300&fit=crop',
+        'מסעדות': 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop',
+        'קניות': 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=300&fit=crop',
+        'תחבורה': 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=400&h=300&fit=crop',
+        'נוף': 'https://images.unsplash.com/photo-1527004760902-f25b5ad68c96?w=400&h=300&fit=crop',
+        'ספורט': 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=300&fit=crop',
+        'בידור': 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&h=300&fit=crop',
+        'טבע': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
+        'משפחתי': 'https://images.unsplash.com/photo-1609220807598-8d9a2d7b3f52?w=400&h=300&fit=crop'
+    };
+    
+    return images[category] || images['משפחתי'];
 }
 
 export function renderActivities() {
@@ -1269,7 +1292,7 @@ export function renderLuggagePlanner() {
             <!-- Items in this bag -->
             <div class="luggage-items mt-3 p-3 bg-white rounded border">
                 <h5 class="font-semibold mb-2">📦 פריטים במזוודה:</h5>
-                <div id="luggage-items-${bagIndex}" class="space-y-1 min-h-[60px] border-2 border-dashed border-gray-200 p-2 rounded">
+                <div id="luggage-items-${bagIndex}" class="space-y-1 min-h-60px border-2 border-dashed border-gray-200 p-2 rounded">
                     ${bag.items && bag.items.length > 0 
                         ? bag.items.map(item => `<div class="luggage-item-tag bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm inline-block mr-1 mb-1">${item}</div>`).join('')
                         : '<p class="text-gray-400 text-center py-4">גררו פריטים מרשימת האריזה לכאן</p>'

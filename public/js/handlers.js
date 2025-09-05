@@ -1,7 +1,7 @@
-import { currentData, setCurrentCategoryFilter, setCurrentTimeFilter, appId, db, userId, addNewlyAddedItem, storage } from './Main.js?v=1757103264976';
-import { openModal, closeModal } from './utils.js?v=1757103264976';
-import { callGeminiWithParts } from './Gemini.js?v=1757103264976';
-import { populateFlightDetails, populateHotelDetails, renderPackingGuide, renderActivities, populateFamilyDetails, populateNearbyLocations, renderPhotoAlbum, renderBulletinBoard, renderFamilyMemories, renderInteractivePackingList, renderPackingPhotosGallery } from './ui.js?v=1757103264976';
+import { currentData, setCurrentCategoryFilter, setCurrentTimeFilter, appId, db, userId, addNewlyAddedItem, storage } from './Main.js?v=1757108500245';
+import { openModal, closeModal } from './utils.js?v=1757108500245';
+import { callGeminiWithParts } from './Gemini.js?v=1757108500245';
+import { populateFlightDetails, populateHotelDetails, renderPackingGuide, renderActivities, populateFamilyDetails, populateNearbyLocations, renderPhotoAlbum, renderBulletinBoard, renderFamilyMemories, renderInteractivePackingList, renderPackingPhotosGallery } from './ui.js?v=1757108500245';
 import { doc, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
@@ -9,6 +9,13 @@ import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/fireba
 export function setupEventListeners() {
     // A single master listener is more efficient than attaching many individual ones.
     if (document.body.dataset.listenersAttached) return;
+    
+    // Remove any existing listeners first to prevent duplicates
+    document.body.removeEventListener('click', handleDelegatedClicks);
+    document.body.removeEventListener('change', handleDelegatedChanges);
+    document.body.removeEventListener('keydown', handleDelegatedKeydowns);
+    
+    // Add the listeners
     document.body.addEventListener('click', handleDelegatedClicks);
     document.body.addEventListener('change', handleDelegatedChanges);
     document.body.addEventListener('keydown', handleDelegatedKeydowns);
@@ -282,7 +289,7 @@ export async function handleLoadMoreActivities() {
         window.displayedActivitiesCount = Math.min(currentDisplayed + 6, totalCachedActivities);
         
         // Re-render activities to show more from cache
-        import('./ui.js?v=1757103264976').then(({ renderActivities }) => {
+        import('./ui.js?v=1757108500245').then(({ renderActivities }) => {
             renderActivities();
         });
     } else {
@@ -373,7 +380,7 @@ Respond with JSON array only:
             window.displayedActivitiesCount = (window.displayedActivitiesCount || 6) + newActivities.length;
             
             // Re-render activities with new ones
-            import('./ui.js?v=1757103264976').then(({ renderActivities }) => {
+            import('./ui.js?v=1757108500245').then(({ renderActivities }) => {
                 renderActivities();
             });
             
@@ -455,7 +462,8 @@ async function handleChatSend() {
         
         const geminieBubble = document.createElement('div');
         geminieBubble.className = 'chat-bubble gemini';
-        geminieBubble.innerHTML = response;
+        // Sanitize HTML to prevent XSS
+        geminieBubble.textContent = response;
         messagesContainer.appendChild(geminieBubble);
     } catch (error) {
         const errorBubble = document.createElement('div');
@@ -608,7 +616,7 @@ function handlePhotoUpload() {
             currentData.photoAlbum.push(photoData);
             
             // Re-render photo album using correct import
-            import('./ui.js?v=1757103264976').then(({ renderPhotoAlbum }) => {
+            import('./ui.js?v=1757108500245').then(({ renderPhotoAlbum }) => {
                 renderPhotoAlbum();
             });
             
@@ -1133,7 +1141,7 @@ export function handleOptimizeLuggage() {
         });
         
         // Re-render the luggage planner
-        import('./ui.js?v=1757103264976').then(({ renderLuggagePlanner }) => {
+        import('./ui.js?v=1757108500245').then(({ renderLuggagePlanner }) => {
             if (renderLuggagePlanner) renderLuggagePlanner();
         });
         
@@ -1304,7 +1312,7 @@ async function applyAISuggestions(aiResponse) {
     }, 4000);
     
     // Re-render luggage planner to show updated suggestions
-    import('./ui.js?v=1757103264976').then(({ renderLuggagePlanner }) => {
+    import('./ui.js?v=1757108500245').then(({ renderLuggagePlanner }) => {
         if (renderLuggagePlanner) renderLuggagePlanner();
     });
 }

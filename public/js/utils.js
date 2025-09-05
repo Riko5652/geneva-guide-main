@@ -1,4 +1,4 @@
-import { currentData as globalData } from './Main.js?v=1757103264976';
+import { currentData as globalData } from './Main.js?v=1757108500245';
 
 /**
  * Opens a modal dialog and optionally runs a callback to populate its content.

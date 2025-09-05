@@ -3,9 +3,13 @@ import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gsta
 import { getFirestore, doc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
-import { renderAllComponents } from './ui.js?v=1757103264976';
-import { setupEventListeners } from './handlers.js?v=1757103264976';
-import { setupGeminiChat } from "./Gemini.js?v=1757103264976";
+import { renderAllComponents } from './ui.js?v=1757108500245';
+import { setupEventListeners } from './handlers.js?v=1757108500245';
+import { setupGeminiChat } from "./Gemini.js?v=1757108500245";
+import { CONFIG } from './config.js';
+import { familyLoader } from './loading.js';
+import { familyToast } from './toast.js';
+import { animations } from './animations.js';
 
 // --- Global State ---
 export let db, auth, storage, userId;
@@ -49,6 +53,9 @@ if (typeof window !== 'undefined') {
 }
 
 async function initApp() {
+    // Show family-friendly loader
+    familyLoader.show();
+    
     try {
         const response = await fetch('/api/get-config');
         if (!response.ok) throw new Error('Failed to get Firebase config');
@@ -60,6 +67,7 @@ async function initApp() {
         storage = getStorage(app);
         
         console.log("Firebase initialized successfully");
+        familyToast.success('מתחברים לטיול שלכם... 🚀');
         
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -70,6 +78,7 @@ async function initApp() {
                 console.log("No user signed in, attempting anonymous sign-in");
                 signInAnonymously(auth).catch(error => {
                     console.warn("Anonymous sign-in failed:", error);
+                    familyToast.warning('עובדים במצב לא מקוון');
                     // Continue without auth for basic functionality
                     setupBasicApp();
                 });
@@ -78,6 +87,7 @@ async function initApp() {
         
     } catch (error) {
         console.warn("Firebase initialization failed:", error);
+        familyToast.info('עובדים במצב הדגמה');
         // Continue without Firebase for static functionality
         setupBasicApp();
     }

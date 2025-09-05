@@ -140,6 +140,12 @@ function initPerformanceOptimizations() {
     const images = document.querySelectorAll('img');
     images.forEach(img => {
         if (!img.loading) img.loading = 'lazy';
+        
+        // Add error handling for broken images
+        img.onerror = function() {
+            this.onerror = null; // Prevent infinite loop
+            this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect width="100" height="100" fill="%23f0f0f0"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%23999"%3EImage%3C/text%3E%3C/svg%3E';
+        };
     });
     
     // Optimize scrolling performance
@@ -156,6 +162,13 @@ function initPerformanceOptimizations() {
             }, 100);
         }
     });
+    
+    // Detect WebP support
+    const webpTest = new Image();
+    webpTest.onload = webpTest.onerror = function() {
+        window.supportsWebP = webpTest.height === 2;
+    };
+    webpTest.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
 }
 
 // Demo-specific enhancements

@@ -1,4 +1,4 @@
-import { toBase64 } from "./utils.js?v=1757103264976";
+import { toBase64 } from "./utils.js?v=1757108500245";
 
 /**
  * Creates and injects the Gemini chat modal into the page, and sets up its event listeners.
@@ -101,23 +101,34 @@ export async function callGeminiWithParts(parts) {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ contents: [{ role: "user", parts }] }),
+            signal: AbortSignal.timeout(30000) // 30 second timeout
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error?.message || "תקלה בשרת ה-AI.");
+            const errorData = await response.json().catch(() => ({}));
+            const errorMessage = errorData.error?.message || `שגיאה ${response.status}: ${response.statusText}`;
+            throw new Error(errorMessage);
         }
 
         const data = await response.json();
         const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
         
         if (!responseText) {
-             throw new Error("ה-AI לא החזיר תגובה תקינה.");
+            console.warn("Empty response from Gemini API:", data);
+            throw new Error("ה-AI לא החזיר תגובה תקינה.");
         }
         return responseText;
     } catch (err) {
         console.warn("Error in callGeminiWithParts:", err);
-        throw new Error("שגיאת רשת בעת התקשרות עם שירות ה-AI.");
+        
+        // More specific error messages
+        if (err.name === 'AbortError') {
+            throw new Error("הבקשה לקחה יותר מדי זמן. נסו שוב.");
+        } else if (err.message.includes('NetworkError') || err.message.includes('Failed to fetch')) {
+            throw new Error("בעיית חיבור לאינטרנט. בדקו את החיבור ונסו שוב.");
+        }
+        
+        throw err;
     }
 }
 

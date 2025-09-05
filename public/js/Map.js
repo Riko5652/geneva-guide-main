@@ -1,5 +1,5 @@
-import { currentData, map, setMap } from './Main.js?v=1757103264976';
-import { calculateDistance } from './utils.js?v=1757103264976';
+import { currentData, map, setMap } from './Main.js?v=1757108500245';
+import { calculateDistance } from './utils.js?v=1757108500245';
 
 /**
  * Initializes or re-initializes the Leaflet map.
@@ -132,4 +132,5 @@ export function findAndDisplayNearby(latitude, longitude) {
             ` : '<p class="text-gray-500">לא נמצאו בתי מרקחת בקרבת מקום.</p>'}
         </div>`;
 }
+
 
