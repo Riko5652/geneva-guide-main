@@ -53,8 +53,18 @@ if (typeof window !== 'undefined') {
 }
 
 async function initApp() {
-    // Show family-friendly loader
-    familyLoader.show();
+    console.log('🚀 initApp starting...');
+    
+    // Only show loader if page isn't already fully loaded and no existing loader
+    const existingLoader = document.getElementById('family-loader');
+    const pageLoaded = document.readyState === 'complete';
+    
+    if (!existingLoader && !pageLoaded) {
+        console.log('📱 Showing family loader...');
+        familyLoader.show();
+    } else {
+        console.log('⏭️ Skipping loader - page already loaded or loader exists');
+    }
     
     try {
         const response = await fetch('/api/get-config');
@@ -72,12 +82,15 @@ async function initApp() {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 userId = user.uid;
-                console.log("User signed in:", userId);
+                console.log("✅ User signed in:", userId);
                 setupFirebaseListeners();
             } else {
-                console.log("No user signed in, attempting anonymous sign-in");
-                signInAnonymously(auth).catch(error => {
-                    console.warn("Anonymous sign-in failed:", error);
+                console.log("⚠️ No user signed in, attempting anonymous sign-in");
+                signInAnonymously(auth).then(result => {
+                    console.log("✅ Anonymous sign-in successful");
+                    setupFirebaseListeners();
+                }).catch(error => {
+                    console.warn("❌ Anonymous sign-in failed:", error);
                     familyToast.warning('עובדים במצב לא מקוון');
                     // Continue without auth for basic functionality
                     setupBasicApp();
@@ -117,8 +130,16 @@ function setupBasicApp() {
         console.log("🎨 Calling renderAllComponents from setupBasicApp");
         renderAllComponents();
         
-        // Hide loading screen
+        // Hide loading screen and any other loaders
+        console.log("🎯 Hiding all loading screens...");
         familyLoader.hide();
+        
+        // Also hide any demo loading screen
+        const demoLoading = document.getElementById('demo-loading');
+        if (demoLoading) {
+            demoLoading.style.opacity = '0';
+            setTimeout(() => demoLoading.remove(), 500);
+        }
         
     } catch (error) {
         console.error("🔥 Error in setupBasicApp:", error);
@@ -143,6 +164,17 @@ function setupFirebaseListeners() {
                 currentData = { ...currentData, ...snapshot.data() };
                 console.log("✅ Firebase data updated:", Object.keys(currentData));
                 renderAllComponents();
+                
+                // Hide loading screen on first successful data load
+                console.log("🎯 Hiding loading screen after Firebase data load");
+                familyLoader.hide();
+                
+                // Also hide any demo loading screen
+                const demoLoading = document.getElementById('demo-loading');
+                if (demoLoading) {
+                    demoLoading.style.opacity = '0';
+                    setTimeout(() => demoLoading.remove(), 500);
+                }
                 
                 // Reset retry counter on successful connection
                 if (window.firebaseRetryCount) {
@@ -283,10 +315,16 @@ if (typeof window !== 'undefined') {
     monitorFirebaseConnection();
     window.addEventListener('beforeunload', cleanupFirebaseConnections);
     
-    // Expose renderAllComponents globally for debugging and force refresh
+    // Expose renderAllComponents and familyLoader globally for debugging and force refresh
     import('./ui.js').then(uiModule => {
         window.renderAllComponents = uiModule.renderAllComponents;
         console.log('🌐 renderAllComponents exposed globally');
+    });
+    
+    // Expose familyLoader globally
+    import('./loading.js').then(loadingModule => {
+        window.familyLoader = loadingModule.familyLoader;
+        console.log('🌐 familyLoader exposed globally');
     });
 }
 

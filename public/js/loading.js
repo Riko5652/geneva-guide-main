@@ -79,7 +79,5 @@ export class FamilyLoader {
 // Create global instance
 export const familyLoader = new FamilyLoader();
 
-// Auto-hide loader when page fully loads
-window.addEventListener('load', () => {
-    setTimeout(() => familyLoader.hide(), 1000);
-});
+// Note: Auto-hide removed to prevent race conditions
+// Loading screen is now controlled manually by the app initialization

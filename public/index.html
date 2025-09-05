@@ -848,13 +848,21 @@
                  console.error('❌ initApp function not found in Main.js, available:', Object.keys(module));
              }
              
-             // Force render after a short delay to ensure content shows
+             // Force render after a short delay only if needed
              setTimeout(() => {
-                 console.log('🔄 Force rendering content after initialization...');
-                 if (window.renderAllComponents) {
+                 console.log('🔄 Checking if force render is needed...');
+                 const loader = document.getElementById('family-loader');
+                 if (loader && window.renderAllComponents) {
+                     console.log('⚠️ Loader still visible, force rendering...');
                      window.renderAllComponents();
+                     // Force hide loader if still showing
+                     if (window.familyLoader) {
+                         window.familyLoader.hide();
+                     }
+                 } else {
+                     console.log('✅ No force render needed');
                  }
-             }, 2000);
+             }, 3000);
              
          } catch (error) {
              console.error('❌ Critical initialization error:', error);
@@ -884,16 +892,9 @@
     
     <!-- Demo Initialization -->
     <script>
-        // Hide loading screen after everything loads
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const loading = document.getElementById('demo-loading');
-                if (loading) {
-                    loading.style.opacity = '0';
-                    setTimeout(() => loading.remove(), 500);
-                }
-            }, 1500); // Show for 1.5 seconds minimum
-        });
+        // Loading screen is now controlled by the app initialization
+        // No auto-hide to prevent race conditions
+        console.log('📄 HTML loaded, waiting for app initialization...');
     </script>
 </body>
 </html>
