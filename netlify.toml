@@ -2,7 +2,7 @@
 [build]
   publish = "public"
   functions = "netlify/functions"
-  # No build command needed - static site
+  command = "echo 'No build needed for static site'"
   base = "."
 
 # API Routes - Proxy requests to serverless functions
