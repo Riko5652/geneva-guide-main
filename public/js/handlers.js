@@ -19,7 +19,105 @@ export function setupEventListeners() {
     document.body.addEventListener('click', handleDelegatedClicks);
     document.body.addEventListener('change', handleDelegatedChanges);
     document.body.addEventListener('keydown', handleDelegatedKeydowns);
+    
+    // Setup mobile menu functionality
+    setupMobileMenu();
+    
     document.body.dataset.listenersAttached = 'true';
+}
+
+// Enhanced mobile menu functionality
+function setupMobileMenu() {
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isHidden = mobileMenu.classList.contains('hidden');
+            
+            if (isHidden) {
+                // Show menu with animation
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.style.opacity = '0';
+                mobileMenu.style.transform = 'translateY(-10px)';
+                
+                requestAnimationFrame(() => {
+                    mobileMenu.style.transition = 'all 0.3s ease-out';
+                    mobileMenu.style.opacity = '1';
+                    mobileMenu.style.transform = 'translateY(0)';
+                });
+                
+                // Update button state
+                menuBtn.setAttribute('aria-expanded', 'true');
+                menuBtn.innerHTML = `
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                `;
+            } else {
+                // Hide menu with animation
+                mobileMenu.style.transition = 'all 0.3s ease-in';
+                mobileMenu.style.opacity = '0';
+                mobileMenu.style.transform = 'translateY(-10px)';
+                
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 300);
+                
+                // Update button state
+                menuBtn.setAttribute('aria-expanded', 'false');
+                menuBtn.innerHTML = `
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                `;
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    menuBtn.click();
+                }
+            }
+        });
+        
+        // Handle mobile menu link clicks
+        mobileMenu.addEventListener('click', (e) => {
+            const link = e.target.closest('.mobile-menu-link');
+            if (link) {
+                e.preventDefault();
+                
+                const targetId = link.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Close menu first
+                    menuBtn.click();
+                    
+                    // Smooth scroll to target
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                            inline: 'nearest'
+                        });
+                        
+                        // Add visual feedback
+                        targetElement.style.transform = 'scale(1.02)';
+                        targetElement.style.transition = 'transform 0.3s ease';
+                        setTimeout(() => {
+                            targetElement.style.transform = 'scale(1)';
+                        }, 300);
+                    }, 300);
+                }
+            }
+        });
+    }
 }
 
 // This function acts as a router for all click events on the page.
