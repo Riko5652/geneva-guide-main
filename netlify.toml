@@ -3,6 +3,7 @@
   publish = "public"
   functions = "netlify/functions"
   command = "npm run build"
+  base = "."
 
 # API Routes - Proxy requests to serverless functions
 [[redirects]]
