@@ -1,5 +1,5 @@
-import { currentData, map, setMap } from './Main.js?v=1757100980111';
-import { calculateDistance } from './utils.js?v=1757100980111';
+import { currentData, map, setMap } from './Main.js?v=1757102250978';
+import { calculateDistance } from './utils.js?v=1757102250978';
 
 /**
  * Initializes or re-initializes the Leaflet map.

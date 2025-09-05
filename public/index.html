@@ -26,56 +26,7 @@
     </script>
     <script src="https://cdn.tailwindcss.com/3.4.1"></script>
     
-    <!-- CRITICAL: Mobile Navigation Override - Must load AFTER Tailwind -->
-    <style>
-        @media screen and (max-width: 1023px) {
-            /* FORCE HIDE desktop navigation on mobile with maximum specificity */
-            .desktop-nav,
-            .desktop-nav.hidden,
-            .desktop-nav.lg\:flex,
-            .desktop-nav.hidden.lg\:flex,
-            nav .desktop-nav,
-            header nav .desktop-nav,
-            header nav div.desktop-nav {
-                display: none !important;
-                visibility: hidden !important;
-                opacity: 0 !important;
-                pointer-events: none !important;
-                width: 0 !important;
-                height: 0 !important;
-                overflow: hidden !important;
-            }
-            
-            /* FORCE SHOW hamburger menu on mobile */
-            #menu-btn,
-            .lg\:hidden#menu-btn,
-            nav #menu-btn,
-            header nav #menu-btn {
-                display: block !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
-        }
-        
-        @media screen and (min-width: 1024px) {
-            /* FORCE SHOW desktop navigation on desktop */
-            .desktop-nav,
-            .desktop-nav.hidden,
-            .desktop-nav.lg\:flex,
-            .desktop-nav.hidden.lg\:flex {
-                display: flex !important;
-                visibility: visible !important;
-                opacity: 1 !important;
-            }
-            
-            /* FORCE HIDE hamburger menu on desktop */
-            #menu-btn,
-            .lg\:hidden#menu-btn {
-                display: none !important;
-                visibility: hidden !important;
-            }
-        }
-    </style>
+    <!-- Mobile navigation styles are handled in style.css -->
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -83,7 +34,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="/CSS/style.css?v=1757094267155">
+    <link rel="stylesheet" href="/CSS/style.css?v=1757102250978">
 </head>
 
 <body class="bg-primary">
@@ -744,9 +695,9 @@
 
 
     <!-- Scripts -->
-    <script src="/js/demo-protection.js?v=1757054243078"></script>
-    <script src="/js/demo-analytics.js?v=1757054243078"></script>
-    <script type="module" src="/js/Main.js?v=1757100980111"></script>
+    <script src="/js/demo-protection.js?v=1757102250978"></script>
+    <script src="/js/demo-analytics.js?v=1757102250978"></script>
+    <script type="module" src="/js/Main.js?v=1757102250978"></script>
     
     <!-- Demo Initialization -->
     <script>

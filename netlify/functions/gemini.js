@@ -1,35 +1,3 @@
-const fetch = require('node-fetch');
-
-exports.handler = async function(event) {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
-  }
-
-  try {
-    const body = JSON.parse(event.body || '{}');
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      return { statusCode: 500, body: JSON.stringify({ error: { message: 'Missing GEMINI_API_KEY' } }) };
-    }
-
-    // Proxy to Gemini Generative Language API (adjust endpoint as needed)
-    const resp = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + apiKey, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-
-    const data = await resp.json();
-    return {
-      statusCode: resp.status,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    };
-  } catch (e) {
-    return { statusCode: 500, body: JSON.stringify({ error: { message: e.message } }) };
-  }
-};
-
 // This Netlify Function acts as a secure proxy to the Google Gemini API.
 // It uses the 'node-fetch' library for making HTTP requests from the Node.js environment.
 const fetch = require('node-fetch');
