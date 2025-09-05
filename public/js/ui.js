@@ -1,7 +1,7 @@
-import { currentData, currentCategoryFilter, currentTimeFilter, newlyAddedItems, clearNewlyAddedItems } from './Main.js?v=1757094267155';
-import { fetchAndRenderWeather } from './services.js?v=1757094267155';
-import { getFormattedOpeningHours, getStatusClass } from './utils.js?v=1757094267155';
-import { initMap } from './Map.js?v=1757094267155';
+import { currentData, currentCategoryFilter, currentTimeFilter, newlyAddedItems, clearNewlyAddedItems } from './Main.js?v=1757100980111';
+import { fetchAndRenderWeather } from './services.js?v=1757100980111';
+import { getFormattedOpeningHours, getStatusClass } from './utils.js?v=1757100980111';
+import { initMap } from './Map.js?v=1757100980111';
 
 export function renderAllComponents() {
     if (!currentData) return;
