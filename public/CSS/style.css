@@ -99,6 +99,33 @@ html {
     text-size-adjust: 100%;
 }
 
+/* Enhanced scrollable containers */
+.scrollable-container {
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--muted-beige) transparent;
+    -webkit-overflow-scrolling: touch;
+}
+
+.scrollable-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+    background: var(--muted-beige);
+    border-radius: var(--radius-full);
+}
+
+.scrollable-container::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-blue);
+}
+
 body {
     font-family: 'Assistant', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, system-ui, sans-serif;
     background: var(--bg-primary);
@@ -131,6 +158,7 @@ body {
     cursor: pointer;
     transition: all var(--duration-normal) var(--ease-out);
     min-height: 44px; /* Touch-friendly */
+    min-width: 44px; /* Touch-friendly */
     position: relative;
     overflow: hidden;
     -webkit-appearance: none;
@@ -140,6 +168,10 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+    box-shadow: var(--shadow-sm);
 }
 
 .btn-primary::before {
@@ -190,6 +222,15 @@ body {
     cursor: pointer;
     transition: all var(--duration-normal) var(--ease-out);
     min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+    box-shadow: var(--shadow-xs);
 }
 
 .btn-secondary:hover {
@@ -210,10 +251,14 @@ body {
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out);
     min-height: 36px;
+    min-width: 36px;
     display: inline-flex;
     align-items: center;
-    gap: var(--space-1);
+    justify-content: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     white-space: nowrap;
+    gap: var(--space-1);
 }
 
 .btn-filter:hover {
@@ -269,10 +314,13 @@ body {
     border: 1px solid rgba(0,0,0,0.08);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
+    margin-bottom: var(--space-4);
     transition: all var(--duration-normal) var(--ease-out);
     box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
+    will-change: transform;
+    contain: layout style paint;
 }
 
 .card::before, .activity-card::before {
