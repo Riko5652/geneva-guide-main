@@ -1,5 +1,5 @@
 import { currentData, setCurrentCategoryFilter, setCurrentTimeFilter, appId, db, userId, addNewlyAddedItem, storage } from './Main.js';
-import { openModal, closeModal, goBackModal, closeAllModals } from './utils.js';
+import { openModal, closeModal, goBackModal, closeAllModals, sanitizeHTML } from './utils.js';
 import { callGeminiWithParts } from './Gemini.js';
 import { populateFlightDetails, populateHotelDetails, renderPackingGuide, renderActivities, populateFamilyDetails, populateNearbyLocations, renderPhotoAlbum, renderBulletinBoard, renderFamilyMemories, renderInteractivePackingList, renderPackingPhotosGallery } from './ui.js';
 import { VERSION } from './version.js';
@@ -668,7 +668,7 @@ async function handleAiRequest(type, event) {
         }
         
         titleEl.textContent = modalTitle;
-        contentEl.innerHTML = `<div class="prose text-gray-700">${response}</div>`;
+        contentEl.innerHTML = `<div class="prose text-gray-700">${sanitizeHTML(response)}</div>`;
         modal.classList.remove('hidden');
         
     } catch (error) {
@@ -741,7 +741,8 @@ function handlePhotoUpload() {
             const photoData = {
                 url: url,
                 caption: `תמונה ${index + 1}`,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                objectURL: url // Store reference for cleanup
             };
             
             // Update local state for immediate UI feedback
@@ -882,6 +883,20 @@ function handleDeleteAction(target) {
         if (currentData.interactivePacking) {
             currentData.interactivePacking.splice(itemIndex, 1);
             renderInteractivePackingList();
+        }
+    }
+    
+    // Delete photo with proper cleanup
+    if (target.classList.contains('delete-photo')) {
+        const photoIndex = parseInt(target.dataset.photoIndex);
+        if (currentData.photoAlbum && currentData.photoAlbum[photoIndex]) {
+            const photo = currentData.photoAlbum[photoIndex];
+            // Clean up object URL to prevent memory leak
+            if (photo.objectURL) {
+                URL.revokeObjectURL(photo.objectURL);
+            }
+            currentData.photoAlbum.splice(photoIndex, 1);
+            renderPhotoAlbum();
         }
     }
 }
@@ -1062,7 +1077,7 @@ export function handleDailySpecialAI() {
         // Add user message to chat
         const userMessage = document.createElement('div');
         userMessage.className = 'message user-message';
-        userMessage.innerHTML = `<p>${prompt}</p>`;
+        userMessage.innerHTML = `<p>${sanitizeHTML(prompt)}</p>`;
         chatContainer.appendChild(userMessage);
         
         // Send to AI
@@ -1157,7 +1172,7 @@ export function handleChatSendWithPrompt(prompt) {
         // Call AI service
         callGeminiWithParts([{ text: prompt }])
             .then(response => {
-                modalContent.innerHTML = `<div class="prose prose-lg max-w-none rtl:text-right leading-relaxed">${response.replace(/\n/g, '<br>')}</div>`;
+                modalContent.innerHTML = `<div class="prose prose-lg max-w-none rtl:text-right leading-relaxed">${sanitizeHTML(response)}</div>`;
             })
             .catch(error => {
                 console.warn('AI request failed:', error);

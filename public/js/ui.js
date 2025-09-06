@@ -828,7 +828,8 @@ function handlePackingPhotoUpload(event) {
                 id: Date.now() + index,
                 url: url,
                 filename: file.name,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                objectURL: url // Store reference for cleanup
             };
             
             // Add to currentData
