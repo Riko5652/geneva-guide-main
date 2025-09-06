@@ -832,6 +832,12 @@ button.mobile-menu-item {
 
 /* Enhanced Content Containers for Mobile */
 @media (max-width: 768px) {
+    /* Better container spacing for mobile */
+    .container {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
     /* Main content sections with better backgrounds */
     section {
         margin-bottom: 2rem !important;
@@ -874,11 +880,8 @@ button.mobile-menu-item {
         margin-bottom: 0 !important;
     }
     
-    /* Better spacing for mobile */
-    .container {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-    }
+    /* Better spacing for mobile - only apply to mobile screens */
+    /* Moved to mobile-specific media query to avoid desktop conflicts */
     
     /* Mobile typography improvements */
     h1 {

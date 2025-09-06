@@ -1,9 +1,10 @@
 /* DESKTOP LAYOUT FIX - Targeted fixes for desktop display issues */
 /* This file addresses specific desktop layout problems without breaking mobile */
+/* CRITICAL: Only applies to screens 1024px+ to avoid mobile conflicts */
 
-/* 1. DESKTOP CONTAINER SYSTEM - Override conflicting container rules */
-@media (min-width: 769px) {
-    /* Ensure proper container behavior on desktop */
+/* 1. DESKTOP CONTAINER SYSTEM - Only for large screens to avoid mobile conflicts */
+@media (min-width: 1024px) {
+    /* Ensure proper container behavior on desktop only */
     .container {
         max-width: 1200px;
         margin-left: auto;
@@ -69,42 +70,6 @@
         max-width: min(90vw, 1000px);
         margin: 2rem auto;
     }
-    
-    /* Button spacing */
-    .btn,
-    button {
-        margin: 0.5rem 0.25rem;
-    }
-    
-    /* Text alignment for RTL */
-    .text-right {
-        text-align: right;
-    }
-    
-    .text-center {
-        text-align: center;
-    }
-    
-    /* Flex utilities */
-    .flex {
-        display: flex;
-    }
-    
-    .flex-col {
-        flex-direction: column;
-    }
-    
-    .items-center {
-        align-items: center;
-    }
-    
-    .justify-between {
-        justify-content: space-between;
-    }
-    
-    .justify-center {
-        justify-content: center;
-    }
 }
 
 /* 2. LARGE DESKTOP OPTIMIZATIONS */
@@ -129,8 +94,8 @@
     }
 }
 
-/* 3. CRITICAL FIXES - Only use !important for absolute necessities */
-@media (min-width: 769px) {
+/* 3. CRITICAL FIXES - Only for true desktop screens (1024px+) */
+@media (min-width: 1024px) {
     /* Ensure mobile menu is hidden on desktop */
     #mobile-menu,
     .mobile-menu-container,
