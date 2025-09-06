@@ -359,9 +359,15 @@ export function renderActivities() {
             if (button) {
                 button.textContent = `טען עוד פעילויות 🎈 (${filteredActivities.length - displayedActivities} נותרו)`;
                 button.disabled = false;
+                button.classList.remove('opacity-50', 'cursor-not-allowed');
             }
         } else {
             loadMoreContainer.classList.add('hidden');
+            const button = document.getElementById('load-more-btn');
+            if (button) {
+                button.disabled = true;
+                button.classList.add('opacity-50', 'cursor-not-allowed');
+            }
         }
     }
 }

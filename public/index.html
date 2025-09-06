@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="build-time" content="1757183010253">
+    <meta name="build-time" content="1757186201349">
     <meta name="description" content="המדריך האינטראקטיבי המלא לטיול משפחתי בז'נבה - פעילויות, מסלולים, מזג אוויר ועוד">
     <meta name="keywords" content="ז'נבה, שוויץ, טיול משפחתי, פעילויות לילדים, מדריך טיולים">
     <meta name="author" content="Dor Lipetz">
@@ -61,7 +61,7 @@
     <!-- Skip link for keyboard navigation -->
     <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
-    <header class="bg-white backdrop-blur-sm sticky top-0 z-50 shadow-lg border-b border-gray-200" style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);" role="banner">
+    <header class="bg-white backdrop-blur-sm sticky top-0 z-50 shadow-lg border-b border-gray-200 header-backdrop" role="banner">
         <nav class="container mx-auto px-6 py-3" role="navigation" aria-label="ניווט ראשי">
             <div class="flex justify-between items-center min-h-60px">
                 <a href="#" class="text-xl font-bold text-accent whitespace-nowrap" aria-label="דף הבית - ז'נבה עם קטנטנים" role="button">ז'נבה עם קטנטנים 🧸</a>
@@ -241,7 +241,7 @@
     <main id="main-content" class="container mx-auto px-6" role="main">
         <section class="text-center pt-16 pb-12" aria-labelledby="main-heading">
             <h1 id="main-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                <span style="background: linear-gradient(135deg, #0891b2, #14b8a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                <span class="gradient-text">
                     🇨🇭 המדריך האינטראקטיבי
                 </span>
                 <br>
@@ -390,17 +390,17 @@
                 </div>
                 
                 <!-- Welcome Content Container -->
-                <div id="welcome-content-container" class="welcome-content-container" style="display: none;">
+                <div id="welcome-content-container" class="welcome-content-container hidden">
                     <!-- Welcome content will be rendered here -->
                 </div>
                 
                 <!-- Itinerary Content Container -->
-                <div id="itinerary-content-container" class="itinerary-content-container" style="display: none;">
+                <div id="itinerary-content-container" class="itinerary-content-container hidden">
                     <!-- Itinerary content will be rendered here -->
                 </div>
                 
                 <!-- Summary Content Container -->
-                <div id="summary-content-container" class="summary-content-container" style="display: none;">
+                <div id="summary-content-container" class="summary-content-container hidden">
                     <!-- Summary content will be rendered here -->
                 </div>
             </div>
@@ -495,7 +495,7 @@
                         
                         <div id="photo-upload-progress" class="hidden mt-4">
                             <div class="w-full bg-gray-200 rounded-full h-2">
-                                <div id="photo-progress-bar" class="bg-purple-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                                <div id="photo-progress-bar" class="bg-purple-600 h-2 rounded-full transition-all duration-300 progress-bar"></div>
                             </div>
                             <p class="text-center text-xs text-gray-600 mt-1">מעלה תמונות...</p>
                         </div>
@@ -586,8 +586,7 @@
                         <span id="progress-percentage" class="text-sm font-bold text-teal-600">0%</span>
                     </div>
                     <div class="w-full bg-gray-200 rounded-full h-3 shadow-inner overflow-hidden">
-                        <div id="packingProgressBar" class="bg-gradient-to-r from-teal-500 to-cyan-500 h-3 rounded-full progress-bar-fill transition-all duration-500 ease-out shadow-sm"
-                            style="width: 0%">
+                        <div id="packingProgressBar" class="bg-gradient-to-r from-teal-500 to-cyan-500 h-3 rounded-full progress-bar-fill transition-all duration-500 ease-out shadow-sm packing-progress-bar">
                             <div class="h-full bg-white/30 rounded-full animate-pulse"></div>
                         </div>
                     </div>
@@ -850,8 +849,16 @@
         </div>
     </div>
 
+    <!-- Loading Screen -->
+    <div id="family-loader" class="fixed inset-0 bg-gradient-to-br from-blue-50 to-cyan-100 flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="loader mb-4"></div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">טוען את המדריך...</h2>
+            <p class="text-gray-600">מכין את כל הפעילויות והמידע עבורך</p>
+        </div>
+    </div>
+
     <!-- Main App Script -->
-    <!-- Family loader handles loading screen -->
 
 
     <!-- Scripts -->

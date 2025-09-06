@@ -484,6 +484,25 @@ body {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,0.2) transparent;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2);
+    border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,0,0,0.3);
 }
 
 /* --- 6. Form System --- */
@@ -1839,6 +1858,27 @@ a:focus-visible {
         width: 100%;
         justify-content: center;
     }
+}
+
+/* ===== FIXED HARDCODED STYLES ===== */
+.header-backdrop {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #0891b2, #14b8a6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.progress-bar {
+    width: 0%;
+}
+
+.packing-progress-bar {
+    width: 0%;
 }
 
 /* TABLET RESPONSIVE DESIGN - Smooth transition between mobile and desktop */
