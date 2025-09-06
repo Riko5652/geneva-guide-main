@@ -35,9 +35,7 @@ export function v(path) {
 // CSS versioning system - automatically updates CSS files with cache busting
 export function initCSSVersioning() {
         const cssFiles = [
-            { id: 'css-style', href: '/CSS/style.css' },
-            { id: 'css-device-responsive', href: '/CSS/device-responsive.css' },
-            { id: 'css-flow-enhancements', href: '/CSS/flow-enhancements.css' }
+            { id: 'css-consolidated', href: '/CSS/consolidated.css' }
         ];
     
     // Update CSS files in order to maintain proper cascade
