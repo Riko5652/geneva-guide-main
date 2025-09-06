@@ -40,10 +40,19 @@ export function initCSSVersioning() {
         { id: 'css-cascade', href: '/CSS/css-cascade-fix.css' }
     ];
     
-    cssFiles.forEach(({ id, href }) => {
+    // Update CSS files in order to maintain proper cascade
+    cssFiles.forEach(({ id, href }, index) => {
         const link = document.getElementById(id);
         if (link) {
-            link.href = `${href}?v=${VERSION}`;
+            const newHref = `${href}?v=${VERSION}`;
+            if (link.href !== newHref) {
+                link.href = newHref;
+                console.log(`🎨 Updated CSS ${index + 1}/${cssFiles.length}: ${id}`);
+            }
+        } else {
+            console.warn(`⚠️ CSS link not found: ${id}`);
         }
     });
+    
+    console.log('✅ CSS versioning completed');
 }

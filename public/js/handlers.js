@@ -9,7 +9,10 @@ import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/fireba
 // This is the single entry point for activating all interactive elements on the page.
 export function setupEventListeners() {
     // A single master listener is more efficient than attaching many individual ones.
-    if (document.body.dataset.listenersAttached) return;
+    if (document.body.dataset.listenersAttached) {
+        console.log('⚠️ Event listeners already attached, skipping...');
+        return;
+    }
     
     // Remove any existing listeners first to prevent duplicates
     document.body.removeEventListener('click', handleDelegatedClicks);
@@ -20,6 +23,8 @@ export function setupEventListeners() {
     document.body.addEventListener('click', handleDelegatedClicks);
     document.body.addEventListener('change', handleDelegatedChanges);
     document.body.addEventListener('keydown', handleDelegatedKeydowns);
+    
+    console.log('✅ Event listeners attached successfully');
     
     // Setup mobile menu functionality
     setupMobileMenu();
@@ -213,9 +218,7 @@ function handleDelegatedClicks(e) {
             resultContainer.querySelector('.result-content').innerHTML = '';
         }
     }
-    if(target.id === 'menu-btn') {
-        document.getElementById('mobile-menu').classList.toggle('mobile-menu-hidden');
-    }
+    // Mobile menu is now handled by setupMobileMenu() - no need for duplicate logic
     if(target.id === 'image-upload-btn') {
         document.getElementById('image-upload-input').click();
     }

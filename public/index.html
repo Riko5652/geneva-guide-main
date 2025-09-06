@@ -814,6 +814,13 @@
 
     <!-- Scripts -->
      <script type="module">
+         // Prevent multiple initializations
+         if (window.__APP_INITIALIZING__) {
+             console.log('⚠️ App initialization already in progress, skipping...');
+             return;
+         }
+         window.__APP_INITIALIZING__ = true;
+         
          try {
              // Automated cache busting - no more manual version updates!
              console.log('🔄 Loading version system...');
@@ -830,41 +837,22 @@
              const module = await import(`./js/Main.js?v=${VERSION}`);
              console.log('✅ Main.js loaded, available exports:', Object.keys(module));
              
-             // Call the initialization function from Main.js
-             if (module.initApp) {
-                 console.log('🎯 Calling initApp...');
-                 await module.initApp();
-                 console.log('✅ Application initialized successfully');
-             } else {
-                 console.error('❌ initApp function not found in Main.js, available:', Object.keys(module));
-             }
+             // Main.js now handles its own initialization automatically
+             // We just need to ensure it's loaded
+             console.log('✅ Application module loaded successfully');
              
-             // Force render after a short delay only if needed
-             setTimeout(() => {
-                 console.log('🔄 Checking if force render is needed...');
-                 const loader = document.getElementById('family-loader');
-                 if (loader && window.renderAllComponents) {
-                     console.log('⚠️ Loader still visible, force rendering...');
-                     window.renderAllComponents();
-                     // Force hide loader if still showing
-                     if (window.familyLoader) {
-                         window.familyLoader.hide();
-                     }
-                 } else {
-                     console.log('✅ No force render needed');
-                 }
-             }, 3000);
+             // Cleanup flag
+             window.__APP_INITIALIZING__ = false;
              
          } catch (error) {
              console.error('❌ Critical initialization error:', error);
+             window.__APP_INITIALIZING__ = false;
+             
              // Fallback: try to load without versioning
              try {
                  console.log('🔄 Attempting fallback initialization...');
                  const module = await import('./js/Main.js');
-                 if (module.initApp) {
-                     await module.initApp();
-                     console.log('✅ Fallback initialization successful');
-                 }
+                 console.log('✅ Fallback module loaded');
              } catch (fallbackError) {
                  console.error('❌ Fallback also failed:', fallbackError);
                  // Show basic content instead of error
