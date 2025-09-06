@@ -157,28 +157,48 @@ function setupBasicApp() {
 }
 
 function setupFirebaseListeners() {
+    // Prevent multiple listeners from being created
+    if (window.firebaseListenerActive) {
+        console.log('🔄 Firebase listener already active, skipping setup');
+        return;
+    }
+    
     const publicDataRef = doc(db, `artifacts/${appId}/public/genevaGuide`);
     
-    // Enhanced Firebase listener with connection resilience
+    // Mark listener as active
+    window.firebaseListenerActive = true;
+    
+    // Enhanced Firebase listener with connection resilience and abort prevention
     const unsubscribe = onSnapshot(publicDataRef, 
+        {
+            // Add options to prevent connection aborts
+            includeMetadataChanges: false, // Reduce unnecessary updates
+        },
         // Success callback
         (snapshot) => {
-            if (snapshot.exists()) {
-                currentData = { ...currentData, ...snapshot.data() };
-                console.log("✅ Firebase data updated:", Object.keys(currentData));
-                renderAllComponents();
-                
-                // Hide loading screen on first successful data load
-                console.log("🎯 Hiding loading screen after Firebase data load");
-                familyLoader.hide();
-                
-                // Reset retry counter on successful connection
-                if (window.firebaseRetryCount) {
-                    window.firebaseRetryCount = 0;
-                    console.log("🔄 Firebase connection restored");
+            try {
+                if (snapshot.exists()) {
+                    currentData = { ...currentData, ...snapshot.data() };
+                    console.log("✅ Firebase data updated:", Object.keys(currentData));
+                    renderAllComponents();
+                    
+                    // Hide loading screen on first successful data load
+                    console.log("🎯 Hiding loading screen after Firebase data load");
+                    familyLoader.hide();
+                    
+                    // Reset retry counter and reconnection flag on successful connection
+                    if (window.firebaseRetryCount) {
+                        window.firebaseRetryCount = 0;
+                        window.firebaseReconnecting = false;
+                        console.log("🔄 Firebase connection restored");
+                        familyToast.success('חיבור לשרת הוחזר! ✅');
+                    }
+                } else {
+                    console.log("⚠️ No Firebase data found, using defaults");
+                    setupBasicApp();
                 }
-            } else {
-                console.log("⚠️ No Firebase data found, using defaults");
+            } catch (callbackError) {
+                console.error("🔥 Error in Firebase success callback:", callbackError);
                 setupBasicApp();
             }
         }, 
@@ -186,74 +206,134 @@ function setupFirebaseListeners() {
         (error) => {
             console.warn("🔥 Firebase listener error:", error.code, error.message);
             
-            // Handle specific error types
+            // Mark listener as inactive on error
+            window.firebaseListenerActive = false;
+            
+            // Handle specific error types with better logic
             switch (error.code) {
                 case 'unavailable':
                 case 'deadline-exceeded':
                 case 'resource-exhausted':
-                    console.log("🔄 Network issue detected, will retry connection...");
-                    handleFirebaseReconnection(unsubscribe);
+                case 'cancelled':
+                    console.log("🔄 Network/resource issue detected, will retry connection...");
+                    // Don't immediately retry on these errors - let the reconnection handler manage it
+                    setTimeout(() => handleFirebaseReconnection(unsubscribe), 1000);
                     break;
                     
                 case 'permission-denied':
                     console.error("🚫 Firebase permission denied");
                     familyToast.error('בעיית הרשאות - נסה להתחבר מחדש');
+                    window.firebaseListenerActive = false;
+                    setupBasicApp();
+                    break;
+                    
+                case 'failed-precondition':
+                case 'invalid-argument':
+                    console.error("🚫 Firebase configuration error:", error.message);
+                    familyToast.error('בעיית תצורה - נסה לרענן את הדף');
+                    window.firebaseListenerActive = false;
+                    setupBasicApp();
                     break;
                     
                 default:
                     console.log("🔄 Unknown Firebase error, attempting recovery...");
-                    handleFirebaseReconnection(unsubscribe);
+                    setTimeout(() => handleFirebaseReconnection(unsubscribe), 2000);
             }
             
-            // Continue with basic app functionality
+            // Always ensure basic app functionality continues
             setupBasicApp();
         }
     );
     
     // Store unsubscribe function for cleanup
     window.firebaseUnsubscribe = unsubscribe;
+    
+    // Add cleanup on page unload to prevent connection aborts
+    window.addEventListener('beforeunload', () => {
+        if (unsubscribe && typeof unsubscribe === 'function') {
+            try {
+                unsubscribe();
+                window.firebaseListenerActive = false;
+                console.log('✅ Firebase listener cleaned up on page unload');
+            } catch (cleanupError) {
+                console.warn('⚠️ Error cleaning up Firebase on unload:', cleanupError);
+            }
+        }
+    });
 }
 
-// Enhanced Firebase reconnection handler
+// Enhanced Firebase reconnection handler with connection abort prevention
 function handleFirebaseReconnection(currentUnsubscribe) {
+    // Prevent multiple concurrent reconnection attempts
+    if (window.firebaseReconnecting) {
+        console.log('🔄 Firebase reconnection already in progress, skipping...');
+        return;
+    }
+    
+    window.firebaseReconnecting = true;
+    
     // Initialize retry counter
     if (!window.firebaseRetryCount) {
         window.firebaseRetryCount = 0;
     }
     
     window.firebaseRetryCount++;
-    const maxRetries = 5;
-    const baseDelay = 2000; // 2 seconds
-    const delay = Math.min(baseDelay * Math.pow(2, window.firebaseRetryCount - 1), 30000); // Max 30 seconds
+    const maxRetries = 3; // Reduced from 5 to prevent connection abuse
+    const baseDelay = 3000; // Increased to 3 seconds
+    const delay = Math.min(baseDelay * Math.pow(1.5, window.firebaseRetryCount - 1), 15000); // Max 15 seconds
     
     if (window.firebaseRetryCount <= maxRetries) {
         console.log(`🔄 Attempting Firebase reconnection ${window.firebaseRetryCount}/${maxRetries} in ${delay/1000}s...`);
         
-        // Clean up current listener
-        if (currentUnsubscribe) {
-            currentUnsubscribe();
+        // Clean up current listener gracefully
+        if (currentUnsubscribe && typeof currentUnsubscribe === 'function') {
+            try {
+                currentUnsubscribe();
+                console.log('✅ Previous Firebase listener cleaned up');
+            } catch (cleanupError) {
+                console.warn('⚠️ Error cleaning up Firebase listener:', cleanupError);
+            }
         }
         
-        // Show user-friendly message
+        // Show user-friendly message only once
         if (window.firebaseRetryCount === 1) {
             familyToast.info('מתחבר מחדש לשרת... 🔄');
         }
         
-        // Retry connection after delay
-        setTimeout(() => {
+        // Retry connection after delay with abort protection
+        const reconnectTimeout = setTimeout(() => {
             try {
+                // Check if we're still online before attempting reconnection
+                if (!navigator.onLine) {
+                    console.log('📴 Device is offline, skipping Firebase reconnection');
+                    window.firebaseReconnecting = false;
+                    return;
+                }
+                
+                console.log('🔄 Attempting Firebase reconnection...');
                 setupFirebaseListeners();
+                window.firebaseReconnecting = false;
+                
             } catch (retryError) {
                 console.error("🔥 Firebase retry failed:", retryError);
+                window.firebaseReconnecting = false;
+                
                 if (window.firebaseRetryCount >= maxRetries) {
                     familyToast.warning('עובדים במצב לא מקוון');
+                    setupBasicApp(); // Fallback to basic functionality
                 }
             }
         }, delay);
+        
+        // Store timeout ID for potential cleanup
+        window.firebaseReconnectTimeout = reconnectTimeout;
+        
     } else {
-        console.warn("🔥 Max Firebase retry attempts reached, continuing offline");
+        console.warn("🔥 Max Firebase retry attempts reached, switching to offline mode");
         familyToast.warning('עובדים במצב לא מקוון');
         window.firebaseRetryCount = 0; // Reset for future attempts
+        window.firebaseReconnecting = false;
+        setupBasicApp(); // Ensure app continues to work
     }
 }
 
@@ -279,19 +359,63 @@ function monitorFirebaseConnection() {
         }
     });
     
-    // Handle online/offline events
+    // Handle online/offline events with improved Firebase management
     window.addEventListener('online', () => {
         console.log('🌐 Network connection restored');
         familyToast.success('חיבור לאינטרנט חזר! 🌐');
-        if (window.firebaseRetryCount > 0) {
-            window.firebaseRetryCount = 0;
-            setTimeout(() => setupFirebaseListeners(), 1000);
+        
+        // Clean up any existing reconnection attempts
+        if (window.firebaseReconnectTimeout) {
+            clearTimeout(window.firebaseReconnectTimeout);
+            window.firebaseReconnectTimeout = null;
         }
+        
+        // Reset Firebase connection state
+        window.firebaseRetryCount = 0;
+        window.firebaseReconnecting = false;
+        window.firebaseListenerActive = false;
+        
+        // Clean up existing listener before creating new one
+        if (window.firebaseUnsubscribe && typeof window.firebaseUnsubscribe === 'function') {
+            try {
+                window.firebaseUnsubscribe();
+                console.log('✅ Cleaned up Firebase listener before reconnection');
+            } catch (cleanupError) {
+                console.warn('⚠️ Error cleaning up Firebase listener:', cleanupError);
+            }
+        }
+        
+        // Attempt fresh connection after network restoration
+        setTimeout(() => {
+            if (db && auth) {
+                console.log('🔄 Attempting fresh Firebase connection after network restoration');
+                setupFirebaseListeners();
+            }
+        }, 2000); // Give network time to stabilize
     });
     
     window.addEventListener('offline', () => {
         console.log('📴 Network connection lost');
         familyToast.warning('אין חיבור לאינטרנט');
+        
+        // Clean up Firebase connections when going offline
+        if (window.firebaseUnsubscribe && typeof window.firebaseUnsubscribe === 'function') {
+            try {
+                window.firebaseUnsubscribe();
+                window.firebaseListenerActive = false;
+                console.log('✅ Firebase listener cleaned up due to offline status');
+            } catch (cleanupError) {
+                console.warn('⚠️ Error cleaning up Firebase when offline:', cleanupError);
+            }
+        }
+        
+        // Clear any pending reconnection attempts
+        if (window.firebaseReconnectTimeout) {
+            clearTimeout(window.firebaseReconnectTimeout);
+            window.firebaseReconnectTimeout = null;
+        }
+        
+        window.firebaseReconnecting = false;
     });
 }
 
