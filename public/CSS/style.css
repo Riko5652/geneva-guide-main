@@ -849,7 +849,30 @@ section {
 /* More text utilities */
 .text-4xl { font-size: var(--text-4xl); }
 .text-5xl { font-size: var(--text-5xl); }
-.text-6xl { font-size: var(--text-6xl); }
+.text-6xl { font-size: 3.75rem; }
+
+/* Additional spacing utilities */
+.space-x-1 > * + * { margin-left: 0.25rem; }
+.space-x-2 > * + * { margin-left: 0.5rem; }
+.space-x-3 > * + * { margin-left: 0.75rem; }
+.space-x-4 > * + * { margin-left: 1rem; }
+.space-x-6 > * + * { margin-left: 1.5rem; }
+
+/* Additional width utilities */
+.w-1\/2 { width: 50%; }
+.w-1\/3 { width: 33.333333%; }
+.w-2\/3 { width: 66.666667%; }
+.w-1\/4 { width: 25%; }
+.w-3\/4 { width: 75%; }
+.w-auto { width: auto; }
+
+/* Additional height utilities */
+.h-1\/2 { height: 50%; }
+.h-1\/3 { height: 33.333333%; }
+.h-2\/3 { height: 66.666667%; }
+.h-1\/4 { height: 25%; }
+.h-3\/4 { height: 75%; }
+.h-auto { height: auto; }
 
 /* Backdrop opacity */
 .bg-opacity-70 { background-color: rgba(0, 0, 0, 0.7); }
@@ -1327,9 +1350,10 @@ a:focus-visible {
     
     /* Enhanced touch targets for mobile */
     button, .btn, input[type="button"], input[type="submit"] {
-        min-height: 48px;
-        min-width: 48px;
+        min-height: 44px;
+        min-width: 44px;
         touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
     }
     
     /* Better modal experience on mobile */
@@ -1595,53 +1619,26 @@ a:focus-visible {
 .status-processing { background: var(--text-warning); animation: spin 1s linear infinite; }
 .status-error { background: var(--text-error); }
 
-/* CRITICAL: Mobile Navigation Fixes - Maximum Specificity to Override Tailwind */
+/* ENHANCED: Mobile Navigation - Clean and Simple */
 @media screen and (max-width: 1023px) {
-    /* FORCE HIDE desktop navigation on mobile with nuclear-level specificity */
-    .desktop-nav,
-    .desktop-nav.hidden,
-    .desktop-nav.lg\:flex,
-    .desktop-nav.hidden.lg\:flex,
-    nav .desktop-nav,
-    header nav .desktop-nav,
-    header nav div.desktop-nav,
-    .desktop-nav * {
+    /* Hide desktop navigation cleanly */
+    .desktop-nav {
         display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
-        width: 0 !important;
-        height: 0 !important;
-        overflow: hidden !important;
-        position: absolute !important;
-        left: -9999px !important;
     }
     
-    /* FORCE SHOW hamburger menu on mobile */
-    #menu-btn,
-    .lg\:hidden#menu-btn,
-    nav #menu-btn,
-    header nav #menu-btn,
-    header nav .lg\:hidden {
+    /* Show hamburger menu */
+    #menu-btn {
         display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        position: static !important;
-        width: auto !important;
-        height: auto !important;
     }
     
-    /* Hide desktop nav links specifically */
+    /* Hide desktop nav links */
     nav a[href="#daily-special"],
     nav a[href="#plan"], 
     nav a[href="#activities"],
     nav button[id*="modal-btn-nav"],
     nav .nav-nearby-btn,
-    nav .nav-gemini-btn,
-    header nav a,
-    header nav button:not(#menu-btn) {
+    nav .nav-gemini-btn {
         display: none !important;
-        visibility: hidden !important;
     }
     
     #mobile-menu {
@@ -1653,6 +1650,11 @@ a:focus-visible {
         margin-top: 0.75rem;
         padding: 1rem;
         transition: all 0.3s ease-out;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        z-index: 50;
     }
     
     .mobile-menu-hidden {
@@ -1685,6 +1687,8 @@ a:focus-visible {
         min-height: 44px;
         padding: 0.75rem 1.5rem;
         font-size: 0.9rem;
+        width: 100%;
+        justify-content: center;
     }
     
     /* Mobile card improvements */
@@ -1737,16 +1741,9 @@ a:focus-visible {
         height: 200px !important;
     }
     
-    /* SPECIFIC mobile grid overrides - targeting only problematic areas */
-    #activities-grid.grid,
-    #family-sharing .grid,
-    .grid.mobile-single-col {
-        grid-template-columns: 1fr !important;
-    }
-    
-    /* Mobile-specific responsive overrides - preserve md/lg breakpoints */
-    .grid-cols-2.mobile-override,
-    .grid-cols-3.mobile-override {
+    /* Clean mobile grid overrides */
+    #activities-grid,
+    #family-sharing .grid {
         grid-template-columns: 1fr !important;
     }
     
@@ -1759,11 +1756,7 @@ a:focus-visible {
         font-size: 1rem !important;
     }
     
-    /* Mobile navigation specific */
-    nav .hidden.lg\:flex {
-        display: none !important;
-    }
-    
+    /* Mobile navigation cleanup */
     nav .lg\:hidden {
         display: block !important;
     }
@@ -1780,10 +1773,15 @@ a:focus-visible {
     }
     
     /* Mobile modal improvements */
+    .modal {
+        padding: 0.5rem;
+    }
+    
     .modal > div {
-        margin: 1rem;
-        max-height: calc(100vh - 2rem);
+        margin: 0;
+        max-height: calc(100vh - 1rem);
         border-radius: 1rem;
+        width: 100%;
     }
     
     /* Mobile form improvements */
@@ -1872,28 +1870,14 @@ a:focus-visible {
 }
 
 @media screen and (min-width: 1024px) {
-    /* FORCE SHOW desktop navigation on desktop */
-    .desktop-nav,
-    .desktop-nav.hidden,
-    .desktop-nav.lg\:flex,
-    .desktop-nav.hidden.lg\:flex,
-    nav .desktop-nav,
-    header nav .desktop-nav {
+    /* Show desktop navigation cleanly */
+    .desktop-nav {
         display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        position: static !important;
-        width: auto !important;
-        height: auto !important;
     }
     
-    /* FORCE HIDE hamburger menu on desktop */
-    #menu-btn,
-    .lg\:hidden#menu-btn,
-    nav #menu-btn,
-    header nav #menu-btn {
+    /* Hide hamburger menu on desktop */
+    #menu-btn {
         display: none !important;
-        visibility: hidden !important;
     }
     
     /* DESKTOP GRID LAYOUTS - Restore proper multi-column layouts */
@@ -1995,10 +1979,11 @@ a:focus-visible {
     
     /* Desktop button improvements */
     .btn-primary {
-        min-height: 48px;
-        padding: 0.875rem 2rem;
-        font-size: 1rem;
+        min-height: 44px;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
         transition: all 0.2s ease-in-out;
+        width: auto;
     }
     
     .btn-primary:hover {
