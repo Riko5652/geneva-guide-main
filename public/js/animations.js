@@ -45,15 +45,17 @@ export class FamilyAnimations {
         let vx = Math.cos(angle) * velocity;
         let vy = Math.sin(angle) * velocity - 5;
         let opacity = 1;
+        let currentX = x; // Fix: Initialize current position variables
+        let currentY = y; // Fix: Initialize current position variables
         
         const animate = () => {
             vy += gravity;
-            x += vx;
-            y += vy;
+            currentX += vx; // Fix: Use currentX instead of undefined x
+            currentY += vy; // Fix: Use currentY instead of undefined y
             opacity -= 0.02;
             
-            confetti.style.left = x + 'px';
-            confetti.style.top = y + 'px';
+            confetti.style.left = currentX + 'px';
+            confetti.style.top = currentY + 'px';
             confetti.style.opacity = opacity;
             confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
             

@@ -303,10 +303,34 @@ function cleanupFirebaseConnections() {
     }
 }
 
+// Cleanup function for object URLs to prevent memory leaks
+function cleanupObjectURLs() {
+    // Clean up photo album object URLs
+    if (currentData.photoAlbum && Array.isArray(currentData.photoAlbum)) {
+        currentData.photoAlbum.forEach(photo => {
+            if (photo.objectURL) {
+                URL.revokeObjectURL(photo.objectURL);
+            }
+        });
+    }
+    
+    // Clean up packing photos object URLs
+    if (currentData.packingPhotos && currentData.packingPhotos.photos && Array.isArray(currentData.packingPhotos.photos)) {
+        currentData.packingPhotos.photos.forEach(photo => {
+            if (photo.objectURL) {
+                URL.revokeObjectURL(photo.objectURL);
+            }
+        });
+    }
+    
+    console.log('🧹 Object URLs cleaned up');
+}
+
 // Initialize connection monitoring and expose global functions
 if (typeof window !== 'undefined') {
     monitorFirebaseConnection();
     window.addEventListener('beforeunload', cleanupFirebaseConnections);
+    window.addEventListener('beforeunload', cleanupObjectURLs);
     
     // Expose renderAllComponents and familyLoader globally for debugging and force refresh
     import('./ui.js').then(uiModule => {
