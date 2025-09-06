@@ -2,6 +2,7 @@ import { currentData, currentCategoryFilter, currentTimeFilter, newlyAddedItems,
 import { fetchAndRenderWeather } from './services.js';
 import { getFormattedOpeningHours, getStatusClass } from './utils.js';
 import { initMap } from './Map.js';
+import { showFlowLoading, hideFlowLoading, showFlowProgress, showFlowFeedback, showFlowSuccess, handleFlowError } from './flow-enhancements.js';
 
 export function renderAllComponents() {
     console.log('🎨 renderAllComponents called, currentData:', !!currentData);
@@ -9,8 +10,8 @@ export function renderAllComponents() {
     try {
         // Always render basic components, even without Firebase data
         console.log('🔧 Rendering basic components...');
-        renderMobileMenu();
-        renderQuickStatus();
+    renderMobileMenu();
+    renderQuickStatus();
         fetchAndRenderWeather();
         renderDailySpecial();
         
@@ -18,15 +19,15 @@ export function renderAllComponents() {
         if (currentData) {
             console.log('✅ Rendering Firebase-dependent components');
             renderBookingInfo();
-            renderPhotoAlbum();
-            renderBulletinBoard();
-            renderFamilyMemories();
-            renderInteractivePackingList();
-            renderPackingPhotosGallery();
-            renderItinerary();
-            renderActivities();
-            initMap();
-            clearNewlyAddedItems();
+    renderPhotoAlbum();
+    renderBulletinBoard();
+    renderFamilyMemories();
+    renderInteractivePackingList();
+    renderPackingPhotosGallery();
+    renderItinerary();
+    renderActivities();
+    initMap();
+    clearNewlyAddedItems();
         } else {
             console.log('⚠️ No currentData available, rendering fallback content');
             renderFallbackContent();
@@ -466,7 +467,7 @@ export function renderPackingGuide() {
                         <p class="text-gray-700 mb-6 text-lg leading-relaxed">רשימה מקיפה של כל הפריטים הדרושים לטיול משפחתי בז'נבה עם פעוטות. סמנו כל פריט שארזתם כדי לעקוב אחר ההתקדמות.</p>
                     </div>
                     <div class="packing-categories-grid">
-                        ${Object.entries(packingData).map(([category, items]) => `
+                    ${Object.entries(packingData).map(([category, items]) => `
                             <div class="category-card">
                                 <div class="category-header">
                                     <h3 class="category-title">${category}</h3>
@@ -476,11 +477,11 @@ export function renderPackingGuide() {
                                 </div>
                                 <div class="category-content">
                                     <ul class="packing-items-list">
-                                        ${Array.isArray(items) ? items.map((item, index) => `
+                                    ${Array.isArray(items) ? items.map((item, index) => `
                                             <li class="packing-item-row">
                                                 <label class="packing-item-label">
                                                     <input type="checkbox" class="packing-checkbox" 
-                                                           data-category="${category}" data-index="${index}" 
+                                                   data-category="${category}" data-index="${index}" 
                                                            ${item.checked ? 'checked' : ''}>
                                                     <span class="checkbox-custom"></span>
                                                     <span class="item-text">${item.name}</span>
@@ -488,10 +489,10 @@ export function renderPackingGuide() {
                                                 </label>
                                             </li>
                                         `).join('') : '<li class="no-items">אין פריטים זמינים</li>'}
-                                    </ul>
-                                </div>
+                                </ul>
                             </div>
-                        `).join('')}
+                        </div>
+                    `).join('')}
                     </div>
                 </div>
             </section>
@@ -818,75 +819,128 @@ async function handlePackingPhotoUpload(event) {
     const files = Array.from(event.target.files);
     if (!files.length) return;
     
+    // Enhanced user feedback
+    const loaderId = showFlowLoading('photo-upload', `מעלה ${files.length} תמונות...`);
+    
+    try {
     const progressContainer = document.getElementById('packing-photo-upload-progress');
     const progressBar = document.getElementById('packing-photo-progress-bar');
     
     if (progressContainer) progressContainer.classList.remove('hidden');
     
-    // Import Firebase functions dynamically
-    const { ref, uploadBytes, getDownloadURL } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js");
-    const { doc, updateDoc, arrayUnion } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
-    
-    for (let index = 0; index < files.length; index++) {
-        const file = files[index];
-        try {
+        // Import Firebase functions dynamically
+        const { ref, uploadBytes, getDownloadURL } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js");
+        const { doc, updateDoc, arrayUnion } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+        
+        let successCount = 0;
+        let errorCount = 0;
+        
+        for (let index = 0; index < files.length; index++) {
+            const file = files[index];
+            try {
+                // Enhanced progress feedback
+                showFlowProgress('photo-upload', index + 1, files.length, `מעלה תמונה ${index + 1} מתוך ${files.length}`);
+                
             const progress = ((index + 1) / files.length) * 100;
             if (progressBar) progressBar.style.width = `${progress}%`;
             
-            // Upload to Firebase Storage
-            const timestamp = Date.now();
-            const storageRef = ref(storage, `packing-photos/${userId}/${timestamp}-${file.name}`);
-            await uploadBytes(storageRef, file);
-            const url = await getDownloadURL(storageRef);
-            
+                // Validate file size (max 10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    throw new Error(`הקובץ ${file.name} גדול מדי (מקסימום 10MB)`);
+                }
+                
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    throw new Error(`הקובץ ${file.name} אינו תמונה תקינה`);
+                }
+                
+                // Upload to Firebase Storage
+                const timestamp = Date.now();
+                const storageRef = ref(storage, `packing-photos/${userId}/${timestamp}-${file.name}`);
+                await uploadBytes(storageRef, file);
+                const url = await getDownloadURL(storageRef);
+                
             const photoData = {
-                id: timestamp + index,
+                    id: timestamp + index,
                 url: url,
                 filename: file.name,
-                timestamp: timestamp,
-                uploadedBy: userId
+                    timestamp: timestamp,
+                    uploadedBy: userId,
+                    size: file.size,
+                    type: file.type
             };
             
-            // Add to currentData for immediate UI update
+                // Add to currentData for immediate UI update
             if (!currentData.packingPhotos) currentData.packingPhotos = { photos: [] };
             currentData.packingPhotos.photos.push(photoData);
             
-            // Save to Firebase for persistence
-            const publicDataRef = doc(db, `artifacts/${appId}/public/genevaGuide`);
-            await updateDoc(publicDataRef, { 
-                packingPhotos: arrayUnion(photoData)
-            });
-            
-            // Re-render gallery
-            renderPackingPhotosGallery();
+                // Save to Firebase for persistence
+                const publicDataRef = doc(db, `artifacts/${appId}/public/genevaGuide`);
+                await updateDoc(publicDataRef, { 
+                    packingPhotos: arrayUnion(photoData)
+                });
+                
+                successCount++;
             
         } catch (error) {
             console.warn('Packing photo upload failed:', error);
-            // Fallback to local URL if Firebase fails
+                errorCount++;
+                
+                // Show individual file error
+                showFlowFeedback('warning', `שגיאה בהעלאת ${file.name}: ${error.message}`, {
+                    duration: 5000
+                });
+                
+                // Fallback to local URL if Firebase fails
             const url = URL.createObjectURL(file);
             const photoData = {
                 id: Date.now() + index,
                 url: url,
                 filename: file.name,
-                timestamp: Date.now(),
-                objectURL: url,
-                isLocal: true // Mark as local fallback
-            };
-            
+                    timestamp: Date.now(),
+                    uploadedBy: userId,
+                    size: file.size,
+                    type: file.type,
+                    isLocal: true // Mark as local fallback
+                };
+                
+                // Add to currentData for immediate UI update
             if (!currentData.packingPhotos) currentData.packingPhotos = { photos: [] };
             currentData.packingPhotos.photos.push(photoData);
-            renderPackingPhotosGallery();
+            }
         }
-    }
     
     // Hide progress bar
-    setTimeout(() => {
         if (progressContainer) progressContainer.classList.add('hidden');
         if (progressBar) progressBar.style.width = '0%';
-    }, 1000);
     
-    // Clear input
+        // Clear file input
     event.target.value = '';
+            
+            // Re-render gallery
+            renderPackingPhotosGallery();
+            
+        // Show final feedback
+        hideFlowLoading(loaderId);
+        
+        if (successCount > 0 && errorCount === 0) {
+            showFlowSuccess(`הועלו בהצלחה ${successCount} תמונות!`);
+        } else if (successCount > 0 && errorCount > 0) {
+            showFlowFeedback('warning', `הועלו ${successCount} תמונות, ${errorCount} נכשלו`, {
+                duration: 6000
+            });
+        } else {
+            handleFlowError(new Error('כל ההעלאות נכשלו'), 'photo-upload', {
+                files: files
+            });
+        }
+        
+    } catch (error) {
+        hideFlowLoading(loaderId);
+        handleFlowError(error, 'photo-upload', {
+            files: files
+        });
+    }
 }
 
 // Handle add packing item - moved to handlers.js to avoid duplication

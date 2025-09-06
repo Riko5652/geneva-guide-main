@@ -8,6 +8,45 @@ class ModalManager {
     }
     
     /**
+     * Show loading state for modal
+     */
+    showModalLoading(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+        
+        // Add loading class for visual feedback
+        modal.classList.add('modal-loading');
+        
+        // Show loading indicator if not already present
+        let loadingIndicator = modal.querySelector('.modal-loading-indicator');
+        if (!loadingIndicator) {
+            loadingIndicator = document.createElement('div');
+            loadingIndicator.className = 'modal-loading-indicator';
+            loadingIndicator.innerHTML = `
+                <div class="loading-spinner"></div>
+                <span>טוען...</span>
+            `;
+            modal.querySelector('.modal-content')?.prepend(loadingIndicator);
+        }
+        loadingIndicator.style.display = 'flex';
+    }
+    
+    /**
+     * Hide loading state for modal
+     */
+    hideModalLoading(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+        
+        modal.classList.remove('modal-loading');
+        
+        const loadingIndicator = modal.querySelector('.modal-loading-indicator');
+        if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+        }
+    }
+    
+    /**
      * Opens a modal dialog and optionally runs a callback to populate its content.
      * @param {string} modalId The ID of the modal element to open.
      * @param {function} [onOpenCallback] An optional function to run just before the modal is shown.
@@ -18,6 +57,9 @@ class ModalManager {
             console.warn(`Modal with ID '${modalId}' not found.`);
             return;
         }
+        
+        // Enhanced modal opening with better user feedback
+        this.showModalLoading(modalId);
         
         // Add to modal stack for back navigation
         this.modalStack.push({
@@ -34,7 +76,17 @@ class ModalManager {
         
         // Run the callback function to build the modal's content just-in-time.
         if (onOpenCallback) {
-            onOpenCallback();
+            try {
+                onOpenCallback();
+            } catch (error) {
+                console.error('Error in modal callback:', error);
+            } finally {
+                // Hide loading after callback completes
+                this.hideModalLoading(modalId);
+            }
+        } else {
+            // Hide loading immediately if no callback
+            this.hideModalLoading(modalId);
         }
         
         // Add back button if this is a nested modal

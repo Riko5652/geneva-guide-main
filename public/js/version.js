@@ -38,7 +38,8 @@ export function initCSSVersioning() {
         { id: 'css-style', href: '/CSS/style.css' },
         { id: 'css-cleanup', href: '/CSS/css-cleanup.css' },
         { id: 'css-device-responsive', href: '/CSS/device-responsive.css' },
-        { id: 'css-ui-perfection', href: '/CSS/ui-perfection.css' }
+        { id: 'css-ui-perfection', href: '/CSS/ui-perfection.css' },
+        { id: 'css-flow-enhancements', href: '/CSS/flow-enhancements.css' }
     ];
     
     // Update CSS files in order to maintain proper cascade
