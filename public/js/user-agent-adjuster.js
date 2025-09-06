@@ -88,14 +88,19 @@ class UserAgentAdjuster {
         
         // Add screen size classes
         body.classList.remove('screen-small', 'screen-medium', 'screen-large', 'screen-xlarge');
-        if (this.screenSize.width < 768) {
-            body.classList.add('screen-small');
-        } else if (this.screenSize.width < 1024) {
-            body.classList.add('screen-medium');
-        } else if (this.screenSize.width < 1440) {
-            body.classList.add('screen-large');
+        if (this.screenSize && this.screenSize.width) {
+            if (this.screenSize.width < 768) {
+                body.classList.add('screen-small');
+            } else if (this.screenSize.width < 1024) {
+                body.classList.add('screen-medium');
+            } else if (this.screenSize.width < 1440) {
+                body.classList.add('screen-large');
+            } else {
+                body.classList.add('screen-xlarge');
+            }
         } else {
-            body.classList.add('screen-xlarge');
+            // Fallback: add medium screen class if screenSize is not available
+            body.classList.add('screen-medium');
         }
     }
 

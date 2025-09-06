@@ -14,7 +14,7 @@ export class TemplateManager {
         this.initialized = false;
         this.currentConfig = null;
         this.eventListeners = new Map();
-        this.setupEventListeners();
+        // setupEventListeners will be called in initialize() method
     }
 
     /**
