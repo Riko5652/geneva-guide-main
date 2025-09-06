@@ -163,6 +163,17 @@ function setupFirebaseListeners() {
         return;
     }
     
+    // Clean up any existing listener first
+    if (window.firebaseUnsubscribe && typeof window.firebaseUnsubscribe === 'function') {
+        try {
+            window.firebaseUnsubscribe();
+            window.firebaseUnsubscribe = null;
+            console.log('🧹 Cleaned up existing Firebase listener');
+        } catch (error) {
+            console.warn('⚠️ Error cleaning up existing listener:', error);
+        }
+    }
+    
     const publicDataRef = doc(db, `artifacts/${appId}/public/genevaGuide`);
     
     // Mark listener as active
@@ -211,10 +222,14 @@ function setupFirebaseListeners() {
             
             // Handle specific error types with better logic
             switch (error.code) {
+                case 'cancelled':
+                    console.log("🔄 Firebase listener cancelled (likely during cleanup)");
+                    // Don't retry or show error for cancelled connections
+                    return;
+                    
                 case 'unavailable':
                 case 'deadline-exceeded':
                 case 'resource-exhausted':
-                case 'cancelled':
                     console.log("🔄 Network/resource issue detected, will retry connection...");
                     // Don't immediately retry on these errors - let the reconnection handler manage it
                     setTimeout(() => handleFirebaseReconnection(unsubscribe), 1000);
@@ -248,18 +263,8 @@ function setupFirebaseListeners() {
     // Store unsubscribe function for cleanup
     window.firebaseUnsubscribe = unsubscribe;
     
-    // Add cleanup on page unload to prevent connection aborts
-    window.addEventListener('beforeunload', () => {
-        if (unsubscribe && typeof unsubscribe === 'function') {
-            try {
-                unsubscribe();
-                window.firebaseListenerActive = false;
-                console.log('✅ Firebase listener cleaned up on page unload');
-            } catch (cleanupError) {
-                console.warn('⚠️ Error cleaning up Firebase on unload:', cleanupError);
-            }
-        }
-    });
+    // Note: Cleanup is handled by the main cleanupFirebaseConnections function
+    // to avoid duplicate event listeners
 }
 
 // Enhanced Firebase reconnection handler with connection abort prevention
@@ -421,9 +426,15 @@ function monitorFirebaseConnection() {
 
 // Cleanup function for page unload
 function cleanupFirebaseConnections() {
-    if (window.firebaseUnsubscribe) {
-        window.firebaseUnsubscribe();
-        console.log('🧹 Firebase listeners cleaned up');
+    if (window.firebaseUnsubscribe && typeof window.firebaseUnsubscribe === 'function') {
+        try {
+            window.firebaseUnsubscribe();
+            window.firebaseUnsubscribe = null;
+            window.firebaseListenerActive = false;
+            console.log('🧹 Firebase listeners cleaned up');
+        } catch (error) {
+            console.warn('⚠️ Error cleaning up Firebase listeners:', error);
+        }
     }
 }
 
