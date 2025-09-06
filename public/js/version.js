@@ -36,10 +36,7 @@ export function v(path) {
 export function initCSSVersioning() {
     const cssFiles = [
         { id: 'css-style', href: '/CSS/style.css' },
-        { id: 'css-utilities', href: '/CSS/utilities.css' },
-        { id: 'css-modal', href: '/CSS/modal-enhancements.css' },
-        { id: 'css-cascade', href: '/CSS/css-cascade-fix.css' },
-        { id: 'css-desktop-fix', href: '/CSS/desktop-layout-fix.css' }
+        { id: 'css-cleanup', href: '/CSS/css-cleanup.css' }
     ];
     
     // Update CSS files in order to maintain proper cascade
