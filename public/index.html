@@ -2,11 +2,18 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="build-time" content="1757114414472">
     <meta name="description" content="המדריך האינטראקטיבי המלא לטיול משפחתי בז'נבה - פעילויות, מסלולים, מזג אוויר ועוד">
     <meta name="keywords" content="ז'נבה, שוויץ, טיול משפחתי, פעילויות לילדים, מדריך טיולים">
     <meta name="author" content="Dor Lipetz">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0891b2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Geneva Guide">
+    <meta name="msapplication-TileColor" content="#0891b2">
+    <meta name="msapplication-config" content="/browserconfig.xml">
     <meta property="og:title" content="המדריך האינטראקטיבי לטיול משפחתי בז'נבה">
     <meta property="og:description" content="תכננו את הטיול המושלם לז'נבה עם המדריך האינטראקטיבי שלנו">
     <meta property="og:type" content="website">
@@ -25,7 +32,12 @@
     <link rel="preconnect" href="https://api.open-meteo.com">
     <link rel="preconnect" href="https://firestore.googleapis.com">
     <link rel="preconnect" href="https://generativelanguage.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://tile.openstreetmap.org">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <!-- Tailwind CSS via CDN (avoid Node build in browser) -->
     <script>
         window.tailwind = window.tailwind || {};
@@ -41,9 +53,7 @@
     <!-- Mobile navigation styles are handled in style.css -->
     
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- CSS Loading Order: Base → Cleanup (removes conflicts and fixes loading screen) -->
@@ -53,21 +63,24 @@
 
 <body class="bg-primary">
 
-    <header class="bg-white backdrop-blur-sm sticky top-0 z-50 shadow-lg border-b border-gray-200" style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);">
-        <nav class="container mx-auto px-6 py-3">
+    <!-- Skip link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+    <header class="bg-white backdrop-blur-sm sticky top-0 z-50 shadow-lg border-b border-gray-200" style="background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);" role="banner">
+        <nav class="container mx-auto px-6 py-3" role="navigation" aria-label="ניווט ראשי">
             <div class="flex justify-between items-center min-h-60px">
-                <a href="#" class="text-xl font-bold text-accent whitespace-nowrap" aria-label="דף הבית - ז'נבה עם קטנטנים">ז'נבה עם קטנטנים 🧸</a>
+                <a href="#" class="text-xl font-bold text-accent whitespace-nowrap" aria-label="דף הבית - ז'נבה עם קטנטנים" role="button">ז'נבה עם קטנטנים 🧸</a>
                 <div class="desktop-nav hidden lg:flex items-center space-x-6 space-x-reverse text-gray-700">
                     <!-- Essential Travel Info (Quick Access) -->
                     <div class="flex items-center space-x-4 space-x-reverse border-l border-gray-300 pl-4">
-                        <button id="open-flights-modal-btn-nav" class="hover:text-accent text-sm font-medium flex items-center text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors" aria-label="פרטי טיסות">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button id="open-flights-modal-btn-nav" class="hover:text-accent text-sm font-medium flex items-center text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors" aria-label="פרטי טיסות" role="button" tabindex="0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                             </svg>
                             טיסות
                         </button>
-                        <button id="open-hotel-modal-btn-nav" class="hover:text-accent text-sm font-medium flex items-center text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors" aria-label="פרטי מלון">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <button id="open-hotel-modal-btn-nav" class="hover:text-accent text-sm font-medium flex items-center text-gray-700 hover:bg-gray-100 px-3 py-2 rounded-md transition-colors" aria-label="פרטי מלון" role="button" tabindex="0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                             </svg>
                             מלון
@@ -230,9 +243,9 @@
         </nav>
     </header>
 
-    <main class="container mx-auto px-6">
-        <section class="text-center pt-16 pb-12">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+    <main id="main-content" class="container mx-auto px-6" role="main">
+        <section class="text-center pt-16 pb-12" aria-labelledby="main-heading">
+            <h1 id="main-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span style="background: linear-gradient(135deg, #0891b2, #14b8a6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
                     🇨🇭 המדריך האינטראקטיבי
                 </span>
