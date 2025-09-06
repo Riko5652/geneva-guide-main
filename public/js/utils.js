@@ -374,3 +374,22 @@ export function calculateDistance(lat1, lon1, lat2, lon2) {
     return distance;
 }
 
+/**
+ * Sanitizes HTML content to prevent XSS attacks
+ * @param {string} html - The HTML string to sanitize
+ * @returns {string} - Sanitized HTML string
+ */
+export function sanitizeHTML(html) {
+    if (typeof html !== 'string') return '';
+    
+    // Create a temporary div element to parse the HTML
+    const temp = document.createElement('div');
+    temp.textContent = html; // This automatically escapes HTML entities
+    
+    // Get the escaped content and convert line breaks to <br> tags
+    return temp.innerHTML
+        .replace(/\n/g, '<br>')
+        .replace(/\r\n/g, '<br>')
+        .replace(/\r/g, '<br>');
+}
+
