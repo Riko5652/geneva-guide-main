@@ -14,16 +14,16 @@ export function setupGeminiChat() {
                 <h2 class="text-lg font-bold text-gray-800">🤖 Gemini AI Chat</h2>
                 <button class="modal-close-btn text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
             </div>
-            <div id="gemini-messages" class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
                 <!-- Chat messages will be appended here -->
                 <div class="bg-gray-200 text-gray-800 self-start rounded-lg px-4 py-2 max-w-xs">
                     שלום! איך אני יכול לעזור בתכנון הטיול שלכם היום?
                 </div>
             </div>
             <div class="p-4 border-t border-gray-200 flex gap-2">
-                <input id="gemini-input" type="text" placeholder="שאלו אותי כל דבר..." 
+                <input id="chat-input" type="text" placeholder="שאלו אותי כל דבר..." 
                     class="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500" />
-                <button id="gemini-send-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg px-6 py-2 transition-colors">שלח</button>
+                <button id="chat-send-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg px-6 py-2 transition-colors">שלח</button>
             </div>
         </div>
     `;
@@ -33,8 +33,8 @@ export function setupGeminiChat() {
         modalContainer.innerHTML = modalHTML;
 
         // --- Event Listeners for the Chat ---
-        const sendBtn = document.getElementById('gemini-send-btn');
-        const input = document.getElementById('gemini-input');
+        const sendBtn = document.getElementById('chat-send-btn');
+        const input = document.getElementById('chat-input');
 
         sendBtn.addEventListener('click', handleSendMessage);
         input.addEventListener('keypress', (e) => {
@@ -49,7 +49,7 @@ export function setupGeminiChat() {
  * Handles the logic for sending a message from the chat UI.
  */
 async function handleSendMessage() {
-    const input = document.getElementById('gemini-input');
+    const input = document.getElementById('chat-input');
     const text = input.value.trim();
     if (!text) return;
 
@@ -126,7 +126,7 @@ async function handleSendMessage() {
  * @returns {HTMLElement} The created message element.
  */
 function addChatMessage(html, sender = "user") {
-    const messagesContainer = document.getElementById('gemini-messages');
+    const messagesContainer = document.getElementById('chat-messages');
     const bubble = document.createElement("div");
     bubble.className = sender === "user"
         ? "bg-teal-500 text-white self-end rounded-lg px-4 py-2 max-w-md ml-auto shadow-sm"

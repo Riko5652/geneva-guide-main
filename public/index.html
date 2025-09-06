@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="build-time" content="1757150025167">
+    <meta name="build-time" content="1757170278898">
     <meta name="description" content="המדריך האינטראקטיבי המלא לטיול משפחתי בז'נבה - פעילויות, מסלולים, מזג אוויר ועוד">
     <meta name="keywords" content="ז'נבה, שוויץ, טיול משפחתי, פעילויות לילדים, מדריך טיולים">
     <meta name="author" content="Dor Lipetz">
@@ -46,10 +46,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- CSS Loading Order: Base → Cleanup → Device Responsive → UI Perfection → Flow Enhancements -->
     <link rel="stylesheet" href="/CSS/style.css" id="css-style">
-    <link rel="stylesheet" href="/CSS/css-cleanup.css" id="css-cleanup">
     <link rel="stylesheet" href="/CSS/device-responsive.css" id="css-device-responsive">
-    <link rel="stylesheet" href="/CSS/ui-perfection.css" id="css-ui-perfection">
     <link rel="stylesheet" href="/CSS/flow-enhancements.css" id="css-flow-enhancements">
+    
+    <!-- Performance Optimizations -->
+    <link rel="preload" href="/js/Main.js" as="script">
+    <link rel="preload" href="/js/ui.js" as="script">
+    <link rel="preload" href="/js/handlers.js" as="script">
 </head>
 
 <body class="bg-primary">
@@ -617,7 +620,7 @@
                 <div class="loader"></div>
             </div>
             <div id="chat-image-preview-container" class="hidden p-2 border-t text-center">
-                <img id="chat-image-preview" class="max-h-24 rounded-md inline-block" />
+                <img id="chat-image-preview" class="max-h-24 rounded-md inline-block" loading="lazy" />
                 <button id="chat-remove-image-btn"
                     class="text-red-500 text-xs mx-auto block mt-1 hover:underline">הסר תמונה</button>
             </div>
@@ -761,7 +764,7 @@
                 </svg>
             </button>
             <div class="relative max-w-full max-h-full">
-                <img id="photo-modal-image" class="max-w-full max-h-full object-contain" src="" alt="">
+                <img id="photo-modal-image" class="max-w-full max-h-full object-contain" src="" alt="" loading="lazy">
                 <div id="photo-modal-info" class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-4">
                     <p id="photo-modal-date" class="text-sm"></p>
                     <p id="photo-modal-caption" class="text-lg"></p>

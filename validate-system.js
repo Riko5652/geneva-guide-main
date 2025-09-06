@@ -44,8 +44,8 @@ function validateCSSFiles() {
     
     const cssFiles = [
         'public/CSS/style.css',
-        'public/CSS/css-cleanup.css',
-        'public/CSS/device-responsive.css'
+        'public/CSS/device-responsive.css',
+        'public/CSS/flow-enhancements.css'
     ];
     
     let allValid = true;
@@ -102,7 +102,8 @@ function validateCacheManifest() {
         const expectedFiles = [
             'Main.js', 'handlers.js', 'ui.js', 'services.js', 'utils.js', 
             'Map.js', 'Gemini.js', 'version.js', 'user-agent-adjuster.js', 
-            'style.css', 'css-cleanup.css', 'device-responsive.css', 'index.html'
+            'flow-enhancements.js', 'style.css', 'device-responsive.css', 
+            'flow-enhancements.css', 'index.html'
         ];
         
         let allFilesPresent = true;
@@ -152,8 +153,8 @@ function validateHTMLStructure() {
         // Check CSS loading order
     const cssOrder = [
         'style.css',
-        'css-cleanup.css',
-        'device-responsive.css'
+        'device-responsive.css',
+        'flow-enhancements.css'
     ];
         
         let cssOrderValid = true;
@@ -198,8 +199,8 @@ function validateResponsiveBreakpoints() {
     try {
         const cssFiles = [
             'public/CSS/style.css',
-            'public/CSS/css-cleanup.css',
-            'public/CSS/device-responsive.css'
+            'public/CSS/device-responsive.css',
+            'public/CSS/flow-enhancements.css'
         ];
         
         let breakpointsValid = true;
