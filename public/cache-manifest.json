@@ -1,6 +1,6 @@
 {
-  "version": "1757140509867",
-  "timestamp": "2025-09-06T06:35:09.867Z",
+  "version": "1757141846084",
+  "timestamp": "2025-09-06T06:57:26.084Z",
   "files": {
     "Main.js": "1757140509867",
     "handlers.js": "1757140509867", 
@@ -15,7 +15,8 @@
     "modal-enhancements.css": "1757140509867",
     "css-cascade-fix.css": "1757140509867",
     "desktop-layout-fix.css": "1757140509867",
-    "index.html": "1757140509867"
+    "layout-emergency-fix.css": "1757141846084",
+    "index.html": "1757141846084"
   },
   "mobile_fix": {
     "applied": true,
