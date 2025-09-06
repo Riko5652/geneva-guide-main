@@ -814,7 +814,7 @@ function setupPackingInteractiveElements() {
 }
 
 // Handle packing photo upload
-function handlePackingPhotoUpload(event) {
+async function handlePackingPhotoUpload(event) {
     const files = Array.from(event.target.files);
     if (!files.length) return;
     
@@ -823,31 +823,61 @@ function handlePackingPhotoUpload(event) {
     
     if (progressContainer) progressContainer.classList.remove('hidden');
     
-    files.forEach(async (file, index) => {
+    // Import Firebase functions dynamically
+    const { ref, uploadBytes, getDownloadURL } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js");
+    const { doc, updateDoc, arrayUnion } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    
+    for (let index = 0; index < files.length; index++) {
+        const file = files[index];
         try {
             const progress = ((index + 1) / files.length) * 100;
             if (progressBar) progressBar.style.width = `${progress}%`;
             
-            const url = URL.createObjectURL(file);
+            // Upload to Firebase Storage
+            const timestamp = Date.now();
+            const storageRef = ref(storage, `packing-photos/${userId}/${timestamp}-${file.name}`);
+            await uploadBytes(storageRef, file);
+            const url = await getDownloadURL(storageRef);
+            
             const photoData = {
-                id: Date.now() + index,
+                id: timestamp + index,
                 url: url,
                 filename: file.name,
-                timestamp: Date.now(),
-                objectURL: url // Store reference for cleanup
+                timestamp: timestamp,
+                uploadedBy: userId
             };
             
-            // Add to currentData
+            // Add to currentData for immediate UI update
             if (!currentData.packingPhotos) currentData.packingPhotos = { photos: [] };
             currentData.packingPhotos.photos.push(photoData);
+            
+            // Save to Firebase for persistence
+            const publicDataRef = doc(db, `artifacts/${appId}/public/genevaGuide`);
+            await updateDoc(publicDataRef, { 
+                packingPhotos: arrayUnion(photoData)
+            });
             
             // Re-render gallery
             renderPackingPhotosGallery();
             
         } catch (error) {
             console.warn('Packing photo upload failed:', error);
+            // Fallback to local URL if Firebase fails
+            const url = URL.createObjectURL(file);
+            const photoData = {
+                id: Date.now() + index,
+                url: url,
+                filename: file.name,
+                timestamp: Date.now(),
+                objectURL: url,
+                isLocal: true // Mark as local fallback
+            };
+            
+            if (!currentData.packingPhotos) currentData.packingPhotos = { photos: [] };
+            currentData.packingPhotos.photos.push(photoData);
+            renderPackingPhotosGallery();
         }
-    });
+    }
     
     // Hide progress bar
     setTimeout(() => {

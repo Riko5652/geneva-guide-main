@@ -36,7 +36,8 @@ export function v(path) {
 export function initCSSVersioning() {
     const cssFiles = [
         { id: 'css-style', href: '/CSS/style.css' },
-        { id: 'css-cleanup', href: '/CSS/css-cleanup.css' }
+        { id: 'css-cleanup', href: '/CSS/css-cleanup.css' },
+        { id: 'css-device-responsive', href: '/CSS/device-responsive.css' }
     ];
     
     // Update CSS files in order to maintain proper cascade

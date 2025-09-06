@@ -44,7 +44,8 @@ function validateCSSFiles() {
     
     const cssFiles = [
         'public/CSS/style.css',
-        'public/CSS/css-cleanup.css'
+        'public/CSS/css-cleanup.css',
+        'public/CSS/device-responsive.css'
     ];
     
     let allValid = true;
@@ -99,8 +100,9 @@ function validateCacheManifest() {
         
         // Check if all expected files are in manifest
         const expectedFiles = [
-            'Main.js', 'handlers.js', 'ui.js', 'services.js', 'utils.js',
-            'Map.js', 'Gemini.js', 'version.js', 'style.css', 'css-cleanup.css', 'index.html'
+            'Main.js', 'handlers.js', 'ui.js', 'services.js', 'utils.js', 
+            'Map.js', 'Gemini.js', 'version.js', 'user-agent-adjuster.js', 
+            'style.css', 'css-cleanup.css', 'device-responsive.css', 'index.html'
         ];
         
         let allFilesPresent = true;
@@ -148,10 +150,11 @@ function validateHTMLStructure() {
         const html = fs.readFileSync(htmlPath, 'utf8');
         
         // Check CSS loading order
-        const cssOrder = [
-            'style.css',
-            'css-cleanup.css'
-        ];
+    const cssOrder = [
+        'style.css',
+        'css-cleanup.css',
+        'device-responsive.css'
+    ];
         
         let cssOrderValid = true;
         let lastIndex = -1;
@@ -195,7 +198,8 @@ function validateResponsiveBreakpoints() {
     try {
         const cssFiles = [
             'public/CSS/style.css',
-            'public/CSS/css-cleanup.css'
+            'public/CSS/css-cleanup.css',
+            'public/CSS/device-responsive.css'
         ];
         
         let breakpointsValid = true;

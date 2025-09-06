@@ -56,9 +56,10 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- CSS Loading Order: Base → Cleanup (removes conflicts and fixes loading screen) -->
+    <!-- CSS Loading Order: Base → Cleanup → Device Responsive -->
     <link rel="stylesheet" href="/CSS/style.css" id="css-style">
     <link rel="stylesheet" href="/CSS/css-cleanup.css" id="css-cleanup">
+    <link rel="stylesheet" href="/CSS/device-responsive.css" id="css-device-responsive">
 </head>
 
 <body class="bg-primary">
@@ -829,6 +830,8 @@
 
 
     <!-- Scripts -->
+    <!-- User Agent Adjuster - Must load first to set device classes -->
+    <script src="/js/user-agent-adjuster.js" defer></script>
      <script type="module">
          // Wrap initialization in async function to allow early return
          (async function initializeApp() {

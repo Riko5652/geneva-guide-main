@@ -720,7 +720,7 @@ function handleDelegatedKeydowns(e) {
 }
 
 // Photo Album Handlers
-function handlePhotoUpload() {
+async function handlePhotoUpload() {
     const input = document.getElementById('photo-upload-input');
     const files = input.files;
     
@@ -731,26 +731,35 @@ function handlePhotoUpload() {
     const progressBar = document.getElementById('photo-progress-bar');
     progressContainer.classList.remove('hidden');
     
-    // Upload files to Firebase Storage (simplified version)
-    Array.from(files).forEach(async (file, index) => {
+    // Upload files to Firebase Storage
+    for (let index = 0; index < files.length; index++) {
+        const file = files[index];
         try {
             const progress = ((index + 1) / files.length) * 100;
             progressBar.style.width = `${progress}%`;
             
-            // In a real implementation, upload to Firebase Storage
-            // For now, create local URL
-            const url = URL.createObjectURL(file);
+            // Upload to Firebase Storage
+            const timestamp = Date.now();
+            const storageRef = ref(storage, `trip-photos/${userId}/${timestamp}-${file.name}`);
+            await uploadBytes(storageRef, file);
+            const url = await getDownloadURL(storageRef);
             
             const photoData = {
                 url: url,
                 caption: `תמונה ${index + 1}`,
-                timestamp: Date.now(),
-                objectURL: url // Store reference for cleanup
+                timestamp: timestamp,
+                uploadedBy: userId
             };
             
             // Update local state for immediate UI feedback
             if (!currentData.photoAlbum) currentData.photoAlbum = [];
             currentData.photoAlbum.push(photoData);
+            
+            // Save to Firebase for persistence
+            const publicDataRef = doc(db, `artifacts/${appId}/public/genevaGuide`);
+            await updateDoc(publicDataRef, { 
+                photoAlbum: arrayUnion(photoData)
+            });
             
             // Re-render photo album using correct import
             import(`./ui.js?v=${VERSION}`).then(({ renderPhotoAlbum }) => {
@@ -759,8 +768,24 @@ function handlePhotoUpload() {
             
         } catch (error) {
             console.warn('Photo upload failed:', error);
+            // Fallback to local URL if Firebase fails
+            const url = URL.createObjectURL(file);
+            const photoData = {
+                url: url,
+                caption: `תמונה ${index + 1}`,
+                timestamp: Date.now(),
+                objectURL: url,
+                isLocal: true // Mark as local fallback
+            };
+            
+            if (!currentData.photoAlbum) currentData.photoAlbum = [];
+            currentData.photoAlbum.push(photoData);
+            
+            import(`./ui.js?v=${VERSION}`).then(({ renderPhotoAlbum }) => {
+                renderPhotoAlbum();
+            });
         }
-    });
+    }
     
     // Hide progress bar after completion
     setTimeout(() => {
