@@ -15,6 +15,8 @@
 [[headers]]
   for = "/*"
   [headers.values]
+    # Character encoding for Hebrew text
+    Content-Type = "text/html; charset=utf-8"
     # Prevent clickjacking attacks
     X-Frame-Options = "DENY"
     # Prevent MIME type sniffing
@@ -64,6 +66,7 @@
 [[headers]]
   for = "/*.html"
   [headers.values]
+    Content-Type = "text/html; charset=utf-8"
     Cache-Control = "public, max-age=3600, must-revalidate"
     ETag = "true"
 
