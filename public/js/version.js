@@ -1,3 +1,4 @@
+// Auto-generated build info: 2025-09-06T05:56:10.898Z (1757138170898)
 // Automated Cache Busting System
 // No more manual version updates needed!
 
@@ -40,10 +41,19 @@ export function initCSSVersioning() {
         { id: 'css-cascade', href: '/CSS/css-cascade-fix.css' }
     ];
     
-    cssFiles.forEach(({ id, href }) => {
+    // Update CSS files in order to maintain proper cascade
+    cssFiles.forEach(({ id, href }, index) => {
         const link = document.getElementById(id);
         if (link) {
-            link.href = `${href}?v=${VERSION}`;
+            const newHref = `${href}?v=${VERSION}`;
+            if (link.href !== newHref) {
+                link.href = newHref;
+                console.log(`🎨 Updated CSS ${index + 1}/${cssFiles.length}: ${id}`);
+            }
+        } else {
+            console.warn(`⚠️ CSS link not found: ${id}`);
         }
     });
+    
+    console.log('✅ CSS versioning completed');
 }

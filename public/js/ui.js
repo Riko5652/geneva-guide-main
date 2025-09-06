@@ -6,27 +6,36 @@ import { initMap } from './Map.js';
 export function renderAllComponents() {
     console.log('🎨 renderAllComponents called, currentData:', !!currentData);
     
-    // Always render basic components, even without Firebase data
-    renderMobileMenu();
-    renderQuickStatus();
-    fetchAndRenderWeather();
-    renderDailySpecial();
-    
-    // Only render Firebase-dependent components if data is available
-    if (currentData) {
-        console.log('✅ Rendering Firebase-dependent components');
-        renderBookingInfo();
-        renderPhotoAlbum();
-        renderBulletinBoard();
-        renderFamilyMemories();
-        renderInteractivePackingList();
-        renderPackingPhotosGallery();
-        renderItinerary();
-        renderActivities();
-        initMap();
-        clearNewlyAddedItems();
-    } else {
-        console.log('⚠️ No currentData available, rendering fallback content');
+    try {
+        // Always render basic components, even without Firebase data
+        console.log('🔧 Rendering basic components...');
+        renderMobileMenu();
+        renderQuickStatus();
+        fetchAndRenderWeather();
+        renderDailySpecial();
+        
+        // Only render Firebase-dependent components if data is available
+        if (currentData) {
+            console.log('✅ Rendering Firebase-dependent components');
+            renderBookingInfo();
+            renderPhotoAlbum();
+            renderBulletinBoard();
+            renderFamilyMemories();
+            renderInteractivePackingList();
+            renderPackingPhotosGallery();
+            renderItinerary();
+            renderActivities();
+            initMap();
+            clearNewlyAddedItems();
+        } else {
+            console.log('⚠️ No currentData available, rendering fallback content');
+            renderFallbackContent();
+        }
+        
+        console.log('✅ All components rendered successfully');
+    } catch (error) {
+        console.error('❌ Error in renderAllComponents:', error);
+        // Ensure fallback content is shown on error
         renderFallbackContent();
     }
 }
@@ -791,11 +800,7 @@ function setupPackingInteractiveElements() {
         }
     });
     
-    // Handle add packing item
-    const addBtn = document.getElementById('add-packing-item-btn');
-    if (addBtn) {
-        addBtn.addEventListener('click', handleAddPackingItem);
-    }
+    // Handle add packing item - now handled by global event delegation in handlers.js
     
     // Handle photo uploads
     const photoInput = document.getElementById('packing-photo-input');
@@ -853,27 +858,7 @@ function handlePackingPhotoUpload(event) {
     event.target.value = '';
 }
 
-// Handle add packing item
-function handleAddPackingItem() {
-    const input = document.getElementById('packing-item-input');
-    if (!input || !input.value.trim()) return;
-    
-    const itemName = input.value.trim();
-    
-    // Add to currentData
-    if (!currentData.customPackingItems) currentData.customPackingItems = [];
-    currentData.customPackingItems.push({
-        name: itemName,
-        checked: false,
-        timestamp: Date.now()
-    });
-    
-    // Clear input
-    input.value = '';
-    
-    // Re-render list
-    renderInteractivePackingList();
-}
+// Handle add packing item - moved to handlers.js to avoid duplication
 
 
 // Update packing progress bar

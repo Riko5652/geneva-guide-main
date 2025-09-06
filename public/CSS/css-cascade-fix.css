@@ -1,34 +1,24 @@
 /* CSS Cascade Fix - Resolves conflicts between style.css, utilities.css, and modal-enhancements.css */
 /* This file should be loaded LAST to ensure proper cascade order */
 
-/* 0. CSS Conflict Resolution - Override conflicting styles from other files */
+/* 0. CSS Conflict Resolution - Minimal overrides for critical conflicts only */
 
-/* Override conflicting z-index values from other CSS files */
-.modal-enhancements .modal,
-.style .modal,
-.utilities .modal {
-    z-index: 1000 !important;
-}
-
-/* Resolve modal backdrop conflicts */
+/* Critical modal backdrop fix */
 .modal {
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    background: rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
 }
 
-/* Resolve button styling conflicts */
-button,
-.btn-primary,
-.btn-secondary {
-    border: none !important;
-    outline: none !important;
-    cursor: pointer !important;
+/* Essential button fixes */
+button {
+    cursor: pointer;
 }
 
-/* Resolve text color conflicts */
+/* Text color consistency */
 .text-accent {
-    color: #0891b2 !important;
+    color: #0891b2;
 }
 
 /* Resolve spacing conflicts */

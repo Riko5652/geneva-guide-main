@@ -43,12 +43,16 @@ if (typeof window !== 'undefined') {
 }
 
 // --- INITIALIZATION ---
-if (typeof window !== 'undefined') {
-    if (window.__APP_BOOTSTRAPPED__) {
-        console.log('App already bootstrapped, skipping');
-    } else {
-        window.__APP_BOOTSTRAPPED__ = true;
+// Only initialize if not already done and not being imported as module
+if (typeof window !== 'undefined' && !window.__APP_BOOTSTRAPPED__) {
+    window.__APP_BOOTSTRAPPED__ = true;
+    
+    // Check if DOM is already ready
+    if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+        // DOM is already ready, initialize immediately
+        setTimeout(initApp, 0);
     }
 }
 
@@ -79,8 +83,11 @@ async function initApp() {
         console.log("Firebase initialized successfully");
         familyToast.success('מתחברים לטיול שלכם... 🚀');
         
-        // Setup event listeners and chat once
+        // Setup event listeners and chat once (with coordination)
+        console.log('🔧 Setting up event listeners...');
         setupEventListeners();
+        
+        console.log('🤖 Setting up Gemini chat...');
         setupGeminiChat();
         
         onAuthStateChanged(auth, (user) => {
@@ -317,17 +324,5 @@ if (typeof window !== 'undefined') {
 // Export the initialization function
 export { initApp };
 
-// Auto-initialize when loaded directly (for backward compatibility)
-// Only auto-initialize if not being imported as a module
-if (typeof window !== 'undefined' && !window.moduleInitialized) {
-    // Mark that we're handling initialization
-    window.moduleInitialized = true;
-    
-    // Check if we're being loaded as a module or directly
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initApp);
-    } else {
-        // Small delay to ensure DOM is ready
-        setTimeout(initApp, 100);
-    }
-}
+// Export the initialization function for external use
+// The initialization is now handled above with proper checks
