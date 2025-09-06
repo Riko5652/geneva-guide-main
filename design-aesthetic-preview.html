@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design & Aesthetic Validation Preview</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .preview-container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
+        .preview-header { background: #0891b2; color: white; padding: 20px; text-align: center; }
+        .preview-content { padding: 20px; }
+        .validation-summary { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 15px; margin-bottom: 20px; }
+        .issue-item { background: white; border-left: 4px solid #dc3545; padding: 10px; margin: 10px 0; border-radius: 0 4px 4px 0; }
+        .issue-medium { border-left-color: #ffc107; }
+        .issue-low { border-left-color: #28a745; }
+        .iframe-container { border: 1px solid #dee2e6; border-radius: 4px; overflow: hidden; }
+        iframe { width: 100%; height: 600px; border: none; }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <div class="preview-header">
+            <h1>🎨 Design & Aesthetic Validation Preview</h1>
+            <p>Complete site preview with validation results</p>
+        </div>
+        <div class="preview-content">
+            <div class="validation-summary">
+                <h3>📊 Validation Summary</h3>
+                <p><strong>Total Issues:</strong> 8</p>
+                <p><strong>Critical Issues:</strong> 0</p>
+                <p><strong>High Severity:</strong> 0</p>
+                <p><strong>Medium Severity:</strong> 5</p>
+                <p><strong>Low Severity:</strong> 3</p>
+            </div>
+            
+            <h3>🚨 Critical Issues</h3>
+            
+            
+            <h3>🖼️ Site Preview</h3>
+            <div class="iframe-container">
+                <iframe src="index.html" title="Site Preview"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

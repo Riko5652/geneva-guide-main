@@ -144,12 +144,12 @@
 
 /* Navigation pills adjustments */
 .device-mobile .nav-pill {
-    font-size: 12px !important;
+    font-size: 14px !important;
     padding: 0.5rem 0.75rem !important;
 }
 
 .device-tablet .nav-pill {
-    font-size: 13px !important;
+    font-size: 14px !important;
     padding: 0.6rem 0.9rem !important;
 }
 
