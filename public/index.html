@@ -29,7 +29,12 @@
     <!-- Tailwind CSS via CDN (avoid Node build in browser) -->
     <script>
         window.tailwind = window.tailwind || {};
-        window.tailwind.config = { corePlugins: { preflight: false } };
+        window.tailwind.config = { 
+            corePlugins: { 
+                preflight: false,
+                container: false  // Disable Tailwind's container to use our custom one
+            }
+        };
     </script>
     <script src="https://cdn.tailwindcss.com/3.4.1"></script>
     
@@ -41,11 +46,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- CSS Loading Order: Base → Utilities → Enhancements → Fixes -->
+    <!-- CSS Loading Order: Base → Utilities → Enhancements → Fixes → Desktop Fix -->
     <link rel="stylesheet" href="/CSS/style.css" id="css-style">
     <link rel="stylesheet" href="/CSS/utilities.css" id="css-utilities">
     <link rel="stylesheet" href="/CSS/modal-enhancements.css" id="css-modal">
     <link rel="stylesheet" href="/CSS/css-cascade-fix.css" id="css-cascade">
+    <link rel="stylesheet" href="/CSS/desktop-layout-fix.css" id="css-desktop-fix">
 </head>
 
 <body class="bg-primary">
