@@ -655,9 +655,7 @@ body {
 [dir="rtl"] .border-r-4 { border-left-width: 4px; border-right-width: 0; }
 
 /* Animations */
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
+/* spin animation moved to style.css to avoid duplication */
 
 .animate-spin { animation: spin 1s linear infinite; }
 
