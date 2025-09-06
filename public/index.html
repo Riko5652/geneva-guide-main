@@ -814,12 +814,14 @@
 
     <!-- Scripts -->
      <script type="module">
-         // Prevent multiple initializations
-         if (window.__APP_INITIALIZING__) {
-             console.log('⚠️ App initialization already in progress, skipping...');
-             return;
-         }
-         window.__APP_INITIALIZING__ = true;
+         // Wrap initialization in async function to allow early return
+         (async function initializeApp() {
+             // Prevent multiple initializations
+             if (window.__APP_INITIALIZING__) {
+                 console.log('⚠️ App initialization already in progress, skipping...');
+                 return;
+             }
+             window.__APP_INITIALIZING__ = true;
          
          try {
              // Automated cache busting - no more manual version updates!
@@ -866,7 +868,7 @@
                      </div>
                  `;
              }
-         }
+         })(); // End of initializeApp function and immediately invoke it
      </script>
     
     <!-- Demo Initialization -->
