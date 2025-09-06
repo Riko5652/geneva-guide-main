@@ -438,6 +438,112 @@ function cleanupFirebaseConnections() {
     }
 }
 
+// Enhanced Firebase connection monitoring and management
+function setupEnhancedFirebaseMonitoring() {
+    // Connection state tracking
+    window.firebaseConnectionState = {
+        isConnected: false,
+        lastConnected: null,
+        retryCount: 0,
+        maxRetries: 5,
+        baseDelay: 2000
+    };
+    
+    // Enhanced connection monitoring
+    const connectionMonitor = setInterval(() => {
+        if (window.firebaseConnectionState.retryCount > 0) {
+            console.log(`🔄 Firebase connection monitoring: ${window.firebaseConnectionState.retryCount} retries`);
+        }
+    }, 30000);
+    
+    // Enhanced visibility change handler
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && window.firebaseConnectionState.retryCount > 0) {
+            console.log('🔄 Page became visible, attempting Firebase reconnection...');
+            window.firebaseConnectionState.retryCount = 0;
+            if (window.firebaseUnsubscribe) {
+                window.firebaseUnsubscribe();
+            }
+            setTimeout(() => setupFirebaseListeners(), 1000);
+        }
+    });
+    
+    // Enhanced online/offline handling with exponential backoff
+    window.addEventListener('online', () => {
+        console.log('🌐 Network connection restored');
+        
+        // Clear any existing timeouts
+        if (window.firebaseReconnectTimeout) {
+            clearTimeout(window.firebaseReconnectTimeout);
+            window.firebaseReconnectTimeout = null;
+        }
+        
+        // Reset connection state
+        window.firebaseConnectionState.retryCount = 0;
+        window.firebaseReconnecting = false;
+        window.firebaseListenerActive = false;
+        
+        // Clean up existing listener
+        if (window.firebaseUnsubscribe && typeof window.firebaseUnsubscribe === 'function') {
+            try {
+                window.firebaseUnsubscribe();
+                console.log('✅ Cleaned up Firebase listener before reconnection');
+            } catch (error) {
+                console.warn('⚠️ Error cleaning up listener:', error);
+            }
+        }
+        
+        // Reconnect with delay
+        setTimeout(() => {
+            setupFirebaseListeners();
+        }, 1000);
+    });
+    
+    window.addEventListener('offline', () => {
+        console.log('📴 Network connection lost');
+        
+        // Clean up Firebase connections
+        if (window.firebaseUnsubscribe && typeof window.firebaseUnsubscribe === 'function') {
+            try {
+                window.firebaseUnsubscribe();
+                window.firebaseListenerActive = false;
+                console.log('✅ Firebase listener cleaned up due to offline status');
+            } catch (error) {
+                console.warn('⚠️ Error cleaning up listener:', error);
+            }
+        }
+        
+        // Clear pending reconnection attempts
+        if (window.firebaseReconnectTimeout) {
+            clearTimeout(window.firebaseReconnectTimeout);
+            window.firebaseReconnectTimeout = null;
+        }
+        
+        window.firebaseReconnecting = false;
+    });
+    
+    // Enhanced error handling for NS_BINDING_ABORTED
+    window.addEventListener('error', (event) => {
+        if (event.message && event.message.includes('NS_BINDING_ABORTED')) {
+            console.warn('⚠️ NS_BINDING_ABORTED detected, attempting graceful recovery...');
+            if (window.firebaseConnectionState.retryCount < window.firebaseConnectionState.maxRetries) {
+                window.firebaseConnectionState.retryCount++;
+                const delay = window.firebaseConnectionState.baseDelay * Math.pow(2, window.firebaseConnectionState.retryCount - 1);
+                console.log(`🔄 Scheduling Firebase reconnection in ${delay}ms (attempt ${window.firebaseConnectionState.retryCount})`);
+                
+                window.firebaseReconnectTimeout = setTimeout(() => {
+                    if (window.firebaseUnsubscribe) {
+                        window.firebaseUnsubscribe();
+                    }
+                    setupFirebaseListeners();
+                }, delay);
+            }
+        }
+    });
+    
+    console.log('🛡️ Enhanced Firebase monitoring setup complete');
+}
+
 // Cleanup function for object URLs to prevent memory leaks
 function cleanupObjectURLs() {
     // Clean up photo album object URLs
@@ -464,6 +570,7 @@ function cleanupObjectURLs() {
 // Initialize connection monitoring and expose global functions
 if (typeof window !== 'undefined') {
     monitorFirebaseConnection();
+    setupEnhancedFirebaseMonitoring();
     window.addEventListener('beforeunload', cleanupFirebaseConnections);
     window.addEventListener('beforeunload', cleanupObjectURLs);
     
