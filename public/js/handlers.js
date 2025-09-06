@@ -24,6 +24,26 @@ export function setupEventListeners() {
     // Setup mobile menu functionality
     setupMobileMenu();
     
+    // Force reset mobile menu state on initialization
+    setTimeout(() => {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuBtn = document.getElementById('menu-btn');
+        if (mobileMenu && menuBtn) {
+            console.log('🔄 Force resetting mobile menu state...');
+            mobileMenu.classList.add('mobile-menu-hidden');
+            mobileMenu.style.opacity = '';
+            mobileMenu.style.transform = '';
+            mobileMenu.style.transition = '';
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.innerHTML = `
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            `;
+            console.log('✅ Mobile menu state reset complete');
+        }
+    }, 100);
+    
     document.body.dataset.listenersAttached = 'true';
 }
 
@@ -33,6 +53,20 @@ function setupMobileMenu() {
     const mobileMenu = document.getElementById('mobile-menu');
     
     if (menuBtn && mobileMenu) {
+        // Ensure proper initial state
+        mobileMenu.classList.add('mobile-menu-hidden');
+        mobileMenu.style.opacity = '';
+        mobileMenu.style.transform = '';
+        mobileMenu.style.transition = '';
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.innerHTML = `
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        `;
+        
+        console.log('🔧 Mobile menu initialized to hidden state');
+        
         menuBtn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -81,7 +115,7 @@ function setupMobileMenu() {
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                if (!mobileMenu.classList.contains('hidden')) {
+                if (!mobileMenu.classList.contains('mobile-menu-hidden')) {
                     menuBtn.click();
                 }
             }
@@ -227,18 +261,18 @@ function handleDelegatedClicks(e) {
     }
     if(target.id === 'open-flights-modal-btn-mobile' || target.id === 'open-flights-modal-btn-main') {
         openModal('flights-details-modal', () => populateFlightDetails());
-        document.getElementById('mobile-menu').classList.add('hidden');
+        document.getElementById('mobile-menu').classList.add('mobile-menu-hidden');
     }
     if(target.id === 'open-hotel-modal-btn-mobile' || target.id === 'open-hotel-modal-btn-main' || target.id === 'open-hotel-modal-btn-nav') {
         openModal('hotel-booking-modal', () => populateHotelDetails());
-        document.getElementById('mobile-menu')?.classList.add('hidden');
+        document.getElementById('mobile-menu')?.classList.add('mobile-menu-hidden');
     }
     if(target.id === 'open-flights-modal-btn-nav') {
         openModal('flights-details-modal', () => populateFlightDetails());
     }
     if(target.id === 'open-packing-modal-btn-mobile') {
         openModal('packing-guide-modal', () => renderPackingGuide());
-        document.getElementById('mobile-menu').classList.add('hidden');
+        document.getElementById('mobile-menu').classList.add('mobile-menu-hidden');
     }
     if(target.id === 'show-map-btn') {
         openModal('map-modal');

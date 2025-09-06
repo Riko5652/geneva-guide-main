@@ -1182,15 +1182,15 @@ button.mobile-menu-item {
         z-index: 1000 !important;
     }
     
-    /* FORCE SHOW mobile menu with maximum specificity */
+    /* DEFAULT: Mobile menu is HIDDEN by default */
     body #mobile-menu,
     body header #mobile-menu,
     #mobile-menu {
         position: relative !important;
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
         width: 100% !important;
         height: auto !important;
         overflow: visible !important;
@@ -1207,12 +1207,22 @@ button.mobile-menu-item {
         opacity: 0 !important;
     }
     
-    /* When mobile menu is shown */
-    #mobile-menu.mobile-menu-visible,
+    /* When mobile menu is shown (NOT hidden) */
+    body #mobile-menu:not(.mobile-menu-hidden),
+    body header #mobile-menu:not(.mobile-menu-hidden),
     #mobile-menu:not(.mobile-menu-hidden) {
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
+        pointer-events: auto !important;
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        z-index: 999 !important;
     }
     
     /* FORCE HIDE desktop navigation elements */
