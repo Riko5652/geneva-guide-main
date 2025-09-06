@@ -11,7 +11,11 @@ class UserAgentAdjuster {
         this.orientation = this.getOrientation();
         this.isInitialized = false;
         
-        console.log(`🔧 User Agent Adjuster initialized: ${this.deviceType} (${this.screenSize.width}x${this.screenSize.height})`);
+        if (this.screenSize && this.screenSize.width) {
+            console.log(`🔧 User Agent Adjuster initialized: ${this.deviceType} (${this.screenSize.width}x${this.screenSize.height})`);
+        } else {
+            console.log(`🔧 User Agent Adjuster initialized: ${this.deviceType} (screen size not available)`);
+        }
         
         this.init();
     }
@@ -36,14 +40,23 @@ class UserAgentAdjuster {
     }
 
     getScreenSize() {
+        if (typeof window !== 'undefined' && window.innerWidth) {
+            return {
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+        }
         return {
-            width: window.innerWidth,
-            height: window.innerHeight
+            width: 1024,
+            height: 768
         };
     }
 
     getOrientation() {
-        return window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+        if (typeof window !== 'undefined' && window.innerWidth) {
+            return window.innerWidth > window.innerHeight ? 'landscape' : 'portrait';
+        }
+        return 'landscape';
     }
 
     init() {

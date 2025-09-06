@@ -1652,6 +1652,14 @@ a:focus-visible {
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         margin-top: 0.75rem;
         padding: 1rem;
+        transition: all 0.3s ease-out;
+    }
+    
+    .mobile-menu-hidden {
+        display: none !important;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
     }
     
     /* Improve mobile menu item spacing */
