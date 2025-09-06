@@ -44,10 +44,11 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- CSS Loading Order: Base → Cleanup → Device Responsive → UI Perfection → Flow Enhancements -->
+    <!-- CSS Loading Order: Base → Device Responsive → Flow Enhancements → Dynamic Templates -->
     <link rel="stylesheet" href="/CSS/style.css" id="css-style">
     <link rel="stylesheet" href="/CSS/device-responsive.css" id="css-device-responsive">
     <link rel="stylesheet" href="/CSS/flow-enhancements.css" id="css-flow-enhancements">
+    <link rel="stylesheet" href="/CSS/dynamic-templates.css" id="css-dynamic-templates">
     
     <!-- Performance Optimizations -->
     <link rel="preload" href="/js/Main.js" as="script">
@@ -377,11 +378,42 @@
         <section id="custom-plan-generator" class="bg-white rounded-2xl border-2 border-dashed border-accent p-8 mb-16">
             <h2 class="section-title text-center">✨ מתכנן הטיולים החכם ✨</h2>
             <p class="section-subtitle text-center">רוצים תוכנית יומית מותאמת אישית? ספרו לי מה מתחשק לכם (למשל: "יום רגוע עם גן שעשועים ואוכל פשוט"), והבינה המלאכותית תבנה לכם הצעה.</p>
-            <div class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-2">
-                <input type="text" id="custom-plan-prompt" class="flex-1 border border-gray-300 rounded-lg py-3 px-4" placeholder="למשל: יום רגוע עם גינה וגלידה..." aria-label="תאר את התוכנית הרצויה">
-                <button id="generate-custom-plan-btn" class="btn-primary px-6 py-3 rounded-lg">צור לי תוכנית</button>
+            
+            <!-- Template System Demo -->
+            <div class="template-system-demo mb-8">
+                <h3 class="text-lg font-semibold mb-4 text-center">🎯 מערכת תבניות דינמית</h3>
+                <p class="text-center text-gray-600 mb-6">מערכת חדשה המאפשרת הוספה קלה של תבניות, זמן ומקרי שימוש חדשים</p>
+                
+                <!-- Dynamic Form Container -->
+                <div id="dynamic-form-container" class="dynamic-form-container">
+                    <!-- Forms will be generated here dynamically -->
+                </div>
+                
+                <!-- Welcome Content Container -->
+                <div id="welcome-content-container" class="welcome-content-container" style="display: none;">
+                    <!-- Welcome content will be rendered here -->
+                </div>
+                
+                <!-- Itinerary Content Container -->
+                <div id="itinerary-content-container" class="itinerary-content-container" style="display: none;">
+                    <!-- Itinerary content will be rendered here -->
+                </div>
+                
+                <!-- Summary Content Container -->
+                <div id="summary-content-container" class="summary-content-container" style="display: none;">
+                    <!-- Summary content will be rendered here -->
+                </div>
             </div>
-            <div id="custom-plan-result" class="max-w-2xl mx-auto mt-6"></div>
+            
+            <!-- Legacy AI System -->
+            <div class="legacy-ai-system">
+                <h3 class="text-lg font-semibold mb-4 text-center">🤖 מערכת AI קיימת</h3>
+                <div class="max-w-2xl mx-auto flex flex-col sm:flex-row gap-2">
+                    <input type="text" id="custom-plan-prompt" class="flex-1 border border-gray-300 rounded-lg py-3 px-4" placeholder="למשל: יום רגוע עם גינה וגלידה..." aria-label="תאר את התוכנית הרצויה">
+                    <button id="generate-custom-plan-btn" class="btn-primary px-6 py-3 rounded-lg">צור לי תוכנית</button>
+                </div>
+                <div id="custom-plan-result" class="max-w-2xl mx-auto mt-6"></div>
+            </div>
         </section>
 
         <section id="plan" class="py-16 mb-16">
@@ -825,6 +857,13 @@
     <!-- Scripts -->
     <!-- User Agent Adjuster - Must load first to set device classes -->
     <script src="/js/user-agent-adjuster.js" defer></script>
+    
+    <!-- Template System Scripts -->
+    <script type="module" src="/js/config-templates.js"></script>
+    <script type="module" src="/js/dynamic-form-generator.js"></script>
+    <script type="module" src="/js/dynamic-content-renderer.js"></script>
+    <script type="module" src="/js/template-manager.js"></script>
+    <script type="module" src="/js/template-demo.js"></script>
      <script type="module">
          // Wrap initialization in async function to allow early return
          (async function initializeApp() {
