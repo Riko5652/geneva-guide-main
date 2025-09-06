@@ -11,7 +11,7 @@ class UserAgentAdjuster {
         this.orientation = this.getOrientation();
         this.isInitialized = false;
         
-        if (this.screenSize && this.screenSize.width) {
+        if (this.screenSize && this.screenSize.width && this.screenSize.height) {
             console.log(`🔧 User Agent Adjuster initialized: ${this.deviceType} (${this.screenSize.width}x${this.screenSize.height})`);
         } else {
             console.log(`🔧 User Agent Adjuster initialized: ${this.deviceType} (screen size not available)`);
@@ -114,7 +114,7 @@ class UserAgentAdjuster {
                 const newOrientation = this.getOrientation();
                 
                 if (newDeviceType !== this.deviceType || 
-                    newScreenSize.width !== this.screenSize.width ||
+                    (this.screenSize && newScreenSize && newScreenSize.width !== this.screenSize.width) ||
                     newOrientation !== this.orientation) {
                     
                     this.deviceType = newDeviceType;
@@ -126,7 +126,7 @@ class UserAgentAdjuster {
                     this.adjustNavigationLayouts();
                     this.adjustPackingModalLayout();
                     
-                    console.log(`🔄 Device changed to: ${this.deviceType} (${this.screenSize.width}x${this.screenSize.height})`);
+                    console.log(`🔄 Device changed to: ${this.deviceType} (${this.screenSize ? this.screenSize.width : 'unknown'}x${this.screenSize ? this.screenSize.height : 'unknown'})`);
                 }
             }, 250);
         });
@@ -273,9 +273,7 @@ class UserAgentAdjuster {
         return this.deviceType;
     }
 
-    getScreenSize() {
-        return this.screenSize;
-    }
+    // getScreenSize() method already defined above
 
     isMobile() {
         return this.deviceType === 'mobile';
