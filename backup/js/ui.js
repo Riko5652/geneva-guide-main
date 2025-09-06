@@ -2,382 +2,7 @@ import { currentData, currentCategoryFilter, currentTimeFilter, newlyAddedItems,
 import { fetchAndRenderWeather } from './services.js';
 import { getFormattedOpeningHours, getStatusClass } from './utils.js';
 import { initMap } from './Map.js';
-import { showFlowLoading, hideFlowLoading, showFlowProgress, showFlowFeedback, showFlowSuccess, handleFlowError } from './handlers.js';
-
-// Family-Friendly Animations & Effects
-export class FamilyAnimations {
-    constructor() {
-        this.confettiColors = ['#0891b2', '#14b8a6', '#fbbf24', '#10b981', '#ef4444', '#7c3aed'];
-    }
-    
-    // Confetti celebration for completed tasks
-    celebrate(element) {
-        const rect = element.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        for (let i = 0; i < 30; i++) {
-            this.createConfetti(centerX, centerY);
-        }
-        
-        // Add celebration sound effect (optional)
-        this.playSound('success');
-    }
-    
-    createConfetti(x, y) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.cssText = `
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: ${this.confettiColors[Math.floor(Math.random() * this.confettiColors.length)]};
-            left: ${x}px;
-            top: ${y}px;
-            opacity: 1;
-            transform: rotate(${Math.random() * 360}deg);
-            pointer-events: none;
-            z-index: 9999;
-        `;
-        
-        document.body.appendChild(confetti);
-        
-        // Animate confetti
-        const angle = (Math.random() * Math.PI * 2);
-        const velocity = 5 + Math.random() * 5;
-        const gravity = 0.3;
-        let vx = Math.cos(angle) * velocity;
-        let vy = Math.sin(angle) * velocity - 5;
-        let opacity = 1;
-        let currentX = x;
-        let currentY = y;
-        
-        const animate = () => {
-            currentX += vx;
-            currentY += vy;
-            vy += gravity;
-            opacity -= 0.02;
-            
-            confetti.style.left = currentX + 'px';
-            confetti.style.top = currentY + 'px';
-            confetti.style.opacity = opacity;
-            
-            if (opacity > 0 && currentY < window.innerHeight + 100) {
-                requestAnimationFrame(animate);
-            } else {
-                confetti.remove();
-            }
-        };
-        
-        requestAnimationFrame(animate);
-    }
-    
-    // Ripple effect for button clicks
-    addRipple(event) {
-        const button = event.currentTarget;
-        const rect = button.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = event.clientX - rect.left - size / 2;
-        const y = event.clientY - rect.top - size / 2;
-        
-        const ripple = document.createElement('div');
-        ripple.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            left: ${x}px;
-            top: ${y}px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            transform: scale(0);
-            animation: ripple 0.6s linear;
-            pointer-events: none;
-        `;
-        
-        button.style.position = 'relative';
-        button.style.overflow = 'hidden';
-        button.appendChild(ripple);
-        
-        setTimeout(() => ripple.remove(), 600);
-    }
-    
-    // Floating heart animation
-    floatHeart(element) {
-        const heart = document.createElement('div');
-        heart.innerHTML = '💖';
-        heart.style.cssText = `
-            position: absolute;
-            font-size: 20px;
-            pointer-events: none;
-            z-index: 1000;
-            animation: floatHeart 2s ease-out forwards;
-        `;
-        
-        const rect = element.getBoundingClientRect();
-        heart.style.left = rect.left + rect.width / 2 + 'px';
-        heart.style.top = rect.top + 'px';
-        
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 2000);
-    }
-    
-    // Wiggle animation for attention
-    wiggle(element) {
-        element.style.animation = 'wiggle 0.5s ease-in-out';
-        setTimeout(() => {
-            element.style.animation = '';
-        }, 500);
-    }
-    
-    // Count up animation
-    countUp(element, start, end, duration = 1000) {
-        const startTime = performance.now();
-        const update = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const current = Math.floor(start + (end - start) * this.easeOutQuad(progress));
-            
-            element.textContent = current;
-            
-            if (progress < 1) {
-                requestAnimationFrame(update);
-            }
-        };
-        
-        requestAnimationFrame(update);
-    }
-    
-    easeOutQuad(t) {
-        return t * (2 - t);
-    }
-    
-    // Play sound effects (optional)
-    playSound(type) {
-        // Only play sounds if user hasn't disabled them
-        if (localStorage.getItem('soundsEnabled') !== 'false') {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            switch (type) {
-                case 'success':
-                    oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
-                    oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
-                    oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
-                    break;
-                case 'error':
-                    oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-                    break;
-                case 'click':
-                    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-                    break;
-            }
-            
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.3);
-        }
-    }
-    
-    init() {
-        // Add CSS animations if not already present
-        if (!document.getElementById('family-animations-css')) {
-            const style = document.createElement('style');
-            style.id = 'family-animations-css';
-            style.textContent = `
-                @keyframes ripple {
-                    to {
-                        transform: scale(4);
-                        opacity: 0;
-                    }
-                }
-                
-                @keyframes floatHeart {
-                    0% {
-                        transform: translateY(0) scale(1);
-                        opacity: 1;
-                    }
-                    100% {
-                        transform: translateY(-100px) scale(1.5);
-                        opacity: 0;
-                    }
-                }
-                
-                @keyframes wiggle {
-                    0%, 100% { transform: rotate(0deg); }
-                    25% { transform: rotate(-5deg); }
-                    75% { transform: rotate(5deg); }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-    }
-}
-
-// Initialize animations
-const familyAnimations = new FamilyAnimations();
-familyAnimations.init();
-
-// Family-Friendly Toast Notifications
-export class FamilyToast {
-    constructor() {
-        this.container = null;
-        this.toasts = [];
-        this.icons = {
-            success: '🎉',
-            error: '😔',
-            warning: '⚠️',
-            info: 'ℹ️',
-            love: '❤️',
-            star: '⭐',
-            rocket: '🚀',
-            gift: '🎁'
-        };
-    }
-    
-    init() {
-        if (!this.container) {
-            this.container = document.createElement('div');
-            this.container.id = 'toast-container';
-            this.container.className = 'fixed top-4 right-4 z-[9998] flex flex-col gap-2 pointer-events-none';
-            document.body.appendChild(this.container);
-        }
-    }
-    
-    show(message, type = 'info', duration = 5000) {
-        this.init();
-        
-        const toast = document.createElement('div');
-        const toastId = `toast-${Date.now()}`;
-        toast.id = toastId;
-        toast.className = `
-            max-w-sm w-full bg-white rounded-2xl shadow-2xl p-4 
-            transform translate-x-full transition-all duration-300 
-            pointer-events-auto cursor-pointer
-            ${this.getTypeClasses(type)}
-        `;
-        
-        const icon = this.icons[type] || this.icons.info;
-        
-        toast.innerHTML = `
-            <div class="flex items-center gap-3">
-                <div class="text-3xl animate-bounce">${icon}</div>
-                <div class="flex-1">
-                    <p class="text-gray-800 font-medium">${message}</p>
-                </div>
-                <button class="text-gray-400 hover:text-gray-600 text-xl" onclick="familyToast.hide('${toastId}')">
-                    ×
-                </button>
-            </div>
-            <div class="toast-progress mt-2 h-1 bg-gray-200 rounded-full overflow-hidden">
-                <div class="h-full bg-gradient-to-r ${this.getProgressGradient(type)} transition-all duration-${duration}"
-                     style="width: 100%; transition: width ${duration}ms linear;"></div>
-            </div>
-        `;
-        
-        this.container.appendChild(toast);
-        this.toasts.push({ id: toastId, element: toast });
-        
-        // Animate in
-        requestAnimationFrame(() => {
-            toast.style.transform = 'translateX(0)';
-        });
-        
-        // Start progress bar animation
-        setTimeout(() => {
-            const progressBar = toast.querySelector('.toast-progress > div');
-            if (progressBar) {
-                progressBar.style.width = '0%';
-            }
-        }, 100);
-        
-        // Auto hide
-        setTimeout(() => this.hide(toastId), duration);
-        
-        // Click to dismiss
-        toast.addEventListener('click', () => this.hide(toastId));
-        
-        return toastId;
-    }
-    
-    hide(toastId) {
-        const toastIndex = this.toasts.findIndex(t => t.id === toastId);
-        if (toastIndex === -1) return;
-        
-        const toast = this.toasts[toastIndex];
-        toast.element.style.transform = 'translateX(120%)';
-        toast.element.style.opacity = '0';
-        
-        setTimeout(() => {
-            toast.element.remove();
-            this.toasts.splice(toastIndex, 1);
-        }, 300);
-    }
-    
-    getTypeClasses(type) {
-        const classes = {
-            success: 'border-l-4 border-green-500',
-            error: 'border-l-4 border-red-500',
-            warning: 'border-l-4 border-yellow-500',
-            info: 'border-l-4 border-blue-500',
-            love: 'border-l-4 border-pink-500',
-            star: 'border-l-4 border-yellow-400',
-            rocket: 'border-l-4 border-purple-500',
-            gift: 'border-l-4 border-teal-500'
-        };
-        return classes[type] || classes.info;
-    }
-    
-    getProgressGradient(type) {
-        const gradients = {
-            success: 'from-green-400 to-green-600',
-            error: 'from-red-400 to-red-600',
-            warning: 'from-yellow-400 to-yellow-600',
-            info: 'from-blue-400 to-blue-600',
-            love: 'from-pink-400 to-pink-600',
-            star: 'from-yellow-300 to-yellow-500',
-            rocket: 'from-purple-400 to-purple-600',
-            gift: 'from-teal-400 to-teal-600'
-        };
-        return gradients[type] || gradients.info;
-    }
-    
-    // Convenience methods
-    success(message, duration) {
-        return this.show(message, 'success', duration);
-    }
-    
-    error(message, duration) {
-        return this.show(message, 'error', duration);
-    }
-    
-    warning(message, duration) {
-        return this.show(message, 'warning', duration);
-    }
-    
-    info(message, duration) {
-        return this.show(message, 'info', duration);
-    }
-    
-    love(message, duration) {
-        return this.show(message, 'love', duration);
-    }
-    
-    celebrate(message, duration) {
-        return this.show(message, 'star', duration);
-    }
-}
-
-// Create global instance
-export const familyToast = new FamilyToast();
-
-// Make it globally accessible for inline onclick handlers
-window.familyToast = familyToast;
+import { showFlowLoading, hideFlowLoading, showFlowProgress, showFlowFeedback, showFlowSuccess, handleFlowError } from './flow-enhancements.js';
 
 export function renderAllComponents() {
     console.log('🎨 renderAllComponents called, currentData:', !!currentData);
@@ -1373,9 +998,28 @@ export function updatePackingProgress() {
     }
 }
 
-// Enhanced animation functions (using FamilyAnimations class)
+// Enhanced animation functions
 function animateNumber(element, start, end) {
-    familyAnimations.countUp(element, start, end, 500);
+    const duration = 500;
+    const startTime = performance.now();
+    
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = Math.round(start + (end - start) * easeOutQuad(progress));
+        
+        element.textContent = `${current}%`;
+        
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+    
+    requestAnimationFrame(update);
+}
+
+function easeOutQuad(t) {
+    return t * (2 - t);
 }
 
 function updateCategoryProgress() {
@@ -1419,10 +1063,25 @@ function triggerCompletionCelebration() {
 }
 
 function createConfettiParticle() {
-    // Use FamilyAnimations class for confetti
-    const centerX = Math.random() * window.innerWidth;
-    const centerY = -10;
-    familyAnimations.createConfetti(centerX, centerY);
+    const particle = document.createElement('div');
+    particle.style.cssText = `
+        position: fixed;
+        width: 8px;
+        height: 8px;
+        background: ${['#10b981', '#06b6d4', '#8b5cf6', '#f59e0b'][Math.floor(Math.random() * 4)]};
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 10000;
+        left: ${Math.random() * window.innerWidth}px;
+        top: -10px;
+        animation: confetti-fall 2s ease-out forwards;
+    `;
+    
+    document.body.appendChild(particle);
+    
+    setTimeout(() => {
+        particle.remove();
+    }, 2000);
 }
 
 function showCompletionToast() {

@@ -1,166 +1,16 @@
 import { currentData, setCurrentCategoryFilter, setCurrentTimeFilter, appId, db, userId, addNewlyAddedItem, storage } from './Main.js';
-import { openModal, closeModal, goBackModal, closeAllModals, sanitizeHTML, familyLoader } from './utils.js';
+import { openModal, closeModal, goBackModal, closeAllModals, sanitizeHTML } from './utils.js';
 import { callGeminiWithParts } from './Gemini.js';
-import { populateFlightDetails, populateHotelDetails, renderPackingGuide, renderActivities, populateFamilyDetails, populateNearbyLocations, renderPhotoAlbum, renderBulletinBoard, renderFamilyMemories, renderInteractivePackingList, renderPackingPhotosGallery, familyToast } from './ui.js';
+import { populateFlightDetails, populateHotelDetails, renderPackingGuide, renderActivities, populateFamilyDetails, populateNearbyLocations, renderPhotoAlbum, renderBulletinBoard, renderFamilyMemories, renderInteractivePackingList, renderPackingPhotosGallery } from './ui.js';
 import { VERSION } from './version.js';
 import { doc, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-
-/**
- * Flow Enhancement System
- * Improves user experience through better loading states, feedback, and error handling
- */
-
-// Enhanced loading state management
-class FlowEnhancementManager {
-    constructor() {
-        this.activeLoaders = new Set();
-        this.userFeedbackQueue = [];
-        this.isProcessing = false;
-    }
-
-    /**
-     * Show enhanced loading state with context
-     */
-    showLoading(context, message = 'טוען...') {
-        const loaderId = `${context}-${Date.now()}`;
-        this.activeLoaders.add(loaderId);
-        
-        // Show contextual loading message
-        familyLoader.show();
-        
-        return loaderId;
-    }
-
-    /**
-     * Hide loading state
-     */
-    hideLoading(loaderId) {
-        this.activeLoaders.delete(loaderId);
-        
-        if (this.activeLoaders.size === 0) {
-            familyLoader.hide();
-        }
-    }
-
-    /**
-     * Show enhanced user feedback
-     */
-    showFeedback(type, message, options = {}) {
-        const feedback = {
-            type,
-            message,
-            timestamp: Date.now(),
-            ...options
-        };
-        
-        this.userFeedbackQueue.push(feedback);
-        
-        // Process feedback queue
-        this.processFeedbackQueue();
-    }
-
-    /**
-     * Process feedback queue with proper timing
-     */
-    async processFeedbackQueue() {
-        if (this.isProcessing || this.userFeedbackQueue.length === 0) {
-            return;
-        }
-        
-        this.isProcessing = true;
-        
-        while (this.userFeedbackQueue.length > 0) {
-            const feedback = this.userFeedbackQueue.shift();
-            
-            switch (feedback.type) {
-                case 'success':
-                    familyToast.success(feedback.message, feedback.duration || 3000);
-                    break;
-                case 'error':
-                    familyToast.error(feedback.message, feedback.duration || 5000);
-                    break;
-                case 'warning':
-                    familyToast.warning(feedback.message, feedback.duration || 4000);
-                    break;
-                case 'info':
-                    familyToast.info(feedback.message, feedback.duration || 3000);
-                    break;
-                case 'celebration':
-                    familyToast.celebrate(feedback.message, feedback.duration || 4000);
-                    break;
-            }
-            
-            // Small delay between feedback items
-            await new Promise(resolve => setTimeout(resolve, 100));
-        }
-        
-        this.isProcessing = false;
-    }
-
-    /**
-     * Show progress with percentage
-     */
-    showProgress(percentage, message = 'מעבד...') {
-        // Implementation for progress display
-        // Progress tracking (removed console.log for production)
-    }
-
-    /**
-     * Handle errors with user-friendly messages
-     */
-    handleError(error, context = '') {
-        console.error(`Error in ${context}:`, error);
-        
-        let userMessage = 'אירעה שגיאה. אנא נסו שוב.';
-        
-        if (error.message) {
-            if (error.message.includes('network')) {
-                userMessage = 'בעיית חיבור לאינטרנט. אנא בדקו את החיבור.';
-            } else if (error.message.includes('permission')) {
-                userMessage = 'אין הרשאה לבצע פעולה זו.';
-            } else if (error.message.includes('quota')) {
-                userMessage = 'המכסה הושלמה. אנא נסו מאוחר יותר.';
-            }
-        }
-        
-        this.showFeedback('error', userMessage);
-    }
-}
-
-// Create global instance
-const flowManager = new FlowEnhancementManager();
-
-// Export flow enhancement functions
-export function showFlowLoading(context, message) {
-    return flowManager.showLoading(context, message);
-}
-
-export function hideFlowLoading(loaderId) {
-    flowManager.hideLoading(loaderId);
-}
-
-export function showFlowProgress(percentage, message) {
-    flowManager.showProgress(percentage, message);
-}
-
-export function showFlowFeedback(type, message, options) {
-    flowManager.showFeedback(type, message, options);
-}
-
-export function showFlowSuccess(message, options) {
-    flowManager.showFeedback('success', message, options);
-}
-
-export function handleFlowError(error, context) {
-    flowManager.handleError(error, context);
-}
 
 // This is the single entry point for activating all interactive elements on the page.
 export function setupEventListeners() {
     // A single master listener is more efficient than attaching many individual ones.
     if (document.body.dataset.listenersAttached) {
-        // Event listeners already attached, skipping...
+        console.log('⚠️ Event listeners already attached, skipping...');
         return;
     }
     
@@ -174,7 +24,7 @@ export function setupEventListeners() {
     document.body.addEventListener('change', handleDelegatedChanges);
     document.body.addEventListener('keydown', handleDelegatedKeydowns);
     
-    // Event listeners attached successfully
+    console.log('✅ Event listeners attached successfully');
     
     // Setup mobile menu functionality
     setupMobileMenu();
@@ -184,7 +34,7 @@ export function setupEventListeners() {
         const mobileMenu = document.getElementById('mobile-menu');
         const menuBtn = document.getElementById('menu-btn');
         if (mobileMenu && menuBtn) {
-            // Force resetting mobile menu state...
+            console.log('🔄 Force resetting mobile menu state...');
             mobileMenu.classList.add('mobile-menu-hidden');
             mobileMenu.style.opacity = '';
             mobileMenu.style.transform = '';
@@ -195,7 +45,7 @@ export function setupEventListeners() {
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
             `;
-            // Mobile menu state reset complete
+            console.log('✅ Mobile menu state reset complete');
         }
     }, 100);
     
@@ -220,7 +70,7 @@ function setupMobileMenu() {
             </svg>
         `;
         
-        // Mobile menu initialized to hidden state
+        console.log('🔧 Mobile menu initialized to hidden state');
         
         menuBtn.addEventListener('click', (e) => {
             e.preventDefault();
