@@ -47,6 +47,39 @@ if (typeof window !== 'undefined') {
 if (typeof window !== 'undefined' && !window.__APP_BOOTSTRAPPED__) {
     window.__APP_BOOTSTRAPPED__ = true;
     
+    // Performance monitoring
+    if ('performance' in window) {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                if (perfData) {
+                    console.log('Performance metrics:', {
+                        loadTime: perfData.loadEventEnd - perfData.loadEventStart,
+                        domContentLoaded: perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart,
+                        firstPaint: performance.getEntriesByType('paint').find(entry => entry.name === 'first-paint')?.startTime,
+                        firstContentfulPaint: performance.getEntriesByType('paint').find(entry => entry.name === 'first-contentful-paint')?.startTime
+                    });
+                }
+            }, 0);
+        });
+    }
+    
+    // Global error handler for better debugging
+    window.addEventListener('error', (event) => {
+        console.error('Global error:', event.error);
+        if (window.familyToast) {
+            window.familyToast.error('אירעה שגיאה. אנא רענן את הדף.');
+        }
+    });
+    
+    // Unhandled promise rejection handler
+    window.addEventListener('unhandledrejection', (event) => {
+        console.error('Unhandled promise rejection:', event.reason);
+        if (window.familyToast) {
+            window.familyToast.error('אירעה שגיאה בחיבור לשרת.');
+        }
+    });
+    
     // Check if DOM is already ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initApp);
