@@ -54,6 +54,31 @@ async function handleSendMessage() {
     if (!text) return;
 
     addChatMessage(text, "user");
+    
+    // Save user message to Firebase
+    const userMessageData = {
+        type: 'user',
+        content: text,
+        timestamp: Date.now(),
+        chatType: 'gemini'
+    };
+    
+    // Update local state
+    if (!window.currentData) window.currentData = { geminiChatMessages: [] };
+    if (!window.currentData.geminiChatMessages) window.currentData.geminiChatMessages = [];
+    window.currentData.geminiChatMessages.push(userMessageData);
+    
+    // Save to Firebase for persistence
+    try {
+        const { doc, updateDoc, arrayUnion } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+        const publicDataRef = doc(window.db, `artifacts/${window.appId}/public/genevaGuide`);
+        await updateDoc(publicDataRef, { 
+            geminiChatMessages: arrayUnion(userMessageData)
+        });
+    } catch (error) {
+        console.warn('Failed to save Gemini user message to Firebase:', error);
+    }
+    
     input.value = "";
     input.focus();
 
@@ -65,6 +90,29 @@ async function handleSendMessage() {
         // Remove thinking indicator and add the real reply
         thinkingIndicator.remove();
         addChatMessage(botReply, "bot");
+        
+        // Save bot response to Firebase
+        const botMessageData = {
+            type: 'bot',
+            content: botReply,
+            timestamp: Date.now(),
+            chatType: 'gemini'
+        };
+        
+        // Update local state
+        window.currentData.geminiChatMessages.push(botMessageData);
+        
+        // Save to Firebase for persistence
+        try {
+            const { doc, updateDoc, arrayUnion } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+            const publicDataRef = doc(window.db, `artifacts/${window.appId}/public/genevaGuide`);
+            await updateDoc(publicDataRef, { 
+                geminiChatMessages: arrayUnion(botMessageData)
+            });
+        } catch (error) {
+            console.warn('Failed to save Gemini bot message to Firebase:', error);
+        }
+        
     } catch (err) {
         thinkingIndicator.remove();
         addChatMessage(`⚠️ שגיאה: ${err.message}`, "bot");

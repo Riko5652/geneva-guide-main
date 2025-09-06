@@ -403,12 +403,37 @@ async function handleGenerateCustomPlan() {
             כלול המלצות ספציפיות, זמני נסיעה, ועצות מעשיות להורים.`
         ]);
         
+        // Save custom plan to Firebase
+        const customPlanData = {
+            prompt: prompt,
+            response: response,
+            timestamp: Date.now()
+        };
+        
+        // Update local state
+        if (!currentData.customPlans) currentData.customPlans = [];
+        currentData.customPlans.unshift(customPlanData);
+        
+        // Save to Firebase for persistence
+        try {
+            const publicDataRef = doc(db, `artifacts/${appId}/public/genevaGuide`);
+            await updateDoc(publicDataRef, { 
+                customPlans: arrayUnion(customPlanData)
+            });
+        } catch (error) {
+            console.warn('Failed to save custom plan to Firebase:', error);
+        }
+        
         resultDiv.innerHTML = `
             <div class="bg-white p-6 rounded-xl shadow-lg border border-accent mt-4">
                 <h3 class="text-lg font-bold mb-4 text-accent">התוכנית המותאמת שלכם 🎯</h3>
                 <div class="prose text-gray-700">${response}</div>
             </div>
         `;
+        
+        // Clear input after successful generation
+        input.value = '';
+        
     } catch (error) {
         resultDiv.innerHTML = '<p class="text-red-600 text-center">שגיאה ביצירת התוכנית. נסו שוב מאוחר יותר.</p>';
         console.warn('Custom plan generation error:', error);
@@ -589,6 +614,27 @@ async function handleChatSend() {
     userBubble.textContent = message;
     messagesContainer.appendChild(userBubble);
     
+    // Save user message to Firebase
+    const userMessageData = {
+        type: 'user',
+        content: message,
+        timestamp: Date.now()
+    };
+    
+    // Update local state
+    if (!currentData.chatMessages) currentData.chatMessages = [];
+    currentData.chatMessages.push(userMessageData);
+    
+    // Save to Firebase for persistence
+    try {
+        const publicDataRef = doc(db, `artifacts/${appId}/public/genevaGuide`);
+        await updateDoc(publicDataRef, { 
+            chatMessages: arrayUnion(userMessageData)
+        });
+    } catch (error) {
+        console.warn('Failed to save user message to Firebase:', error);
+    }
+    
     input.value = '';
     loader.classList.remove('hidden');
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -601,6 +647,27 @@ async function handleChatSend() {
         // Sanitize HTML to prevent XSS
         geminieBubble.textContent = response;
         messagesContainer.appendChild(geminieBubble);
+        
+        // Save bot response to Firebase
+        const botMessageData = {
+            type: 'bot',
+            content: response,
+            timestamp: Date.now()
+        };
+        
+        // Update local state
+        currentData.chatMessages.push(botMessageData);
+        
+        // Save to Firebase for persistence
+        try {
+            const publicDataRef = doc(db, `artifacts/${appId}/public/genevaGuide`);
+            await updateDoc(publicDataRef, { 
+                chatMessages: arrayUnion(botMessageData)
+            });
+        } catch (error) {
+            console.warn('Failed to save bot message to Firebase:', error);
+        }
+        
     } catch (error) {
         const errorBubble = document.createElement('div');
         errorBubble.className = 'chat-bubble gemini';

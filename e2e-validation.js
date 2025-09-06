@@ -43,10 +43,8 @@ class E2EValidator {
             'public/js/handlers.js',
             'public/js/version.js',
             'public/CSS/style.css',
-            'public/CSS/utilities.css',
-            'public/CSS/modal-enhancements.css',
-            'public/CSS/css-cascade-fix.css',
-            'public/CSS/desktop-layout-fix.css',
+            'public/CSS/css-cleanup.css',
+            'public/CSS/device-responsive.css',
             'public/cache-manifest.json',
             'netlify.toml'
         ];
@@ -79,16 +77,12 @@ class E2EValidator {
                 '<meta name="viewport"',
                 '<title>',
                 '<link rel="stylesheet" href="/CSS/style.css"',
-                '<link rel="stylesheet" href="/CSS/utilities.css"',
-                '<link rel="stylesheet" href="/CSS/modal-enhancements.css"',
-                '<link rel="stylesheet" href="/CSS/css-cascade-fix.css"',
-                '<link rel="stylesheet" href="/CSS/desktop-layout-fix.css"',
+                '<link rel="stylesheet" href="/CSS/css-cleanup.css"',
+                '<link rel="stylesheet" href="/CSS/device-responsive.css"',
                 '<script type="module">',
                 'id="css-style"',
-                'id="css-utilities"',
-                'id="css-modal"',
-                'id="css-cascade"',
-                'id="css-desktop-fix"'
+                'id="css-cleanup"',
+                'id="css-device-responsive"'
             ];
             
             for (const element of requiredElements) {
@@ -103,10 +97,8 @@ class E2EValidator {
             // Check for proper CSS loading order
             const cssOrder = [
                 'style.css',
-                'utilities.css',
-                'modal-enhancements.css',
-                'css-cascade-fix.css',
-                'desktop-layout-fix.css'
+                'css-cleanup.css',
+                'device-responsive.css'
             ];
             
             let lastIndex = -1;
@@ -193,10 +185,8 @@ class E2EValidator {
         
         const cssFiles = [
             'public/CSS/style.css',
-            'public/CSS/utilities.css',
-            'public/CSS/modal-enhancements.css',
-            'public/CSS/css-cascade-fix.css',
-            'public/CSS/desktop-layout-fix.css'
+            'public/CSS/css-cleanup.css',
+            'public/CSS/device-responsive.css'
         ];
         
         let cascadeValid = true;
@@ -260,8 +250,7 @@ class E2EValidator {
             // Check all files in manifest
             const expectedFiles = [
                 'Main.js', 'handlers.js', 'ui.js', 'services.js', 'utils.js',
-                'Map.js', 'Gemini.js', 'version.js', 'style.css', 'utilities.css',
-                'modal-enhancements.css', 'css-cascade-fix.css', 'desktop-layout-fix.css', 'index.html'
+                'Map.js', 'Gemini.js', 'version.js', 'user-agent-adjuster.js', 'style.css', 'css-cleanup.css', 'device-responsive.css', 'index.html'
             ];
             
             for (const file of expectedFiles) {
@@ -289,8 +278,8 @@ class E2EValidator {
         
         const cssFiles = [
             'public/CSS/style.css',
-            'public/CSS/css-cascade-fix.css',
-            'public/CSS/desktop-layout-fix.css'
+            'public/CSS/css-cleanup.css',
+            'public/CSS/device-responsive.css'
         ];
         
         let responsiveValid = true;
@@ -398,7 +387,8 @@ class E2EValidator {
         // Check for large files
         const filesToCheck = [
             'public/CSS/style.css',
-            'public/CSS/css-cascade-fix.css',
+            'public/CSS/css-cleanup.css',
+            'public/CSS/device-responsive.css',
             'public/js/Main.js',
             'public/js/ui.js',
             'public/js/handlers.js'
