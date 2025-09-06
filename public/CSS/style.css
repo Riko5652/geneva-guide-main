@@ -482,6 +482,8 @@ body {
     overflow-y: auto;
     max-height: calc(95vh - 120px);
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
 }
 
 /* --- 6. Form System --- */
@@ -1629,6 +1631,18 @@ a:focus-visible {
     /* Show hamburger menu */
     #menu-btn {
         display: block !important;
+        min-height: 44px;
+        min-width: 44px;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        padding: 8px;
+        border-radius: 8px;
+        transition: background-color 0.2s ease;
+    }
+    
+    #menu-btn:hover,
+    #menu-btn:active {
+        background-color: rgba(0, 0, 0, 0.05);
     }
     
     /* Hide desktop nav links */
@@ -1655,6 +1669,9 @@ a:focus-visible {
         right: 0;
         left: 0;
         z-index: 50;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     .mobile-menu-hidden {
@@ -1665,9 +1682,25 @@ a:focus-visible {
     }
     
     /* Improve mobile menu item spacing */
-    #mobile-menu button {
+    #mobile-menu button,
+    #mobile-menu .mobile-menu-item {
         min-height: 48px; /* Better touch targets */
         font-size: 0.9rem;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        transition: all 0.2s ease;
+    }
+    
+    #mobile-menu button:hover,
+    #mobile-menu .mobile-menu-item:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    #mobile-menu button:active,
+    #mobile-menu .mobile-menu-item:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
     
     /* Mobile typography improvements */

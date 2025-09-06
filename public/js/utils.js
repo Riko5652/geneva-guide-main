@@ -89,8 +89,7 @@ class ModalManager {
             this.hideModalLoading(modalId);
         }
         
-        // Add back button if this is a nested modal
-        this.addBackButton(modal);
+        // Back button removed - using ESC key and browser back button only
         
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden'; // Prevent background scroll
@@ -142,8 +141,7 @@ class ModalManager {
                 document.body.style.overflow = '';
             }
             
-            // Remove back button
-            this.removeBackButton(modalElement);
+            // Back button removal not needed - no back button exists
         }, 200);
     }
     
@@ -190,36 +188,15 @@ class ModalManager {
     }
     
     /**
-     * Adds a back button to nested modals
+     * Back button functionality removed - using ESC key and browser back button only
+     * This provides a cleaner UI while maintaining navigation functionality
      */
-    addBackButton(modal) {
-        if (this.modalStack.length <= 1) return;
-        
-        // Remove existing back button
-        this.removeBackButton(modal);
-        
-        const backButton = document.createElement('button');
-        backButton.className = 'modal-back-btn';
-        backButton.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-            <span>חזרה</span>
-        `;
-        
-        backButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.goBack();
-        });
-        
-        modal.appendChild(backButton);
-    }
     
     /**
-     * Removes back button from modal
+     * Removes back button from modal (legacy method - no longer used)
      */
     removeBackButton(modal) {
+        // Method kept for compatibility but no longer creates back buttons
         const backButton = modal.querySelector('.modal-back-btn');
         if (backButton) {
             backButton.remove();

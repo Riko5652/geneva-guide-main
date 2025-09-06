@@ -97,6 +97,9 @@ function setupMobileMenu() {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 `;
+                
+                // Ensure body scroll is maintained
+                document.body.style.overflow = 'auto';
             } else {
                 // Hide menu with animation
                 mobileMenu.style.transition = 'all 0.3s ease-in';
@@ -105,6 +108,8 @@ function setupMobileMenu() {
                 
                 setTimeout(() => {
                     mobileMenu.classList.add('mobile-menu-hidden');
+                    // Ensure body scroll is maintained
+                    document.body.style.overflow = 'auto';
                 }, 300);
                 
                 // Update button state
@@ -115,6 +120,18 @@ function setupMobileMenu() {
                     </svg>
                 `;
             }
+        });
+        
+        // Add touch event support for better mobile interaction
+        menuBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            menuBtn.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+        });
+        
+        menuBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            menuBtn.style.backgroundColor = '';
+            menuBtn.click();
         });
         
         // Close menu when clicking outside
