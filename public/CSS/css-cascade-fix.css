@@ -1499,4 +1499,116 @@ a,
         visibility: hidden !important;
         opacity: 0 !important;
     }
+    
+    /* Enhanced header layout */
+    header nav .flex.justify-between {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        min-height: 60px !important;
+        gap: 1rem !important;
+    }
+    
+    /* Enhanced desktop navigation positioning */
+    .desktop-nav {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        flex-wrap: nowrap !important;
+        flex: 1 !important;
+        justify-content: flex-end !important;
+        max-width: none !important;
+    }
+    
+    /* Better button group spacing */
+    .desktop-nav > div {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        padding-left: 1rem !important;
+        border-left: 1px solid #d1d5db !important;
+    }
+    
+    .desktop-nav > div:first-child {
+        padding-left: 0 !important;
+        border-left: none !important;
+    }
+    
+    /* Consistent button styling */
+    .desktop-nav button,
+    .desktop-nav a {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        padding: 0.5rem 0.75rem !important;
+        border-radius: 0.375rem !important;
+        font-size: 0.875rem !important;
+        font-weight: 500 !important;
+        transition: all 0.2s ease !important;
+        white-space: nowrap !important;
+        text-decoration: none !important;
+    }
+    
+    /* Button hover states */
+    .desktop-nav button:hover,
+    .desktop-nav a:hover {
+        background-color: rgba(59, 130, 246, 0.1) !important;
+        color: #3b82f6 !important;
+        transform: translateY(-1px) !important;
+    }
+    
+    /* Icon sizing in navigation */
+    .desktop-nav svg {
+        width: 1rem !important;
+        height: 1rem !important;
+        flex-shrink: 0 !important;
+    }
+}
+
+/* MEDIUM SCREEN OPTIMIZATION */
+@media screen and (min-width: 769px) and (max-width: 1200px) {
+    /* Adjust navigation for medium screens */
+    .desktop-nav {
+        gap: 0.25rem !important;
+    }
+    
+    .desktop-nav > div {
+        gap: 0.25rem !important;
+        padding-left: 0.75rem !important;
+    }
+    
+    .desktop-nav button,
+    .desktop-nav a {
+        padding: 0.375rem 0.5rem !important;
+        font-size: 0.8rem !important;
+    }
+    
+    /* Hide text on smaller buttons, keep icons */
+    .desktop-nav button svg + *,
+    .desktop-nav a svg + * {
+        display: none !important;
+    }
+    
+    /* Show tooltips on hover for icon-only buttons */
+    .desktop-nav button,
+    .desktop-nav a {
+        position: relative !important;
+    }
+    
+    .desktop-nav button:hover::after,
+    .desktop-nav a:hover::after {
+        content: attr(aria-label) !important;
+        position: absolute !important;
+        bottom: -2rem !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        background: rgba(0, 0, 0, 0.8) !important;
+        color: white !important;
+        padding: 0.25rem 0.5rem !important;
+        border-radius: 0.25rem !important;
+        font-size: 0.75rem !important;
+        white-space: nowrap !important;
+        z-index: 1000 !important;
+        pointer-events: none !important;
+    }
 }

@@ -79,6 +79,10 @@ async function initApp() {
         console.log("Firebase initialized successfully");
         familyToast.success('מתחברים לטיול שלכם... 🚀');
         
+        // Setup event listeners and chat once
+        setupEventListeners();
+        setupGeminiChat();
+        
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 userId = user.uid;
@@ -110,9 +114,6 @@ function setupBasicApp() {
     console.log("🔧 Setting up basic app without Firebase");
     
     try {
-        setupEventListeners();
-        setupGeminiChat();
-        
         // Load demo data for basic functionality
         currentData = {
             activitiesData: [],
@@ -134,12 +135,7 @@ function setupBasicApp() {
         console.log("🎯 Hiding all loading screens...");
         familyLoader.hide();
         
-        // Also hide any demo loading screen
-        const demoLoading = document.getElementById('demo-loading');
-        if (demoLoading) {
-            demoLoading.style.opacity = '0';
-            setTimeout(() => demoLoading.remove(), 500);
-        }
+        // Demo loading screen was removed, no cleanup needed
         
     } catch (error) {
         console.error("🔥 Error in setupBasicApp:", error);
@@ -168,13 +164,6 @@ function setupFirebaseListeners() {
                 // Hide loading screen on first successful data load
                 console.log("🎯 Hiding loading screen after Firebase data load");
                 familyLoader.hide();
-                
-                // Also hide any demo loading screen
-                const demoLoading = document.getElementById('demo-loading');
-                if (demoLoading) {
-                    demoLoading.style.opacity = '0';
-                    setTimeout(() => demoLoading.remove(), 500);
-                }
                 
                 // Reset retry counter on successful connection
                 if (window.firebaseRetryCount) {
@@ -216,9 +205,6 @@ function setupFirebaseListeners() {
     
     // Store unsubscribe function for cleanup
     window.firebaseUnsubscribe = unsubscribe;
-    
-    setupEventListeners();
-    setupGeminiChat();
 }
 
 // Enhanced Firebase reconnection handler
