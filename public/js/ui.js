@@ -673,22 +673,23 @@ function renderItinerary() {
 
 // Helper function to get placeholder images based on category
 function getActivityImage(category, name) {
+    // Use placeholder images that are more reliable
     const images = {
-        'משחקייה': 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=300&fit=crop',
-        'תרבות': 'https://images.unsplash.com/photo-1593642532973-d31b6557fa68?w=400&h=300&fit=crop',
-        'קפה': 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop',
-        'חוץ': 'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=400&h=300&fit=crop',
-        'מוזיאונים': 'https://images.unsplash.com/photo-1554907984-15263bfd63bd?w=400&h=300&fit=crop',
-        'פארקים': 'https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=400&h=300&fit=crop',
-        'אטרקציות': 'https://images.unsplash.com/photo-1451440063999-77a8b2960d2b?w=400&h=300&fit=crop',
-        'מסעדות': 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=400&h=300&fit=crop',
-        'קניות': 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&h=300&fit=crop',
-        'תחבורה': 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=400&h=300&fit=crop',
-        'נוף': 'https://images.unsplash.com/photo-1527004760902-f25b5ad68c96?w=400&h=300&fit=crop',
-        'ספורט': 'https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400&h=300&fit=crop',
-        'בידור': 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&h=300&fit=crop',
-        'טבע': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop',
-        'משפחתי': 'https://images.unsplash.com/photo-1609220807598-8d9a2d7b3f52?w=400&h=300&fit=crop'
+        'משחקייה': 'https://placehold.co/400x300/FFE4E1/8B4513?text=משחקייה',
+        'תרבות': 'https://placehold.co/400x300/E6E6FA/4B0082?text=תרבות',
+        'קפה': 'https://placehold.co/400x300/F5DEB3/8B4513?text=קפה',
+        'חוץ': 'https://placehold.co/400x300/90EE90/006400?text=פעילות+חוץ',
+        'מוזיאונים': 'https://placehold.co/400x300/DDA0DD/8B008B?text=מוזיאון',
+        'פארקים': 'https://placehold.co/400x300/98FB98/228B22?text=פארק',
+        'אטרקציות': 'https://placehold.co/400x300/FFB6C1/DC143C?text=אטרקציה',
+        'מסעדות': 'https://placehold.co/400x300/FFA07A/FF4500?text=מסעדה',
+        'קניות': 'https://placehold.co/400x300/F0E68C/B8860B?text=קניות',
+        'תחבורה': 'https://placehold.co/400x300/B0C4DE/4682B4?text=תחבורה',
+        'נוף': 'https://placehold.co/400x300/87CEEB/4169E1?text=נוף',
+        'ספורט': 'https://placehold.co/400x300/FFE4B5/FF8C00?text=ספורט',
+        'בידור': 'https://placehold.co/400x300/D8BFD8/9370DB?text=בידור',
+        'טבע': 'https://placehold.co/400x300/90EE90/006400?text=טבע',
+        'משפחתי': 'https://placehold.co/400x300/F0E68C/8B4513?text=משפחתי'
     };
     
     return images[category] || images['משפחתי'];
@@ -733,10 +734,11 @@ export function renderActivities() {
     
     const showNewItemsHighlight = (newlyAddedItems && typeof newlyAddedItems.size === 'number') ? newlyAddedItems.size > 0 : false;
     
-    // Show load more button if there are more than 6 activities
-    const showLoadMore = filteredActivities.length > 6;
+    // Show load more button if there are more activities to show or we can generate more
     const displayedActivities = window.displayedActivitiesCount || 6;
     const activitiesToShow = filteredActivities.slice(0, displayedActivities);
+    const hasMoreCached = displayedActivities < filteredActivities.length;
+    const canGenerateMore = true; // Always allow AI generation of more activities
     
     activitiesGrid.innerHTML = activitiesToShow.map(activity => {
         const isNewItem = showNewItemsHighlight && newlyAddedItems.has(activity.name);
@@ -754,7 +756,11 @@ export function renderActivities() {
                 
                 ${activityImage ? `
                     <div class="relative h-48 overflow-hidden">
-                        <img src="${activityImage}" alt="${activity.name}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                        <img src="${activityImage}" 
+                             alt="${activity.name}" 
+                             class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                             onerror="this.onerror=null; this.src='https://placehold.co/400x300/F3EFEA/4A4A4A?text=${encodeURIComponent(activity.name)}'; this.alt='${activity.name} - תמונה לא זמינה';"
+                             loading="lazy">
                         <div class="absolute top-2 right-2">
                             <span class="category-badge ${activity.category} px-2 py-1 text-xs rounded-full">${activity.category}</span>
                         </div>
@@ -799,11 +805,16 @@ export function renderActivities() {
     // Show/hide load more button
     const loadMoreContainer = document.getElementById('load-more-container');
     if (loadMoreContainer) {
-        if (showLoadMore && displayedActivities < filteredActivities.length) {
+        // Always show load more button if we have activities and can generate more
+        if (filteredActivities.length > 0 && canGenerateMore) {
             loadMoreContainer.classList.remove('hidden');
             const button = document.getElementById('load-more-btn');
             if (button) {
-                button.textContent = `טען עוד פעילויות 🎈 (${filteredActivities.length - displayedActivities} נותרו)`;
+                if (hasMoreCached) {
+                    button.textContent = `טען עוד פעילויות 🎈 (${filteredActivities.length - displayedActivities} נותרו)`;
+                } else {
+                    button.textContent = '🤖 צור פעילויות חדשות עם AI';
+                }
                 button.disabled = false;
                 button.classList.remove('opacity-50', 'cursor-not-allowed');
             }
