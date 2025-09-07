@@ -1579,9 +1579,12 @@ export function renderDailySpecial() {
     
     container.innerHTML = `
         <p class="text-lg leading-relaxed">${specialContent}</p>
-        <div class="mt-4">
-            <button id="daily-special-ai-btn" class="btn-primary px-4 py-2 rounded-lg text-sm">
+        <div class="mt-6 flex justify-center space-x-4 space-x-reverse">
+            <button id="daily-special-ai-btn" class="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-full font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-200 transform hover:scale-105 shadow-lg">
                 ✨ ספר לי עוד על המלצה זו
+            </button>
+            <button id="add-to-plan-btn" class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full font-semibold hover:from-green-600 hover:to-teal-600 transition-all duration-200 transform hover:scale-105 shadow-lg">
+                ➕ הוסף למסלול שלי
             </button>
         </div>
     `;
