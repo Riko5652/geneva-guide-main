@@ -1978,22 +1978,30 @@ export function renderLuggagePlanner() {
                 <div class="flex-1">
                     <h4 class="font-bold text-lg text-gray-800">${bag.name}</h4>
                     <p class="text-sm text-gray-600">${bag.notes}</p>
-                    <div class="flex gap-4 mt-2 text-sm">
-                        <span class="font-semibold">👤 אחראי: 
-                            <select class="luggage-owner-select ml-1 border rounded px-2 py-1" data-bag-index="${bagIndex}">
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-3 text-sm">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                            <span class="font-semibold text-gray-700 flex items-center">
+                                <span class="w-4 h-4 mr-1">👤</span>
+                                אחראי:
+                            </span>
+                            <select class="luggage-owner-select border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white hover:border-blue-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors duration-200 min-w-0 sm:min-w-24" data-bag-index="${bagIndex}">
                                 ${familyMembers.map(member => 
                                     `<option value="${member}" ${bag.owner === member ? 'selected' : ''}>${member}</option>`
                                 ).join('')}
                             </select>
-                        </span>
-                        <span class="font-semibold">⚖️ משקל: 
-                            <select class="luggage-weight-select ml-1 border rounded px-2 py-1" data-bag-index="${bagIndex}">
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                            <span class="font-semibold text-gray-700 flex items-center">
+                                <span class="w-4 h-4 mr-1">⚖️</span>
+                                משקל:
+                            </span>
+                            <select class="luggage-weight-select border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white hover:border-green-400 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-colors duration-200 min-w-0 sm:min-w-32" data-bag-index="${bagIndex}">
                                 <option value="עד 23 ק\"ג" ${bag.weight === 'עד 23 ק"ג' ? 'selected' : ''}>עד 23 ק"ג (גדולה)</option>
                                 <option value="עד 15 ק\"ג" ${bag.weight === 'עד 15 ק"ג' ? 'selected' : ''}>עד 15 ק"ג (בינונית)</option>
                                 <option value="עד 8 ק\"ג" ${bag.weight === 'עד 8 ק"ג' ? 'selected' : ''}>עד 8 ק"ג (קטנה)</option>
                                 <option value="-" ${bag.weight === '-' ? 'selected' : ''}>ללא הגבלה</option>
                             </select>
-                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
