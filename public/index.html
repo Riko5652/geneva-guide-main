@@ -43,12 +43,12 @@
     
     <!-- Mobile navigation styles are handled in style.css -->
     
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- Consolidated CSS - Single optimized file -->
-    <link rel="stylesheet" href="/CSS/consolidated.css" id="css-consolidated">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     
     <!-- Performance Optimizations -->
     <link rel="preload" href="/js/Main.js" as="script" crossorigin="anonymous">
@@ -61,13 +61,10 @@
     <!-- Skip link for keyboard navigation -->
     <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
-    <header class="bg-glass sticky top-0 z-50" role="banner">
-        <nav class="container mx-auto px-6 py-4" role="navigation" aria-label="ניווט ראשי">
+    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-md">
+        <nav class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
-                <a href="#" class="text-2xl font-bold text-accent flex items-center gap-2">
-                    <span class="text-3xl">🧸</span>
-                    <span class="bg-gradient-to-r from-teal-600 to-teal-800 bg-clip-text text-transparent">ז'נבה עם קטנטנים</span>
-                </a>
+                <a href="#" class="text-xl font-bold text-accent">ז'נבה עם קטנטנים 🧸</a>
                 
                 <div class="hidden lg:flex items-center space-x-6 space-x-reverse">
                     <a href="#plan" class="hover:text-accent">🗺️ מסלול</a>
