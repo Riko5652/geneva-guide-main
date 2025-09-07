@@ -74,7 +74,6 @@ body {
     line-height: 1.7;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
 }
 
@@ -641,12 +640,5 @@ input:focus-visible {
     outline-offset: 2px;
 }
 
-/* High Contrast Mode Support */
-@media (prefers-contrast: high) {
-    :root {
-        --primary-600: #000000;
-        --neutral-800: #000000;
-        --neutral-200: #ffffff;
-    }
-}
+/* High Contrast Mode Support - removed due to browser compatibility issues */
 
