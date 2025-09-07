@@ -837,12 +837,22 @@ export function renderActivities() {
             const button = document.getElementById('load-more-btn');
             if (button) {
                 if (hasMoreCached) {
-                    button.innerHTML = `טען עוד פעילויות 🎈 (${filteredActivities.length - displayedActivities} נותרו)`;
+                    button.innerHTML = `
+                        <span class="flex items-center justify-center gap-2">
+                            <span class="text-lg">🎈</span>
+                            <span class="whitespace-nowrap">טען עוד פעילויות (${filteredActivities.length - displayedActivities} נותרו)</span>
+                        </span>
+                    `;
                 } else {
-                    button.innerHTML = '🤖 צור פעילויות חדשות עם AI';
+                    button.innerHTML = `
+                        <span class="flex items-center justify-center gap-2">
+                            <span class="text-lg">🤖</span>
+                            <span class="whitespace-nowrap">צור פעילויות חדשות עם AI</span>
+                        </span>
+                    `;
                 }
                 button.disabled = false;
-                button.className = 'btn-primary px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg';
+                button.className = 'bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg';
                 button.classList.remove('opacity-50', 'cursor-not-allowed');
             }
         } else {
