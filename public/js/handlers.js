@@ -435,9 +435,27 @@ function handleDelegatedClicks(e) {
         if (photoSection) {
             photoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+        // Close mobile menu after scrolling
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuBtn = document.getElementById('menu-btn');
+        if (mobileMenu && menuBtn) {
+            mobileMenu.classList.add('hidden');
+            mobileMenu.style.display = 'none';
+            menuBtn.setAttribute('aria-expanded', 'false');
+            menuBtn.innerHTML = `
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            `;
+        }
     }
 
     // --- General UI Logic ---
+    // Skip close button logic if this is the mobile menu button
+    if (target.id === 'menu-btn') {
+        return; // Let the mobile menu handler deal with this
+    }
+    
     console.log('🔍 Checking close button conditions for:', target.id);
     console.log('🔍 Has modal-close-btn class:', target.classList.contains('modal-close-btn'));
     console.log('🔍 ID includes close-:', target.id.includes('close-'));
