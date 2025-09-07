@@ -1005,18 +1005,14 @@ async function handleAiRequest(type, event) {
                 throw new Error('Unknown AI request type');
         }
         
-        console.log("🤖 Starting AI request with prompt:", prompt);
-        
         // Show modal immediately with loading state
         showAiResponseModal('', modalTitle, true); // true = loading state
         
         // Test the endpoint first
         const { testGeminiEndpoint } = await import('./Gemini.js');
         const testStatus = await testGeminiEndpoint();
-        console.log("🧪 Endpoint test result:", testStatus);
         
         const response = await callGeminiWithParts([prompt]);
-        console.log("🤖 AI Response received:", response);
         
         // Update modal with actual response
         showAiResponseModal(response, modalTitle, false); // false = not loading
