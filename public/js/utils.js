@@ -331,6 +331,7 @@ const modalManager = new ModalManager();
 
 // Export the modal functions
 export function openModal(modalId, onOpenCallback) {
+    console.log('🚪 Opening modal:', modalId);
     modalManager.openModal(modalId, onOpenCallback);
 }
 

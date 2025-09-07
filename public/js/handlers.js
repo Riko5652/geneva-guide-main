@@ -212,6 +212,9 @@ export function setupEventListeners() {
     
     console.log('✅ Event listeners attached successfully');
     
+    // Test if event listener is working
+    console.log('🧪 Testing event listener - click any button to see if it works');
+    
     // Setup mobile menu functionality
     setupMobileMenu();
     
@@ -370,7 +373,7 @@ function handleDelegatedClicks(e) {
     if (!target) return;
     
     // Debug logging
-    console.log('🔍 Click detected on:', target.className, target.textContent?.trim());
+    console.log('🔍 Click detected on:', target.tagName, target.id, target.className, target.textContent?.trim());
     
     // Handle photo gallery clicks
     if (target.classList.contains('photo-item')) {
@@ -402,6 +405,7 @@ function handleDelegatedClicks(e) {
         openModal('hotel-booking-modal', populateHotelDetails);
     }
     if (target.closest('#open-packing-modal-btn, #open-packing-modal-btn-mobile, #open-packing-modal-btn-mobile-2, #open-packing-modal-btn-nav')) {
+        console.log('📦 Packing button clicked');
         openModal('packing-guide-modal', renderPackingGuide);
     }
      if (target.classList.contains('nav-gemini-btn')) {
