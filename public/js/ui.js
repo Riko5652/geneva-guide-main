@@ -1056,15 +1056,36 @@ export function renderPackingGuide() {
                 <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
                     <div class="space-y-4">
                         <h4 class="font-semibold">רגע האמת - מה לעשות עכשיו:</h4>
-                        <div class="bg-blue-50 p-4 rounded-lg">
-                            <ol class="list-decimal list-inside space-y-2 text-sm">
-                                <li>עבור על הרשימה המלאה למעלה וסמן כל פריט ✅</li>
-                                <li>הכן ערימה של בגדים לכל בן משפחה 👕</li>
-                                <li>ארוז תיק עזרה ראשונה עם תרופות אישיות 💊</li>
-                                <li>הכן תיק יד עם מסמכים וחטיפים ✈️</li>
-                                <li>שקול כל תיק - מקס' 23 ק"ג 🏋️‍♂️</li>
-                                <li>עשה תמונה של הדרכונים (גיבוי) 📸</li>
-                                <li>הורד אפליקציית תרגום (Google Translate) 🗣️</li>
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-6 rounded-xl border border-blue-200 shadow-sm">
+                            <ol class="space-y-3 sm:space-y-4">
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-blue-100 hover:shadow-md transition-shadow duration-200">
+                                    <span class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                                    <span class="text-sm sm:text-base text-gray-800 leading-relaxed">עבור על הרשימה המלאה למעלה וסמן כל פריט <span class="text-green-600 font-semibold">✅</span></span>
+                                </li>
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-blue-100 hover:shadow-md transition-shadow duration-200">
+                                    <span class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                                    <span class="text-sm sm:text-base text-gray-800 leading-relaxed">הכן ערימה של בגדים לכל בן משפחה <span class="text-blue-600">👕</span></span>
+                                </li>
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-blue-100 hover:shadow-md transition-shadow duration-200">
+                                    <span class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                                    <span class="text-sm sm:text-base text-gray-800 leading-relaxed">ארוז תיק עזרה ראשונה עם תרופות אישיות <span class="text-red-600">💊</span></span>
+                                </li>
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-blue-100 hover:shadow-md transition-shadow duration-200">
+                                    <span class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                                    <span class="text-sm sm:text-base text-gray-800 leading-relaxed">הכן תיק יד עם מסמכים וחטיפים <span class="text-indigo-600">✈️</span></span>
+                                </li>
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-blue-100 hover:shadow-md transition-shadow duration-200">
+                                    <span class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold">5</span>
+                                    <span class="text-sm sm:text-base text-gray-800 leading-relaxed">שקול כל תיק - מקס' 23 ק"ג <span class="text-orange-600">🏋️‍♂️</span></span>
+                                </li>
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-blue-100 hover:shadow-md transition-shadow duration-200">
+                                    <span class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold">6</span>
+                                    <span class="text-sm sm:text-base text-gray-800 leading-relaxed">עשה תמונה של הדרכונים (גיבוי) <span class="text-purple-600">📸</span></span>
+                                </li>
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-blue-100 hover:shadow-md transition-shadow duration-200">
+                                    <span class="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold">7</span>
+                                    <span class="text-sm sm:text-base text-gray-800 leading-relaxed">הורד אפליקציית תרגום (Google Translate) <span class="text-teal-600">🗣️</span></span>
+                                </li>
                             </ol>
                         </div>
                         <div class="text-center pt-4">
