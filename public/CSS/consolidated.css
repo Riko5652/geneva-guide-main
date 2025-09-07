@@ -2057,20 +2057,89 @@ li {
     padding: 1rem !important;
 }
 
-/* Device-specific grid layouts */
+/* Enhanced Device-specific grid layouts */
 .modal-mobile .packing-categories-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
+    padding: 0.5rem 0 !important;
 }
 
 .modal-tablet .packing-categories-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 1.5rem !important;
+    padding: 1rem 0 !important;
 }
 
 .modal-desktop .packing-categories-grid {
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 2rem !important;
+    padding: 1.5rem 0 !important;
+}
+
+/* Enhanced responsive category cards */
+.modal-mobile .category-card.enhanced-card {
+    margin-bottom: 1rem;
+}
+
+.modal-mobile .category-header-enhanced {
+    padding: 1rem !important;
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 0.75rem !important;
+}
+
+.modal-mobile .category-icon-wrapper {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+}
+
+.modal-mobile .category-title-enhanced {
+    font-size: 1.125rem !important;
+}
+
+.modal-tablet .category-header-enhanced {
+    padding: 1.25rem !important;
+}
+
+.modal-desktop .category-header-enhanced {
+    padding: 1.5rem !important;
+}
+
+/* Enhanced responsive content */
+.modal-mobile .category-content-enhanced {
+    padding: 1rem !important;
+}
+
+.modal-mobile .packing-items-container {
+    max-height: 15rem !important;
+}
+
+.modal-tablet .packing-items-container {
+    max-height: 18rem !important;
+}
+
+.modal-desktop .packing-items-container {
+    max-height: 20rem !important;
+}
+
+/* Enhanced responsive items */
+.modal-mobile .packing-item-label-enhanced {
+    padding: 0.5rem !important;
+    gap: 0.5rem !important;
+}
+
+.modal-mobile .item-text-enhanced {
+    font-size: 0.8125rem !important;
+}
+
+.modal-tablet .packing-item-label-enhanced {
+    padding: 0.625rem !important;
+    gap: 0.625rem !important;
+}
+
+.modal-desktop .packing-item-label-enhanced {
+    padding: 0.75rem !important;
+    gap: 0.75rem !important;
 }
 
 /* Device-specific navigation pills */

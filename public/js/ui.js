@@ -9,6 +9,35 @@ import { AnimationManager } from './animations.js';
 import { ToastManager } from './toast.js';
 import { LoadingManager } from './loading.js';
 
+// Helper functions for enhanced packing categories
+function getCategoryIcon(category) {
+    const iconMap = {
+        'בגדים': '👕',
+        'נעליים': '👟',
+        'ציוד אישי': '🧴',
+        'ציוד לתינוק': '🍼',
+        'ציוד רפואי': '🏥',
+        'מסמכים': '📄',
+        'אלקטרוניקה': '📱',
+        'ציוד נוסף': '🎒',
+        'אוכל ושתייה': '🍎',
+        'צעצועים': '🧸'
+    };
+    return iconMap[category] || '📦';
+}
+
+function getItemPriority(item) {
+    if (item.priority === 'high' || item.essential) return 'priority-high';
+    if (item.priority === 'medium') return 'priority-medium';
+    return 'priority-low';
+}
+
+function getPriorityIcon(item) {
+    if (item.priority === 'high' || item.essential) return '🔴';
+    if (item.priority === 'medium') return '🟡';
+    return '🟢';
+}
+
 // Family-Friendly Animations & Effects
 export class FamilyAnimations {
     constructor() {
@@ -893,29 +922,49 @@ export function renderPackingGuide() {
                         <p class="text-gray-700 mb-4 text-base leading-relaxed">רשימה מקיפה של כל הפריטים הדרושים לטיול משפחתי בז'נבה עם פעוטות. סמנו כל פריט שארזתם כדי לעקוב אחר ההתקדמות.</p>
                     </div>
                     <div class="packing-categories-grid">
-                    ${Object.entries(packingData).map(([category, items]) => `
-                            <div class="category-card">
-                                <div class="category-header">
-                                    <h3 class="category-title">${category}</h3>
-                                    <div class="category-progress">
-                                        <span class="category-count">0/${Array.isArray(items) ? items.length : 0}</span>
+                    ${Object.entries(packingData).map(([category, items], categoryIndex) => `
+                            <div class="category-card enhanced-card" data-category-index="${categoryIndex}">
+                                <!-- Decorative header with gradient -->
+                                <div class="category-header-enhanced">
+                                    <div class="category-icon-wrapper">
+                                        <span class="category-icon">${getCategoryIcon(category)}</span>
+                                    </div>
+                                    <div class="category-info">
+                                        <h3 class="category-title-enhanced">${category}</h3>
+                                        <div class="category-progress-enhanced">
+                                            <div class="progress-bar-container">
+                                                <div class="progress-bar" data-category="${category}"></div>
+                                            </div>
+                                            <span class="category-count-enhanced">0/${Array.isArray(items) ? items.length : 0}</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="category-content">
-                                    <ul class="packing-items-list">
-                                    ${Array.isArray(items) ? items.map((item, index) => `
-                                            <li class="packing-item-row">
-                                                <label class="packing-item-label">
-                                                    <input type="checkbox" class="packing-checkbox" 
-                                                   data-category="${category}" data-index="${index}" 
-                                                           ${item.checked ? 'checked' : ''}>
-                                                    <span class="checkbox-custom"></span>
-                                                    <span class="item-text">${item.name}</span>
-                                                    <span class="item-checkmark">✓</span>
-                                                </label>
-                                            </li>
-                                        `).join('') : '<li class="no-items">אין פריטים זמינים</li>'}
-                                </ul>
+                                
+                                <!-- Enhanced content area -->
+                                <div class="category-content-enhanced">
+                                    <div class="packing-items-container">
+                                        <ul class="packing-items-list-enhanced">
+                                        ${Array.isArray(items) ? items.map((item, index) => `
+                                                <li class="packing-item-row-enhanced">
+                                                    <label class="packing-item-label-enhanced">
+                                                        <input type="checkbox" class="packing-checkbox-enhanced" 
+                                                       data-category="${category}" data-index="${index}" 
+                                                               ${item.checked ? 'checked' : ''}>
+                                                        <span class="checkbox-custom-enhanced">
+                                                            <span class="checkmark-icon">✓</span>
+                                                        </span>
+                                                        <span class="item-text-enhanced">${item.name}</span>
+                                                        <span class="item-priority ${getItemPriority(item)}">${getPriorityIcon(item)}</span>
+                                                    </label>
+                                                </li>
+                                            `).join('') : '<li class="no-items-enhanced">אין פריטים זמינים</li>'}
+                                    </ul>
+                                </div>
+                                
+                                <!-- Category completion badge -->
+                                <div class="category-completion-badge" data-category="${category}">
+                                    <span class="completion-text">0% הושלם</span>
+                                </div>
                             </div>
                         </div>
                     `).join('')}
