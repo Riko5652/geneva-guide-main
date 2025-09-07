@@ -166,12 +166,16 @@ export async function callGeminiWithParts(parts) {
         }
 
         const data = await response.json();
+        console.log("🤖 Gemini API response:", data);
+        
         const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
         
         if (!responseText) {
             console.warn("Empty response from Gemini API:", data);
             throw new Error("ה-AI לא החזיר תגובה תקינה.");
         }
+        
+        console.log("🤖 Extracted response text:", responseText);
         return responseText;
     } catch (err) {
         console.warn("Error in callGeminiWithParts:", err);

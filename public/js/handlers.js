@@ -970,11 +970,14 @@ async function handleAiRequest(type, event) {
         }
         
         const response = await callGeminiWithParts([prompt]);
+        console.log("🤖 AI Response received:", response);
         
         // Show response in modal
         const modal = document.getElementById('text-response-modal');
         const titleEl = document.getElementById('text-response-modal-title');
         const contentEl = document.getElementById('text-response-modal-content');
+        
+        console.log("🔍 Modal elements found:", { modal: !!modal, titleEl: !!titleEl, contentEl: !!contentEl });
         
         if (!modal) {
             console.warn('text-response-modal not found');
@@ -994,6 +997,7 @@ async function handleAiRequest(type, event) {
         
         titleEl.textContent = modalTitle;
         contentEl.innerHTML = `<div class="prose text-gray-700">${sanitizeHTML(response)}</div>`;
+        console.log("🔍 Showing modal with title:", modalTitle);
         modal.classList.remove('hidden');
         
     } catch (error) {
