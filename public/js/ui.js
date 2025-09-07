@@ -800,9 +800,14 @@ export function renderPackingGuide() {
     console.log('✅ Packing modal found, rendering content...');
     
     const modalContent = modal.querySelector('#packing-modal-content');
+    console.log('🔍 Looking for modal content element:', modalContent);
     
     // Add interactive packing functionality to modal content
-    if (!modalContent) return;
+    if (!modalContent) {
+        console.error('❌ Modal content element not found');
+        return;
+    }
+    console.log('✅ Modal content element found, rendering...');
     
     // Default packing list if no Firebase data
     const defaultPackingList = {
@@ -872,6 +877,7 @@ export function renderPackingGuide() {
         ? currentData.packingListData 
         : defaultPackingList;
     
+    console.log('🎨 Setting modal content HTML...');
     modalContent.innerHTML = `
         <div class="modal-checklist-container space-y-8 pb-8">
             <!-- Master List Section -->
@@ -1193,12 +1199,14 @@ export function renderPackingGuide() {
     
     // Render additional packing components
     setTimeout(() => {
+        console.log('🔄 Rendering additional packing components...');
         renderInteractivePackingList();
         renderPackingPhotosGallery(); 
         renderLuggagePlanner();
         
         // Add event listeners for interactive elements
         setupPackingInteractiveElements();
+        console.log('✅ Packing guide rendering completed');
     }, 100);
 }
 
