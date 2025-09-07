@@ -35,7 +35,7 @@ export function v(path) {
 // CSS versioning system - automatically updates CSS files with cache busting
 export function initCSSVersioning() {
         const cssFiles = [
-            { id: 'css-consolidated', href: '/CSS/consolidated.css' }
+            // No CSS files to version - using simple style.css
         ];
     
     // Update CSS files in order to maintain proper cascade
