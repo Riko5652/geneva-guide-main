@@ -969,6 +969,7 @@ async function handleAiRequest(type, event) {
                 throw new Error('Unknown AI request type');
         }
         
+        console.log("🤖 Starting AI request with prompt:", prompt);
         const response = await callGeminiWithParts([prompt]);
         console.log("🤖 AI Response received:", response);
         
@@ -996,7 +997,12 @@ async function handleAiRequest(type, event) {
         }
         
         titleEl.textContent = modalTitle;
-        contentEl.innerHTML = `<div class="prose text-gray-700">${sanitizeHTML(response)}</div>`;
+        try {
+            contentEl.innerHTML = `<div class="prose text-gray-700">${sanitizeHTML(response)}</div>`;
+        } catch (sanitizeError) {
+            console.warn("Sanitize error, using raw content:", sanitizeError);
+            contentEl.innerHTML = `<div class="prose text-gray-700">${response}</div>`;
+        }
         console.log("🔍 Showing modal with title:", modalTitle);
         modal.classList.remove('hidden');
         

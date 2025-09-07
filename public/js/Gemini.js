@@ -158,6 +158,8 @@ export async function callGeminiWithParts(parts) {
             body: JSON.stringify({ contents: [{ role: "user", parts: formattedParts }] }),
             signal: AbortSignal.timeout(30000) // 30 second timeout
         });
+        
+        console.log("🤖 API Response status:", response.status, response.statusText);
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
