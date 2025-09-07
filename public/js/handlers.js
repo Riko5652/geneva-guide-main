@@ -935,6 +935,55 @@ async function handleChatSend() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
+// Format AI response with better styling and structure
+function formatAiResponse(text) {
+    // Convert markdown-style formatting to HTML with better styling
+    let formatted = text
+        // Convert headers with emojis and better styling
+        .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-accent mb-4 border-b-2 border-accent pb-2">$1</h2>')
+        .replace(/^\*\*(.+?):\*\*/gm, '<h3 class="text-lg font-semibold text-gray-800 mt-4 mb-2 flex items-center"><span class="w-2 h-2 bg-accent rounded-full mr-2"></span>$1</h3>')
+        
+        // Convert time ranges with special styling
+        .replace(/^\*\*(.+? - .+?):\*\*/gm, '<h4 class="text-base font-medium text-accent mt-3 mb-2 flex items-center"><span class="text-lg mr-2">⏰</span>$1</h4>')
+        
+        // Convert bullet points with better styling
+        .replace(/^\* \*\*(.+?):\*\* (.+)$/gm, '<div class="mb-3 p-3 bg-gray-50 rounded-lg border-r-4 border-accent"><div class="font-semibold text-gray-800 mb-1">$1:</div><div class="text-gray-700">$2</div></div>')
+        .replace(/^\* (.+)$/gm, '<div class="mb-2 flex items-start"><span class="text-accent mr-2 mt-1">•</span><span class="text-gray-700">$1</span></div>')
+        
+        // Convert line breaks to proper spacing
+        .replace(/<br><br>/g, '</div><div class="mt-4">')
+        .replace(/<br>/g, '<br class="mb-2">')
+        
+        // Add emojis to common sections
+        .replace(/מטרה:/g, '🎯 מטרה:')
+        .replace(/זמן:/g, '⏰ זמן:')
+        .replace(/תחבורה:/g, '🚌 תחבורה:')
+        .replace(/תוכנית:/g, '📋 תוכנית:')
+        .replace(/מיקום:/g, '📍 מיקום:')
+        .replace(/פעילות:/g, '🎪 פעילות:')
+        .replace(/טיפ:/g, '💡 טיפ:')
+        .replace(/טיפים נוספים:/g, '💡 טיפים נוספים:')
+        .replace(/בגדים:/g, '👕 בגדים:')
+        .replace(/נעליים:/g, '👟 נעליים:')
+        .replace(/ציוד:/g, '🎒 ציוד:')
+        .replace(/זמן גמיש:/g, '🔄 זמן גמיש:')
+        .replace(/מפה:/g, '🗺️ מפה:')
+        
+        // Add friendly closing messages
+        .replace(/תהנו מטיול משפחתי נפלא בז'נבה!/g, '<div class="mt-6 p-4 bg-gradient-to-r from-accent to-blue-500 text-white rounded-lg text-center font-semibold">🎉 תהנו מטיול משפחתי נפלא בז\'נבה! 🎉</div>')
+        .replace(/בוקר נעים!/g, '<div class="mt-6 p-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg text-center font-semibold">🌅 בוקר נעים! 🌅</div>')
+        .replace(/לילה טוב, ילדים!/g, '<div class="mt-6 p-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg text-center font-semibold">🌙 לילה טוב, ילדים! 🌙</div>');
+    
+    // Wrap in a container with proper spacing and typography
+    return `
+        <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+            <div class="space-y-4">
+                ${formatted}
+            </div>
+        </div>
+    `;
+}
+
 // Show AI response modal with loading state support
 function showAiResponseModal(response, modalTitle, isLoading = false) {
     const modal = document.getElementById('text-response-modal');
@@ -956,10 +1005,12 @@ function showAiResponseModal(response, modalTitle, isLoading = false) {
     } else if (response) {
         try {
             const sanitizedContent = sanitizeHTML(response);
-            contentEl.innerHTML = `<div class="prose text-gray-700">${sanitizedContent}</div>`;
+            const formattedContent = formatAiResponse(sanitizedContent);
+            contentEl.innerHTML = formattedContent;
         } catch (sanitizeError) {
             console.warn("Sanitize error, using raw content:", sanitizeError);
-            contentEl.innerHTML = `<div class="prose text-gray-700">${response}</div>`;
+            const formattedContent = formatAiResponse(response);
+            contentEl.innerHTML = formattedContent;
         }
     }
     
