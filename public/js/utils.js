@@ -131,11 +131,13 @@ class ModalManager {
      * @param {function} [onOpenCallback] An optional function to run just before the modal is shown.
      */
     openModal(modalId, onOpenCallback) {
+        console.log('🔍 Looking for modal:', modalId);
         const modal = document.getElementById(modalId);
         if (!modal) {
-            console.warn(`Modal with ID '${modalId}' not found.`);
+            console.error(`❌ Modal with ID '${modalId}' not found.`);
             return;
         }
+        console.log('✅ Modal found:', modalId, modal);
         
         // Enhanced modal opening with better user feedback
         this.showModalLoading(modalId);
