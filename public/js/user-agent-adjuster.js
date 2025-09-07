@@ -157,23 +157,13 @@ class UserAgentAdjuster {
             // Remove existing device-specific classes
             modal.classList.remove('modal-mobile', 'modal-tablet', 'modal-desktop');
             
-            // Add device-specific class
+            // Add device-specific class (let CSS handle the styling)
             modal.classList.add(`modal-${this.deviceType}`);
             
-            // Adjust modal size based on device
-            if (this.deviceType === 'mobile') {
-                modal.style.maxWidth = '95vw';
-                modal.style.maxHeight = '90vh';
-                modal.style.margin = '2.5vh auto';
-            } else if (this.deviceType === 'tablet') {
-                modal.style.maxWidth = '90vw';
-                modal.style.maxHeight = '85vh';
-                modal.style.margin = '7.5vh auto';
-            } else {
-                modal.style.maxWidth = '80vw';
-                modal.style.maxHeight = '80vh';
-                modal.style.margin = '10vh auto';
-            }
+            // Remove any inline styles that might override CSS
+            modal.style.maxWidth = '';
+            modal.style.maxHeight = '';
+            modal.style.margin = '';
         });
     }
 
@@ -183,20 +173,20 @@ class UserAgentAdjuster {
         
         if (this.deviceType === 'mobile' || this.deviceType === 'tablet') {
             if (mobileMenu) {
-                mobileMenu.style.display = 'block';
+                mobileMenu.style.display = '';
                 mobileMenu.classList.remove('hidden');
             }
             if (desktopNav) {
-                desktopNav.style.display = 'none';
+                desktopNav.style.display = '';
                 desktopNav.classList.add('hidden');
             }
         } else {
             if (mobileMenu) {
-                mobileMenu.style.display = 'none';
+                mobileMenu.style.display = '';
                 mobileMenu.classList.add('hidden');
             }
             if (desktopNav) {
-                desktopNav.style.display = 'block';
+                desktopNav.style.display = '';
                 desktopNav.classList.remove('hidden');
             }
         }
@@ -209,64 +199,32 @@ class UserAgentAdjuster {
         const content = packingModal.querySelector('#packing-modal-content');
         const nav = packingModal.querySelector('.sticky.top-0');
         
-        if (this.deviceType === 'mobile') {
-            // Mobile optimizations
-            if (content) {
-                content.style.padding = '1rem';
-                content.style.fontSize = '14px';
-            }
-            if (nav) {
-                nav.style.padding = '0.5rem';
-            }
-            
-            // Adjust packing categories grid
-            const categoriesGrid = packingModal.querySelector('.packing-categories-grid');
-            if (categoriesGrid) {
-                categoriesGrid.style.gridTemplateColumns = '1fr';
-                categoriesGrid.style.gap = '1rem';
-            }
-            
-            // Adjust navigation pills
-            const navPills = packingModal.querySelectorAll('.nav-pill');
-            navPills.forEach(pill => {
-                pill.style.fontSize = '12px';
-                pill.style.padding = '0.5rem 0.75rem';
-            });
-            
-        } else if (this.deviceType === 'tablet') {
-            // Tablet optimizations
-            if (content) {
-                content.style.padding = '1.5rem';
-                content.style.fontSize = '15px';
-            }
-            if (nav) {
-                nav.style.padding = '0.75rem';
-            }
-            
-            // Adjust packing categories grid
-            const categoriesGrid = packingModal.querySelector('.packing-categories-grid');
-            if (categoriesGrid) {
-                categoriesGrid.style.gridTemplateColumns = 'repeat(2, 1fr)';
-                categoriesGrid.style.gap = '1.5rem';
-            }
-            
-        } else {
-            // Desktop optimizations
-            if (content) {
-                content.style.padding = '2rem';
-                content.style.fontSize = '16px';
-            }
-            if (nav) {
-                nav.style.padding = '1rem';
-            }
-            
-            // Adjust packing categories grid
-            const categoriesGrid = packingModal.querySelector('.packing-categories-grid');
-            if (categoriesGrid) {
-                categoriesGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
-                categoriesGrid.style.gap = '2rem';
-            }
+        // Remove all inline styles and let CSS handle the responsive design
+        if (content) {
+            content.style.padding = '';
+            content.style.fontSize = '';
         }
+        if (nav) {
+            nav.style.padding = '';
+        }
+        
+        // Remove inline grid styles
+        const categoriesGrid = packingModal.querySelector('.packing-categories-grid');
+        if (categoriesGrid) {
+            categoriesGrid.style.gridTemplateColumns = '';
+            categoriesGrid.style.gap = '';
+        }
+        
+        // Remove inline pill styles
+        const navPills = packingModal.querySelectorAll('.nav-pill');
+        navPills.forEach(pill => {
+            pill.style.fontSize = '';
+            pill.style.padding = '';
+        });
+        
+        // Add device-specific class for CSS-based responsive design
+        packingModal.classList.remove('modal-mobile', 'modal-tablet', 'modal-desktop');
+        packingModal.classList.add(`modal-${this.deviceType}`);
     }
 
     setupOrientationChange() {
