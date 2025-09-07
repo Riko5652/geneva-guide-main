@@ -431,7 +431,10 @@ function handleDelegatedClicks(e) {
 
     // --- General UI Logic ---
     if (target.classList.contains('modal-close-btn') || (target.id.includes('close-') && target.id.includes('-modal-btn'))) {
-        closeModal(target.closest('.modal'));
+        console.log('🚪 Close button clicked:', target.id, target.className);
+        const modal = target.closest('.modal');
+        console.log('🔍 Found modal:', modal?.id);
+        closeModal(modal);
     }
     if (target.classList.contains('close-result-btn')) {
         const resultContainer = target.closest('.gemini-plan-result');

@@ -209,6 +209,7 @@ class ModalManager {
      * @param {HTMLElement|string} modal Modal element or modal ID
      */
     closeModal(modal) {
+        console.log('🚪 closeModal called with:', modal);
         let modalElement;
         let modalId;
         
@@ -220,7 +221,11 @@ class ModalManager {
             modalId = modal?.id;
         }
         
-        if (!modalElement) return;
+        console.log('🔍 Modal element found:', modalElement?.id);
+        if (!modalElement) {
+            console.log('❌ No modal element found, returning');
+            return;
+        }
         
         // Find and remove from stack
         const stackIndex = this.modalStack.findIndex(item => item.id === modalId);
