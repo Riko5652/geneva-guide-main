@@ -286,12 +286,14 @@ function setupMobileMenu() {
     if (menuBtn && mobileMenu) {
         console.log('🍔 Initializing mobile menu state');
         // Ensure proper initial state - mobile menu starts hidden
+        mobileMenu.classList.add('hidden');
         menuBtn.setAttribute('aria-expanded', 'false');
         menuBtn.innerHTML = `
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
             </svg>
         `;
+        console.log('🍔 Mobile menu forced to hidden state');
         
         // Mobile menu initialized to hidden state
         
