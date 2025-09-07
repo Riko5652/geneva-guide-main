@@ -463,9 +463,12 @@ function handleDelegatedClicks(e) {
     
     if (target.classList.contains('modal-close-btn') || (target.id.includes('close-') && target.id.includes('-modal-btn'))) {
         console.log('🚪 Close button clicked:', target.id, target.className);
+        e.stopPropagation(); // Prevent event bubbling to mobile menu
+        e.preventDefault(); // Prevent default behavior
         const modal = target.closest('.modal');
         console.log('🔍 Found modal:', modal?.id);
         closeModal(modal);
+        return; // Exit early to prevent further processing
     }
     if (target.classList.contains('close-result-btn')) {
         const resultContainer = target.closest('.gemini-plan-result');
