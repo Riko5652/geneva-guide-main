@@ -430,6 +430,11 @@ function handleDelegatedClicks(e) {
     }
 
     // --- General UI Logic ---
+    console.log('🔍 Checking close button conditions for:', target.id);
+    console.log('🔍 Has modal-close-btn class:', target.classList.contains('modal-close-btn'));
+    console.log('🔍 ID includes close-:', target.id.includes('close-'));
+    console.log('🔍 ID includes -modal-btn:', target.id.includes('-modal-btn'));
+    
     if (target.classList.contains('modal-close-btn') || (target.id.includes('close-') && target.id.includes('-modal-btn'))) {
         console.log('🚪 Close button clicked:', target.id, target.className);
         const modal = target.closest('.modal');
