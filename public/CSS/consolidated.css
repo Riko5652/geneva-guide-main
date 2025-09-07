@@ -23,6 +23,11 @@
   --accent-purple: #9333ea;
   --accent-pink: #ec4899;
   
+  /* High contrast colors for accessibility */
+  --high-contrast-text: #000000;
+  --high-contrast-bg: #ffffff;
+  --high-contrast-border: #000000;
+  
   /* Neutral colors */
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
@@ -1789,6 +1794,94 @@ li {
     break-inside: avoid;
     box-shadow: none;
     border: 1px solid #000;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY FEATURES
+   ======================================== */
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --text-primary: var(--high-contrast-text);
+    --text-secondary: var(--high-contrast-text);
+    --bg-primary: var(--high-contrast-bg);
+    --bg-secondary: var(--high-contrast-bg);
+  }
+  
+  body {
+    color: var(--high-contrast-text) !important;
+    background: var(--high-contrast-bg) !important;
+  }
+  
+  .btn-primary, .btn-secondary, .btn-accent {
+    border: 2px solid var(--high-contrast-border) !important;
+    color: var(--high-contrast-text) !important;
+    background: var(--high-contrast-bg) !important;
+  }
+  
+  .modal {
+    border: 2px solid var(--high-contrast-border) !important;
+  }
+  
+  .card {
+    border: 2px solid var(--high-contrast-border) !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .animate-pulse,
+  .animate-bounce,
+  .animate-spin {
+    animation: none !important;
+  }
+  
+  .transition-all,
+  .transition-transform,
+  .transition-opacity {
+    transition: none !important;
+  }
+}
+
+/* Skip links for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--high-contrast-bg);
+  color: var(--high-contrast-text);
+  padding: 8px;
+  text-decoration: none;
+  border: 2px solid var(--high-contrast-border);
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Focus indicators */
+*:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+/* High contrast focus indicators */
+@media (prefers-contrast: high) {
+  *:focus {
+    outline: 3px solid var(--high-contrast-border);
+    outline-offset: 3px;
   }
 }
 

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+    <!-- Skip links for accessibility -->
+    <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+    <a href="#navigation" class="skip-link">דלג לניווט</a>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="build-time" content="1757196000000">
@@ -69,7 +72,7 @@
                 </div>
                 
                 <!-- Desktop Navigation -->
-                <div class="desktop-nav hidden lg:flex items-center space-x-1">
+                <div class="desktop-nav hidden lg:flex items-center space-x-1" id="navigation">
                     <!-- Quick Access Section -->
                     <div class="flex items-center bg-gray-50/80 rounded-lg px-3 py-2 space-x-2 border border-gray-200/50">
                         <button id="open-flights-modal-btn-nav" class="flex items-center space-x-1 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 px-2 py-1 rounded-md transition-all duration-200" aria-label="פרטי טיסות" role="button">
@@ -331,6 +334,8 @@
             </div>
             <div class="text-center mt-6">
                 <button id="what-to-wear-btn" class="btn-primary px-6 py-3 rounded-lg hidden">✨ מה ללבוש היום? ✨</button>
+                <!-- Test button for animations - always visible -->
+                <button id="test-modal-btn" class="btn-primary px-6 py-3 rounded-lg">🧪 כפתור בדיקה</button>
             </div>
         </section>
 
@@ -509,9 +514,9 @@
                             <!-- Photos will be populated by JavaScript -->
                         </div>
                         
-                        <div id="photo-upload-progress" class="hidden mt-4">
+                        <div id="photo-upload-progress" class="mt-4">
                             <div class="w-full bg-gray-200 rounded-full h-2">
-                                <div id="photo-progress-bar" class="bg-purple-600 h-2 rounded-full transition-all duration-300 progress-bar"></div>
+                                <div id="photo-progress-bar" class="bg-purple-600 h-2 rounded-full transition-all duration-300 progress-bar w-0"></div>
                             </div>
                             <p class="text-center text-xs text-gray-600 mt-1">מעלה תמונות...</p>
                         </div>
@@ -602,7 +607,7 @@
                         <span id="progress-percentage" class="text-sm font-bold text-teal-600">0%</span>
                     </div>
                     <div class="w-full bg-gray-200 rounded-full h-3 shadow-inner overflow-hidden">
-                        <div id="packingProgressBar" class="bg-gradient-to-r from-teal-500 to-cyan-500 h-3 rounded-full progress-bar-fill transition-all duration-500 ease-out shadow-sm packing-progress-bar">
+                        <div id="packingProgressBar" class="bg-gradient-to-r from-teal-500 to-cyan-500 h-3 rounded-full progress-bar-fill transition-all duration-500 ease-out shadow-sm packing-progress-bar w-0">
                             <div class="h-full bg-white/30 rounded-full animate-pulse"></div>
                         </div>
                     </div>

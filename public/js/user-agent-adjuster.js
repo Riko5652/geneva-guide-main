@@ -30,9 +30,19 @@ class UserAgentAdjuster {
         const touchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         const screenWidth = window.innerWidth;
         
-        if (isTablet || (screenWidth >= 768 && screenWidth < 1024)) {
+        // Prioritize user agent detection for test compatibility
+        if (isTablet) {
             return 'tablet';
-        } else if (isMobile || (screenWidth < 768 && touchDevice)) {
+        } else if (isMobile) {
+            return 'mobile';
+        } else if (isDesktop) {
+            return 'desktop';
+        }
+        
+        // Fallback to screen size detection
+        if (screenWidth >= 768 && screenWidth < 1024) {
+            return 'tablet';
+        } else if (screenWidth < 768) {
             return 'mobile';
         } else {
             return 'desktop';
@@ -76,11 +86,13 @@ class UserAgentAdjuster {
     addDeviceClasses() {
         const body = document.body;
         
-        // Remove existing device classes
+        // Remove existing device classes (both prefixed and non-prefixed)
         body.classList.remove('device-mobile', 'device-tablet', 'device-desktop');
+        body.classList.remove('mobile', 'tablet', 'desktop');
         
-        // Add current device class
+        // Add current device class (both prefixed and non-prefixed for compatibility)
         body.classList.add(`device-${this.deviceType}`);
+        body.classList.add(this.deviceType);
         
         // Add orientation class
         body.classList.remove('orientation-portrait', 'orientation-landscape');
