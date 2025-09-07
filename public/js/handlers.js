@@ -229,12 +229,22 @@ export function setupEventListeners() {
             e.preventDefault();
             e.stopPropagation();
             
-            const isHidden = mobileMenu.classList.contains('hidden');
-            console.log('🍔 Mobile menu is hidden:', isHidden);
+            // Force check the actual display state, not just the class
+            const computedStyle = window.getComputedStyle(mobileMenu);
+            const isActuallyHidden = computedStyle.display === 'none';
+            const hasHiddenClass = mobileMenu.classList.contains('hidden');
+            
+            console.log('🍔 Mobile menu has hidden class:', hasHiddenClass);
+            console.log('🍔 Mobile menu computed display:', computedStyle.display);
+            console.log('🍔 Mobile menu is actually hidden:', isActuallyHidden);
+            
+            // Use the actual display state instead of just the class
+            const isHidden = isActuallyHidden;
             
             if (isHidden) {
                 console.log('🍔 Opening mobile menu');
                 mobileMenu.classList.remove('hidden');
+                mobileMenu.style.display = 'block'; // Show with inline style
                 menuBtn.setAttribute('aria-expanded', 'true');
                 menuBtn.innerHTML = `
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -244,6 +254,7 @@ export function setupEventListeners() {
             } else {
                 console.log('🍔 Closing mobile menu');
                 mobileMenu.classList.add('hidden');
+                mobileMenu.style.display = 'none'; // Hide with inline style
                 menuBtn.setAttribute('aria-expanded', 'false');
                 menuBtn.innerHTML = `
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -287,6 +298,7 @@ function setupMobileMenu() {
         console.log('🍔 Initializing mobile menu state');
         // Ensure proper initial state - mobile menu starts hidden
         mobileMenu.classList.add('hidden');
+        mobileMenu.style.display = 'none'; // Force hidden with inline style too
         menuBtn.setAttribute('aria-expanded', 'false');
         menuBtn.innerHTML = `
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
