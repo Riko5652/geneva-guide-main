@@ -152,14 +152,18 @@ export async function callGeminiWithParts(parts) {
             
         console.log("🤖 Sending request to Gemini API:", { contents: [{ role: "user", parts: formattedParts }] });
         
+        const requestBody = { contents: [{ role: "user", parts: formattedParts }] };
+        console.log("🤖 Request body:", JSON.stringify(requestBody, null, 2));
+        
         const response = await fetch("/api/gemini", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ contents: [{ role: "user", parts: formattedParts }] }),
+            body: JSON.stringify(requestBody),
             signal: AbortSignal.timeout(30000) // 30 second timeout
         });
         
         console.log("🤖 API Response status:", response.status, response.statusText);
+        console.log("🤖 API Response headers:", Object.fromEntries(response.headers.entries()));
 
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}));
@@ -180,7 +184,12 @@ export async function callGeminiWithParts(parts) {
         console.log("🤖 Extracted response text:", responseText);
         return responseText;
     } catch (err) {
-        console.warn("Error in callGeminiWithParts:", err);
+        console.error("❌ Error in callGeminiWithParts:", err);
+        console.error("❌ Error details:", {
+            name: err.name,
+            message: err.message,
+            stack: err.stack
+        });
         
         // More specific error messages
         if (err.name === 'AbortError') {
