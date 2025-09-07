@@ -168,11 +168,13 @@ class UserAgentAdjuster {
     }
 
     adjustNavigationLayouts() {
+        console.log('🔧 User Agent Adjuster: adjustNavigationLayouts called');
         const mobileMenu = document.querySelector('#mobile-menu');
         const desktopNav = document.querySelector('.hidden.lg\\:flex');
         const mobileMenuBtn = document.querySelector('#menu-btn');
         
         if (this.deviceType === 'mobile' || this.deviceType === 'tablet') {
+            console.log('🔧 User Agent Adjuster: Mobile device detected, adjusting navigation');
             // Show mobile menu button and hide desktop nav
             if (mobileMenuBtn) {
                 mobileMenuBtn.style.display = 'block';
@@ -182,6 +184,7 @@ class UserAgentAdjuster {
                 desktopNav.classList.add('hidden');
             }
             if (mobileMenu) {
+                console.log('🔧 User Agent Adjuster: Adding hidden class to mobile menu');
                 mobileMenu.classList.add('hidden');
             }
         } else {

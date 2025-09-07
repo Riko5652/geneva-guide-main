@@ -294,8 +294,19 @@ function setupMobileMenu() {
             </svg>
         `;
         console.log('🍔 Mobile menu forced to hidden state');
+        console.log('🍔 Mobile menu classes after forcing hidden:', mobileMenu.className);
         
         // Mobile menu initialized to hidden state
+        
+        // Add a mutation observer to track class changes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    console.log('🍔 Mobile menu classes changed to:', mobileMenu.className);
+                }
+            });
+        });
+        observer.observe(mobileMenu, { attributes: true, attributeFilter: ['class'] });
         
         menuBtn.addEventListener('click', (e) => {
             e.preventDefault();
