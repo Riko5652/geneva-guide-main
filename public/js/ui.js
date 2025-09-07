@@ -2007,17 +2007,25 @@ export function renderLuggagePlanner() {
             </div>
             
             <!-- Items in this bag -->
-            <div class="luggage-items mt-3 p-3 bg-white rounded border">
-                <h5 class="font-semibold mb-2">📦 פריטים במזוודה:</h5>
-                <div id="luggage-items-${bagIndex}" class="space-y-1 min-h-60px border-2 border-dashed border-gray-200 p-2 rounded">
+            <div class="luggage-items mt-4 p-4 bg-gradient-to-br from-gray-50 to-white rounded-lg border border-gray-200 shadow-sm">
+                <h5 class="font-bold text-gray-800 mb-3 flex items-center">
+                    <span class="w-5 h-5 mr-2">📦</span>
+                    פריטים במזוודה:
+                </h5>
+                <div id="luggage-items-${bagIndex}" class="space-y-2 min-h-20 border-2 border-dashed border-gray-300 p-3 sm:p-4 rounded-lg bg-gray-50 hover:border-gray-400 transition-colors duration-200">
                     ${bag.items && bag.items.length > 0 
-                        ? bag.items.map(item => `<div class="luggage-item-tag bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm inline-block mr-1 mb-1">${item}</div>`).join('')
-                        : '<p class="text-gray-400 text-center py-4">גררו פריטים מרשימת האריזה לכאן</p>'
+                        ? bag.items.map(item => `<div class="luggage-item-tag bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 px-3 py-2 rounded-full text-sm font-medium inline-block mr-2 mb-2 shadow-sm border border-blue-200 hover:shadow-md transition-shadow duration-200">${item}</div>`).join('')
+                        : '<div class="text-center py-6"><p class="text-gray-500 text-sm sm:text-base">גררו פריטים מרשימת האריזה לכאן</p><p class="text-gray-400 text-xs mt-1">או הוסיפו פריטים ידנית למטה</p></div>'
                     }
                 </div>
-                <div class="mt-2 flex gap-2">
-                    <input type="text" placeholder="הוסיפו פריט ידנית..." class="flex-1 border rounded px-2 py-1 text-sm manual-item-input">
-                    <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm add-manual-item-btn" data-bag-index="${bagIndex}">➕</button>
+                <div class="mt-3 flex flex-col sm:flex-row gap-2 sm:gap-3">
+                    <input type="text" placeholder="הוסיפו פריט ידנית..." class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white hover:border-green-400 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-colors duration-200 manual-item-input">
+                    <button class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 add-manual-item-btn" data-bag-index="${bagIndex}">
+                        <span class="flex items-center justify-center">
+                            <span class="mr-1">➕</span>
+                            הוסף
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>
