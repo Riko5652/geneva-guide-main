@@ -404,6 +404,13 @@ function handleDelegatedClicks(e) {
     if (target.classList.contains('nav-nearby-btn')) {
         openModal('nearby-modal', () => populateNearbyLocations());
     }
+    if (target.classList.contains('nav-photos-btn')) {
+        // Scroll to the photo gallery section
+        const photoSection = document.querySelector('#photo-gallery');
+        if (photoSection) {
+            photoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
 
     // --- General UI Logic ---
     if (target.classList.contains('modal-close-btn') || (target.id.includes('close-') && target.id.includes('-modal-btn'))) {
