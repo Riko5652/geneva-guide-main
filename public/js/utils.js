@@ -235,14 +235,18 @@ class ModalManager {
         
         // Add fade-out animation
         modalElement.style.opacity = '0';
+        console.log('🎭 Starting modal fade-out animation');
         
         setTimeout(() => {
             modalElement.classList.add('hidden');
             modalElement.style.opacity = ''; // Reset for next time
+            modalElement.style.setProperty('display', 'none', 'important'); // Force hide
+            console.log('🎭 Modal hidden and display set to none');
             
             // Restore scroll if no modals are open
             if (this.modalStack.length === 0) {
                 document.body.style.overflow = '';
+                console.log('🎭 Body scroll restored');
             }
             
             // Back button removal not needed - no back button exists
