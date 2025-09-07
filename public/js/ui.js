@@ -2072,28 +2072,35 @@ export function renderPhotoAlbum() {
     
     if (photos.length === 0) {
         gallery.innerHTML = `
-            <div class="col-span-full text-center py-12">
-                <div class="text-6xl mb-4">📷</div>
-                <p class="text-gray-600">עדיין לא הועלו תמונות</p>
-                <p class="text-sm text-gray-500 mt-2">לחצו על "הוסיפו תמונה חדשה" כדי להתחיל ליצור את האלבום שלכם</p>
+            <div class="col-span-full text-center py-8 md:py-12">
+                <div class="text-4xl md:text-6xl mb-4">📷</div>
+                <p class="text-gray-600 text-sm md:text-base">עדיין לא הועלו תמונות</p>
+                <p class="text-xs md:text-sm text-gray-500 mt-2">לחצו על "הוסיפו תמונה" כדי להתחיל ליצור את האלבום שלכם</p>
             </div>
         `;
         return;
     }
     
     gallery.innerHTML = photos.map((photo, index) => `
-        <div class="photo-item relative group cursor-pointer" data-photo-index="${index}">
-            <img src="${photo.url}" alt="${photo.caption || 'תמונה משפחתית'}" 
-                 class="w-full h-48 object-cover rounded-lg shadow-md group-hover:shadow-lg transition-shadow">
-            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all rounded-lg flex items-center justify-center">
-                <div class="text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
+        <div class="photo-item relative group cursor-pointer bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105" data-photo-index="${index}">
+            <div class="relative overflow-hidden rounded-t-xl">
+                <img src="${photo.url}" alt="${photo.caption || 'תמונה משפחתית'}" 
+                     class="w-full h-32 md:h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+                     loading="lazy"
+                     onerror="this.onerror=null; this.src='https://placehold.co/300x200/F3EFEA/4A4A4A?text=תמונה+לא+זמינה'; this.alt='תמונה לא זמינה';">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-full p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 md:h-8 md:w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                    </div>
                 </div>
             </div>
-            ${photo.caption ? `<p class="text-sm text-gray-600 mt-2 text-center">${photo.caption}</p>` : ''}
+            <div class="p-2 md:p-3">
+                ${photo.caption ? `<p class="text-xs md:text-sm text-gray-700 text-center font-medium truncate">${photo.caption}</p>` : '<p class="text-xs md:text-sm text-gray-500 text-center">תמונה משפחתית</p>'}
+            </div>
         </div>
     `).join('');
 }
