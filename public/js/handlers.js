@@ -209,16 +209,44 @@ export function setupEventListeners() {
     // Setup mobile menu functionality
     setupMobileMenu();
     
+    // Simple fallback mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isHidden = mobileMenu.classList.contains('hidden');
+            
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+                menuBtn.setAttribute('aria-expanded', 'true');
+                menuBtn.innerHTML = `
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                `;
+            } else {
+                mobileMenu.classList.add('hidden');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                menuBtn.innerHTML = `
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                `;
+            }
+        });
+    }
+    
     // Force reset mobile menu state on initialization
     setTimeout(() => {
         const mobileMenu = document.getElementById('mobile-menu');
         const menuBtn = document.getElementById('menu-btn');
         if (mobileMenu && menuBtn) {
-            // Force resetting mobile menu state...
-            mobileMenu.classList.add('mobile-menu-hidden');
-            mobileMenu.style.opacity = '';
-            mobileMenu.style.transform = '';
-            mobileMenu.style.transition = '';
+        // Force resetting mobile menu state...
+        mobileMenu.classList.add('hidden');
             menuBtn.setAttribute('aria-expanded', 'false');
             menuBtn.innerHTML = `
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -238,11 +266,7 @@ function setupMobileMenu() {
     const mobileMenu = document.getElementById('mobile-menu');
     
     if (menuBtn && mobileMenu) {
-        // Ensure proper initial state
-        mobileMenu.classList.add('mobile-menu-hidden');
-        mobileMenu.style.opacity = '';
-        mobileMenu.style.transform = '';
-        mobileMenu.style.transition = '';
+        // Ensure proper initial state - mobile menu starts hidden
         menuBtn.setAttribute('aria-expanded', 'false');
         menuBtn.innerHTML = `
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -256,43 +280,20 @@ function setupMobileMenu() {
             e.preventDefault();
             e.stopPropagation();
             
-            const isHidden = mobileMenu.classList.contains('mobile-menu-hidden');
+            const isHidden = mobileMenu.classList.contains('hidden');
             
             if (isHidden) {
-                // Show menu with animation
-                mobileMenu.classList.remove('mobile-menu-hidden');
-                mobileMenu.style.opacity = '0';
-                mobileMenu.style.transform = 'translateY(-10px)';
-                
-                requestAnimationFrame(() => {
-                    mobileMenu.style.transition = 'all 0.3s ease-out';
-                    mobileMenu.style.opacity = '1';
-                    mobileMenu.style.transform = 'translateY(0)';
-                });
-                
-                // Update button state
+                // Show menu
+                mobileMenu.classList.remove('hidden');
                 menuBtn.setAttribute('aria-expanded', 'true');
                 menuBtn.innerHTML = `
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 `;
-                
-                // Ensure body scroll is maintained
-                document.body.style.overflow = 'auto';
             } else {
-                // Hide menu with animation
-                mobileMenu.style.transition = 'all 0.3s ease-in';
-                mobileMenu.style.opacity = '0';
-                mobileMenu.style.transform = 'translateY(-10px)';
-                
-                setTimeout(() => {
-                    mobileMenu.classList.add('mobile-menu-hidden');
-                    // Ensure body scroll is maintained
-                    document.body.style.overflow = 'auto';
-                }, 300);
-                
-                // Update button state
+                // Hide menu
+                mobileMenu.classList.add('hidden');
                 menuBtn.setAttribute('aria-expanded', 'false');
                 menuBtn.innerHTML = `
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -317,7 +318,7 @@ function setupMobileMenu() {
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                if (!mobileMenu.classList.contains('mobile-menu-hidden')) {
+                if (!mobileMenu.classList.contains('hidden')) {
                     menuBtn.click();
                 }
             }
@@ -461,7 +462,7 @@ function handleDelegatedClicks(e) {
     }
     if(target.id === 'open-flights-modal-btn-mobile' || target.id === 'open-flights-modal-btn-main') {
         openModal('flights-details-modal', () => populateFlightDetails());
-        document.getElementById('mobile-menu').classList.add('mobile-menu-hidden');
+        document.getElementById('mobile-menu').classList.add('hidden');
     }
     if(target.id === 'open-hotel-modal-btn-mobile' || target.id === 'open-hotel-modal-btn-main' || target.id === 'open-hotel-modal-btn-nav') {
         openModal('hotel-booking-modal', () => populateHotelDetails());
@@ -472,7 +473,7 @@ function handleDelegatedClicks(e) {
     }
     if(target.id === 'open-packing-modal-btn-mobile') {
         openModal('packing-guide-modal', () => renderPackingGuide());
-        document.getElementById('mobile-menu').classList.add('mobile-menu-hidden');
+        document.getElementById('mobile-menu').classList.add('hidden');
     }
     if(target.id === 'show-map-btn') {
         openModal('map-modal');
