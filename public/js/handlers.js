@@ -191,8 +191,11 @@ export function setupEventListeners() {
     // A single master listener is more efficient than attaching many individual ones.
     if (document.body.dataset.listenersAttached) {
         // Event listeners already attached, skipping...
+        console.log('⚠️ Event listeners already attached, skipping...');
         return;
     }
+    
+    console.log('🔧 Setting up event listeners...');
     
     // Remove any existing listeners first to prevent duplicates
     document.body.removeEventListener('click', handleDelegatedClicks);
@@ -204,7 +207,10 @@ export function setupEventListeners() {
     document.body.addEventListener('change', handleDelegatedChanges);
     document.body.addEventListener('keydown', handleDelegatedKeydowns);
     
-    // Event listeners attached successfully
+    // Mark as attached to prevent duplicates
+    document.body.dataset.listenersAttached = 'true';
+    
+    console.log('✅ Event listeners attached successfully');
     
     // Setup mobile menu functionality
     setupMobileMenu();
@@ -363,6 +369,9 @@ function handleDelegatedClicks(e) {
     const target = e.target.closest('button, .photo-item');
     if (!target) return;
     
+    // Debug logging
+    console.log('🔍 Click detected on:', target.className, target.textContent?.trim());
+    
     // Handle photo gallery clicks
     if (target.classList.contains('photo-item')) {
         const photoIndex = parseInt(target.dataset.photoIndex);
@@ -396,15 +405,19 @@ function handleDelegatedClicks(e) {
         openModal('packing-guide-modal', renderPackingGuide);
     }
      if (target.classList.contains('nav-gemini-btn')) {
+        console.log('🤖 Gemini button clicked');
         openModal('gemini-chat-modal');
     }
     if (target.classList.contains('nav-family-btn')) {
+        console.log('👨‍👩‍👧‍👦 Family button clicked');
         openModal('family-details-modal', () => populateFamilyDetails());
     }
     if (target.classList.contains('nav-nearby-btn')) {
+        console.log('📍 Nearby button clicked');
         openModal('nearby-modal', () => populateNearbyLocations());
     }
     if (target.classList.contains('nav-photos-btn')) {
+        console.log('📸 Photos button clicked');
         // Scroll to the photo gallery section
         const photoSection = document.querySelector('#photo-gallery');
         if (photoSection) {
