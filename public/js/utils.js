@@ -175,7 +175,7 @@ class ModalManager {
         // Back button removed - using ESC key and browser back button only
         
         modal.classList.remove('hidden');
-        modal.style.display = 'flex'; // Force display to flex to override any CSS conflicts
+        modal.style.setProperty('display', 'flex', 'important'); // Force display to flex with !important
         document.body.style.overflow = 'hidden'; // Prevent background scroll
         
         console.log('🎭 Modal shown, classes:', modal.className);
