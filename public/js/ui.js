@@ -980,26 +980,26 @@ export function renderPackingGuide() {
             </section>
 
             <section id="packing-plan" class="scroll-mt-24">
-                <h2 class="text-2xl font-bold mb-4 text-right">📅 תכנית אריזה</h2>
-                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-right">📅 תכנית אריזה</h2>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-6 rounded-xl shadow-lg border border-blue-200">
                     <div class="space-y-4">
-                        <h4 class="font-semibold">לוח זמנים מומלץ:</h4>
+                        <h4 class="font-bold text-lg text-gray-800 mb-4">לוח זמנים מומלץ:</h4>
                         <div class="space-y-3">
-                            <div class="flex items-center">
-                                <span class="font-semibold text-blue-600 w-24">שבוע לפני:</span>
-                                <span class="text-gray-700">רכישת פריטים חסרים, ארגון מסמכים</span>
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-blue-500">
+                                <span class="font-bold text-blue-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0">שבוע לפני:</span>
+                                <span class="text-gray-700 text-sm sm:text-base">רכישת פריטים חסרים, ארגון מסמכים</span>
                             </div>
-                            <div class="flex items-center">
-                                <span class="font-semibold text-green-600 w-24">3 יום לפני:</span>
-                                <span class="text-gray-700">אריזת בגדים וציוד בסיסי</span>
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-green-500">
+                                <span class="font-bold text-green-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0">3 יום לפני:</span>
+                                <span class="text-gray-700 text-sm sm:text-base">אריזת בגדים וציוד בסיסי</span>
                             </div>
-                            <div class="flex items-center">
-                                <span class="font-semibold text-orange-600 w-24">יום לפני:</span>
-                                <span class="text-gray-700">ביקורת אחרונה, תיק יד, מטענים</span>
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-orange-500">
+                                <span class="font-bold text-orange-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0">יום לפני:</span>
+                                <span class="text-gray-700 text-sm sm:text-base">ביקורת אחרונה, תיק יד, מטענים</span>
                             </div>
-                            <div class="flex items-center">
-                                <span class="font-semibold text-red-600 w-24">בוקר הטיסה:</span>
-                                <span class="text-gray-700">ביקורת מסמכים, סגירת תיקים</span>
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-red-500">
+                                <span class="font-bold text-red-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0">בוקר הטיסה:</span>
+                                <span class="text-gray-700 text-sm sm:text-base">ביקורת מסמכים, סגירת תיקים</span>
                             </div>
                         </div>
                     </div>
@@ -1065,33 +1065,34 @@ export function renderPackingGuide() {
             </section>
             
             <!-- Interactive Packing List Section -->
-            <div class="mt-8 bg-teal-50 p-6 rounded-xl border-2 border-teal-200">
-                <h2 class="text-2xl font-bold text-accent mb-4">🎒 רשימת האריזה האינטראקטיבית</h2>
-                <p class="text-gray-600 mb-6">עקבו אחר מה כבר ארזתם ומה עוד נשאר. ניתן להוסיף פריטים אישיים לרשימה.</p>
+            <div class="mt-6 sm:mt-8 bg-gradient-to-br from-teal-50 to-emerald-50 p-4 sm:p-6 rounded-xl border-2 border-teal-200 shadow-lg">
+                <h2 class="text-xl sm:text-2xl font-bold text-teal-800 mb-3 sm:mb-4">🎒 רשימת האריזה האינטראקטיבית</h2>
+                <p class="text-gray-600 text-sm sm:text-base mb-4 sm:mb-6">עקבו אחר מה כבר ארזתם ומה עוד נשאר. ניתן להוסיף פריטים אישיים לרשימה.</p>
                 
-                <div class="grid md:grid-cols-3 gap-6 mb-6">
-                    <div class="bg-white p-4 rounded-xl">
-                        <h3 class="font-bold text-lg mb-3">📝 הוסיפו פריט לרשימה</h3>
-                        <div class="flex gap-2">
-                            <input type="text" id="packing-item-input" class="flex-1 border border-gray-300 rounded-lg py-2 px-3" placeholder="למשל: משקפי שמש לילדים">
-                            <button id="add-packing-item-btn" class="btn-primary px-4 py-2 rounded-lg">➕</button>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-6">
+                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-gray-800">📝 הוסיפו פריט לרשימה</h3>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="text" id="packing-item-input" class="flex-1 border border-gray-300 rounded-lg py-2 px-3 text-sm sm:text-base focus:ring-2 focus:ring-teal-500 focus:border-transparent" placeholder="למשל: משקפי שמש לילדים">
+                            <button id="add-packing-item-btn" class="btn-primary px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base whitespace-nowrap">➕ הוסף</button>
                         </div>
                     </div>
 
-                    <div class="bg-white p-4 rounded-xl">
-                        <h3 class="font-bold text-lg mb-3">📷 הוסיפו תמונת ציוד</h3>
+                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-gray-800">📷 הוסיפו תמונת ציוד</h3>
                         <div class="text-center">
                             <input type="file" id="packing-photo-input" class="hidden" accept="image/*" multiple>
-                            <button id="packing-photo-upload-btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200">📸 צלמו ציוד</button>
+                            <button id="packing-photo-upload-btn" class="bg-purple-500 hover:bg-purple-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors duration-200 text-sm sm:text-base">📸 צלמו ציוד</button>
                             <p class="text-xs text-gray-600 mt-1">תמונות של מזוודות, ציוד וכו'</p>
                         </div>
                     </div>
                     
-                    <div class="bg-white p-4 rounded-xl">
-                        <h3 class="font-bold text-lg mb-3">📊 התקדמות האריזה</h3>
-                        <div class="w-full bg-gray-200 rounded-full h-6">
-                            <div id="packing-overall-progress" class="bg-teal-500 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold transition-all duration-300" style="width: 0%">0%</div>
+                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100 sm:col-span-2 lg:col-span-1">
+                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-gray-800">📊 התקדמות האריזה</h3>
+                        <div class="w-full bg-gray-200 rounded-full h-4 sm:h-6">
+                            <div id="packing-overall-progress" class="bg-gradient-to-r from-teal-500 to-emerald-500 h-4 sm:h-6 rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-bold transition-all duration-300" style="width: 0%">0%</div>
                         </div>
+                        <p class="text-xs text-gray-600 mt-1">עקבו אחר ההתקדמות שלכם</p>
                     </div>
                 </div>
 
