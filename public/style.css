@@ -664,33 +664,201 @@ input:focus-visible {
 
 /* Adjust text sizes for better readability in 47vw modals */
 .modal h1 {
-    font-size: 1.5rem;
-    line-height: 1.4;
+    font-size: 1.4rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
 }
 
 .modal h2 {
-    font-size: 1.25rem;
-    line-height: 1.4;
+    font-size: 1.2rem;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
 }
 
 .modal h3 {
-    font-size: 1.125rem;
-    line-height: 1.4;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
 }
 
 .modal p {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
 }
 
-/* Ensure buttons and form elements are appropriately sized */
+/* Improve spacing and layout for modal content */
+.modal .space-y-4 > * + * {
+    margin-top: 1rem;
+}
+
+.modal .space-y-6 > * + * {
+    margin-top: 1.5rem;
+}
+
+.modal .space-y-8 > * + * {
+    margin-top: 2rem;
+}
+
+/* Better button layout and sizing */
 .modal .btn-primary {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.95rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    min-height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.modal .btn-secondary {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    min-height: 2.5rem;
+}
+
+/* Form elements optimization */
 .modal input, .modal textarea, .modal select {
-    padding: 0.75rem;
-    font-size: 0.95rem;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.9rem;
+    min-height: 2.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal textarea {
+    min-height: 4rem;
+    resize: vertical;
+}
+
+/* Grid and flex improvements */
+.modal .grid {
+    gap: 0.75rem;
+}
+
+.modal .flex {
+    gap: 0.5rem;
+}
+
+.modal .flex-wrap {
+    gap: 0.5rem;
+}
+
+/* Card and section improvements */
+.modal .card, .modal .section-card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modal .section-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+}
+
+/* List improvements */
+.modal ul, .modal ol {
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.modal li {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+/* Better content flow */
+.modal .content-intro {
+    margin-bottom: 1.5rem;
+}
+
+.modal .packing-categories-grid {
+    gap: 1rem;
+}
+
+/* Packing modal specific improvements */
+.modal .packing-categories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.modal .category-card {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 1px solid #e5e7eb;
+}
+
+.modal .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.modal .category-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+}
+
+.modal .category-count {
+    font-size: 0.8rem;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+}
+
+.modal .packing-items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal .packing-item-row {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f9fafb;
+}
+
+.modal .packing-item-row:last-child {
+    border-bottom: none;
+}
+
+.modal .packing-item-label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.modal .packing-checkbox {
+    margin-left: 0.5rem;
+    margin-right: 0.75rem;
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Responsive adjustments for very narrow modals */
+@media (max-width: 1200px) {
+    .modal h1 { font-size: 1.3rem; }
+    .modal h2 { font-size: 1.1rem; }
+    .modal h3 { font-size: 1rem; }
+    .modal p { font-size: 0.85rem; }
+    
+    .modal .category-card {
+        padding: 0.75rem;
+    }
+    
+    .modal .packing-item-label {
+        font-size: 0.85rem;
+    }
 }
 

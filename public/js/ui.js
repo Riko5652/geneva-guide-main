@@ -890,7 +890,7 @@ export function renderPackingGuide() {
                 </div>
                 <div class="section-content bg-gradient-to-br from-white via-blue-50/30 to-cyan-50/50">
                     <div class="content-intro">
-                        <p class="text-gray-700 mb-6 text-lg leading-relaxed">רשימה מקיפה של כל הפריטים הדרושים לטיול משפחתי בז'נבה עם פעוטות. סמנו כל פריט שארזתם כדי לעקוב אחר ההתקדמות.</p>
+                        <p class="text-gray-700 mb-4 text-base leading-relaxed">רשימה מקיפה של כל הפריטים הדרושים לטיול משפחתי בז'נבה עם פעוטות. סמנו כל פריט שארזתם כדי לעקוב אחר ההתקדמות.</p>
                     </div>
                     <div class="packing-categories-grid">
                     ${Object.entries(packingData).map(([category, items]) => `
