@@ -404,7 +404,7 @@ function handleDelegatedClicks(e) {
     if (target.closest('#open-hotel-modal-btn, #open-hotel-modal-btn-main, #open-hotel-booking-btn-mobile')) {
         openModal('hotel-booking-modal', populateHotelDetails);
     }
-    if (target.closest('#open-packing-modal-btn, #open-packing-modal-btn-mobile, #open-packing-modal-btn-mobile-2, #open-packing-modal-btn-nav')) {
+    if (target.closest('#open-packing-modal-btn, #open-packing-modal-btn-mobile-2, #open-packing-modal-btn-nav')) {
         console.log('📦 Packing button clicked');
         openModal('packing-guide-modal', renderPackingGuide);
     }
@@ -502,10 +502,6 @@ function handleDelegatedClicks(e) {
     }
     if(target.id === 'open-flights-modal-btn-nav') {
         openModal('flights-details-modal', () => populateFlightDetails());
-    }
-    if(target.id === 'open-packing-modal-btn-mobile') {
-        openModal('packing-guide-modal', () => renderPackingGuide());
-        document.getElementById('mobile-menu').classList.add('hidden');
     }
     if(target.id === 'show-map-btn') {
         openModal('map-modal');
