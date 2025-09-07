@@ -953,50 +953,69 @@ async function handleChatSend() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// Format AI response with better styling and structure
+// Format AI response with enhanced styling and structure
 function formatAiResponse(text) {
-    // Convert markdown-style formatting to HTML with better styling
+    // Convert markdown-style formatting to HTML with enhanced styling
     let formatted = text
-        // Convert headers with emojis and better styling
-        .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-accent mb-4 border-b-2 border-accent pb-2">$1</h2>')
-        .replace(/^\*\*(.+?):\*\*/gm, '<h3 class="text-lg font-semibold text-gray-800 mt-4 mb-2 flex items-center"><span class="w-2 h-2 bg-accent rounded-full mr-2"></span>$1</h3>')
+        // Convert main headers with enhanced styling
+        .replace(/^## (.+)$/gm, '<h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-6 border-b-4 border-gradient-to-r from-blue-200 to-purple-200 pb-3 text-center drop-shadow-sm">$1</h2>')
         
-        // Convert time ranges with special styling
-        .replace(/^\*\*(.+? - .+?):\*\*/gm, '<h4 class="text-base font-medium text-accent mt-3 mb-2 flex items-center"><span class="text-lg mr-2">⏰</span>$1</h4>')
+        // Convert section headers with enhanced styling
+        .replace(/^\*\*(.+?):\*\*/gm, '<h3 class="text-xl font-bold text-gray-800 mt-6 mb-4 flex items-center bg-gradient-to-r from-gray-50 to-blue-50 p-4 rounded-xl border-l-4 border-blue-500 shadow-sm"><span class="w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-3 shadow-md"></span><span class="text-lg">$1</span></h3>')
         
-        // Convert bullet points with better styling
-        .replace(/^\* \*\*(.+?):\*\* (.+)$/gm, '<div class="mb-3 p-3 bg-gray-50 rounded-lg border-r-4 border-accent"><div class="font-semibold text-gray-800 mb-1">$1:</div><div class="text-gray-700">$2</div></div>')
-        .replace(/^\* (.+)$/gm, '<div class="mb-2 flex items-start"><span class="text-accent mr-2 mt-1">•</span><span class="text-gray-700">$1</span></div>')
+        // Convert time ranges with special enhanced styling
+        .replace(/^\*\*(.+? - .+?):\*\*/gm, '<h4 class="text-lg font-semibold text-white mt-4 mb-3 flex items-center bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-lg shadow-md"><span class="text-xl mr-3">⏰</span><span class="font-bold">$1</span></h4>')
         
-        // Convert line breaks to proper spacing
-        .replace(/<br><br>/g, '</div><div class="mt-4">')
-        .replace(/<br>/g, '<br class="mb-2">')
+        // Convert detailed bullet points with enhanced styling
+        .replace(/^\* \*\*(.+?):\*\* (.+)$/gm, '<div class="mb-4 p-4 bg-gradient-to-br from-white to-blue-50 rounded-xl border-2 border-blue-200 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"><div class="font-bold text-blue-800 mb-2 text-lg flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>$1:</div><div class="text-gray-700 leading-relaxed text-base">$2</div></div>')
         
-        // Add emojis to common sections
-        .replace(/מטרה:/g, '🎯 מטרה:')
-        .replace(/זמן:/g, '⏰ זמן:')
-        .replace(/תחבורה:/g, '🚌 תחבורה:')
-        .replace(/תוכנית:/g, '📋 תוכנית:')
-        .replace(/מיקום:/g, '📍 מיקום:')
-        .replace(/פעילות:/g, '🎪 פעילות:')
-        .replace(/טיפ:/g, '💡 טיפ:')
-        .replace(/טיפים נוספים:/g, '💡 טיפים נוספים:')
-        .replace(/בגדים:/g, '👕 בגדים:')
-        .replace(/נעליים:/g, '👟 נעליים:')
-        .replace(/ציוד:/g, '🎒 ציוד:')
-        .replace(/זמן גמיש:/g, '🔄 זמן גמיש:')
-        .replace(/מפה:/g, '🗺️ מפה:')
+        // Convert simple bullet points with enhanced styling
+        .replace(/^\* (.+)$/gm, '<div class="mb-3 flex items-start p-3 bg-gradient-to-r from-gray-50 to-white rounded-lg border-l-4 border-purple-400 shadow-sm hover:shadow-md transition-all duration-200"><span class="text-purple-500 mr-3 mt-1 text-lg font-bold">•</span><span class="text-gray-700 leading-relaxed">$1</span></div>')
         
-        // Add friendly closing messages
-        .replace(/תהנו מטיול משפחתי נפלא בז'נבה!/g, '<div class="mt-6 p-4 bg-gradient-to-r from-accent to-blue-500 text-white rounded-lg text-center font-semibold">🎉 תהנו מטיול משפחתי נפלא בז\'נבה! 🎉</div>')
-        .replace(/בוקר נעים!/g, '<div class="mt-6 p-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-lg text-center font-semibold">🌅 בוקר נעים! 🌅</div>')
-        .replace(/לילה טוב, ילדים!/g, '<div class="mt-6 p-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg text-center font-semibold">🌙 לילה טוב, ילדים! 🌙</div>');
+        // Convert line breaks to proper spacing with enhanced containers
+        .replace(/<br><br>/g, '</div><div class="mt-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border border-yellow-200">')
+        .replace(/<br>/g, '<br class="mb-3">')
+        
+        // Enhanced emojis with better styling
+        .replace(/מטרה:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-red-100 to-pink-100 text-red-800 border border-red-200">🎯 מטרה:</span>')
+        .replace(/זמן:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-800 border border-blue-200">⏰ זמן:</span>')
+        .replace(/תחבורה:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-200">🚌 תחבורה:</span>')
+        .replace(/תוכנית:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-purple-100 to-violet-100 text-purple-800 border border-purple-200">📋 תוכנית:</span>')
+        .replace(/מיקום:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-orange-100 to-amber-100 text-orange-800 border border-orange-200">📍 מיקום:</span>')
+        .replace(/פעילות:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-pink-100 to-rose-100 text-pink-800 border border-pink-200">🎪 פעילות:</span>')
+        .replace(/טיפ:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-800 border border-yellow-200">💡 טיפ:</span>')
+        .replace(/טיפים נוספים:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-800 border border-yellow-200">💡 טיפים נוספים:</span>')
+        .replace(/בגדים:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-indigo-100 to-blue-100 text-indigo-800 border border-indigo-200">👕 בגדים:</span>')
+        .replace(/נעליים:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-gray-100 to-slate-100 text-gray-800 border border-gray-200">👟 נעליים:</span>')
+        .replace(/ציוד:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 border border-emerald-200">🎒 ציוד:</span>')
+        .replace(/זמן גמיש:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-800 border border-cyan-200">🔄 זמן גמיש:</span>')
+        .replace(/מפה:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-200">🗺️ מפה:</span>')
+        
+        // Enhanced friendly closing messages with animations
+        .replace(/תהנו מטיול משפחתי נפלא בז'נבה!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 animate-pulse">🎉 תהנו מטיול משפחתי נפלא בז\'נבה! 🎉</div>')
+        .replace(/בוקר נעים!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 animate-bounce">🌅 בוקר נעים! 🌅</div>')
+        .replace(/לילה טוב, ילדים!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-600 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300">🌙 לילה טוב, ילדים! 🌙</div>');
     
-    // Wrap in a container with proper spacing and typography
+    // Wrap in an enhanced container with better styling and animations
     return `
         <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-            <div class="space-y-4">
-                ${formatted}
+            <div class="space-y-6 p-6 bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-2xl border border-blue-200 shadow-lg">
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-sm font-semibold shadow-md">
+                        <span class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
+                        תשובה מותאמת אישית
+                    </div>
+                </div>
+                <div class="space-y-4 animate-fade-in">
+                    ${formatted}
+                </div>
+                <div class="text-center mt-8 pt-4 border-t border-gray-200">
+                    <p class="text-sm text-gray-500 flex items-center justify-center">
+                        <span class="mr-2">✨</span>
+                        תשובה זו נוצרה במיוחד עבורכם
+                        <span class="ml-2">✨</span>
+                    </p>
+                </div>
             </div>
         </div>
     `;
@@ -1019,7 +1038,19 @@ function showAiResponseModal(response, modalTitle, isLoading = false) {
     
     // Set content based on loading state
     if (isLoading) {
-        contentEl.innerHTML = '<div class="text-center py-8"><div class="loader mx-auto"></div><p class="mt-4 text-gray-600">טוען תשובה מהמומחה...</p></div>';
+        contentEl.innerHTML = `
+            <div class="text-center py-12">
+                <div class="relative mx-auto w-16 h-16 mb-6">
+                    <div class="absolute inset-0 border-4 border-blue-200 rounded-full animate-spin"></div>
+                    <div class="absolute inset-0 border-4 border-transparent border-t-blue-500 rounded-full animate-spin" style="animation-delay: 0.1s;"></div>
+                    <div class="absolute inset-0 border-4 border-transparent border-t-purple-500 rounded-full animate-spin" style="animation-delay: 0.2s;"></div>
+                </div>
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-2xl border border-blue-200 shadow-lg">
+                    <p class="text-lg font-semibold text-gray-700 mb-2">🤖 המומחה שלנו עובד על התשובה שלכם...</p>
+                    <p class="text-sm text-gray-500">זה יכול לקחת כמה שניות</p>
+                </div>
+            </div>
+        `;
     } else if (response) {
         try {
             const sanitizedContent = sanitizeHTML(response);
