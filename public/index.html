@@ -414,85 +414,109 @@
                 </div>
             </div>
 
-            <!-- Three Column Layout - Enhanced styling -->
-            <div class="grid md:grid-cols-3 gap-0 bg-white border-2 border-t-0 border-purple-200 rounded-b-2xl overflow-hidden shadow-lg">
+            <!-- Three Column Layout - Enhanced Desktop Design -->
+            <div class="grid md:grid-cols-3 gap-0 bg-white border-2 border-t-0 border-purple-200 rounded-b-2xl overflow-hidden shadow-xl">
                 <!-- Photos Column -->
-                <div class="bg-gradient-to-br from-purple-50 to-purple-100 border-r border-purple-200 p-6 relative group hover:from-purple-100 hover:to-purple-150 transition-all duration-300">
-                    <!-- Decorative corner accent -->
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-purple-400 to-transparent opacity-20 rounded-bl-2xl"></div>
+                <div class="bg-gradient-to-br from-purple-50 via-purple-100 to-purple-150 border-r border-purple-200 p-8 relative group hover:from-purple-100 hover:to-purple-200 transition-all duration-500">
+                    <!-- Enhanced decorative elements -->
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-purple-400 to-transparent opacity-25 rounded-bl-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-purple-300 to-transparent opacity-15 rounded-tr-2xl"></div>
+                    
+                    <!-- Floating particles effect -->
+                    <div class="absolute top-4 left-4 w-2 h-2 bg-purple-300 rounded-full opacity-30 animate-pulse"></div>
+                    <div class="absolute top-12 right-8 w-1 h-1 bg-purple-400 rounded-full opacity-40 animate-pulse delay-1000"></div>
+                    <div class="absolute bottom-8 left-8 w-1.5 h-1.5 bg-purple-300 rounded-full opacity-25 animate-pulse delay-2000"></div>
                     
                     <div class="relative z-10">
-                        <h3 class="text-xl font-bold mb-6 text-purple-800 text-center flex items-center justify-center gap-2">
-                            <span class="text-2xl">📸</span>
-                            <span>תמונות</span>
+                        <h3 class="text-2xl font-bold mb-8 text-purple-900 text-center flex items-center justify-center gap-3">
+                            <span class="text-3xl drop-shadow-sm">📸</span>
+                            <span class="bg-gradient-to-r from-purple-800 to-purple-600 bg-clip-text text-transparent">תמונות</span>
                         </h3>
                         
-                        <div class="text-center mb-6">
+                        <div class="text-center mb-8">
                             <input type="file" id="photo-upload-input" class="hidden" accept="image/*" multiple aria-label="העלאת תמונות">
-                            <button id="photo-upload-btn" class="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                                📷 הוסיפו תמונה
+                            <button id="photo-upload-btn" class="bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:from-purple-600 hover:via-purple-700 hover:to-purple-800 text-white px-8 py-4 rounded-2xl text-base font-bold transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 shadow-2xl hover:shadow-purple-500/25 border border-purple-400/20">
+                                <span class="flex items-center gap-2">
+                                    <span class="text-lg">📷</span>
+                                    <span>הוסיפו תמונה</span>
+                                </span>
                             </button>
                         </div>
                         
-                        <div id="photo-gallery" class="grid grid-cols-2 gap-3 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-300 scrollbar-track-purple-100">
+                        <div id="photo-gallery" class="grid grid-cols-2 gap-4 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-400 scrollbar-track-purple-100 rounded-xl p-2">
                             <!-- Photos will be populated by JavaScript -->
                         </div>
                         
-                        <div id="photo-upload-progress" class="mt-4 hidden">
-                            <div class="w-full bg-purple-200 rounded-full h-3 shadow-inner">
-                                <div id="photo-progress-bar" class="bg-gradient-to-r from-purple-500 to-purple-600 h-3 rounded-full transition-all duration-500 shadow-sm"></div>
+                        <div id="photo-upload-progress" class="mt-6 hidden">
+                            <div class="w-full bg-purple-200 rounded-full h-4 shadow-inner border border-purple-300/30">
+                                <div id="photo-progress-bar" class="bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 h-4 rounded-full transition-all duration-700 shadow-lg"></div>
                             </div>
-                            <p class="text-center text-xs text-purple-700 mt-2 font-medium">מעלה תמונות...</p>
+                            <p class="text-center text-sm text-purple-800 mt-3 font-semibold">מעלה תמונות...</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Notes Column -->
-                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 border-r border-yellow-200 p-6 relative group hover:from-yellow-100 hover:to-yellow-150 transition-all duration-300">
-                    <!-- Decorative corner accent -->
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-yellow-400 to-transparent opacity-20 rounded-bl-2xl"></div>
+                <div class="bg-gradient-to-br from-yellow-50 via-yellow-100 to-yellow-150 border-r border-yellow-200 p-8 relative group hover:from-yellow-100 hover:to-yellow-200 transition-all duration-500">
+                    <!-- Enhanced decorative elements -->
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-yellow-400 to-transparent opacity-25 rounded-bl-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-yellow-300 to-transparent opacity-15 rounded-tr-2xl"></div>
+                    
+                    <!-- Floating particles effect -->
+                    <div class="absolute top-6 left-6 w-2 h-2 bg-yellow-300 rounded-full opacity-30 animate-pulse delay-500"></div>
+                    <div class="absolute top-16 right-6 w-1 h-1 bg-yellow-400 rounded-full opacity-40 animate-pulse delay-1500"></div>
+                    <div class="absolute bottom-6 left-12 w-1.5 h-1.5 bg-yellow-300 rounded-full opacity-25 animate-pulse delay-2500"></div>
                     
                     <div class="relative z-10">
-                        <h3 class="text-xl font-bold mb-6 text-yellow-800 text-center flex items-center justify-center gap-2">
-                            <span class="text-2xl">📝</span>
-                            <span>הערות</span>
+                        <h3 class="text-2xl font-bold mb-8 text-yellow-900 text-center flex items-center justify-center gap-3">
+                            <span class="text-3xl drop-shadow-sm">📝</span>
+                            <span class="bg-gradient-to-r from-yellow-800 to-yellow-600 bg-clip-text text-transparent">הערות</span>
                         </h3>
                         
-                        <div class="mb-6">
-                            <div class="flex gap-3">
-                                <input type="text" id="bulletin-note-input" class="flex-1 border-2 border-yellow-300 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-200 rounded-xl py-3 px-4 text-sm font-medium transition-all duration-200 bg-white shadow-sm" placeholder="הערה מהירה..." aria-label="הערה מהירה">
-                                <button id="add-bulletin-note-btn" class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                        <div class="mb-8">
+                            <div class="flex gap-4">
+                                <input type="text" id="bulletin-note-input" class="flex-1 border-2 border-yellow-300 focus:border-yellow-500 focus:ring-4 focus:ring-yellow-200 rounded-2xl py-4 px-5 text-base font-medium transition-all duration-300 bg-white shadow-lg hover:shadow-xl focus:shadow-2xl" placeholder="הערה מהירה..." aria-label="הערה מהירה">
+                                <button id="add-bulletin-note-btn" class="bg-gradient-to-r from-yellow-500 via-yellow-600 to-yellow-700 hover:from-yellow-600 hover:via-yellow-700 hover:to-yellow-800 text-white px-6 py-4 rounded-2xl text-lg font-bold transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 shadow-2xl hover:shadow-yellow-500/25 border border-yellow-400/20">
                                     ➕
                                 </button>
                             </div>
                         </div>
                         
-                        <div id="bulletin-notes" class="space-y-3 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-yellow-300 scrollbar-track-yellow-100">
+                        <div id="bulletin-notes" class="space-y-4 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-yellow-400 scrollbar-track-yellow-100 rounded-xl p-2">
                             <!-- Bulletin notes will be populated by JavaScript -->
                         </div>
                     </div>
                 </div>
 
                 <!-- Memories Column -->
-                <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 relative group hover:from-green-100 hover:to-green-150 transition-all duration-300">
-                    <!-- Decorative corner accent -->
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-green-400 to-transparent opacity-20 rounded-bl-2xl"></div>
+                <div class="bg-gradient-to-br from-green-50 via-green-100 to-green-150 p-8 relative group hover:from-green-100 hover:to-green-200 transition-all duration-500">
+                    <!-- Enhanced decorative elements -->
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-green-400 to-transparent opacity-25 rounded-bl-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-green-300 to-transparent opacity-15 rounded-tr-2xl"></div>
+                    
+                    <!-- Floating particles effect -->
+                    <div class="absolute top-8 left-4 w-2 h-2 bg-green-300 rounded-full opacity-30 animate-pulse delay-1000"></div>
+                    <div class="absolute top-20 right-4 w-1 h-1 bg-green-400 rounded-full opacity-40 animate-pulse delay-2000"></div>
+                    <div class="absolute bottom-4 left-16 w-1.5 h-1.5 bg-green-300 rounded-full opacity-25 animate-pulse delay-3000"></div>
                     
                     <div class="relative z-10">
-                        <h3 class="text-xl font-bold mb-6 text-green-800 text-center flex items-center justify-center gap-2">
-                            <span class="text-2xl">💫</span>
-                            <span>זיכרונות</span>
+                        <h3 class="text-2xl font-bold mb-8 text-green-900 text-center flex items-center justify-center gap-3">
+                            <span class="text-3xl drop-shadow-sm">💫</span>
+                            <span class="bg-gradient-to-r from-green-800 to-green-600 bg-clip-text text-transparent">זיכרונות</span>
                         </h3>
                         
-                        <div class="mb-6 space-y-3">
-                            <input type="text" id="memory-title-input" class="w-full border-2 border-green-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-xl py-3 px-4 text-sm font-medium transition-all duration-200 bg-white shadow-sm" placeholder="כותרת זיכרון..." aria-label="כותרת זיכרון">
-                            <textarea id="memory-content-input" class="w-full border-2 border-green-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-xl py-3 px-4 text-sm font-medium transition-all duration-200 bg-white shadow-sm resize-none" rows="3" placeholder="תארו את החוויה..."></textarea>
-                            <button id="add-memory-btn" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                                💫 שמרו זיכרון
+                        <div class="mb-8 space-y-4">
+                            <input type="text" id="memory-title-input" class="w-full border-2 border-green-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-2xl py-4 px-5 text-base font-medium transition-all duration-300 bg-white shadow-lg hover:shadow-xl focus:shadow-2xl" placeholder="כותרת זיכרון..." aria-label="כותרת זיכרון">
+                            <textarea id="memory-content-input" class="w-full border-2 border-green-300 focus:border-green-500 focus:ring-4 focus:ring-green-200 rounded-2xl py-4 px-5 text-base font-medium transition-all duration-300 bg-white shadow-lg hover:shadow-xl focus:shadow-2xl resize-none" rows="4" placeholder="תארו את החוויה..."></textarea>
+                            <button id="add-memory-btn" class="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:via-green-700 hover:to-green-800 text-white px-6 py-4 rounded-2xl text-base font-bold transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-2xl hover:shadow-green-500/25 border border-green-400/20">
+                                <span class="flex items-center justify-center gap-2">
+                                    <span class="text-lg">💫</span>
+                                    <span>שמרו זיכרון</span>
+                                </span>
                             </button>
                         </div>
                         
-                        <div id="family-memories-list" class="space-y-3 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-green-300 scrollbar-track-green-100">
+                        <div id="family-memories-list" class="space-y-4 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-green-400 scrollbar-track-green-100 rounded-xl p-2">
                             <!-- Memories will be populated by JavaScript -->
                         </div>
                     </div>
