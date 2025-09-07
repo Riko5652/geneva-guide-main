@@ -791,8 +791,13 @@ export function renderActivities() {
 
 // Packing list management
 export function renderPackingGuide() {
+    console.log('📦 renderPackingGuide called');
     const modal = document.getElementById('packing-guide-modal');
-    if (!modal) return;
+    if (!modal) {
+        console.error('❌ Packing modal not found');
+        return;
+    }
+    console.log('✅ Packing modal found, rendering content...');
     
     const modalContent = modal.querySelector('#packing-modal-content');
     

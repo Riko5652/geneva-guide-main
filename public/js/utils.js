@@ -156,9 +156,11 @@ class ModalManager {
         // Run the callback function to build the modal's content just-in-time.
         if (onOpenCallback) {
             try {
+                console.log('🔄 Running modal callback for:', modalId);
                 onOpenCallback();
+                console.log('✅ Modal callback completed for:', modalId);
             } catch (error) {
-                console.error('Error in modal callback:', error);
+                console.error('❌ Error in modal callback:', error);
             } finally {
                 // Hide loading after callback completes
                 this.hideModalLoading(modalId);
@@ -173,9 +175,12 @@ class ModalManager {
         modal.classList.remove('hidden');
         document.body.style.overflow = 'hidden'; // Prevent background scroll
         
+        console.log('🎭 Modal shown, classes:', modal.className);
+        
         // Add smooth fade-in animation
         setTimeout(() => {
             modal.style.opacity = '1';
+            console.log('✨ Modal fade-in animation applied');
         }, 10);
         
         // Update browser history for back button support
