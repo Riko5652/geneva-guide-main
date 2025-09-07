@@ -1601,47 +1601,95 @@ export function populateFlightDetails() {
             </div>
             
             <!-- Outbound Flights -->
-            <div class="bg-blue-50 p-4 rounded-lg">
-                <h3 class="text-xl font-semibold text-blue-800 mb-4">✈️ טיסות יציאה</h3>
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-6 rounded-xl border border-blue-200 shadow-sm">
+                <h3 class="text-xl font-semibold text-blue-800 mb-4 flex items-center">
+                    <span class="w-6 h-6 mr-2">✈️</span>
+                    טיסות יציאה
+                </h3>
                 ${flights.outbound.map((flight, index) => `
-                    <div class="bg-white p-4 rounded-lg mb-3 shadow-sm">
-                        <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 sm:p-5 rounded-lg mb-4 shadow-sm border border-blue-100 hover:shadow-md transition-shadow duration-200">
+                        <div class="space-y-3">
                             <div>
-                                <h4 class="font-semibold">${flight.from} → ${flight.to}</h4>
-                                <p class="text-sm text-gray-600">📅 ${flight.date} | ⏰ ${flight.time}</p>
-                                <p class="text-sm">✈️ ${flight.airline} ${flight.flightNum}</p>
-                                <p class="text-sm">🎫 קוד הזמנה: ${flight.airlineRef}</p>
-                                <p class="text-sm font-semibold ${flight.status === 'On Time' ? 'text-green-600' : 'text-red-600'}">📊 ${flight.status}</p>
+                                <h4 class="font-bold text-lg text-gray-800">${flight.from} → ${flight.to}</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                                    <p class="text-sm text-gray-600 flex items-center">
+                                        <span class="w-4 h-4 mr-1">📅</span>
+                                        ${flight.date}
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-center">
+                                        <span class="w-4 h-4 mr-1">⏰</span>
+                                        ${flight.time}
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-center">
+                                        <span class="w-4 h-4 mr-1">✈️</span>
+                                        ${flight.airline} ${flight.flightNum}
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-center">
+                                        <span class="w-4 h-4 mr-1">🎫</span>
+                                        קוד הזמנה: ${flight.airlineRef}
+                                    </p>
+                                </div>
+                                <p class="text-sm font-semibold ${flight.status === 'On Time' ? 'text-green-600' : 'text-red-600'} mt-2 flex items-center">
+                                    <span class="w-4 h-4 mr-1">📊</span>
+                                    ${flight.status}
+                                </p>
                             </div>
-                            <div class="text-left">
-                                <a href="${flight.checkin}" target="_blank" class="btn-primary text-sm px-3 py-1 rounded">צ'ק-אין אונליין</a>
+                            <div class="pt-2 border-t border-gray-100">
+                                <a href="${flight.checkin}" target="_blank" class="inline-flex items-center bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                                    <span class="w-4 h-4 mr-2">✅</span>
+                                    צ'ק-אין אונליין
+                                </a>
                             </div>
                         </div>
                     </div>
                 `).join('')}
-                ${flights.connections.outbound ? `<p class="text-sm text-orange-600 font-semibold mt-2">🔄 זמן החלפה: ${flights.connections.outbound}</p>` : ''}
+                ${flights.connections.outbound ? `<p class="text-sm text-orange-600 font-semibold mt-3 p-3 bg-orange-50 rounded-lg border border-orange-200">🔄 זמן החלפה: ${flights.connections.outbound}</p>` : ''}
             </div>
             
             <!-- Inbound Flights -->
-            <div class="bg-green-50 p-4 rounded-lg">
-                <h3 class="text-xl font-semibold text-green-800 mb-4">🏠 טיסות חזרה</h3>
+            <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-4 sm:p-6 rounded-xl border border-green-200 shadow-sm">
+                <h3 class="text-xl font-semibold text-green-800 mb-4 flex items-center">
+                    <span class="w-6 h-6 mr-2">🏠</span>
+                    טיסות חזרה
+                </h3>
                 ${flights.inbound.map((flight, index) => `
-                    <div class="bg-white p-4 rounded-lg mb-3 shadow-sm">
-                        <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-4 sm:p-5 rounded-lg mb-4 shadow-sm border border-green-100 hover:shadow-md transition-shadow duration-200">
+                        <div class="space-y-3">
                             <div>
-                                <h4 class="font-semibold">${flight.from} → ${flight.to}</h4>
-                                <p class="text-sm text-gray-600">📅 ${flight.date} | ⏰ ${flight.time}</p>
-                                <p class="text-sm">✈️ ${flight.airline} ${flight.flightNum}</p>
-                                <p class="text-sm">🎫 קוד הזמנה: ${flight.airlineRef}</p>
-                                <p class="text-sm font-semibold ${flight.status === 'On Time' ? 'text-green-600' : 'text-red-600'}">📊 ${flight.status}</p>
+                                <h4 class="font-bold text-lg text-gray-800">${flight.from} → ${flight.to}</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                                    <p class="text-sm text-gray-600 flex items-center">
+                                        <span class="w-4 h-4 mr-1">📅</span>
+                                        ${flight.date}
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-center">
+                                        <span class="w-4 h-4 mr-1">⏰</span>
+                                        ${flight.time}
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-center">
+                                        <span class="w-4 h-4 mr-1">✈️</span>
+                                        ${flight.airline} ${flight.flightNum}
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-center">
+                                        <span class="w-4 h-4 mr-1">🎫</span>
+                                        קוד הזמנה: ${flight.airlineRef}
+                                    </p>
+                                </div>
+                                <p class="text-sm font-semibold ${flight.status === 'On Time' ? 'text-green-600' : 'text-red-600'} mt-2 flex items-center">
+                                    <span class="w-4 h-4 mr-1">📊</span>
+                                    ${flight.status}
+                                </p>
                             </div>
-                            <div class="text-left">
-                                <a href="${flight.checkin}" target="_blank" class="btn-primary text-sm px-3 py-1 rounded">צ'ק-אין אונליין</a>
+                            <div class="pt-2 border-t border-gray-100">
+                                <a href="${flight.checkin}" target="_blank" class="inline-flex items-center bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                                    <span class="w-4 h-4 mr-2">✅</span>
+                                    צ'ק-אין אונליין
+                                </a>
                             </div>
                         </div>
                     </div>
                 `).join('')}
-                ${flights.connections.inbound ? `<p class="text-sm text-orange-600 font-semibold mt-2">🔄 זמן החלפה: ${flights.connections.inbound}</p>` : ''}
+                ${flights.connections.inbound ? `<p class="text-sm text-orange-600 font-semibold mt-3 p-3 bg-orange-50 rounded-lg border border-orange-200">🔄 זמן החלפה: ${flights.connections.inbound}</p>` : ''}
             </div>
             
             <!-- Passenger Details -->
