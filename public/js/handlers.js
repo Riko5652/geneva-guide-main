@@ -970,6 +970,12 @@ async function handleAiRequest(type, event) {
         }
         
         console.log("🤖 Starting AI request with prompt:", prompt);
+        
+        // Test the endpoint first
+        const { testGeminiEndpoint } = await import('./Gemini.js');
+        const testStatus = await testGeminiEndpoint();
+        console.log("🧪 Endpoint test result:", testStatus);
+        
         const response = await callGeminiWithParts([prompt]);
         console.log("🤖 AI Response received:", response);
         

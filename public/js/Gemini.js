@@ -143,6 +143,24 @@ function addChatMessage(html, sender = "user") {
  * @param {Array<Object>} parts An array of parts (text and/or inline image data).
  * @returns {Promise<string>} The raw text response from the API.
  */
+// Test function to check if the API endpoint is reachable
+export async function testGeminiEndpoint() {
+    try {
+        console.log("🧪 Testing Gemini API endpoint...");
+        const response = await fetch("/api/gemini", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ test: true }),
+            signal: AbortSignal.timeout(5000)
+        });
+        console.log("🧪 Test response status:", response.status);
+        return response.status;
+    } catch (error) {
+        console.error("🧪 Test failed:", error);
+        return null;
+    }
+}
+
 export async function callGeminiWithParts(parts) {
     try {
         // Ensure parts is properly formatted for Gemini API
@@ -155,12 +173,16 @@ export async function callGeminiWithParts(parts) {
         const requestBody = { contents: [{ role: "user", parts: formattedParts }] };
         console.log("🤖 Request body:", JSON.stringify(requestBody, null, 2));
         
+        console.log("🤖 Making fetch request to /api/gemini...");
+        
         const response = await fetch("/api/gemini", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(requestBody),
-            signal: AbortSignal.timeout(30000) // 30 second timeout
+            signal: AbortSignal.timeout(10000) // 10 second timeout for faster debugging
         });
+        
+        console.log("🤖 Fetch request completed, processing response...");
         
         console.log("🤖 API Response status:", response.status, response.statusText);
         console.log("🤖 API Response headers:", Object.fromEntries(response.headers.entries()));
