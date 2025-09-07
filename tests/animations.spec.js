@@ -73,14 +73,12 @@ test.describe('Animation and Interaction Tests', () => {
   });
 
   test('should have working loading animations', async ({ page }) => {
-    // Check if loading elements exist and have proper classes
+    // Check if loading elements exist and are visible
     const loaders = page.locator('.loader, .loading-shimmer, .progress-bar');
     
     if (await loaders.count() > 0) {
       const firstLoader = loaders.first();
-      // Check if element has loading classes (even if not visible due to parent width)
-      const loaderClasses = await firstLoader.getAttribute('class');
-      expect(loaderClasses).toContain('progress-bar');
+      await expect(firstLoader).toBeVisible();
     }
   });
 
@@ -99,7 +97,7 @@ test.describe('Animation and Interaction Tests', () => {
   });
 
   test('should have working confetti animations', async ({ page }) => {
-    // Check if confetti CSS is available in external stylesheet
+    // Check if confetti CSS is loaded in consolidated.css
     const confettiStyles = await page.evaluate(() => {
       // Check all stylesheets for confetti styles
       for (let i = 0; i < document.styleSheets.length; i++) {

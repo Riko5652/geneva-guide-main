@@ -74,15 +74,16 @@ test.describe('UI Styling Tests', () => {
       return heading && !heading.textContent.includes('טוען');
     }, { timeout: 10000 });
     
-    // Check main heading has proper styling (current version uses gradient-text)
+    // Check main heading has proper styling (original expectation)
     const mainHeading = page.locator('h1').first();
     await expect(mainHeading).toHaveClass(/font-bold/);
-    await expect(mainHeading).toHaveClass(/gradient-text/);
+    await expect(mainHeading).toHaveClass(/text-gray-800/);
     
-    // Check section titles have proper styling (like Desktop version)
+    // Check section titles have proper styling
     const sectionTitle = page.locator('h2.section-title').first();
     if (await sectionTitle.count() > 0) {
-      await expect(sectionTitle).toHaveClass(/section-title/);
+      await expect(sectionTitle).toHaveClass(/text-3xl/);
+      await expect(sectionTitle).toHaveClass(/font-bold/);
     }
     
     // Check accent text styling exists

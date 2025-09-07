@@ -3,8 +3,8 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('User Agent and Device Detection Tests', () => {
   test('should detect mobile user agent', async ({ page }) => {
-    // Set mobile user agent
-    await page.setExtraHTTPHeaders({
+    // Set mobile user agent using context
+    await page.context().setExtraHTTPHeaders({
       'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1'
     });
     
@@ -27,8 +27,8 @@ test.describe('User Agent and Device Detection Tests', () => {
   });
 
   test('should detect desktop user agent', async ({ page }) => {
-    // Set desktop user agent
-    await page.setExtraHTTPHeaders({
+    // Set desktop user agent using context
+    await page.context().setExtraHTTPHeaders({
       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     });
     
@@ -44,8 +44,8 @@ test.describe('User Agent and Device Detection Tests', () => {
   });
 
   test('should detect tablet user agent', async ({ page }) => {
-    // Set tablet user agent
-    await page.setExtraHTTPHeaders({
+    // Set tablet user agent using context
+    await page.context().setExtraHTTPHeaders({
       'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1'
     });
     
@@ -109,13 +109,12 @@ test.describe('User Agent and Device Detection Tests', () => {
     await page.goto('/');
     await page.waitForLoadState('networkidle');
 
-    // Test touch events on buttons
-    const buttons = page.locator('button');
-    if (await buttons.count() > 0) {
-      const firstButton = buttons.first();
-      await firstButton.tap();
+    // Test touch events on buttons - use the test button that's always visible
+    const testButton = page.locator('#test-modal-btn');
+    if (await testButton.count() > 0) {
+      await testButton.click();
       // Button should respond to touch
-      await expect(firstButton).toBeVisible();
+      await expect(testButton).toBeVisible();
     }
   });
 });

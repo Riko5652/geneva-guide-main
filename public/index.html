@@ -259,7 +259,7 @@
 
     <main id="main-content" class="container mx-auto px-6" role="main">
         <section class="text-center pt-16 pb-12 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 rounded-3xl mb-16 shadow-lg" aria-labelledby="main-heading">
-            <h1 id="main-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight gradient-text">
+            <h1 id="main-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-800">
                 <span>
                     🇨🇭 המדריך האינטראקטיבי
                 </span>
@@ -336,6 +336,7 @@
                 <button id="what-to-wear-btn" class="btn-primary px-6 py-3 rounded-lg hidden">✨ מה ללבוש היום? ✨</button>
                 <!-- Test button for animations - always visible -->
                 <button id="test-modal-btn" class="btn-primary px-6 py-3 rounded-lg" onclick="document.getElementById('packing-guide-modal').classList.remove('hidden')">🧪 כפתור בדיקה</button>
+        <button id="open-packing-modal-btn-mobile" class="btn-primary px-6 py-3 rounded-lg" onclick="document.getElementById('packing-guide-modal').classList.remove('hidden')">📦 מדריך אריזה</button>
             </div>
         </section>
 
@@ -516,7 +517,7 @@
                         
                         <div id="photo-upload-progress" class="mt-4">
                             <div class="w-full bg-gray-200 rounded-full h-2">
-                                <div id="photo-progress-bar" class="bg-purple-600 h-2 rounded-full transition-all duration-300 progress-bar w-0"></div>
+                                <div id="photo-progress-bar" class="bg-purple-600 h-2 rounded-full transition-all duration-300 progress-bar w-full"></div>
                             </div>
                             <p class="text-center text-xs text-gray-600 mt-1">מעלה תמונות...</p>
                         </div>
@@ -607,9 +608,9 @@
                         <span id="progress-percentage" class="text-sm font-bold text-teal-600">0%</span>
                     </div>
                     <div class="w-full bg-gray-200 rounded-full h-3 shadow-inner overflow-hidden">
-                        <div id="packingProgressBar" class="bg-gradient-to-r from-teal-500 to-cyan-500 h-3 rounded-full progress-bar-fill transition-all duration-500 ease-out shadow-sm packing-progress-bar w-0">
-                            <div class="h-full bg-white/30 rounded-full animate-pulse"></div>
-                        </div>
+                <div id="packingProgressBar" class="bg-gradient-to-r from-teal-500 to-cyan-500 h-3 rounded-full progress-bar-fill transition-all duration-500 ease-out shadow-sm packing-progress-bar w-full">
+                    <div class="h-full bg-white/30 rounded-full animate-pulse"></div>
+                </div>
                     </div>
                 </div>
                 

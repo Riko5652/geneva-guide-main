@@ -8,248 +8,240 @@
     - /url: "#navigation"
   - link "דלג לתוכן הראשי" [ref=e4] [cursor=pointer]:
     - /url: "#main-content"
-  - banner [ref=e5]:
-    - navigation "ניווט ראשי" [ref=e6]:
-      - generic [ref=e7]:
-        - button "דף הבית - המדריך האינטראקטיבי" [ref=e9] [cursor=pointer]: 🇨🇭 המדריך האינטראקטיבי
-        - button "תפריט ניווט" [ref=e11] [cursor=pointer]:
-          - img [ref=e12] [cursor=pointer]
-  - main [ref=e14]:
-    - region "🇨🇭 המדריך האינטראקטיבי לטיול משפחתי בז'נבה" [ref=e15]:
-      - heading "🇨🇭 המדריך האינטראקטיבי לטיול משפחתי בז'נבה" [level=1] [ref=e16]:
-        - generic [ref=e17]: 🇨🇭 המדריך האינטראקטיבי
-        - generic [ref=e18]: לטיול משפחתי בז'נבה
-      - paragraph [ref=e19]: כל מה שמשפחה עם פעוטות צריכה לטיול מושלם בבירת השלום - מתוכנן במיוחד עבור דור, עדי, בר ורן
-      - generic [ref=e20]:
-        - heading "🎯 סטטוס הטיול המהיר" [level=2] [ref=e21]
-        - generic [ref=e22]:
-          - generic [ref=e24]: 🌤️ 27°C
-          - generic [ref=e26]: 🏨 Demo Hotel
-          - generic [ref=e28]: 🚊 Geneva Card
-          - generic [ref=e30]:
-            - generic [ref=e31]: 🕐
-            - generic [ref=e32]: 12:15
-    - generic [ref=e33]:
-      - heading "✈️ מרכז ההזמנות שלכם 🏨" [level=2] [ref=e34]
-      - paragraph [ref=e35]: גישה מהירה לפרטי הטיסות והמלון שלכם.
-      - generic [ref=e36]:
-        - generic [ref=e37]:
-          - heading "✈️ טיסות" [level=3] [ref=e38]
-          - paragraph [ref=e39]: "מספר הזמנה: Demo Mode"
-          - button "הצג פירוט טיסות מלא" [ref=e40] [cursor=pointer]
-          - paragraph [ref=e41]: הפירוט כולל מסלול, זמנים, קישורי צ'ק-אין ופרטי נוסעים.
-        - generic [ref=e42]:
-          - heading "🏨 מלון" [level=3] [ref=e43]
-          - paragraph [ref=e44]: Demo Hotel
-          - paragraph [ref=e45]: "מספר הזמנה: DEMO123"
-          - button "הצג פרטי הזמנה מלאים" [ref=e46] [cursor=pointer]
-          - paragraph [ref=e47]: הצגת פרטי ההזמנה המלאים, כולל קוד QR לאפליקציה של Accor.
-    - generic [ref=e48]:
-      - heading "☀️ תחזית מזג אוויר חיה בז'נבה 🌧️" [level=2] [ref=e49]
-      - paragraph [ref=e50]: תכננו את היום שלכם בהתאם לשמש או לגשם. התחזית מתעדכנת אוטומטית.
-      - generic [ref=e51]:
-        - generic [ref=e52]:
-          - generic [ref=e53]: יום א׳, 7.9
-          - generic [ref=e54]: 🌫️
-          - generic [ref=e55]: 11° / 27°
-          - generic [ref=e56]: ערפילי
-        - generic [ref=e57]:
-          - generic [ref=e58]: יום ב׳, 8.9
-          - generic [ref=e59]: 🌦️
-          - generic [ref=e60]: 17° / 22°
-          - generic [ref=e61]: ממטרים קלים
-        - generic [ref=e62]:
-          - generic [ref=e63]: יום ג׳, 9.9
-          - generic [ref=e64]: 🌦️
-          - generic [ref=e65]: 17° / 22°
-          - generic [ref=e66]: ממטרים קלים
-        - generic [ref=e67]:
-          - generic [ref=e68]: יום ד׳, 10.9
-          - generic [ref=e69]: ☁️
-          - generic [ref=e70]: 14° / 20°
-          - generic [ref=e71]: מעונן
-        - generic [ref=e72]:
-          - generic [ref=e73]: יום ה׳, 11.9
-          - generic [ref=e74]: 🌧️
-          - generic [ref=e75]: 14° / 21°
-          - generic [ref=e76]: גשם קל
-        - generic [ref=e77]:
-          - generic [ref=e78]: יום ו׳, 12.9
-          - generic [ref=e79]: 🌧️
-          - generic [ref=e80]: 13° / 17°
-          - generic [ref=e81]: גשם קל
-      - generic [ref=e82]:
-        - button "✨ מה ללבוש היום? ✨" [ref=e83] [cursor=pointer]
-        - button "🧪 כפתור בדיקה" [ref=e84] [cursor=pointer]
-    - generic [ref=e86]:
-      - heading "🌟 ההמלצה המיוחדת שלנו לכם היום 🌟" [level=2] [ref=e87]
-      - generic [ref=e88]:
-        - paragraph [ref=e90]: טוען המלצה יומית...
+  - banner [ref=e5]
+  - main [ref=e6]:
+    - region "🇨🇭 המדריך האינטראקטיבי לטיול משפחתי בז'נבה" [ref=e7]:
+      - heading "🇨🇭 המדריך האינטראקטיבי לטיול משפחתי בז'נבה" [level=1] [ref=e8]:
+        - generic [ref=e9]: 🇨🇭 המדריך האינטראקטיבי
+        - generic [ref=e10]: לטיול משפחתי בז'נבה
+      - paragraph [ref=e11]: כל מה שמשפחה עם פעוטות צריכה לטיול מושלם בבירת השלום - מתוכנן במיוחד עבור דור, עדי, בר ורן
+      - generic [ref=e12]:
+        - heading "🎯 סטטוס הטיול המהיר" [level=2] [ref=e13]
+        - generic [ref=e14]:
+          - generic [ref=e16]: 🌤️ 27°C
+          - generic [ref=e18]: 🏨 Demo Hotel
+          - generic [ref=e20]: 🚊 Geneva Card
+          - generic [ref=e22]:
+            - generic [ref=e23]: 🕐
+            - generic [ref=e24]: 14:57
+    - generic [ref=e25]:
+      - heading "✈️ מרכז ההזמנות שלכם 🏨" [level=2] [ref=e26]
+      - paragraph [ref=e27]: גישה מהירה לפרטי הטיסות והמלון שלכם.
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - heading "✈️ טיסות" [level=3] [ref=e30]
+          - paragraph [ref=e31]: "מספר הזמנה: Demo Mode"
+          - button "הצג פירוט טיסות מלא" [ref=e32] [cursor=pointer]
+          - paragraph [ref=e33]: הפירוט כולל מסלול, זמנים, קישורי צ'ק-אין ופרטי נוסעים.
+        - generic [ref=e34]:
+          - heading "🏨 מלון" [level=3] [ref=e35]
+          - paragraph [ref=e36]: Demo Hotel
+          - paragraph [ref=e37]: "מספר הזמנה: DEMO123"
+          - button "הצג פרטי הזמנה מלאים" [ref=e38] [cursor=pointer]
+          - paragraph [ref=e39]: הצגת פרטי ההזמנה המלאים, כולל קוד QR לאפליקציה של Accor.
+    - generic [ref=e40]:
+      - heading "☀️ תחזית מזג אוויר חיה בז'נבה 🌧️" [level=2] [ref=e41]
+      - paragraph [ref=e42]: תכננו את היום שלכם בהתאם לשמש או לגשם. התחזית מתעדכנת אוטומטית.
+      - generic [ref=e43]:
+        - generic [ref=e44]:
+          - generic [ref=e45]: יום א׳, 7.9
+          - generic [ref=e46]: 🌫️
+          - generic [ref=e47]: 11° / 27°
+          - generic [ref=e48]: ערפילי
+        - generic [ref=e49]:
+          - generic [ref=e50]: יום ב׳, 8.9
+          - generic [ref=e51]: 🌦️
+          - generic [ref=e52]: 17° / 23°
+          - generic [ref=e53]: ממטרים קלים
+        - generic [ref=e54]:
+          - generic [ref=e55]: יום ג׳, 9.9
+          - generic [ref=e56]: 🌦️
+          - generic [ref=e57]: 17° / 22°
+          - generic [ref=e58]: ממטרים קלים
+        - generic [ref=e59]:
+          - generic [ref=e60]: יום ד׳, 10.9
+          - generic [ref=e61]: ☁️
+          - generic [ref=e62]: 14° / 20°
+          - generic [ref=e63]: מעונן
+        - generic [ref=e64]:
+          - generic [ref=e65]: יום ה׳, 11.9
+          - generic [ref=e66]: 🌧️
+          - generic [ref=e67]: 14° / 21°
+          - generic [ref=e68]: גשם קל
+        - generic [ref=e69]:
+          - generic [ref=e70]: יום ו׳, 12.9
+          - generic [ref=e71]: 🌧️
+          - generic [ref=e72]: 13° / 17°
+          - generic [ref=e73]: גשם קל
+      - generic [ref=e74]:
+        - button "✨ מה ללבוש היום? ✨" [ref=e75] [cursor=pointer]
+        - button "🧪 כפתור בדיקה" [ref=e76] [cursor=pointer]
+        - button "📦 מדריך אריזה" [ref=e77] [cursor=pointer]
+    - generic [ref=e79]:
+      - heading "🌟 ההמלצה המיוחדת שלנו לכם היום 🌟" [level=2] [ref=e80]
+      - generic [ref=e81]:
+        - paragraph [ref=e83]: טוען המלצה יומית...
+        - generic [ref=e84]:
+          - button "✨ ספר לי עוד על המלצה זו" [ref=e85]
+          - button "➕ הוסף למסלול שלי" [ref=e86]
+    - generic [ref=e87]:
+      - heading "📋 מרכז הבקרה של הטיול" [level=2] [ref=e88]
+      - paragraph [ref=e89]: כל מה שצריך לדעת על נקודת המוצא שלכם והכלים שיעמדו לרשותכם.
+      - generic [ref=e90]:
         - generic [ref=e91]:
-          - button "✨ ספר לי עוד על המלצה זו" [ref=e92]
-          - button "➕ הוסף למסלול שלי" [ref=e93]
-    - generic [ref=e94]:
-      - heading "📋 מרכז הבקרה של הטיול" [level=2] [ref=e95]
-      - paragraph [ref=e96]: כל מה שצריך לדעת על נקודת המוצא שלכם והכלים שיעמדו לרשותכם.
-      - generic [ref=e97]:
-        - generic [ref=e98]:
-          - 'heading "🏠 בסיס הבית: Mercure Hotel Meyrin" [level=3] [ref=e99]'
-          - paragraph [ref=e100]:
+          - 'heading "🏠 בסיס הבית: Mercure Hotel Meyrin" [level=3] [ref=e92]'
+          - paragraph [ref=e93]:
             - text: 📍
-            - strong [ref=e101]: "כתובת:"
+            - strong [ref=e94]: "כתובת:"
             - text: Rue de la Bergère 3, 1217 Meyrin
-          - paragraph [ref=e102]:
+          - paragraph [ref=e95]:
             - text: המלון ממוקם אסטרטגית ליד תחנת הרכבת
-            - strong [ref=e103]: Zimeysa
+            - strong [ref=e96]: Zimeysa
             - text: (דקת הליכה).
+        - generic [ref=e97]:
+          - 'heading "🎫 הכרטיס המוזהב: Geneva Transport Card" [level=3] [ref=e98]'
+          - paragraph [ref=e99]: עם הצ'ק-אין למלון, תקבלו בחינם כרטיס נסיעה דיגיטלי המקנה נסיעה חופשית בכל התחבורה הציבורית בז'נבה.
+    - generic [ref=e100]:
+      - heading "🚇 ניווט עם עגלה כמו מקומיים" [level=2] [ref=e101]
+      - paragraph [ref=e102]: התחבורה הציבורית בז'נבה ידידותית להפליא למשפחות. כמה טיפים פשוטים יהפכו כל נסיעה לחלקה.
+      - generic [ref=e103]:
         - generic [ref=e104]:
-          - 'heading "🎫 הכרטיס המוזהב: Geneva Transport Card" [level=3] [ref=e105]'
-          - paragraph [ref=e106]: עם הצ'ק-אין למלון, תקבלו בחינם כרטיס נסיעה דיגיטלי המקנה נסיעה חופשית בכל התחבורה הציבורית בז'נבה.
-    - generic [ref=e107]:
-      - heading "🚇 ניווט עם עגלה כמו מקומיים" [level=2] [ref=e108]
-      - paragraph [ref=e109]: התחבורה הציבורית בז'נבה ידידותית להפליא למשפחות. כמה טיפים פשוטים יהפכו כל נסיעה לחלקה.
-      - generic [ref=e110]:
-        - generic [ref=e111]:
-          - generic [ref=e112]: 🟠
-          - heading "חפשו את העיגול הכתום" [level=3] [ref=e113]
-          - paragraph [ref=e114]: בתחנה, המתינו ליד העיגול הכתום על המדרכה. הוא מסמן איפה בדיוק תעצור הדלת הייעודית לעגלות.
-        - generic [ref=e115]:
-          - generic [ref=e116]: ♿
-          - heading "השתמשו בדלת הנכונה" [level=3] [ref=e117]
-          - paragraph [ref=e118]: עלו ורדו רק מהדלתות המסומנות בסמל של עגלה או כיסא גלגלים. יש שם יותר מקום והכניסה רחבה ונוחה.
-        - generic [ref=e119]:
-          - generic [ref=e120]: 🔵
-          - heading "לחצו על הכפתור הכחול" [level=3] [ref=e121]
-          - paragraph [ref=e122]: זהו הטיפ החשוב ביותר! לחיצה על הכפתור הכחול (מבחוץ או מבפנים) מונעת מהדלת להיסגר אוטומטית ומאותתת לנהג.
-    - generic [ref=e123]:
-      - heading "✨ מתכנן הטיולים החכם ✨" [level=2] [ref=e124]
-      - paragraph [ref=e125]: "רוצים תוכנית יומית מותאמת אישית? ספרו לי מה מתחשק לכם (למשל: \"יום רגוע עם גן שעשועים ואוכל פשוט\"), והבינה המלאכותית תבנה לכם הצעה."
-      - generic [ref=e126]:
-        - heading "🎯 מערכת תבניות דינמית" [level=3] [ref=e127]
-        - paragraph [ref=e128]: מערכת חדשה המאפשרת הוספה קלה של תבניות, זמן ומקרי שימוש חדשים
-      - generic [ref=e129]:
-        - heading "🤖 מערכת AI קיימת" [level=3] [ref=e130]
-        - generic [ref=e131]:
-          - textbox "תאר את התוכנית הרצויה" [ref=e132]
-          - button "צור לי תוכנית" [ref=e133] [cursor=pointer]
-    - generic [ref=e134]:
-      - heading "🗺️ מסלול יומי גמיש והיררכי" [level=2] [ref=e135]
-      - paragraph [ref=e136]: זוהי הצעה מפורטת עם חלופות לכל יום. אתם מוזמנים לבחור את השילוב המושלם עבורכם.
-      - generic [ref=e138]:
-        - heading "undefined - undefined" [level=3] [ref=e139]
-        - heading "undefined" [level=4] [ref=e140]
-        - generic [ref=e142]:
-          - heading "פעולות חכמות ליום זה" [level=5] [ref=e143]
-          - generic [ref=e144]:
-            - button "✨ תכנן בוקר" [ref=e145] [cursor=pointer]:
-              - generic [ref=e146] [cursor=pointer]:
+          - generic [ref=e105]: 🟠
+          - heading "חפשו את העיגול הכתום" [level=3] [ref=e106]
+          - paragraph [ref=e107]: בתחנה, המתינו ליד העיגול הכתום על המדרכה. הוא מסמן איפה בדיוק תעצור הדלת הייעודית לעגלות.
+        - generic [ref=e108]:
+          - generic [ref=e109]: ♿
+          - heading "השתמשו בדלת הנכונה" [level=3] [ref=e110]
+          - paragraph [ref=e111]: עלו ורדו רק מהדלתות המסומנות בסמל של עגלה או כיסא גלגלים. יש שם יותר מקום והכניסה רחבה ונוחה.
+        - generic [ref=e112]:
+          - generic [ref=e113]: 🔵
+          - heading "לחצו על הכפתור הכחול" [level=3] [ref=e114]
+          - paragraph [ref=e115]: זהו הטיפ החשוב ביותר! לחיצה על הכפתור הכחול (מבחוץ או מבפנים) מונעת מהדלת להיסגר אוטומטית ומאותתת לנהג.
+    - generic [ref=e116]:
+      - heading "✨ מתכנן הטיולים החכם ✨" [level=2] [ref=e117]
+      - paragraph [ref=e118]: "רוצים תוכנית יומית מותאמת אישית? ספרו לי מה מתחשק לכם (למשל: \"יום רגוע עם גן שעשועים ואוכל פשוט\"), והבינה המלאכותית תבנה לכם הצעה."
+      - generic [ref=e119]:
+        - heading "🎯 מערכת תבניות דינמית" [level=3] [ref=e120]
+        - paragraph [ref=e121]: מערכת חדשה המאפשרת הוספה קלה של תבניות, זמן ומקרי שימוש חדשים
+      - generic [ref=e122]:
+        - heading "🤖 מערכת AI קיימת" [level=3] [ref=e123]
+        - generic [ref=e124]:
+          - textbox "תאר את התוכנית הרצויה" [ref=e125]
+          - button "צור לי תוכנית" [ref=e126] [cursor=pointer]
+    - generic [ref=e127]:
+      - heading "🗺️ מסלול יומי גמיש והיררכי" [level=2] [ref=e128]
+      - paragraph [ref=e129]: זוהי הצעה מפורטת עם חלופות לכל יום. אתם מוזמנים לבחור את השילוב המושלם עבורכם.
+      - generic [ref=e131]:
+        - heading "undefined - undefined" [level=3] [ref=e132]
+        - heading "undefined" [level=4] [ref=e133]
+        - generic [ref=e135]:
+          - heading "פעולות חכמות ליום זה" [level=5] [ref=e136]
+          - generic [ref=e137]:
+            - button "✨ תכנן בוקר" [ref=e138] [cursor=pointer]:
+              - generic [ref=e139] [cursor=pointer]:
                 - text: ✨
-                - generic [ref=e147] [cursor=pointer]: תכנן בוקר
-            - button "📝 סכם לילדים" [ref=e148]:
-              - generic [ref=e149]:
+                - generic [ref=e140] [cursor=pointer]: תכנן בוקר
+            - button "📝 סכם לילדים" [ref=e141]:
+              - generic [ref=e142]:
                 - text: 📝
-                - generic [ref=e150]: סכם לילדים
-            - button "📖 סיפור לילדים" [ref=e151]:
-              - generic [ref=e152]:
+                - generic [ref=e143]: סכם לילדים
+            - button "📖 סיפור לילדים" [ref=e144]:
+              - generic [ref=e145]:
                 - text: 📖
-                - generic [ref=e153]: סיפור לילדים
-            - button "🔄 החלף פעילות" [ref=e154]:
-              - generic [ref=e155]:
+                - generic [ref=e146]: סיפור לילדים
+            - button "🔄 החלף פעילות" [ref=e147]:
+              - generic [ref=e148]:
                 - text: 🔄
-                - generic [ref=e156]: החלף פעילות
-    - generic [ref=e157]:
-      - heading "🎈 מאגר הפעילויות האינטראקטיבי" [level=2] [ref=e158]
-      - paragraph [ref=e159]:
+                - generic [ref=e149]: החלף פעילות
+    - generic [ref=e150]:
+      - heading "🎈 מאגר הפעילויות האינטראקטיבי" [level=2] [ref=e151]
+      - paragraph [ref=e152]:
         - text: מצאו את הבילוי המושלם לכל רגע.
-        - strong [ref=e160]: "חשוב:"
+        - strong [ref=e153]: "חשוב:"
         - text: לחצו תמיד על "לאתר הרשמי" כדי לוודא שעות פתיחה ומחירים עדכניים לפני היציאה.
+      - generic [ref=e154]:
+        - paragraph [ref=e155]: "סנן לפי סוג פעילות:"
+        - button "הכל" [ref=e156] [cursor=pointer]
+        - button "🧸 משחקיות מקורות" [ref=e157] [cursor=pointer]
+        - button "🎨 תרבות ומוזיאונים" [ref=e158] [cursor=pointer]
+        - button "☕ בתי קפה" [ref=e159] [cursor=pointer]
+        - button "🌳 פארקים וחוץ" [ref=e160] [cursor=pointer]
       - generic [ref=e161]:
-        - paragraph [ref=e162]: "סנן לפי סוג פעילות:"
-        - button "הכל" [ref=e163] [cursor=pointer]
-        - button "🧸 משחקיות מקורות" [ref=e164] [cursor=pointer]
-        - button "🎨 תרבות ומוזיאונים" [ref=e165] [cursor=pointer]
-        - button "☕ בתי קפה" [ref=e166] [cursor=pointer]
-        - button "🌳 פארקים וחוץ" [ref=e167] [cursor=pointer]
-      - generic [ref=e168]:
-        - paragraph [ref=e169]: "סנן לפי זמן נסיעה מהמלון:"
-        - button "🚗 הכל" [ref=e170] [cursor=pointer]
-        - button "⚡ עד 20 דקות" [ref=e171] [cursor=pointer]
-        - button "🚌 20-40 דקות" [ref=e172] [cursor=pointer]
-        - button "🚆 מעל 40 דקות" [ref=e173] [cursor=pointer]
-      - generic [ref=e174]:
-        - generic [ref=e175]:
-          - generic [ref=e176]:
-            - img "גן החיות של ז'נבה" [ref=e177]
-            - generic [ref=e179]: ילדים
-          - generic [ref=e180]:
-            - heading "גן החיות של ז'נבה" [level=3] [ref=e182]
-            - generic [ref=e183]:
-              - paragraph [ref=e184]:
-                - strong [ref=e185]: "⏱️ זמן נסיעה:"
+        - paragraph [ref=e162]: "סנן לפי זמן נסיעה מהמלון:"
+        - button "🚗 הכל" [ref=e163] [cursor=pointer]
+        - button "⚡ עד 20 דקות" [ref=e164] [cursor=pointer]
+        - button "🚌 20-40 דקות" [ref=e165] [cursor=pointer]
+        - button "🚆 מעל 40 דקות" [ref=e166] [cursor=pointer]
+      - generic [ref=e167]:
+        - generic [ref=e168]:
+          - generic [ref=e169]:
+            - img "גן החיות של ז'נבה" [ref=e170]
+            - generic [ref=e172]: ילדים
+          - generic [ref=e173]:
+            - heading "גן החיות של ז'נבה" [level=3] [ref=e175]
+            - generic [ref=e176]:
+              - paragraph [ref=e177]:
+                - strong [ref=e178]: "⏱️ זמן נסיעה:"
                 - text: בוקר דקות
-              - paragraph [ref=e186]:
-                - strong [ref=e187]: "🕒 שעות:"
+              - paragraph [ref=e179]:
+                - strong [ref=e180]: "🕒 שעות:"
                 - text: שעות פתיחה לא זמינות
-            - paragraph [ref=e188]: גן חיות מושלם למשפחות עם פעוטות
-            - button "👁️ פרטים" [ref=e190]
-        - generic [ref=e191]:
-          - generic [ref=e192]:
-            - img "פארק באסטיון" [ref=e193]
-            - generic [ref=e195]: פארקים
-          - generic [ref=e196]:
-            - heading "פארק באסטיון" [level=3] [ref=e198]
-            - generic [ref=e199]:
-              - paragraph [ref=e200]:
-                - strong [ref=e201]: "⏱️ זמן נסיעה:"
+            - paragraph [ref=e181]: גן חיות מושלם למשפחות עם פעוטות
+            - button "👁️ פרטים" [ref=e183]
+        - generic [ref=e184]:
+          - generic [ref=e185]:
+            - img "פארק באסטיון" [ref=e186]
+            - generic [ref=e188]: פארקים
+          - generic [ref=e189]:
+            - heading "פארק באסטיון" [level=3] [ref=e191]
+            - generic [ref=e192]:
+              - paragraph [ref=e193]:
+                - strong [ref=e194]: "⏱️ זמן נסיעה:"
                 - text: אחר הצהריים דקות
-              - paragraph [ref=e202]:
-                - strong [ref=e203]: "🕒 שעות:"
+              - paragraph [ref=e195]:
+                - strong [ref=e196]: "🕒 שעות:"
                 - text: שעות פתיחה לא זמינות
-            - paragraph [ref=e204]: פארק ירוק מושלם לפיקניק משפחתי
-            - button "👁️ פרטים" [ref=e206]
-      - button "🗺️ הצג את כל הפעילויות על המפה" [ref=e209]
-    - generic [ref=e210]:
-      - heading "👨‍👩‍👧‍👦 שתפו את החוויה המשפחתית" [level=2] [ref=e211]
-      - paragraph [ref=e212]: תעדו, שתפו ושמרו את הרגעים המיוחדים שלכם בז'נבה - הכל במקום אחד לכל המשפחה
-      - generic [ref=e213]:
-        - generic [ref=e214]:
-          - button "📷 צלמו רגע" [ref=e215]
-          - button "📝 הערה מהירה" [ref=e216]
-          - button "💫 זיכרון חדש" [ref=e217]
-        - generic [ref=e218]:
-          - generic [ref=e219]:
-            - heading "📸 תמונות" [level=3] [ref=e220]
-            - button "📷 הוסיפו תמונה" [ref=e222]
-            - generic [ref=e224]:
-              - generic [ref=e225]: 📷
-              - paragraph [ref=e226]: עדיין לא הועלו תמונות
-              - paragraph [ref=e227]: לחצו על "הוסיפו תמונה חדשה" כדי להתחיל ליצור את האלבום שלכם
-            - paragraph [ref=e231]: מעלה תמונות...
-          - generic [ref=e232]:
-            - heading "📝 הערות" [level=3] [ref=e233]
-            - generic [ref=e235]:
-              - textbox "הערה מהירה" [ref=e236]
-              - button "➕" [ref=e237]
-            - generic [ref=e239]:
-              - generic [ref=e240]: 📝
-              - paragraph [ref=e241]: עדיין לא נוספו הערות
-              - paragraph [ref=e242]: הוסיפו הערות, תזכורות או רשימות קניות כדי לעקוב אחרי הטיול
-          - generic [ref=e243]:
-            - heading "💫 זיכרונות" [level=3] [ref=e244]
-            - generic [ref=e245]:
-              - textbox "כותרת זיכרון" [ref=e246]
-              - textbox "תארו את החוויה..." [ref=e247]
-              - button "💫 שמרו זיכרון" [ref=e248]
-            - generic [ref=e250]:
-              - generic [ref=e251]: ✨
-              - paragraph [ref=e252]: עדיין לא נרשמו זיכרונות
-              - paragraph [ref=e253]: שמרו כאן את הרגעים המיוחדים, התגליות והחוויות מהטיול
-  - contentinfo [ref=e254]:
-    - generic [ref=e255]:
-      - paragraph [ref=e256]: נבנה באהבה כדי להפוך את החופשה המשפחתית שלכם לבלתי נשכחת. ❤️
-      - paragraph [ref=e257]: טיול נעים!
-  - generic [ref=e260] [cursor=pointer]:
-    - generic [ref=e261] [cursor=pointer]: ℹ️
-    - paragraph [ref=e263] [cursor=pointer]: עובדים במצב הדגמה
-    - button "×" [ref=e264]
+            - paragraph [ref=e197]: פארק ירוק מושלם לפיקניק משפחתי
+            - button "👁️ פרטים" [ref=e199]
+      - button "🗺️ הצג את כל הפעילויות על המפה" [ref=e202]
+    - generic [ref=e203]:
+      - heading "👨‍👩‍👧‍👦 שתפו את החוויה המשפחתית" [level=2] [ref=e204]
+      - paragraph [ref=e205]: תעדו, שתפו ושמרו את הרגעים המיוחדים שלכם בז'נבה - הכל במקום אחד לכל המשפחה
+      - generic [ref=e206]:
+        - generic [ref=e207]:
+          - button "📷 צלמו רגע" [ref=e208]
+          - button "📝 הערה מהירה" [ref=e209]
+          - button "💫 זיכרון חדש" [ref=e210]
+        - generic [ref=e211]:
+          - generic [ref=e212]:
+            - heading "📸 תמונות" [level=3] [ref=e213]
+            - button "📷 הוסיפו תמונה" [ref=e215]
+            - generic [ref=e217]:
+              - generic [ref=e218]: 📷
+              - paragraph [ref=e219]: עדיין לא הועלו תמונות
+              - paragraph [ref=e220]: לחצו על "הוסיפו תמונה חדשה" כדי להתחיל ליצור את האלבום שלכם
+            - paragraph [ref=e224]: מעלה תמונות...
+          - generic [ref=e225]:
+            - heading "📝 הערות" [level=3] [ref=e226]
+            - generic [ref=e228]:
+              - textbox "הערה מהירה" [ref=e229]
+              - button "➕" [ref=e230]
+            - generic [ref=e232]:
+              - generic [ref=e233]: 📝
+              - paragraph [ref=e234]: עדיין לא נוספו הערות
+              - paragraph [ref=e235]: הוסיפו הערות, תזכורות או רשימות קניות כדי לעקוב אחרי הטיול
+          - generic [ref=e236]:
+            - heading "💫 זיכרונות" [level=3] [ref=e237]
+            - generic [ref=e238]:
+              - textbox "כותרת זיכרון" [ref=e239]
+              - textbox "תארו את החוויה..." [ref=e240]
+              - button "💫 שמרו זיכרון" [ref=e241]
+            - generic [ref=e243]:
+              - generic [ref=e244]: ✨
+              - paragraph [ref=e245]: עדיין לא נרשמו זיכרונות
+              - paragraph [ref=e246]: שמרו כאן את הרגעים המיוחדים, התגליות והחוויות מהטיול
+  - contentinfo [ref=e247]:
+    - generic [ref=e248]:
+      - paragraph [ref=e249]: נבנה באהבה כדי להפוך את החופשה המשפחתית שלכם לבלתי נשכחת. ❤️
+      - paragraph [ref=e250]: טיול נעים!
 ```

@@ -22,29 +22,35 @@ class UserAgentAdjuster {
 
     detectDevice() {
         const userAgent = navigator.userAgent.toLowerCase();
+        console.log('🔍 User Agent:', userAgent);
+        
+        // Check for mobile devices first
         const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
         const isTablet = /ipad|android(?!.*mobile)/i.test(userAgent);
-        const isDesktop = !isMobile && !isTablet;
         
-        // Additional checks for better accuracy
-        const touchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        const screenWidth = window.innerWidth;
+        console.log('🔍 isMobile:', isMobile, 'isTablet:', isTablet);
         
         // Prioritize user agent detection for test compatibility
         if (isTablet) {
+            console.log('🔍 Detected: tablet');
             return 'tablet';
         } else if (isMobile) {
+            console.log('🔍 Detected: mobile');
             return 'mobile';
-        } else if (isDesktop) {
-            return 'desktop';
         }
         
         // Fallback to screen size detection
+        const screenWidth = window.innerWidth;
+        console.log('🔍 Screen width:', screenWidth);
+        
         if (screenWidth >= 768 && screenWidth < 1024) {
+            console.log('🔍 Detected: tablet (by screen)');
             return 'tablet';
         } else if (screenWidth < 768) {
+            console.log('🔍 Detected: mobile (by screen)');
             return 'mobile';
         } else {
+            console.log('🔍 Detected: desktop (by screen)');
             return 'desktop';
         }
     }
