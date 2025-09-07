@@ -78,6 +78,20 @@ body {
     min-height: 100vh;
 }
 
+/* Ensure main content is always visible */
+#main-content {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Ensure header is always visible */
+header {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
 /* Background Classes */
 .bg-primary {
     background: linear-gradient(135deg, var(--primary-50) 0%, var(--neutral-50) 100%);

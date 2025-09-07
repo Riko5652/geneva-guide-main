@@ -303,6 +303,15 @@ function setupFirebaseListeners() {
                     console.log("🎯 Hiding loading screen after Firebase data load");
                     familyLoader.hide();
                     
+                    // Ensure main content is visible
+                    const mainContent = document.getElementById('main-content');
+                    if (mainContent) {
+                        mainContent.style.display = 'block';
+                        mainContent.style.visibility = 'visible';
+                        mainContent.style.opacity = '1';
+                        console.log("✅ Main content visibility ensured");
+                    }
+                    
                     // Reset retry counter and reconnection flag on successful connection
                     if (window.firebaseRetryCount) {
                         window.firebaseRetryCount = 0;
