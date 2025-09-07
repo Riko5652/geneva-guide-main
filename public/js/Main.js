@@ -10,6 +10,12 @@ import { CONFIG } from './config.js';
 import { familyLoader } from './utils.js';
 import { familyToast, familyAnimations } from './ui.js';
 
+// Import new modules
+import { initMap } from './Map.js';
+import { AnimationManager } from './animations.js';
+import { ToastManager } from './toast.js';
+import { LoadingManager } from './loading.js';
+
 // --- Global State ---
 export let db, auth, storage, userId;
 export let currentData = { activitiesData: [] };
@@ -21,6 +27,11 @@ export const appId = "lipetztrip-guide";
 // Map state for Leaflet integration
 export let map = null;
 export function setMap(newMap) { map = newMap; }
+
+// New module instances
+export let animationManager = null;
+export let toastManager = null;
+export let loadingManager = null;
 
 // --- State Modifiers ---
 export function addNewlyAddedItem(id) { try { newlyAddedItems.add(id); } catch (e) {} }
@@ -90,6 +101,19 @@ if (typeof window !== 'undefined' && !window.__APP_BOOTSTRAPPED__) {
 
 async function initApp() {
     console.log('🚀 initApp starting...');
+    
+    // Initialize new modules
+    console.log('🎨 Initializing animation manager...');
+    animationManager = new AnimationManager();
+    window.animationManager = animationManager;
+    
+    console.log('🔔 Initializing toast manager...');
+    toastManager = new ToastManager();
+    window.toastManager = toastManager;
+    
+    console.log('⏳ Initializing loading manager...');
+    loadingManager = new LoadingManager();
+    window.loadingManager = loadingManager;
     
     // Only show loader if page isn't already fully loaded and no existing loader
     const existingLoader = document.getElementById('family-loader');
@@ -213,6 +237,12 @@ function setupBasicApp() {
         
         console.log("🎨 Calling renderAllComponents from setupBasicApp");
         renderAllComponents();
+        
+        // Initialize enhanced map
+        console.log("🗺️ Initializing enhanced map...");
+        if (typeof initMap === 'function') {
+            initMap();
+        }
         
         // Hide loading screen and any other loaders
         console.log("🎯 Hiding all loading screens...");

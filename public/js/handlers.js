@@ -6,6 +6,11 @@ import { VERSION } from './version.js';
 import { doc, updateDoc, arrayUnion, arrayRemove, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
+// Import new modules for enhanced functionality
+import { AnimationManager } from './animations.js';
+import { ToastManager } from './toast.js';
+import { LoadingManager } from './loading.js';
+
 /**
  * Flow Enhancement System
  * Improves user experience through better loading states, feedback, and error handling
@@ -26,8 +31,13 @@ class FlowEnhancementManager {
         const loaderId = `${context}-${Date.now()}`;
         this.activeLoaders.add(loaderId);
         
-        // Show contextual loading message
-        familyLoader.show();
+        // Use enhanced loading manager if available
+        if (window.loadingManager) {
+            window.loadingManager.showGlobal(message);
+        } else {
+            // Fallback to original loader
+            familyLoader.show();
+        }
         
         return loaderId;
     }
@@ -39,7 +49,11 @@ class FlowEnhancementManager {
         this.activeLoaders.delete(loaderId);
         
         if (this.activeLoaders.size === 0) {
-            familyLoader.hide();
+            if (window.loadingManager) {
+                window.loadingManager.hideGlobal();
+            } else {
+                familyLoader.hide();
+            }
         }
     }
 
@@ -47,6 +61,22 @@ class FlowEnhancementManager {
      * Show enhanced user feedback
      */
     showFeedback(type, message, options = {}) {
+        // Use enhanced toast manager if available
+        if (window.toastManager) {
+            switch (type) {
+                case 'success':
+                    return window.toastManager.success(message, options);
+                case 'error':
+                    return window.toastManager.error(message, options);
+                case 'warning':
+                    return window.toastManager.warning(message, options);
+                case 'info':
+                default:
+                    return window.toastManager.info(message, options);
+            }
+        }
+        
+        // Fallback to original feedback system
         const feedback = {
             type,
             message,
@@ -1698,6 +1728,341 @@ function convertToBase64(file) {
         reader.onerror = reject;
         reader.readAsDataURL(file);
     });
+}
+
+// --- ENHANCED EVENT HANDLERS ---
+
+/**
+ * Enhanced button click handler with animations and feedback
+ */
+export function handleEnhancedButtonClick(event, action, options = {}) {
+    const button = event.target;
+    const {
+        loadingText = 'טוען...',
+        successText = 'הצלחה!',
+        errorText = 'שגיאה!',
+        showAnimation = true,
+        showFeedback = true
+    } = options;
+
+    // Add loading state to button
+    if (window.loadingManager) {
+        const loadingId = window.loadingManager.showButtonLoading(button, loadingText);
+        
+        // Execute action
+        Promise.resolve(action())
+            .then((result) => {
+                // Success feedback
+                if (showFeedback && window.toastManager) {
+                    window.toastManager.success(successText);
+                }
+                
+                // Success animation
+                if (showAnimation && window.animationManager) {
+                    window.animationManager.animateElement(button, 'bounce-in');
+                }
+                
+                return result;
+            })
+            .catch((error) => {
+                console.error('Button action failed:', error);
+                
+                // Error feedback
+                if (showFeedback && window.toastManager) {
+                    window.toastManager.error(errorText);
+                }
+                
+                // Error animation
+                if (showAnimation && window.animationManager) {
+                    window.animationManager.animateElement(button, 'shake');
+                }
+                
+                throw error;
+            })
+            .finally(() => {
+                // Hide loading state
+                window.loadingManager.hideButtonLoading(loadingId);
+            });
+    } else {
+        // Fallback to original behavior
+        action();
+    }
+}
+
+/**
+ * Enhanced form submission handler
+ */
+export function handleEnhancedFormSubmit(event, submitAction, options = {}) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const {
+        loadingText = 'שולח...',
+        successText = 'נשלח בהצלחה!',
+        errorText = 'שגיאה בשליחה',
+        resetForm = true
+    } = options;
+
+    // Show loading state
+    if (window.loadingManager) {
+        const loadingId = window.loadingManager.show(form, loadingText);
+        
+        // Execute submit action
+        Promise.resolve(submitAction(form))
+            .then((result) => {
+                // Success feedback
+                if (window.toastManager) {
+                    window.toastManager.success(successText);
+                }
+                
+                // Reset form if requested
+                if (resetForm) {
+                    form.reset();
+                }
+                
+                // Success animation
+                if (window.animationManager) {
+                    window.animationManager.animateElement(form, 'bounce-in');
+                }
+                
+                return result;
+            })
+            .catch((error) => {
+                console.error('Form submission failed:', error);
+                
+                // Error feedback
+                if (window.toastManager) {
+                    window.toastManager.error(errorText);
+                }
+                
+                // Error animation
+                if (window.animationManager) {
+                    window.animationManager.animateElement(form, 'shake');
+                }
+                
+                throw error;
+            })
+            .finally(() => {
+                // Hide loading state
+                window.loadingManager.hide(loadingId);
+            });
+    } else {
+        // Fallback to original behavior
+        submitAction(form);
+    }
+}
+
+/**
+ * Enhanced modal handler with animations
+ */
+export function handleEnhancedModalOpen(modalId, options = {}) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+
+    const {
+        animation = 'scale-in',
+        showBackdrop = true,
+        closable = true
+    } = options;
+
+    // Show modal with animation
+    if (window.animationManager) {
+        modal.style.display = 'flex';
+        window.animationManager.animateModal(modal, true);
+    } else {
+        // Fallback to original modal behavior
+        openModal(modalId);
+    }
+
+    // Add backdrop click handler if closable
+    if (closable && showBackdrop) {
+        const backdrop = modal.querySelector('.modal-backdrop') || modal;
+        backdrop.addEventListener('click', (e) => {
+            if (e.target === backdrop) {
+                handleEnhancedModalClose(modalId);
+            }
+        });
+    }
+}
+
+/**
+ * Enhanced modal close handler
+ */
+export function handleEnhancedModalClose(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+
+    // Close modal with animation
+    if (window.animationManager) {
+        window.animationManager.animateModal(modal, false);
+    } else {
+        // Fallback to original modal behavior
+        closeModal(modalId);
+    }
+}
+
+/**
+ * Enhanced card interaction handler
+ */
+export function handleEnhancedCardInteraction(card, action, options = {}) {
+    const {
+        hoverAnimation = 'scale-in',
+        clickAnimation = 'bounce-in',
+        showFeedback = true
+    } = options;
+
+    // Add hover animation
+    if (window.animationManager) {
+        card.addEventListener('mouseenter', () => {
+            window.animationManager.animateElement(card, hoverAnimation, 0.1);
+        });
+    }
+
+    // Add click handler
+    card.addEventListener('click', (event) => {
+        event.preventDefault();
+        
+        // Click animation
+        if (window.animationManager) {
+            window.animationManager.animateElement(card, clickAnimation);
+        }
+        
+        // Execute action
+        Promise.resolve(action(card))
+            .then((result) => {
+                if (showFeedback && window.toastManager) {
+                    window.toastManager.success('פעולה הושלמה בהצלחה!');
+                }
+                return result;
+            })
+            .catch((error) => {
+                console.error('Card action failed:', error);
+                if (showFeedback && window.toastManager) {
+                    window.toastManager.error('שגיאה בביצוע הפעולה');
+                }
+            });
+    });
+}
+
+/**
+ * Enhanced scroll handler with animations
+ */
+export function setupEnhancedScrollAnimations() {
+    if (!window.animationManager) return;
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                
+                // Add animation based on element type
+                if (element.classList.contains('card')) {
+                    window.animationManager.animateElement(element, 'slide-in-left');
+                } else if (element.classList.contains('section')) {
+                    window.animationManager.animateElement(element, 'fade-in');
+                } else {
+                    window.animationManager.animateElement(element, 'scale-in');
+                }
+                
+                observer.unobserve(element);
+            }
+        });
+    }, observerOptions);
+
+    // Observe elements for scroll animations
+    document.querySelectorAll('.card, .section, .activity-card').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+/**
+ * Enhanced keyboard navigation handler
+ */
+export function setupEnhancedKeyboardNavigation() {
+    document.addEventListener('keydown', (event) => {
+        // Handle escape key for modals
+        if (event.key === 'Escape') {
+            if (window.enhancedModalManager) {
+                window.enhancedModalManager.closeTopModal();
+            } else {
+                closeAllModals();
+            }
+        }
+        
+        // Handle enter key for buttons
+        if (event.key === 'Enter' && event.target.tagName === 'BUTTON') {
+            event.target.click();
+        }
+        
+        // Handle arrow keys for navigation
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+            handleArrowKeyNavigation(event);
+        }
+    });
+}
+
+/**
+ * Handle arrow key navigation
+ */
+function handleArrowKeyNavigation(event) {
+    const focusableElements = document.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    
+    const currentIndex = Array.from(focusableElements).indexOf(document.activeElement);
+    let nextIndex = currentIndex;
+    
+    switch (event.key) {
+        case 'ArrowDown':
+        case 'ArrowRight':
+            nextIndex = (currentIndex + 1) % focusableElements.length;
+            break;
+        case 'ArrowUp':
+        case 'ArrowLeft':
+            nextIndex = currentIndex === 0 ? focusableElements.length - 1 : currentIndex - 1;
+            break;
+    }
+    
+    if (nextIndex !== currentIndex) {
+        focusableElements[nextIndex].focus();
+        event.preventDefault();
+    }
+}
+
+/**
+ * Initialize enhanced event handlers
+ */
+export function initializeEnhancedEventHandlers() {
+    // Setup scroll animations
+    setupEnhancedScrollAnimations();
+    
+    // Setup keyboard navigation
+    setupEnhancedKeyboardNavigation();
+    
+    // Add enhanced interactions to existing elements
+    document.querySelectorAll('.btn-primary').forEach(button => {
+        button.addEventListener('click', (event) => {
+            handleEnhancedButtonClick(event, () => {
+                // Default action - can be overridden
+                console.log('Enhanced button clicked');
+            });
+        });
+    });
+    
+    // Add enhanced interactions to cards
+    document.querySelectorAll('.card, .activity-card').forEach(card => {
+        handleEnhancedCardInteraction(card, (cardElement) => {
+            // Default card action - can be overridden
+            console.log('Enhanced card interaction');
+        });
+    });
+    
+    console.log('Enhanced event handlers initialized');
 }
 
 // Apply AI suggestions to the luggage planner

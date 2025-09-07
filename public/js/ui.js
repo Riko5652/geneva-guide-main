@@ -4,6 +4,11 @@ import { getFormattedOpeningHours, getStatusClass } from './utils.js';
 import { initMap } from './Map.js';
 import { showFlowLoading, hideFlowLoading, showFlowProgress, showFlowFeedback, showFlowSuccess, handleFlowError } from './handlers.js';
 
+// Import new modules for enhanced UI
+import { AnimationManager } from './animations.js';
+import { ToastManager } from './toast.js';
+import { LoadingManager } from './loading.js';
+
 // Family-Friendly Animations & Effects
 export class FamilyAnimations {
     constructor() {
@@ -386,6 +391,11 @@ export function renderAllComponents() {
     console.log('🎨 renderAllComponents called, currentData:', !!currentData);
     
     try {
+        // Show loading state for component rendering
+        if (window.loadingManager) {
+            window.loadingManager.showGlobal('מכין את הממשק...');
+        }
+        
         // Always render basic components, even without Firebase data
         console.log('🔧 Rendering basic components...');
     renderMobileMenu();
@@ -412,8 +422,37 @@ export function renderAllComponents() {
         }
         
         console.log('✅ All components rendered successfully');
+        
+        // Hide loading state and show success
+        if (window.loadingManager) {
+            window.loadingManager.hideGlobal();
+        }
+        
+        if (window.toastManager) {
+            window.toastManager.success('הממשק נטען בהצלחה!');
+        }
+        
+        // Add entrance animations to main sections
+        if (window.animationManager) {
+            setTimeout(() => {
+                document.querySelectorAll('section').forEach((section, index) => {
+                    window.animationManager.animateElement(section, 'fade-in', index * 0.1);
+                });
+            }, 500);
+        }
+        
     } catch (error) {
         console.error('❌ Error in renderAllComponents:', error);
+        
+        // Hide loading state on error
+        if (window.loadingManager) {
+            window.loadingManager.hideGlobal();
+        }
+        
+        if (window.toastManager) {
+            window.toastManager.error('שגיאה בטעינת הממשק');
+        }
+        
         // Ensure fallback content is shown on error
         renderFallbackContent();
     }
@@ -2024,6 +2063,522 @@ function addItemToLuggage(bagIndex, itemName) {
     // Re-render the luggage planner
     renderLuggagePlanner();
 }
+
+// --- ENHANCED UI COMPONENTS ---
+
+/**
+ * Enhanced modal manager with animations
+ */
+export class EnhancedModalManager {
+    constructor() {
+        this.activeModals = new Set();
+        this.init();
+    }
+
+    init() {
+        this.addModalStyles();
+        this.setupModalEventListeners();
+    }
+
+    addModalStyles() {
+        if (document.getElementById('enhanced-modal-styles')) return;
+
+        const style = document.createElement('style');
+        style.id = 'enhanced-modal-styles';
+        style.textContent = `
+            .enhanced-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.6);
+                backdrop-filter: blur(8px);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            
+            .enhanced-modal.show {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .enhanced-modal-content {
+                background: white;
+                border-radius: 16px;
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+                max-width: 90vw;
+                max-height: 90vh;
+                overflow: hidden;
+                transform: scale(0.8) translateY(20px);
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            
+            .enhanced-modal.show .enhanced-modal-content {
+                transform: scale(1) translateY(0);
+            }
+            
+            .enhanced-modal-header {
+                padding: 20px 24px;
+                border-bottom: 1px solid #e5e7eb;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .enhanced-modal-title {
+                font-size: 20px;
+                font-weight: 600;
+                color: #1f2937;
+                margin: 0;
+            }
+            
+            .enhanced-modal-close {
+                background: none;
+                border: none;
+                font-size: 24px;
+                color: #6b7280;
+                cursor: pointer;
+                padding: 4px;
+                border-radius: 6px;
+                transition: all 0.2s ease;
+            }
+            
+            .enhanced-modal-close:hover {
+                background: #f3f4f6;
+                color: #374151;
+            }
+            
+            .enhanced-modal-body {
+                padding: 24px;
+                overflow-y: auto;
+                max-height: 60vh;
+            }
+            
+            .enhanced-modal-footer {
+                padding: 16px 24px;
+                border-top: 1px solid #e5e7eb;
+                display: flex;
+                gap: 12px;
+                justify-content: flex-end;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    setupModalEventListeners() {
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.activeModals.size > 0) {
+                this.closeTopModal();
+            }
+        });
+
+        // Close modal on backdrop click
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('enhanced-modal')) {
+                this.closeModal(e.target);
+            }
+        });
+    }
+
+    show(options = {}) {
+        const {
+            title = 'הודעה',
+            content = '',
+            footer = null,
+            size = 'medium',
+            closable = true
+        } = options;
+
+        const modal = document.createElement('div');
+        modal.className = 'enhanced-modal';
+        modal.id = `modal-${Date.now()}`;
+
+        const sizeClasses = {
+            small: 'max-w-md',
+            medium: 'max-w-2xl',
+            large: 'max-w-4xl',
+            fullscreen: 'max-w-full max-h-full'
+        };
+
+        modal.innerHTML = `
+            <div class="enhanced-modal-content ${sizeClasses[size]}">
+                <div class="enhanced-modal-header">
+                    <h3 class="enhanced-modal-title">${title}</h3>
+                    ${closable ? '<button class="enhanced-modal-close">&times;</button>' : ''}
+                </div>
+                <div class="enhanced-modal-body">
+                    ${content}
+                </div>
+                ${footer ? `<div class="enhanced-modal-footer">${footer}</div>` : ''}
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+        this.activeModals.add(modal);
+
+        // Add event listeners
+        const closeBtn = modal.querySelector('.enhanced-modal-close');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.closeModal(modal));
+        }
+
+        // Trigger animation
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 10);
+
+        return modal;
+    }
+
+    closeModal(modal) {
+        if (!modal || !this.activeModals.has(modal)) return;
+
+        modal.classList.remove('show');
+        
+        setTimeout(() => {
+            if (modal.parentNode) {
+                modal.parentNode.removeChild(modal);
+            }
+            this.activeModals.delete(modal);
+        }, 300);
+    }
+
+    closeTopModal() {
+        const modals = Array.from(this.activeModals);
+        if (modals.length > 0) {
+            this.closeModal(modals[modals.length - 1]);
+        }
+    }
+
+    closeAll() {
+        this.activeModals.forEach(modal => this.closeModal(modal));
+    }
+}
+
+/**
+ * Enhanced notification system
+ */
+export class EnhancedNotificationSystem {
+    constructor() {
+        this.notifications = [];
+        this.container = null;
+        this.init();
+    }
+
+    init() {
+        this.createContainer();
+        this.addNotificationStyles();
+    }
+
+    createContainer() {
+        this.container = document.createElement('div');
+        this.container.id = 'enhanced-notifications';
+        this.container.className = 'enhanced-notifications-container';
+        document.body.appendChild(this.container);
+    }
+
+    addNotificationStyles() {
+        if (document.getElementById('enhanced-notification-styles')) return;
+
+        const style = document.createElement('style');
+        style.id = 'enhanced-notification-styles';
+        style.textContent = `
+            .enhanced-notifications-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 10001;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                max-width: 400px;
+            }
+            
+            .enhanced-notification {
+                background: white;
+                border-radius: 12px;
+                padding: 16px 20px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+                border-left: 4px solid;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                transform: translateX(100%);
+                opacity: 0;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .enhanced-notification.show {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            
+            .enhanced-notification.success {
+                border-left-color: #10b981;
+                background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            }
+            
+            .enhanced-notification.error {
+                border-left-color: #ef4444;
+                background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            }
+            
+            .enhanced-notification.warning {
+                border-left-color: #f59e0b;
+                background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            }
+            
+            .enhanced-notification.info {
+                border-left-color: #3b82f6;
+                background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            }
+            
+            .enhanced-notification-icon {
+                width: 24px;
+                height: 24px;
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                font-size: 14px;
+                color: white;
+            }
+            
+            .enhanced-notification.success .enhanced-notification-icon {
+                background: #10b981;
+            }
+            
+            .enhanced-notification.error .enhanced-notification-icon {
+                background: #ef4444;
+            }
+            
+            .enhanced-notification.warning .enhanced-notification-icon {
+                background: #f59e0b;
+            }
+            
+            .enhanced-notification.info .enhanced-notification-icon {
+                background: #3b82f6;
+            }
+            
+            .enhanced-notification-content {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .enhanced-notification-title {
+                font-weight: 600;
+                font-size: 14px;
+                color: #1f2937;
+                margin: 0 0 4px 0;
+            }
+            
+            .enhanced-notification-message {
+                font-size: 13px;
+                color: #6b7280;
+                margin: 0;
+                line-height: 1.4;
+            }
+            
+            .enhanced-notification-close {
+                width: 20px;
+                height: 20px;
+                border: none;
+                background: none;
+                cursor: pointer;
+                color: #9ca3af;
+                font-size: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 4px;
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            
+            .enhanced-notification-close:hover {
+                background: rgba(0, 0, 0, 0.1);
+                color: #374151;
+            }
+            
+            .enhanced-notification-progress {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                height: 3px;
+                background: rgba(0, 0, 0, 0.1);
+                border-radius: 0 0 12px 12px;
+                transition: width linear;
+            }
+            
+            .enhanced-notification.success .enhanced-notification-progress {
+                background: #10b981;
+            }
+            
+            .enhanced-notification.error .enhanced-notification-progress {
+                background: #ef4444;
+            }
+            
+            .enhanced-notification.warning .enhanced-notification-progress {
+                background: #f59e0b;
+            }
+            
+            .enhanced-notification.info .enhanced-notification-progress {
+                background: #3b82f6;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    show(message, type = 'info', options = {}) {
+        const {
+            title = this.getDefaultTitle(type),
+            duration = 4000,
+            persistent = false,
+            icon = this.getDefaultIcon(type)
+        } = options;
+
+        const notification = document.createElement('div');
+        notification.className = `enhanced-notification ${type}`;
+        
+        const progressBar = document.createElement('div');
+        progressBar.className = 'enhanced-notification-progress';
+        progressBar.style.width = '100%';
+        
+        const iconElement = document.createElement('div');
+        iconElement.className = 'enhanced-notification-icon';
+        iconElement.textContent = icon;
+        
+        const content = document.createElement('div');
+        content.className = 'enhanced-notification-content';
+        
+        const titleElement = document.createElement('div');
+        titleElement.className = 'enhanced-notification-title';
+        titleElement.textContent = title;
+        
+        const messageElement = document.createElement('div');
+        messageElement.className = 'enhanced-notification-message';
+        messageElement.textContent = message;
+        
+        content.appendChild(titleElement);
+        content.appendChild(messageElement);
+        
+        const closeButton = document.createElement('button');
+        closeButton.className = 'enhanced-notification-close';
+        closeButton.innerHTML = '×';
+        closeButton.addEventListener('click', () => {
+            this.removeNotification(notification);
+        });
+        
+        notification.appendChild(progressBar);
+        notification.appendChild(iconElement);
+        notification.appendChild(content);
+        notification.appendChild(closeButton);
+        
+        this.container.appendChild(notification);
+        this.notifications.push(notification);
+
+        // Trigger animation
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+
+        // Auto-remove if not persistent
+        if (!persistent && duration > 0) {
+            this.scheduleRemoval(notification, duration);
+        }
+
+        return notification;
+    }
+
+    scheduleRemoval(notification, duration) {
+        const progressBar = notification.querySelector('.enhanced-notification-progress');
+        if (progressBar) {
+            progressBar.style.transition = `width ${duration}ms linear`;
+            progressBar.style.width = '0%';
+        }
+        
+        setTimeout(() => {
+            this.removeNotification(notification);
+        }, duration);
+    }
+
+    removeNotification(notification) {
+        if (!notification || !notification.parentNode) return;
+        
+        notification.classList.remove('show');
+        
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+            
+            const index = this.notifications.indexOf(notification);
+            if (index > -1) {
+                this.notifications.splice(index, 1);
+            }
+        }, 300);
+    }
+
+    getDefaultTitle(type) {
+        const titles = {
+            success: 'הצלחה',
+            error: 'שגיאה',
+            warning: 'אזהרה',
+            info: 'מידע'
+        };
+        return titles[type] || 'הודעה';
+    }
+
+    getDefaultIcon(type) {
+        const icons = {
+            success: '✓',
+            error: '✕',
+            warning: '⚠',
+            info: 'ℹ'
+        };
+        return icons[type] || 'ℹ';
+    }
+
+    success(message, options = {}) {
+        return this.show(message, 'success', options);
+    }
+
+    error(message, options = {}) {
+        return this.show(message, 'error', options);
+    }
+
+    warning(message, options = {}) {
+        return this.show(message, 'warning', options);
+    }
+
+    info(message, options = {}) {
+        return this.show(message, 'info', options);
+    }
+
+    clear() {
+        this.notifications.forEach(notification => {
+            this.removeNotification(notification);
+        });
+    }
+}
+
+// Create global instances
+export const enhancedModalManager = new EnhancedModalManager();
+export const enhancedNotificationSystem = new EnhancedNotificationSystem();
+
+// Make them globally accessible
+window.enhancedModalManager = enhancedModalManager;
+window.enhancedNotificationSystem = enhancedNotificationSystem;
 
 export function renderPackingPhotosGallery() {
     const gallery = document.getElementById('packing-photos-gallery');

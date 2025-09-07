@@ -377,9 +377,18 @@
                 <div id="load-more-container" class="hidden">
                     <button id="load-more-btn" class="btn-primary px-6 py-3 rounded-lg">טען עוד פעילויות 🎈</button>
                 </div>
-                <div>
+                <div class="flex flex-wrap justify-center gap-4">
                     <button id="show-map-btn" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors">
                         🗺️ הצג את כל הפעילויות על המפה
+                    </button>
+                    <button id="show-enhanced-map-btn" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                        🗺️ מפה מתקדמת
+                    </button>
+                    <button id="test-animations-btn" class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors">
+                        ✨ בדיקת אנימציות
+                    </button>
+                    <button id="test-toast-btn" class="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700 transition-colors">
+                        🔔 בדיקת התראות
                     </button>
                 </div>
             </div>
@@ -776,12 +785,64 @@
         </div>
     </div>
 
-    <!-- Loading Screen -->
+    <!-- Enhanced Loading Screen -->
     <div id="family-loader" class="fixed inset-0 bg-gradient-to-br from-blue-50 to-cyan-100 flex items-center justify-center z-50">
         <div class="text-center">
             <div class="loader mb-4"></div>
             <h2 class="text-2xl font-bold text-gray-800 mb-2">טוען את המדריך...</h2>
             <p class="text-gray-600">מכין את כל הפעילויות והמידע עבורך</p>
+        </div>
+    </div>
+
+    <!-- Enhanced Map Container -->
+    <div id="enhanced-map-container" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-6xl h-full max-h-[90vh] flex flex-col relative">
+            <div class="flex items-center justify-between p-6 border-b">
+                <h3 class="text-2xl font-bold text-accent">🗺️ מפה אינטראקטיבית מתקדמת</h3>
+                <button id="close-enhanced-map-btn" class="text-gray-500 hover:text-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div id="enhanced-map" class="flex-1 w-full relative">
+                <!-- Enhanced map will be initialized here -->
+            </div>
+            <div class="p-4 border-t bg-gray-50">
+                <div class="flex flex-wrap justify-center gap-2">
+                    <button id="map-locate-btn" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                        📍 מיקום שלי
+                    </button>
+                    <button id="map-fullscreen-btn" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                        🔍 מסך מלא
+                    </button>
+                    <button id="map-filter-btn" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors">
+                        🔍 סינון
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="fixed bottom-4 right-4 z-[10000] flex flex-col-reverse gap-3">
+        <!-- Toast notifications will be dynamically added here -->
+    </div>
+
+    <!-- Enhanced Loading Overlay -->
+    <div id="global-loader-overlay" class="fixed inset-0 bg-white/90 backdrop-blur-sm z-[9999] flex flex-col items-center justify-center opacity-0 visibility-hidden transition-all duration-300">
+        <div class="text-center">
+            <div class="w-16 h-16 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin mb-4"></div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">טוען...</h3>
+            <p class="text-gray-600" id="global-loader-message">מכין את התוכן עבורך</p>
+        </div>
+    </div>
+
+    <!-- Context Loading Overlay -->
+    <div id="context-loader-overlay" class="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center opacity-0 visibility-hidden transition-all duration-300">
+        <div class="text-center">
+            <div class="w-12 h-12 border-3 border-gray-200 border-t-teal-500 rounded-full animate-spin mb-3"></div>
+            <p class="text-gray-600 text-sm" id="context-loader-message">טוען...</p>
         </div>
     </div>
 
