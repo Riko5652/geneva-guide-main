@@ -1114,6 +1114,61 @@ function handleDelegatedKeydowns(e) {
     }
 }
 
+// Helper function to get user-friendly Firebase error messages
+function getFirebaseErrorMessage(error) {
+    const errorCode = error.code || error.message;
+    
+    switch (errorCode) {
+        case 'storage/unauthorized':
+            return 'אין הרשאה להעלות תמונות. אנא נסו שוב.';
+        case 'storage/canceled':
+            return 'העלאת התמונה בוטלה.';
+        case 'storage/unknown':
+            return 'שגיאה לא ידועה בהעלאת התמונה.';
+        case 'storage/invalid-format':
+            return 'פורמט הקובץ לא נתמך. אנא בחרו תמונה בפורמט JPG, PNG או GIF.';
+        case 'storage/object-not-found':
+            return 'הקובץ לא נמצא. אנא נסו שוב.';
+        case 'storage/bucket-not-found':
+            return 'שגיאה בשרת האחסון. אנא נסו שוב מאוחר יותר.';
+        case 'storage/project-not-found':
+            return 'שגיאה בפרויקט. אנא נסו שוב מאוחר יותר.';
+        case 'storage/quota-exceeded':
+            return 'הגעתם למגבלת האחסון. אנא נסו להעלות תמונה קטנה יותר.';
+        case 'storage/unauthenticated':
+            return 'נדרשת הזדהות. אנא רעננו את הדף ונסו שוב.';
+        case 'storage/retry-limit-exceeded':
+            return 'העלאת התמונה נכשלה מספר פעמים. אנא נסו שוב מאוחר יותר.';
+        case 'storage/invalid-checksum':
+            return 'הקובץ ניזוק. אנא נסו להעלות תמונה אחרת.';
+        case 'storage/canceled':
+            return 'העלאת התמונה בוטלה.';
+        case 'storage/invalid-event-name':
+            return 'שגיאה בהעלאת התמונה. אנא נסו שוב.';
+        case 'storage/invalid-url':
+            return 'כתובת התמונה לא תקינה. אנא נסו שוב.';
+        case 'storage/invalid-argument':
+            return 'פרמטרים לא תקינים. אנא נסו שוב.';
+        case 'storage/no-default-bucket':
+            return 'שגיאה בשרת האחסון. אנא נסו שוב מאוחר יותר.';
+        case 'storage/cannot-slice-blob':
+            return 'הקובץ גדול מדי. אנא בחרו תמונה קטנה יותר.';
+        case 'storage/server-file-wrong-size':
+            return 'גודל הקובץ לא תואם. אנא נסו שוב.';
+        default:
+            if (error.message && error.message.includes('network')) {
+                return 'שגיאת רשת. אנא בדקו את החיבור לאינטרנט ונסו שוב.';
+            }
+            if (error.message && error.message.includes('permission')) {
+                return 'אין הרשאה להעלות תמונות. אנא נסו שוב.';
+            }
+            if (error.message && error.message.includes('size')) {
+                return 'התמונה גדולה מדי. אנא בחרו תמונה קטנה יותר.';
+            }
+            return `שגיאה בהעלאת התמונה: ${error.message || 'שגיאה לא ידועה'}`;
+    }
+}
+
 // Photo Album Handlers
 async function handlePhotoUpload() {
     const input = document.getElementById('photo-upload-input');
@@ -1133,11 +1188,36 @@ async function handlePhotoUpload() {
             const progress = ((index + 1) / files.length) * 100;
             progressBar.style.width = `${progress}%`;
             
+            // Validate file before upload
+            console.log('Uploading file:', {
+                name: file.name,
+                size: file.size,
+                type: file.type,
+                userId: userId,
+                storageAvailable: !!storage
+            });
+            
+            // Check file size (max 10MB)
+            if (file.size > 10 * 1024 * 1024) {
+                throw new Error('התמונה גדולה מדי. אנא בחרו תמונה קטנה מ-10MB.');
+            }
+            
+            // Check file type
+            if (!file.type.startsWith('image/')) {
+                throw new Error('אנא בחרו קובץ תמונה בלבד.');
+            }
+            
             // Upload to Firebase Storage
             const timestamp = Date.now();
-            const storageRef = ref(storage, `trip-photos/${userId}/${timestamp}-${file.name}`);
+            const fileName = `${timestamp}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+            const storageRef = ref(storage, `trip-photos/${userId}/${fileName}`);
+            
+            console.log('Uploading to storage path:', `trip-photos/${userId}/${fileName}`);
+            
             await uploadBytes(storageRef, file);
             const url = await getDownloadURL(storageRef);
+            
+            console.log('Upload successful, URL:', url);
             
             const photoData = {
                 url: url,
@@ -1161,16 +1241,34 @@ async function handlePhotoUpload() {
                 renderPhotoAlbum();
             });
             
+            // Show success message for first upload
+            if (index === 0) {
+                familyToast.success(`תמונה ${index + 1} הועלתה בהצלחה! 📸`);
+            }
+            
         } catch (error) {
-            console.warn('Photo upload failed:', error);
+            console.error('Photo upload failed:', error);
+            console.error('Error details:', {
+                code: error.code,
+                message: error.message,
+                fileName: file.name,
+                fileSize: file.size,
+                fileType: file.type
+            });
+            
+            // Show user-friendly error message
+            const errorMessage = getFirebaseErrorMessage(error);
+            familyToast.error(`שגיאה בהעלאת ${file.name}: ${errorMessage}`);
+            
             // Fallback to local URL if Firebase fails
             const url = URL.createObjectURL(file);
             const photoData = {
                 url: url,
-                caption: `תמונה ${index + 1}`,
+                caption: `תמונה ${index + 1} (מקומית)`,
                 timestamp: Date.now(),
                 objectURL: url,
-                isLocal: true // Mark as local fallback
+                isLocal: true, // Mark as local fallback
+                uploadError: error.message
             };
             
             if (!currentData.photoAlbum) currentData.photoAlbum = [];
