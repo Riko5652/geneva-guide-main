@@ -154,6 +154,13 @@ export async function testGeminiEndpoint() {
             signal: AbortSignal.timeout(5000)
         });
         console.log("🧪 Test response status:", response.status);
+        
+        // Get the error details for 400 responses
+        if (response.status === 400) {
+            const errorText = await response.text();
+            console.log("🧪 400 Error details:", errorText);
+        }
+        
         return response.status;
     } catch (error) {
         console.error("🧪 Test failed:", error);
@@ -188,7 +195,14 @@ export async function callGeminiWithParts(parts) {
         console.log("🤖 API Response headers:", Object.fromEntries(response.headers.entries()));
 
         if (!response.ok) {
-            const errorData = await response.json().catch(() => ({}));
+            console.error("❌ API Error - Status:", response.status, response.statusText);
+            const errorData = await response.json().catch(async () => {
+                // If JSON parsing fails, try to get text
+                const errorText = await response.text().catch(() => "Unknown error");
+                console.error("❌ Error response text:", errorText);
+                return { error: { message: errorText } };
+            });
+            console.error("❌ Error data:", errorData);
             const errorMessage = errorData.error?.message || `שגיאה ${response.status}: ${response.statusText}`;
             throw new Error(errorMessage);
         }
