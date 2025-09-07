@@ -9,7 +9,7 @@ export function setupGeminiChat() {
     if (document.getElementById('gemini-chat-modal')) return;
 
     const modalHTML = `
-        <div class="modal-content flex flex-col h-[80vh] max-w-lg w-full p-0">
+        <div class="modal-content flex flex-col h-[80vh] max-w-md w-full p-0">
             <div class="flex justify-between items-center px-6 py-4 border-b border-gray-200">
                 <h2 class="text-lg font-bold text-gray-800">🤖 Gemini AI Chat</h2>
                 <button class="modal-close-btn text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
