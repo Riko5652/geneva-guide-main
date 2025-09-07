@@ -1002,18 +1002,30 @@ async function handleAiRequest(type, event) {
             return;
         }
         
+        console.log("🔍 Setting modal title:", modalTitle);
         titleEl.textContent = modalTitle;
+        
+        console.log("🔍 Setting modal content, response length:", response.length);
         try {
-            contentEl.innerHTML = `<div class="prose text-gray-700">${sanitizeHTML(response)}</div>`;
+            const sanitizedContent = sanitizeHTML(response);
+            console.log("🔍 Sanitized content length:", sanitizedContent.length);
+            contentEl.innerHTML = `<div class="prose text-gray-700">${sanitizedContent}</div>`;
+            console.log("🔍 Content set successfully");
         } catch (sanitizeError) {
             console.warn("Sanitize error, using raw content:", sanitizeError);
             contentEl.innerHTML = `<div class="prose text-gray-700">${response}</div>`;
+            console.log("🔍 Raw content set successfully");
         }
         console.log("🔍 Showing modal with title:", modalTitle);
         
         // Debug modal state before showing
         console.log("🔍 Modal classes before remove hidden:", modal.className);
         console.log("🔍 Modal display before:", window.getComputedStyle(modal).display);
+        console.log("🔍 Modal position before:", modal.getBoundingClientRect());
+        
+        // Test: Set simple content first
+        console.log("🔍 Testing with simple content...");
+        contentEl.innerHTML = '<div class="p-4">Test modal content - can you see this?</div>';
         
         modal.classList.remove('hidden');
         
@@ -1021,12 +1033,15 @@ async function handleAiRequest(type, event) {
         modal.style.setProperty('display', 'flex', 'important');
         modal.style.setProperty('visibility', 'visible', 'important');
         modal.style.setProperty('opacity', '1', 'important');
+        modal.style.setProperty('z-index', '9999', 'important');
         
         // Debug modal state after showing
         console.log("🔍 Modal classes after remove hidden:", modal.className);
         console.log("🔍 Modal display after:", window.getComputedStyle(modal).display);
         console.log("🔍 Modal visibility after:", window.getComputedStyle(modal).visibility);
         console.log("🔍 Modal opacity after:", window.getComputedStyle(modal).opacity);
+        console.log("🔍 Modal position after:", modal.getBoundingClientRect());
+        console.log("🔍 Modal z-index after:", window.getComputedStyle(modal).zIndex);
         
     } catch (error) {
         console.warn('AI request failed:', error);
