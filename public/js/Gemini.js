@@ -151,7 +151,12 @@ export async function testGeminiEndpoint() {
         const response = await fetch("/api/gemini", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ test: true }),
+            body: JSON.stringify({ 
+                contents: [{ 
+                    role: "user", 
+                    parts: [{ text: "Hello, this is a test message." }] 
+                }] 
+            }),
             signal: AbortSignal.timeout(5000)
         });
         console.log("🧪 Test response status:", response.status);
