@@ -984,21 +984,33 @@ export function renderPackingGuide() {
                 <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-6 rounded-xl shadow-lg border border-blue-200">
                     <div class="space-y-4">
                         <h4 class="font-bold text-lg text-gray-800 mb-4">לוח זמנים מומלץ:</h4>
-                        <div class="space-y-3">
-                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-blue-500">
-                                <span class="font-bold text-blue-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0">שבוע לפני:</span>
+                        <div class="space-y-2 sm:space-y-3">
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-blue-500 hover:shadow-md transition-shadow duration-200">
+                                <span class="font-bold text-blue-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
+                                    <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                                    שבוע לפני:
+                                </span>
                                 <span class="text-gray-700 text-sm sm:text-base">רכישת פריטים חסרים, ארגון מסמכים</span>
                             </div>
-                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-green-500">
-                                <span class="font-bold text-green-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0">3 יום לפני:</span>
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-green-500 hover:shadow-md transition-shadow duration-200">
+                                <span class="font-bold text-green-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
+                                    <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                                    3 יום לפני:
+                                </span>
                                 <span class="text-gray-700 text-sm sm:text-base">אריזת בגדים וציוד בסיסי</span>
                             </div>
-                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-orange-500">
-                                <span class="font-bold text-orange-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0">יום לפני:</span>
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-orange-500 hover:shadow-md transition-shadow duration-200">
+                                <span class="font-bold text-orange-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
+                                    <span class="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
+                                    יום לפני:
+                                </span>
                                 <span class="text-gray-700 text-sm sm:text-base">ביקורת אחרונה, תיק יד, מטענים</span>
                             </div>
-                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-red-500">
-                                <span class="font-bold text-red-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0">בוקר הטיסה:</span>
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-red-500 hover:shadow-md transition-shadow duration-200">
+                                <span class="font-bold text-red-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
+                                    <span class="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+                                    בוקר הטיסה:
+                                </span>
                                 <span class="text-gray-700 text-sm sm:text-base">ביקורת מסמכים, סגירת תיקים</span>
                             </div>
                         </div>
@@ -1097,13 +1109,13 @@ export function renderPackingGuide() {
                 </div>
 
                 <!-- Luggage Planner Section -->
-                <div class="mb-6 bg-white p-6 rounded-xl border border-gray-200">
-                    <h3 class="font-bold text-lg mb-4 text-center">👜 מתכנן המזוודות - חלוקה לפי בן משפחה</h3>
-                    <div id="luggage-planner" class="space-y-4">
+                <div class="mb-4 sm:mb-6 bg-gradient-to-br from-amber-50 to-orange-50 p-4 sm:p-6 rounded-xl border-2 border-amber-200 shadow-lg">
+                    <h3 class="font-bold text-lg sm:text-xl mb-4 sm:mb-6 text-center text-amber-800">👜 מתכנן המזוודות - חלוקה לפי בן משפחה</h3>
+                    <div id="luggage-planner" class="space-y-3 sm:space-y-4">
                         <!-- Luggage assignments will be populated by JavaScript -->
                     </div>
-                    <div class="mt-4 text-center">
-                        <button id="optimize-luggage-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200">🎯 אופטימיזציה אוטומטית</button>
+                    <div class="mt-4 sm:mt-6 text-center">
+                        <button id="optimize-luggage-btn" class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-sm sm:text-base">🎯 אופטימיזציה אוטומטית</button>
                     </div>
                 </div>
 
