@@ -245,7 +245,8 @@ class ModalManager {
             
             // Restore scroll if no modals are open
             if (this.modalStack.length === 0) {
-                document.body.style.overflow = '';
+                document.body.style.overflow = 'auto';
+                document.body.style.overflowX = 'hidden'; // Maintain CSS overflow-x: hidden
                 console.log('🎭 Body scroll restored');
             }
             
@@ -287,7 +288,8 @@ class ModalManager {
             }, 200);
         });
         
-        document.body.style.overflow = '';
+        document.body.style.overflow = 'auto';
+        document.body.style.overflowX = 'hidden'; // Maintain CSS overflow-x: hidden
         
         // Restore scroll position to the first modal's position
         if (modalsToClose.length > 0) {

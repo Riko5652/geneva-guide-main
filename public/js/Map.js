@@ -473,7 +473,8 @@ class MapManager {
         if (mapContainer.classList.contains('fullscreen-map')) {
             // Exit fullscreen
             mapContainer.classList.remove('fullscreen-map');
-            document.body.style.overflow = '';
+            document.body.style.overflow = 'auto';
+            document.body.style.overflowX = 'hidden'; // Maintain CSS overflow-x: hidden
         } else {
             // Enter fullscreen
             mapContainer.classList.add('fullscreen-map');
