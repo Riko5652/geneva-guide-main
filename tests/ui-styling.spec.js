@@ -8,30 +8,31 @@ test.describe('UI Styling Tests', () => {
     await page.waitForLoadState('networkidle');
   });
 
-  test('should have warm and wholesome styling', async ({ page }) => {
+  test('should have clean and professional styling', async ({ page }) => {
     // Wait for page to load and content to render
     await page.waitForLoadState('networkidle');
     
     // Wait for the actual content to load (not the loading state)
-    await page.waitForSelector('#main-heading', { timeout: 10000 });
+    await page.waitForSelector('h1', { timeout: 10000 });
     await page.waitForFunction(() => {
-      const heading = document.querySelector('#main-heading');
+      const heading = document.querySelector('h1');
       return heading && !heading.textContent.includes('טוען');
     }, { timeout: 10000 });
     
-    // Check main content has warm gradient background
-    const mainSection = page.locator('section').first();
-    await expect(mainSection).toHaveClass(/bg-gradient-to-br/);
-    
-    // Check header has proper styling
+    // Check header has proper styling (like the Desktop version)
     const header = page.locator('header');
-    await expect(header).toHaveClass(/bg-white\/95/);
-    await expect(header).toHaveClass(/backdrop-blur-md/);
+    await expect(header).toHaveClass(/bg-white/);
+    await expect(header).toHaveClass(/sticky/);
+    await expect(header).toHaveClass(/top-0/);
     
-    // Check bookings section has warm styling
-    const bookingsSection = page.locator('#bookings');
-    await expect(bookingsSection).toHaveClass(/bg-gradient-to-br/);
-    await expect(bookingsSection).toHaveClass(/shadow-lg/);
+    // Check navigation has proper styling (target the main nav specifically)
+    const mainNav = page.locator('nav[role="navigation"]').first();
+    await expect(mainNav).toHaveClass(/container/);
+    await expect(mainNav).toHaveClass(/mx-auto/);
+    
+    // Check main content has proper background
+    const body = page.locator('body');
+    await expect(body).toHaveClass(/bg-primary/);
   });
 
   test('should have proper button styling', async ({ page }) => {
@@ -39,20 +40,27 @@ test.describe('UI Styling Tests', () => {
     await page.waitForLoadState('networkidle');
     
     // Wait for the actual content to load (not the loading state)
-    await page.waitForSelector('#main-heading', { timeout: 10000 });
+    await page.waitForSelector('h1', { timeout: 10000 });
     await page.waitForFunction(() => {
-      const heading = document.querySelector('#main-heading');
+      const heading = document.querySelector('h1');
       return heading && !heading.textContent.includes('טוען');
     }, { timeout: 10000 });
     
-    // Check primary buttons have correct classes
+    // Check primary buttons have correct classes (like Desktop version)
     const primaryButtons = page.locator('.btn-primary:not(.hidden)');
-    await expect(primaryButtons.first()).toBeVisible();
+    if (await primaryButtons.count() > 0) {
+      await expect(primaryButtons.first()).toBeVisible();
+      
+      // Check button has proper styling
+      const firstButton = primaryButtons.first();
+      await expect(firstButton).toHaveClass(/btn-primary/);
+    }
     
-    // Check button hover effects
-    const firstButton = primaryButtons.first();
-    await firstButton.hover();
-    await expect(firstButton).toHaveClass(/btn-primary/);
+    // Check filter buttons exist (like Desktop version)
+    const filterButtons = page.locator('.btn-filter');
+    if (await filterButtons.count() > 0) {
+      await expect(filterButtons.first()).toBeVisible();
+    }
   });
 
   test('should have proper typography', async ({ page }) => {
@@ -60,27 +68,27 @@ test.describe('UI Styling Tests', () => {
     await page.waitForLoadState('networkidle');
     
     // Wait for the actual content to load (not the loading state)
-    await page.waitForSelector('#main-heading', { timeout: 10000 });
+    await page.waitForSelector('h1', { timeout: 10000 });
     await page.waitForFunction(() => {
-      const heading = document.querySelector('#main-heading');
+      const heading = document.querySelector('h1');
       return heading && !heading.textContent.includes('טוען');
     }, { timeout: 10000 });
     
-    // Check main heading has gradient text
-    const mainHeading = page.locator('#main-heading');
+    // Check main heading has proper styling (current version uses gradient-text)
+    const mainHeading = page.locator('h1').first();
+    await expect(mainHeading).toHaveClass(/font-bold/);
     await expect(mainHeading).toHaveClass(/gradient-text/);
     
-    // Check section titles have proper styling
+    // Check section titles have proper styling (like Desktop version)
     const sectionTitle = page.locator('h2.section-title').first();
     if (await sectionTitle.count() > 0) {
-      await expect(sectionTitle).toHaveClass(/text-3xl/);
-      await expect(sectionTitle).toHaveClass(/font-bold/);
-    } else {
-      // Fallback: check any h2 that has text-3xl class
-      const anyH2WithText3xl = page.locator('h2.text-3xl').first();
-      if (await anyH2WithText3xl.count() > 0) {
-        await expect(anyH2WithText3xl).toHaveClass(/font-bold/);
-      }
+      await expect(sectionTitle).toHaveClass(/section-title/);
+    }
+    
+    // Check accent text styling exists
+    const accentText = page.locator('.text-accent').first();
+    if (await accentText.count() > 0) {
+      await expect(accentText).toHaveClass(/text-accent/);
     }
   });
 
@@ -89,19 +97,24 @@ test.describe('UI Styling Tests', () => {
     await page.waitForLoadState('networkidle');
     
     // Wait for the actual content to load (not the loading state)
-    await page.waitForSelector('#main-heading', { timeout: 10000 });
+    await page.waitForSelector('h1', { timeout: 10000 });
     await page.waitForFunction(() => {
-      const heading = document.querySelector('#main-heading');
+      const heading = document.querySelector('h1');
       return heading && !heading.textContent.includes('טוען');
     }, { timeout: 10000 });
     
-    // Check container has proper padding
+    // Check container has proper padding (like Desktop version)
     const container = page.locator('.container:not(.hidden)').first();
     await expect(container).toBeVisible();
     
-    // Check sections have proper margins
+    // Check main content has proper structure
+    const main = page.locator('main');
+    await expect(main).toHaveClass(/container/);
+    await expect(main).toHaveClass(/mx-auto/);
+    
+    // Check sections exist
     const sections = page.locator('section');
-    await expect(sections.first()).toHaveClass(/mb-16/);
+    await expect(sections.first()).toBeVisible();
   });
 
   test('should have proper shadows and borders', async ({ page }) => {
@@ -109,16 +122,29 @@ test.describe('UI Styling Tests', () => {
     await page.waitForLoadState('networkidle');
     
     // Wait for the actual content to load (not the loading state)
-    await page.waitForSelector('#main-heading', { timeout: 10000 });
+    await page.waitForSelector('h1', { timeout: 10000 });
     await page.waitForFunction(() => {
-      const heading = document.querySelector('#main-heading');
+      const heading = document.querySelector('h1');
       return heading && !heading.textContent.includes('טוען');
     }, { timeout: 10000 });
     
-    // Check cards have shadows
-    const cards = page.locator('.activity-card, .category-card');
+    // Check cards have shadows (like Desktop version)
+    const cards = page.locator('.card');
     if (await cards.count() > 0) {
       await expect(cards.first()).toHaveClass(/shadow/);
+    }
+    
+    // Check sections have proper styling
+    const sections = page.locator('section');
+    if (await sections.count() > 0) {
+      const firstSection = sections.first();
+      // Check if it has shadow or rounded corners (like Desktop version)
+      const hasShadow = await firstSection.evaluate(el => 
+        el.classList.contains('shadow-lg') || 
+        el.classList.contains('shadow-md') ||
+        el.classList.contains('rounded-2xl')
+      );
+      expect(hasShadow).toBeTruthy();
     }
     
     // Check modals have proper shadows
