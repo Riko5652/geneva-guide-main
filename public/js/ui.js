@@ -838,7 +838,7 @@ export function renderActivities() {
                     button.innerHTML = '🤖 צור פעילויות חדשות עם AI';
                 }
                 button.disabled = false;
-                button.className = 'btn-primary px-6 py-3 rounded-lg mx-auto block transition-all duration-300 hover:scale-105 hover:shadow-lg';
+                button.className = 'btn-primary px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg';
                 button.classList.remove('opacity-50', 'cursor-not-allowed');
             }
         } else {

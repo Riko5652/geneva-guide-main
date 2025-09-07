@@ -737,7 +737,7 @@ async function generateMoreActivitiesWithGemini() {
                 <span class="text-sm font-semibold">🤖 מחפש פעילויות נוספות עם AI...</span>
             </div>
         `;
-        loadMoreBtn.className = 'bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-medium mx-auto block shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-not-allowed opacity-90';
+        loadMoreBtn.className = 'bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-not-allowed opacity-90';
     }
     
     try {
@@ -824,13 +824,13 @@ Respond with JSON array only:
                     <span class="text-sm font-semibold">שגיאה ביצירת פעילויות חדשות</span>
                 </div>
             `;
-            loadMoreBtn.className = 'bg-gradient-to-r from-red-500 to-red-600 text-white px-8 py-4 rounded-2xl font-medium mx-auto block shadow-lg transition-all duration-300';
+            loadMoreBtn.className = 'bg-gradient-to-r from-red-500 to-red-600 text-white px-8 py-4 rounded-2xl font-medium shadow-lg transition-all duration-300';
             
             // Reset button after 3 seconds
             setTimeout(() => {
                 loadMoreBtn.disabled = false;
                 loadMoreBtn.innerHTML = '🤖 נסה שוב ליצור פעילויות';
-                loadMoreBtn.className = 'btn-primary px-6 py-3 rounded-lg mx-auto block transition-all duration-300 hover:scale-105 hover:shadow-lg';
+                loadMoreBtn.className = 'btn-primary px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg';
             }, 3000);
         }
     }
