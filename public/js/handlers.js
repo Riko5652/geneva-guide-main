@@ -223,13 +223,17 @@ export function setupEventListeners() {
     const mobileMenu = document.getElementById('mobile-menu');
     
     if (menuBtn && mobileMenu) {
+        console.log('🍔 Mobile menu button found, adding click handler');
         menuBtn.addEventListener('click', (e) => {
+            console.log('🍔 Menu button clicked!');
             e.preventDefault();
             e.stopPropagation();
             
             const isHidden = mobileMenu.classList.contains('hidden');
+            console.log('🍔 Mobile menu is hidden:', isHidden);
             
             if (isHidden) {
+                console.log('🍔 Opening mobile menu');
                 mobileMenu.classList.remove('hidden');
                 menuBtn.setAttribute('aria-expanded', 'true');
                 menuBtn.innerHTML = `
@@ -238,6 +242,7 @@ export function setupEventListeners() {
                     </svg>
                 `;
             } else {
+                console.log('🍔 Closing mobile menu');
                 mobileMenu.classList.add('hidden');
                 menuBtn.setAttribute('aria-expanded', 'false');
                 menuBtn.innerHTML = `
@@ -271,10 +276,15 @@ export function setupEventListeners() {
 
 // Enhanced mobile menu functionality
 function setupMobileMenu() {
+    console.log('🍔 Setting up mobile menu...');
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     
+    console.log('🍔 Menu button found:', !!menuBtn);
+    console.log('🍔 Mobile menu found:', !!mobileMenu);
+    
     if (menuBtn && mobileMenu) {
+        console.log('🍔 Initializing mobile menu state');
         // Ensure proper initial state - mobile menu starts hidden
         menuBtn.setAttribute('aria-expanded', 'false');
         menuBtn.innerHTML = `
