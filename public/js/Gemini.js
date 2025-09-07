@@ -147,6 +147,7 @@ function addChatMessage(html, sender = "user") {
 export async function testGeminiEndpoint() {
     try {
         console.log("🧪 Testing Gemini API endpoint...");
+        console.log("🧪 Sending test request to /api/gemini");
         const response = await fetch("/api/gemini", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -157,8 +158,12 @@ export async function testGeminiEndpoint() {
         
         // Get the error details for 400 responses
         if (response.status === 400) {
-            const errorText = await response.text();
-            console.log("🧪 400 Error details:", errorText);
+            try {
+                const errorText = await response.text();
+                console.log("🧪 400 Error details:", errorText);
+            } catch (textError) {
+                console.log("🧪 Could not read error text:", textError);
+            }
         }
         
         return response.status;
