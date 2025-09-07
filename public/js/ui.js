@@ -633,19 +633,19 @@ function renderItinerary() {
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative btn-primary py-3 px-4 rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg gemini-summary-btn" data-day-index="${day.dayIndex || day.day}">
+                                <button class="group relative btn-primary bg-green-500 hover:bg-green-600 py-3 px-4 rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg gemini-summary-btn" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-2">
                                         📝 <span>סכם לילדים</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative btn-primary py-3 px-4 rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg gemini-story-btn" data-day-index="${day.dayIndex || day.day}">
+                                <button class="group relative btn-primary bg-purple-500 hover:bg-purple-600 py-3 px-4 rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg gemini-story-btn" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-2">
                                         📖 <span>סיפור לילדים</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative btn-primary py-3 px-4 rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg swap-activity-btn" data-day-index="${day.dayIndex || day.day}">
+                                <button class="group relative btn-primary bg-orange-500 hover:bg-orange-600 py-3 px-4 rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg swap-activity-btn" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-2">
                                         🔄 <span>החלף פעילות</span>
                                     </span>
