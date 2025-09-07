@@ -178,11 +178,23 @@ class ModalManager {
         document.body.style.overflow = 'hidden'; // Prevent background scroll
         
         console.log('🎭 Modal shown, classes:', modal.className);
+        console.log('🎭 Modal computed styles:', {
+            display: getComputedStyle(modal).display,
+            visibility: getComputedStyle(modal).visibility,
+            opacity: getComputedStyle(modal).opacity,
+            zIndex: getComputedStyle(modal).zIndex
+        });
         
         // Add smooth fade-in animation
         setTimeout(() => {
             modal.style.opacity = '1';
             console.log('✨ Modal fade-in animation applied');
+            console.log('✨ Modal final styles:', {
+                display: getComputedStyle(modal).display,
+                visibility: getComputedStyle(modal).visibility,
+                opacity: getComputedStyle(modal).opacity,
+                zIndex: getComputedStyle(modal).zIndex
+            });
         }, 10);
         
         // Update browser history for back button support
