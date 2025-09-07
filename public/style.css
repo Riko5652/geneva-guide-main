@@ -785,7 +785,7 @@ input:focus-visible {
     padding: 0;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     border: 1px solid #e2e8f0;
-    overflow: hidden;
+    overflow: visible;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
 }
@@ -892,6 +892,7 @@ input:focus-visible {
 .modal .packing-items-container {
     max-height: 20rem;
     overflow-y: auto;
+    overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 #f1f5f9;
 }
@@ -1050,8 +1051,8 @@ input:focus-visible {
 /* Completion Badge */
 .modal .category-completion-badge {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 0.5rem;
+    right: 0.5rem;
     background: linear-gradient(135deg, #10b981, #06b6d4);
     color: #ffffff;
     padding: 0.25rem 0.75rem;
@@ -1062,6 +1063,7 @@ input:focus-visible {
     opacity: 0;
     transform: scale(0.8);
     transition: all 0.3s ease;
+    z-index: 10;
 }
 
 .modal .category-completion-badge.show {
