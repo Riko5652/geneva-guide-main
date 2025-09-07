@@ -671,28 +671,50 @@ function renderItinerary() {
     `).join('');
 }
 
-// Helper function to get placeholder images based on category
+// Helper function to get real images for known places, fallback to category-based images
 function getActivityImage(category, name) {
-    // Use placeholder images that are more reliable
-    const images = {
-        'משחקייה': 'https://placehold.co/400x300/FFE4E1/8B4513?text=משחקייה',
-        'תרבות': 'https://placehold.co/400x300/E6E6FA/4B0082?text=תרבות',
-        'קפה': 'https://placehold.co/400x300/F5DEB3/8B4513?text=קפה',
-        'חוץ': 'https://placehold.co/400x300/90EE90/006400?text=פעילות+חוץ',
-        'מוזיאונים': 'https://placehold.co/400x300/DDA0DD/8B008B?text=מוזיאון',
-        'פארקים': 'https://placehold.co/400x300/98FB98/228B22?text=פארק',
-        'אטרקציות': 'https://placehold.co/400x300/FFB6C1/DC143C?text=אטרקציה',
-        'מסעדות': 'https://placehold.co/400x300/FFA07A/FF4500?text=מסעדה',
-        'קניות': 'https://placehold.co/400x300/F0E68C/B8860B?text=קניות',
-        'תחבורה': 'https://placehold.co/400x300/B0C4DE/4682B4?text=תחבורה',
-        'נוף': 'https://placehold.co/400x300/87CEEB/4169E1?text=נוף',
-        'ספורט': 'https://placehold.co/400x300/FFE4B5/FF8C00?text=ספורט',
-        'בידור': 'https://placehold.co/400x300/D8BFD8/9370DB?text=בידור',
-        'טבע': 'https://placehold.co/400x300/90EE90/006400?text=טבע',
-        'משפחתי': 'https://placehold.co/400x300/F0E68C/8B4513?text=משפחתי'
+    // Real images for known places in Geneva
+    const realImages = {
+        'Just Bloom': 'https://lh3.googleusercontent.com/p/AF1QipMXnZC1n-voXjVFzSsI3FgGFAaurrGx_U0qD-Vm=w408-h544-k-no',
+        'Vitam Parc': 'https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqJpKF7GxCaLnlYnWlBrI7rDgldY3g6-4OBKZY9Z8nTeMDZV4S10z0A_NrNDZxNGIrHk3H3u6Ps8IAVpEeXPdeuEIr_7BUicVnCZUsngmqrhFLz9HI_okiyJaLYFypOCgiv-lw=w408-h306-k-no',
+        'C5 Kids Party': 'https://lh3.googleusercontent.com/gps-cs-s/AC9h4noS5YpRDqNpFkhUsOLUKYy5cTv-iqGnL7GrWy_Rl155uTjkNrNp_RnhsMHV8i3yBEtrLCts8Nw6j5V1yEkxWi9YbsfplcyPYWgY_6OgrTQkFI2pH3WfURz6soSHJV8UTgAwY3KY=w203-h152-k-no',
+        'Bubbles Kids Club': 'https://bubblesclub.ch/wp-content/uploads/2023/02/Bubbles-kids-scaled.jpg',
+        'TOTEM Escalade': 'https://lh3.googleusercontent.com/p/AF1QipPAyNsS1b9S8-9fhBGMa7eFnMVQOnktiirzokOj=w408-h305-k-no',
+        'Airloop': 'https://lh3.googleusercontent.com/gps-cs-s/AC9h4noj60sKpcHQbwJ9tTwVnjAbkRyN0GPav27xbET_wSLWzz7VdcpVyFuqo5n-eWCeRyqXmYNNo-yD9afsILY6_9bzIu7ioNuHAq8oWnfoBWyB01yMUVFoxiKfKyfBOzDblAdON_E=w426-h240-k-no',
+        'מוזיאון הטבע': 'https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=Rq9p9JmZtBfCTSYUq8--eA&cb_client=search.gws-prod.gps&w=408&h=240&yaw=57.40184&pitch=0&thumbfov=100',
+        'La Maison de la Créativité': 'https://lh3.googleusercontent.com/p/AF1QipPJpFGXygKM8Z2YGwbFe3OHb_pghexQ8VxZS6XA=w408-h306-k-no',
+        'MAMCO': 'https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrinx_hH6m4bTvOHy2IU8E8V-p50vx4AJFLArKyCty2A1rS_qDzss6AtDFz5B5xrJutAHIVdgrMttDo5j39VZ4gPEH0fm3bbeEJB1F7cTzwRi8ef1_IbGXQYuPoL5BP6jTejfPD=w408-h543-k-no',
+        'תיאטרון הבובות': 'https://www.marionnettes.ch/sites/default/files/styles/w1024/public/spectacles/2021-03/2019_TMG_LaPromesse_c_Eliphas_01.jpg?itok=zQ-a-6xJ',
+        'Ludothèque de Meyrin': 'https://lh3.googleusercontent.com/p/AF1QipNQtGaxn5GS5hNT6lNRGoPGq96K3t3fwyNv3ESJ=w408-h306-k-no',
+        'גן החיות של ז\'נבה': 'https://images.unsplash.com/photo-1549366021-9f761d77f8e0?w=400',
+        'פארק באסטיון': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400'
     };
     
-    return images[category] || images['משפחתי'];
+    // Check for exact name match first
+    if (realImages[name]) {
+        return realImages[name];
+    }
+    
+    // Fallback to category-based images with better quality
+    const categoryImages = {
+        'משחקייה': 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center',
+        'תרבות': 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop&crop=center',
+        'קפה': 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop&crop=center',
+        'חוץ': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&crop=center',
+        'מוזיאונים': 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop&crop=center',
+        'פארקים': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&crop=center',
+        'אטרקציות': 'https://images.unsplash.com/photo-1549366021-9f761d77f8e0?w=400&h=300&fit=crop&crop=center',
+        'מסעדות': 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop&crop=center',
+        'קניות': 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop&crop=center',
+        'תחבורה': 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&h=300&fit=crop&crop=center',
+        'נוף': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center',
+        'ספורט': 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop&crop=center',
+        'בידור': 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&crop=center',
+        'טבע': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=300&fit=crop&crop=center',
+        'משפחתי': 'https://images.unsplash.com/photo-1549366021-9f761d77f8e0?w=400&h=300&fit=crop&crop=center'
+    };
+    
+    return categoryImages[category] || categoryImages['משפחתי'];
 }
 
 export function renderActivities() {
@@ -811,11 +833,12 @@ export function renderActivities() {
             const button = document.getElementById('load-more-btn');
             if (button) {
                 if (hasMoreCached) {
-                    button.textContent = `טען עוד פעילויות 🎈 (${filteredActivities.length - displayedActivities} נותרו)`;
+                    button.innerHTML = `טען עוד פעילויות 🎈 (${filteredActivities.length - displayedActivities} נותרו)`;
                 } else {
-                    button.textContent = '🤖 צור פעילויות חדשות עם AI';
+                    button.innerHTML = '🤖 צור פעילויות חדשות עם AI';
                 }
                 button.disabled = false;
+                button.className = 'btn-primary px-6 py-3 rounded-lg mx-auto block transition-all duration-300 hover:scale-105 hover:shadow-lg';
                 button.classList.remove('opacity-50', 'cursor-not-allowed');
             }
         } else {

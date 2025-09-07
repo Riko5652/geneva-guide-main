@@ -725,11 +725,19 @@ export async function handleLoadMoreActivities() {
 async function generateMoreActivitiesWithGemini() {
     const loadMoreBtn = document.getElementById('load-more-btn');
     
-    // Show loading state
+    // Show enhanced loading state
     if (loadMoreBtn) {
         loadMoreBtn.disabled = true;
-        loadMoreBtn.innerHTML = '<div class="loader inline-block mr-2"></div>🤖 מחפש פעילויות נוספות עם AI...';
-        loadMoreBtn.className = 'bg-purple-500 text-white px-6 py-3 rounded-xl font-medium mx-auto block';
+        loadMoreBtn.innerHTML = `
+            <div class="flex items-center justify-center gap-3">
+                <div class="relative">
+                    <div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <div class="absolute inset-0 w-5 h-5 border-2 border-purple-200 border-t-transparent rounded-full animate-spin" style="animation-delay: 0.1s;"></div>
+                </div>
+                <span class="text-sm font-semibold">🤖 מחפש פעילויות נוספות עם AI...</span>
+            </div>
+        `;
+        loadMoreBtn.className = 'bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-medium mx-auto block shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-not-allowed opacity-90';
     }
     
     try {
@@ -810,14 +818,19 @@ Respond with JSON array only:
         
         // Show error message
         if (loadMoreBtn) {
-            loadMoreBtn.innerHTML = '❌ שגיאה ביצירת פעילויות חדשות';
-            loadMoreBtn.className = 'bg-red-500 text-white px-6 py-3 rounded-xl font-medium mx-auto block';
+            loadMoreBtn.innerHTML = `
+                <div class="flex items-center justify-center gap-2">
+                    <span class="text-lg">❌</span>
+                    <span class="text-sm font-semibold">שגיאה ביצירת פעילויות חדשות</span>
+                </div>
+            `;
+            loadMoreBtn.className = 'bg-gradient-to-r from-red-500 to-red-600 text-white px-8 py-4 rounded-2xl font-medium mx-auto block shadow-lg transition-all duration-300';
             
             // Reset button after 3 seconds
             setTimeout(() => {
                 loadMoreBtn.disabled = false;
                 loadMoreBtn.innerHTML = '🤖 נסה שוב ליצור פעילויות';
-                loadMoreBtn.className = 'bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-xl font-medium mx-auto block transition-colors duration-200';
+                loadMoreBtn.className = 'btn-primary px-6 py-3 rounded-lg mx-auto block transition-all duration-300 hover:scale-105 hover:shadow-lg';
             }, 3000);
         }
     }
