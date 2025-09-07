@@ -790,10 +790,10 @@ export function renderActivities() {
                         </div>
                     ` : ''}
                     
-                    <div class="flex flex-wrap gap-2">
-                        ${activity.link ? `<a href="${activity.link}" target="_blank" class="btn-primary text-xs px-3 py-2 rounded-lg hover:shadow-md transition-shadow">לאתר הרשמי</a>` : ''}
-                        ${googleMapsUrl ? `<a href="${googleMapsUrl}" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-2 rounded-lg transition-colors">🗺️ נווט</a>` : ''}
-                        <button class="activity-details-btn bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-3 py-2 rounded-lg transition-colors" data-activity-id="${activity.id || activity.name}">
+                    <div class="flex flex-wrap gap-2 justify-between md:justify-stretch">
+                        ${activity.link ? `<a href="${activity.link}" target="_blank" class="btn-primary text-xs px-3 py-2 rounded-lg hover:shadow-md transition-shadow flex-1 md:flex-none md:flex-grow text-center">לאתר הרשמי</a>` : ''}
+                        ${googleMapsUrl ? `<a href="${googleMapsUrl}" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-2 rounded-lg transition-colors flex-1 md:flex-none md:flex-grow text-center">🗺️ נווט</a>` : ''}
+                        <button class="activity-details-btn bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-3 py-2 rounded-lg transition-colors flex-1 md:flex-none md:flex-grow text-center" data-activity-id="${activity.id || activity.name}">
                             👁️ פרטים
                         </button>
                     </div>
