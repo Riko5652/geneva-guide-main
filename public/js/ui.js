@@ -1578,14 +1578,30 @@ export function renderDailySpecial() {
     }
     
     container.innerHTML = `
-        <p class="text-lg leading-relaxed">${specialContent}</p>
-        <div class="mt-6 flex justify-center space-x-4 space-x-reverse">
-            <button id="daily-special-ai-btn" class="bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-full font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-200 transform hover:scale-105 shadow-lg">
-                ✨ ספר לי עוד על המלצה זו
-            </button>
-            <button id="add-to-plan-btn" class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-full font-semibold hover:from-green-600 hover:to-teal-600 transition-all duration-200 transform hover:scale-105 shadow-lg">
-                ➕ הוסף למסלול שלי
-            </button>
+        <div class="space-y-6">
+            <div class="mb-6">
+                <div class="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                    <span class="text-3xl">✨</span>
+                </div>
+                <div class="bg-white/60 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-white/30">
+                    <p class="text-xl leading-relaxed text-gray-800 font-medium">${specialContent}</p>
+                </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button id="daily-special-ai-btn" class="group bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-4 rounded-full font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
+                    <span class="flex items-center justify-center">
+                        <span class="mr-2 group-hover:animate-pulse">✨</span>
+                        ספר לי עוד על המלצה זו
+                    </span>
+                </button>
+                <button id="add-to-plan-btn" class="group bg-gradient-to-r from-green-500 to-teal-500 text-white px-8 py-4 rounded-full font-semibold hover:from-green-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
+                    <span class="flex items-center justify-center">
+                        <span class="mr-2 group-hover:animate-bounce">➕</span>
+                        הוסף למסלול שלי
+                    </span>
+                </button>
+            </div>
         </div>
     `;
 }
