@@ -1845,46 +1845,145 @@ export function populateHotelDetails() {
     const hotel = currentData.hotelData;
     
     modalContent.innerHTML = `
-        <div class="space-y-6">
-            <div class="text-center">
-                <h2 class="text-2xl font-bold text-gray-800">🏨 פרטי המלון המלאים</h2>
-                <h3 class="text-xl text-gray-700">${hotel.name || 'Mercure Geneva Airport'}</h3>
-                <p class="text-lg text-gray-600">מספר הזמנה: <strong>${hotel.bookingRef || 'PPMHBPDH'}</strong></p>
+        <div class="space-y-8">
+            <!-- Enhanced Header Section -->
+            <div class="text-center relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-2xl opacity-50"></div>
+                <div class="relative z-10 p-8">
+                    <div class="flex items-center justify-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                            <span class="text-3xl">🏨</span>
+                        </div>
+                    </div>
+                    <h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3">
+                        פרטי המלון המלאים
+                    </h2>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-2">${hotel.name || 'Mercure Geneva Airport'}</h3>
+                    <div class="inline-flex items-center bg-gradient-to-r from-blue-100 to-indigo-100 px-4 py-2 rounded-full">
+                        <span class="text-sm font-medium text-blue-800">מספר הזמנה:</span>
+                        <span class="text-lg font-bold text-blue-900 ml-2">${hotel.bookingRef || 'PPMHBPDH'}</span>
+                    </div>
+                </div>
             </div>
             
             <!-- Hotel Details -->
-            <div class="bg-blue-50 p-4 rounded-lg">
-                <h3 class="text-lg font-semibold text-blue-800 mb-3">📍 פרטי המלון</h3>
-                <div class="space-y-2">
-                    <p><strong>🏠 כתובת:</strong> ${hotel.address || 'Rue De La Bergere, Meyrin, 1217 GENEVA, Switzerland'}</p>
-                    <p><strong>📞 טלפון:</strong> ${hotel.phone || '+41 22 989 90 00'}</p>
-                    <p><strong>📧 אימייל:</strong> ${hotel.email || 'h1346@accor.com'}</p>
-                    <p><strong>🌐 אתר:</strong> <a href="${hotel.website || 'https://www.mercure.com'}" target="_blank" class="text-blue-600 underline">${hotel.website || 'www.mercure.com'}</a></p>
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border border-blue-200 shadow-lg">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-3 shadow-md">
+                        <span class="text-white text-lg">📍</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-800">פרטי המלון</h3>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <span class="text-blue-600 mr-3 mt-1">🏠</span>
+                        <div>
+                            <span class="font-semibold text-blue-800">כתובת:</span>
+                            <p class="text-blue-700">${hotel.address || 'Rue De La Bergere, Meyrin, 1217 GENEVA, Switzerland'}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-blue-600 mr-3 mt-1">📞</span>
+                        <div>
+                            <span class="font-semibold text-blue-800">טלפון:</span>
+                            <p class="text-blue-700">${hotel.phone || '+41 22 989 90 00'}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-blue-600 mr-3 mt-1">📧</span>
+                        <div>
+                            <span class="font-semibold text-blue-800">אימייל:</span>
+                            <p class="text-blue-700">${hotel.email || 'h1346@accor.com'}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-blue-600 mr-3 mt-1">🌐</span>
+                        <div>
+                            <span class="font-semibold text-blue-800">אתר:</span>
+                            <a href="${hotel.website || 'https://www.mercure.com'}" target="_blank" class="text-blue-600 underline hover:text-blue-800 transition-colors">${hotel.website || 'www.mercure.com'}</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <!-- Check-in Details -->
-            <div class="bg-green-50 p-4 rounded-lg">
-                <h3 class="text-lg font-semibold text-green-800 mb-3">🗓️ פרטי שהייה</h3>
-                <div class="space-y-2">
-                    <p><strong>📅 צ'ק-אין:</strong> ${hotel.checkinDate || '24/08/2025'} החל מ-${hotel.checkinTime || '15:00'}</p>
-                    <p><strong>📅 צ'ק-אאוט:</strong> ${hotel.checkoutDate || '29/08/2025'} עד ${hotel.checkoutTime || '12:00'}</p>
-                    <p><strong>🏠 סוג חדר:</strong> ${hotel.roomType || 'Family Room with 1 double bed and 1 rollaway bed'}</p>
-                    <p><strong>🍽️ ארוחת בוקר:</strong> ${hotel.breakfast || 'כלול בהזמנה'}</p>
+            <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl border border-green-200 shadow-lg">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mr-3 shadow-md">
+                        <span class="text-white text-lg">🗓️</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-green-800">פרטי שהייה</h3>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <span class="text-green-600 mr-3 mt-1">📅</span>
+                        <div>
+                            <span class="font-semibold text-green-800">צ'ק-אין:</span>
+                            <p class="text-green-700">${hotel.checkinDate || '24/08/2025'} החל מ-${hotel.checkinTime || '15:00'}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-green-600 mr-3 mt-1">📅</span>
+                        <div>
+                            <span class="font-semibold text-green-800">צ'ק-אאוט:</span>
+                            <p class="text-green-700">${hotel.checkoutDate || '29/08/2025'} עד ${hotel.checkoutTime || '12:00'}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-green-600 mr-3 mt-1">🏠</span>
+                        <div>
+                            <span class="font-semibold text-green-800">סוג חדר:</span>
+                            <p class="text-green-700">${hotel.roomType || 'Family Room with 1 double bed and 1 rollaway bed'}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-green-600 mr-3 mt-1">🍽️</span>
+                        <div>
+                            <span class="font-semibold text-green-800">ארוחת בוקר:</span>
+                            <p class="text-green-700">${hotel.breakfast || 'כלול בהזמנה'}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <!-- Additional Services -->
-            <div class="bg-yellow-50 p-4 rounded-lg">
-                <h3 class="text-lg font-semibold text-yellow-800 mb-3">🛎️ שירותים נוספים</h3>
-                <div class="space-y-2">
+            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-2xl border border-yellow-200 shadow-lg">
+                <div class="flex items-center mb-4">
+                    <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center mr-3 shadow-md">
+                        <span class="text-white text-lg">🛎️</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-yellow-800">שירותים נוספים</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     ${hotel.services && Array.isArray(hotel.services) && hotel.services.length > 0 
-                        ? hotel.services.map(service => `<p>• ${service}</p>`).join('')
-                        : `<p>• WiFi חופשי</p>
-                           <p>• חניה חופשית</p>
-                           <p>• שירות חדרים 24/7</p>
-                           <p>• מרכז כושר</p>
-                           <p>• בר ומסעדה</p>`
+                        ? hotel.services.map(service => `
+                            <div class="flex items-center">
+                                <span class="text-yellow-600 mr-2">✨</span>
+                                <span class="text-yellow-700">${service}</span>
+                            </div>
+                        `).join('')
+                        : `
+                            <div class="flex items-center">
+                                <span class="text-yellow-600 mr-2">✨</span>
+                                <span class="text-yellow-700">WiFi חופשי</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-yellow-600 mr-2">✨</span>
+                                <span class="text-yellow-700">חניה חופשית</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-yellow-600 mr-2">✨</span>
+                                <span class="text-yellow-700">שירות חדרים 24/7</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-yellow-600 mr-2">✨</span>
+                                <span class="text-yellow-700">מרכז כושר</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-yellow-600 mr-2">✨</span>
+                                <span class="text-yellow-700">בר ומסעדה</span>
+                            </div>
+                        `
                     }
                 </div>
             </div>
