@@ -1693,15 +1693,49 @@ export function populateFlightDetails() {
             </div>
             
             <!-- Passenger Details -->
-            <div class="bg-gray-50 p-4 rounded-lg">
-                <h3 class="text-xl font-semibold text-gray-800 mb-4">👨‍👩‍👧‍👦 פרטי נוסעים</h3>
-                <div class="grid gap-3">
+            <div class="bg-gradient-to-br from-gray-50 to-slate-50 p-4 sm:p-6 rounded-xl border border-gray-200 shadow-sm">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <span class="w-6 h-6 mr-2">👨‍👩‍👧‍👦</span>
+                    פרטי נוסעים
+                </h3>
+                <div class="grid gap-4">
                     ${flights.passengers.map(passenger => `
-                        <div class="bg-white p-3 rounded-lg">
-                            <h4 class="font-semibold">${passenger.name}</h4>
-                            <p class="text-sm text-gray-600">🎫 מספר כרטיס: ${passenger.ticket}</p>
-                            <p class="text-sm text-gray-600">🪑 מושבים - יציאה: ${passenger.seatOutbound1}, ${passenger.seatOutbound2} | חזרה: ${passenger.seatInbound1}, ${passenger.seatInbound2}</p>
-                            <p class="text-sm text-gray-600">🧳 מטען: ${passenger.baggage}</p>
+                        <div class="bg-white p-4 sm:p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
+                            <div class="space-y-3">
+                                <h4 class="font-bold text-lg text-gray-800 border-b border-gray-100 pb-2">${passenger.name}</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div class="flex items-center p-2 bg-blue-50 rounded-lg">
+                                        <span class="w-5 h-5 mr-2 text-blue-600">🎫</span>
+                                        <div>
+                                            <p class="text-xs text-blue-600 font-medium">מספר כרטיס</p>
+                                            <p class="text-sm font-semibold text-gray-800">${passenger.ticket}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center p-2 bg-green-50 rounded-lg">
+                                        <span class="w-5 h-5 mr-2 text-green-600">🧳</span>
+                                        <div>
+                                            <p class="text-xs text-green-600 font-medium">מטען</p>
+                                            <p class="text-sm font-semibold text-gray-800">${passenger.baggage}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-100">
+                                    <div class="flex items-center mb-2">
+                                        <span class="w-5 h-5 mr-2 text-purple-600">🪑</span>
+                                        <p class="text-sm font-semibold text-purple-800">מושבים</p>
+                                    </div>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600">יציאה:</span>
+                                            <span class="font-semibold text-gray-800">${passenger.seatOutbound1}, ${passenger.seatOutbound2}</span>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600">חזרה:</span>
+                                            <span class="font-semibold text-gray-800">${passenger.seatInbound1}, ${passenger.seatInbound2}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     `).join('')}
                 </div>
