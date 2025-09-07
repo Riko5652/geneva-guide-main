@@ -424,7 +424,5 @@ if (document.readyState === 'loading') {
     window.toastManager = toastManager;
 }
 
-// Export for module systems
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = ToastManager;
-}
+// Export for ES6 modules
+export { ToastManager };

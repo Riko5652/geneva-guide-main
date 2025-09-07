@@ -439,7 +439,5 @@ if (document.readyState === 'loading') {
     window.loadingManager = loadingManager;
 }
 
-// Export for module systems
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = LoadingManager;
-}
+// Export for ES6 modules
+export { LoadingManager };

@@ -303,7 +303,5 @@ if (document.readyState === 'loading') {
     window.animationManager = animationManager;
 }
 
-// Export for module systems
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = AnimationManager;
-}
+// Export for ES6 modules
+export { AnimationManager };
