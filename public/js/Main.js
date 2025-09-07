@@ -7,9 +7,8 @@ import { renderAllComponents } from './ui.js';
 import { setupEventListeners } from './handlers.js';
 import { setupGeminiChat } from "./Gemini.js";
 import { CONFIG } from './config.js';
-import { familyLoader } from './loading.js';
-import { familyToast } from './toast.js';
-import { animations } from './animations.js';
+import { familyLoader } from './utils.js';
+import { familyToast, familyAnimations } from './ui.js';
 
 // --- Global State ---
 export let db, auth, storage, userId;
@@ -103,6 +102,12 @@ async function initApp() {
         console.log('⏭️ Skipping loader - page already loaded or loader exists');
     }
     
+    // Set a timeout to ensure the page loads even if Firebase fails
+    const fallbackTimer = setTimeout(() => {
+        console.log('⏰ Fallback timer triggered - loading basic app');
+        setupBasicApp();
+    }, 5000); // 5 second timeout
+    
     try {
         const response = await fetch('/api/get-config');
         if (!response.ok) throw new Error('Failed to get Firebase config');
@@ -115,6 +120,9 @@ async function initApp() {
         
         console.log("Firebase initialized successfully");
         familyToast.success('מתחברים לטיול שלכם... 🚀');
+        
+        // Clear the fallback timer since Firebase succeeded
+        clearTimeout(fallbackTimer);
         
         // Setup event listeners and chat once (with coordination)
         console.log('🔧 Setting up event listeners...');
@@ -145,6 +153,8 @@ async function initApp() {
     } catch (error) {
         console.warn("Firebase initialization failed:", error);
         familyToast.info('עובדים במצב הדגמה');
+        // Clear the fallback timer since we're handling the error
+        clearTimeout(fallbackTimer);
         // Continue without Firebase for static functionality
         setupBasicApp();
     }
@@ -156,8 +166,41 @@ function setupBasicApp() {
     try {
         // Load demo data for basic functionality
         currentData = {
-            activitiesData: [],
-            itineraryData: [],
+            activitiesData: [
+                {
+                    id: "demo-1",
+                    name: "גן החיות של ז'נבה",
+                    category: "ילדים",
+                    time: "בוקר",
+                    description: "גן חיות מושלם למשפחות עם פעוטות",
+                    location: "Route de Valavran 28, 1292 Chambésy",
+                    duration: "2-3 שעות",
+                    ageRange: "כל הגילאים",
+                    price: "חינם",
+                    image: "https://images.unsplash.com/photo-1549366021-9f761d77f8e0?w=400"
+                },
+                {
+                    id: "demo-2", 
+                    name: "פארק באסטיון",
+                    category: "פארקים",
+                    time: "אחר הצהריים",
+                    description: "פארק ירוק מושלם לפיקניק משפחתי",
+                    location: "Parc des Bastions, 1204 Genève",
+                    duration: "1-2 שעות",
+                    ageRange: "כל הגילאים",
+                    price: "חינם",
+                    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400"
+                }
+            ],
+            itineraryData: [
+                {
+                    day: 1,
+                    activities: [
+                        { id: "demo-1", time: "10:00", name: "גן החיות של ז'נבה" },
+                        { id: "demo-2", time: "14:00", name: "פארק באסטיון" }
+                    ]
+                }
+            ],
             flightData: { bookingRef: "Demo Mode" },
             hotelData: { name: "Demo Hotel", bookingRef: "DEMO123" },
             familyData: [{ name: "Demo Family", passport: "DEMO" }],
@@ -614,8 +657,8 @@ if (typeof window !== 'undefined') {
     });
     
     // Expose familyLoader globally
-    import('./loading.js').then(loadingModule => {
-        window.familyLoader = loadingModule.familyLoader;
+    import('./utils.js').then(utilsModule => {
+        window.familyLoader = utilsModule.familyLoader;
         console.log('🌐 familyLoader exposed globally');
     });
 }

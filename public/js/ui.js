@@ -223,6 +223,9 @@ export class FamilyAnimations {
 const familyAnimations = new FamilyAnimations();
 familyAnimations.init();
 
+// Export for use in other modules
+export { familyAnimations };
+
 // Family-Friendly Toast Notifications
 export class FamilyToast {
     constructor() {
