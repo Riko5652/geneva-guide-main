@@ -145,10 +145,17 @@ function addChatMessage(html, sender = "user") {
  */
 export async function callGeminiWithParts(parts) {
     try {
+        // Ensure parts is properly formatted for Gemini API
+        const formattedParts = Array.isArray(parts) 
+            ? parts.map(part => typeof part === 'string' ? { text: part } : part)
+            : [{ text: parts }];
+            
+        console.log("🤖 Sending request to Gemini API:", { contents: [{ role: "user", parts: formattedParts }] });
+        
         const response = await fetch("/api/gemini", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ contents: [{ role: "user", parts }] }),
+            body: JSON.stringify({ contents: [{ role: "user", parts: formattedParts }] }),
             signal: AbortSignal.timeout(30000) // 30 second timeout
         });
 
