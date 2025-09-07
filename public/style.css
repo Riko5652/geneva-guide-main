@@ -905,6 +905,26 @@ header {
     z-index: 50 !important;
 }
 
+/* Override hidden class on header and nav elements */
+header.hidden,
+header nav.hidden,
+header nav.container.hidden {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Ensure desktop navigation is hidden on mobile but header remains visible */
+@media (max-width: 1023px) {
+    header .hidden.lg\\:flex {
+        display: none !important;
+    }
+    
+    header .lg\\:hidden {
+        display: block !important;
+    }
+}
+
 /* Mobile header adjustments */
 @media (max-width: 1024px) {
     header nav {

@@ -168,26 +168,33 @@ class UserAgentAdjuster {
     }
 
     adjustNavigationLayouts() {
-        const mobileMenu = document.querySelector('.mobile-menu-container');
-        const desktopNav = document.querySelector('.desktop-nav, nav:not(.mobile-menu-container)');
+        const mobileMenu = document.querySelector('#mobile-menu');
+        const desktopNav = document.querySelector('.hidden.lg\\:flex');
+        const mobileMenuBtn = document.querySelector('#menu-btn');
         
         if (this.deviceType === 'mobile' || this.deviceType === 'tablet') {
-            if (mobileMenu) {
-                mobileMenu.style.display = '';
-                mobileMenu.classList.remove('hidden');
+            // Show mobile menu button and hide desktop nav
+            if (mobileMenuBtn) {
+                mobileMenuBtn.style.display = 'block';
+                mobileMenuBtn.classList.remove('hidden');
             }
             if (desktopNav) {
-                desktopNav.style.display = '';
                 desktopNav.classList.add('hidden');
             }
-        } else {
             if (mobileMenu) {
-                mobileMenu.style.display = '';
                 mobileMenu.classList.add('hidden');
             }
+        } else {
+            // Show desktop nav and hide mobile menu button
+            if (mobileMenuBtn) {
+                mobileMenuBtn.style.display = 'none';
+                mobileMenuBtn.classList.add('hidden');
+            }
             if (desktopNav) {
-                desktopNav.style.display = '';
                 desktopNav.classList.remove('hidden');
+            }
+            if (mobileMenu) {
+                mobileMenu.classList.add('hidden');
             }
         }
     }
