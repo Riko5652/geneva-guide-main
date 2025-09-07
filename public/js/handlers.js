@@ -935,6 +935,42 @@ async function handleChatSend() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
+// Show AI response modal with loading state support
+function showAiResponseModal(response, modalTitle, isLoading = false) {
+    const modal = document.getElementById('text-response-modal');
+    const titleEl = document.getElementById('text-response-modal-title');
+    const contentEl = document.getElementById('text-response-modal-content');
+    
+    if (!modal || !titleEl || !contentEl) {
+        console.warn('Modal elements not found');
+        if (response) alert(response);
+        return;
+    }
+    
+    // Set title
+    titleEl.textContent = modalTitle;
+    
+    // Set content based on loading state
+    if (isLoading) {
+        contentEl.innerHTML = '<div class="text-center py-8"><div class="loader mx-auto"></div><p class="mt-4 text-gray-600">טוען תשובה מהמומחה...</p></div>';
+    } else if (response) {
+        try {
+            const sanitizedContent = sanitizeHTML(response);
+            contentEl.innerHTML = `<div class="prose text-gray-700">${sanitizedContent}</div>`;
+        } catch (sanitizeError) {
+            console.warn("Sanitize error, using raw content:", sanitizeError);
+            contentEl.innerHTML = `<div class="prose text-gray-700">${response}</div>`;
+        }
+    }
+    
+    // Show modal
+    modal.classList.remove('hidden');
+    modal.style.setProperty('display', 'flex', 'important');
+    modal.style.setProperty('visibility', 'visible', 'important');
+    modal.style.setProperty('opacity', '1', 'important');
+    modal.style.setProperty('z-index', '9999', 'important');
+}
+
 // Handle AI requests (weather, planning, stories)
 async function handleAiRequest(type, event) {
     const button = event.target;
@@ -971,6 +1007,9 @@ async function handleAiRequest(type, event) {
         
         console.log("🤖 Starting AI request with prompt:", prompt);
         
+        // Show modal immediately with loading state
+        showAiResponseModal('', modalTitle, true); // true = loading state
+        
         // Test the endpoint first
         const { testGeminiEndpoint } = await import('./Gemini.js');
         const testStatus = await testGeminiEndpoint();
@@ -979,73 +1018,13 @@ async function handleAiRequest(type, event) {
         const response = await callGeminiWithParts([prompt]);
         console.log("🤖 AI Response received:", response);
         
-        // Show response in modal
-        const modal = document.getElementById('text-response-modal');
-        const titleEl = document.getElementById('text-response-modal-title');
-        const contentEl = document.getElementById('text-response-modal-content');
-        
-        console.log("🔍 Modal elements found:", { modal: !!modal, titleEl: !!titleEl, contentEl: !!contentEl });
-        
-        if (!modal) {
-            console.warn('text-response-modal not found');
-            alert(response);
-            return;
-        }
-        
-        if (!titleEl) {
-            console.warn('text-response-modal-title not found');
-            return;
-        }
-        
-        if (!contentEl) {
-            console.warn('text-response-modal-content not found');
-            return;
-        }
-        
-        console.log("🔍 Setting modal title:", modalTitle);
-        titleEl.textContent = modalTitle;
-        
-        console.log("🔍 Setting modal content, response length:", response.length);
-        try {
-            const sanitizedContent = sanitizeHTML(response);
-            console.log("🔍 Sanitized content length:", sanitizedContent.length);
-            contentEl.innerHTML = `<div class="prose text-gray-700">${sanitizedContent}</div>`;
-            console.log("🔍 Content set successfully");
-        } catch (sanitizeError) {
-            console.warn("Sanitize error, using raw content:", sanitizeError);
-            contentEl.innerHTML = `<div class="prose text-gray-700">${response}</div>`;
-            console.log("🔍 Raw content set successfully");
-        }
-        console.log("🔍 Showing modal with title:", modalTitle);
-        
-        // Debug modal state before showing
-        console.log("🔍 Modal classes before remove hidden:", modal.className);
-        console.log("🔍 Modal display before:", window.getComputedStyle(modal).display);
-        console.log("🔍 Modal position before:", modal.getBoundingClientRect());
-        
-        // Test: Set simple content first
-        console.log("🔍 Testing with simple content...");
-        contentEl.innerHTML = '<div class="p-4">Test modal content - can you see this?</div>';
-        
-        modal.classList.remove('hidden');
-        
-        // Force modal to be visible with inline styles
-        modal.style.setProperty('display', 'flex', 'important');
-        modal.style.setProperty('visibility', 'visible', 'important');
-        modal.style.setProperty('opacity', '1', 'important');
-        modal.style.setProperty('z-index', '9999', 'important');
-        
-        // Debug modal state after showing
-        console.log("🔍 Modal classes after remove hidden:", modal.className);
-        console.log("🔍 Modal display after:", window.getComputedStyle(modal).display);
-        console.log("🔍 Modal visibility after:", window.getComputedStyle(modal).visibility);
-        console.log("🔍 Modal opacity after:", window.getComputedStyle(modal).opacity);
-        console.log("🔍 Modal position after:", modal.getBoundingClientRect());
-        console.log("🔍 Modal z-index after:", window.getComputedStyle(modal).zIndex);
+        // Update modal with actual response
+        showAiResponseModal(response, modalTitle, false); // false = not loading
         
     } catch (error) {
         console.warn('AI request failed:', error);
-        alert('שגיאה בקבלת תשובה מהמומחה. נסו שוב מאוחר יותר.');
+        // Show error in modal
+        showAiResponseModal('שגיאה בקבלת תשובה מהמומחה. נסו שוב מאוחר יותר.', modalTitle, false);
     } finally {
         // Restore button
         button.disabled = false;
