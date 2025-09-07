@@ -642,3 +642,55 @@ input:focus-visible {
 
 /* High Contrast Mode Support - removed due to browser compatibility issues */
 
+/* Modal Responsive Styling */
+@media (max-width: 768px) {
+    .modal > div {
+        max-width: 95vw !important;
+        margin: 1rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .modal > div {
+        max-width: 47vw !important;
+    }
+}
+
+/* Ensure modal content is properly sized */
+.modal-content {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Adjust text sizes for better readability in 47vw modals */
+.modal h1 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+}
+
+.modal h2 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+}
+
+.modal h3 {
+    font-size: 1.125rem;
+    line-height: 1.4;
+}
+
+.modal p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Ensure buttons and form elements are appropriately sized */
+.modal .btn-primary {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+}
+
+.modal input, .modal textarea, .modal select {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+}
+
