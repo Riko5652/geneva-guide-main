@@ -175,13 +175,14 @@ class UserAgentAdjuster {
         
         if (this.deviceType === 'mobile' || this.deviceType === 'tablet') {
             console.log('🔧 User Agent Adjuster: Mobile device detected, adjusting navigation');
-            // Show mobile menu button and hide desktop nav
+            // Show mobile menu button and ensure desktop nav is hidden
             if (mobileMenuBtn) {
                 mobileMenuBtn.style.display = 'block';
                 mobileMenuBtn.classList.remove('hidden');
             }
             if (desktopNav) {
-                desktopNav.classList.add('hidden');
+                // Don't add hidden class - it already has hidden lg:flex which works with CSS
+                desktopNav.style.display = 'none';
             }
             if (mobileMenu) {
                 console.log('🔧 User Agent Adjuster: Adding hidden class to mobile menu');
@@ -194,7 +195,8 @@ class UserAgentAdjuster {
                 mobileMenuBtn.classList.add('hidden');
             }
             if (desktopNav) {
-                desktopNav.classList.remove('hidden');
+                // Don't remove hidden class - let CSS handle it with lg:flex
+                desktopNav.style.display = '';
             }
             if (mobileMenu) {
                 mobileMenu.classList.add('hidden');
