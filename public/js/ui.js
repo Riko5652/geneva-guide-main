@@ -626,28 +626,32 @@ function renderItinerary() {
                 ` : ''}
                                 <div class="border-t pt-6 mt-6">
                             <h5 class="text-sm font-semibold text-gray-600 mb-4 text-center">פעולות חכמות ליום זה</h5>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                                <button class="group relative btn-primary py-3 px-4 rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg gemini-plan-btn" data-day-index="${day.dayIndex || day.day}">
-                                    <span class="flex items-center justify-center gap-2">
-                                        ✨ <span>תכנן בוקר</span>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3">
+                                <button class="group relative bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-plan-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                    <span class="flex items-center justify-center gap-1 md:gap-2">
+                                        <span class="text-base md:text-lg">✨</span>
+                                        <span class="whitespace-nowrap">תכנן בוקר</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative btn-primary bg-green-500 hover:bg-green-600 py-3 px-4 rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg gemini-summary-btn" data-day-index="${day.dayIndex || day.day}">
-                                    <span class="flex items-center justify-center gap-2">
-                                        📝 <span>סכם לילדים</span>
+                                <button class="group relative bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-summary-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                    <span class="flex items-center justify-center gap-1 md:gap-2">
+                                        <span class="text-base md:text-lg">📝</span>
+                                        <span class="whitespace-nowrap">סכם לילדים</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative btn-primary bg-purple-500 hover:bg-purple-600 py-3 px-4 rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg gemini-story-btn" data-day-index="${day.dayIndex || day.day}">
-                                    <span class="flex items-center justify-center gap-2">
-                                        📖 <span>סיפור לילדים</span>
+                                <button class="group relative bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-story-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                    <span class="flex items-center justify-center gap-1 md:gap-2">
+                                        <span class="text-base md:text-lg">📖</span>
+                                        <span class="whitespace-nowrap">סיפור לילדים</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative btn-primary bg-orange-500 hover:bg-orange-600 py-3 px-4 rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg swap-activity-btn" data-day-index="${day.dayIndex || day.day}">
-                                    <span class="flex items-center justify-center gap-2">
-                                        🔄 <span>החלף פעילות</span>
+                                <button class="group relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg swap-activity-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                    <span class="flex items-center justify-center gap-1 md:gap-2">
+                                        <span class="text-base md:text-lg">🔄</span>
+                                        <span class="whitespace-nowrap">החלף פעילות</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
