@@ -883,17 +883,9 @@ export function renderPackingGuide() {
             <!-- Master List Section -->
             <section id="packing-master-list" class="scroll-mt-32 section-card">
                 <div class="section-header">
-                    <div class="section-icon-wrapper">
-                        <span class="section-icon">📋</span>
-                    </div>
                     <div class="section-title-wrapper">
                         <h2 class="section-title">רשימה מלאה</h2>
                         <p class="section-subtitle">כל הפריטים הדרושים לטיול משפחתי מושלם</p>
-                    </div>
-                    <div class="section-progress">
-                        <div class="section-progress-circle" data-section="master-list">
-                            <span class="section-progress-text">0%</span>
-                        </div>
                     </div>
                 </div>
                 <div class="section-content bg-gradient-to-br from-white via-blue-50/30 to-cyan-50/50">
