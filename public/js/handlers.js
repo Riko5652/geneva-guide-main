@@ -1010,7 +1010,23 @@ async function handleAiRequest(type, event) {
             contentEl.innerHTML = `<div class="prose text-gray-700">${response}</div>`;
         }
         console.log("🔍 Showing modal with title:", modalTitle);
+        
+        // Debug modal state before showing
+        console.log("🔍 Modal classes before remove hidden:", modal.className);
+        console.log("🔍 Modal display before:", window.getComputedStyle(modal).display);
+        
         modal.classList.remove('hidden');
+        
+        // Force modal to be visible with inline styles
+        modal.style.setProperty('display', 'flex', 'important');
+        modal.style.setProperty('visibility', 'visible', 'important');
+        modal.style.setProperty('opacity', '1', 'important');
+        
+        // Debug modal state after showing
+        console.log("🔍 Modal classes after remove hidden:", modal.className);
+        console.log("🔍 Modal display after:", window.getComputedStyle(modal).display);
+        console.log("🔍 Modal visibility after:", window.getComputedStyle(modal).visibility);
+        console.log("🔍 Modal opacity after:", window.getComputedStyle(modal).opacity);
         
     } catch (error) {
         console.warn('AI request failed:', error);
