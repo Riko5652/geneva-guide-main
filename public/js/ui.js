@@ -960,7 +960,7 @@ export function renderActivities() {
                     <!-- Content Section - Simplified Layout -->
                     <div class="flex-1 space-y-4 mb-6 overflow-y-auto">
                         <!-- Key Information Grid -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="grid gap-3" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
                             <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
                                 <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: #D2E0FB;">
                                     <span class="text-sm" style="color: #89A8B2;">⏱️</span>
@@ -983,7 +983,7 @@ export function renderActivities() {
                         
                         ${(activity.recommendedTime || activity.duration) ? `
                         <!-- Additional Details Grid -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="grid gap-3" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
                             ${activity.recommendedTime ? `
                                 <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
                                     <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: #FEF9D9;">
@@ -1011,7 +1011,7 @@ export function renderActivities() {
                         
                         ${(activity.cost || activity.transport) ? `
                         <!-- Cost and Transport -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="grid gap-3" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
                             ${activity.cost ? `
                                 <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
                                     <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: #DEE5D4;">
