@@ -985,9 +985,21 @@ input::placeholder, textarea::placeholder {
 #activities-grid {
   box-sizing: border-box;
   width: 100%;
+  max-width: 100%; /* Respect parent container width */
   display: grid;
   align-items: stretch; /* Ensures all grid items have the same height */
   overflow: hidden; /* Prevent grid overflow */
+}
+
+/* Ensure activities section container properly constrains its children */
+#activities .max-w-6xl {
+  max-width: 72rem; /* 6xl = 72rem */
+  width: 100%;
+}
+
+/* Override any Tailwind max-w-full classes that might be applied to activities-grid */
+#activities-grid.max-w-full {
+  max-width: 100% !important;
 }
 
 /* Ensure grid cells constrain their content */
@@ -996,6 +1008,7 @@ input::placeholder, textarea::placeholder {
   max-width: 100%;
   overflow: hidden;
   box-sizing: border-box;
+  width: 100%; /* Ensure grid items take full width of their grid cell */
 }
 
 /* Activity Cards Mobile Responsiveness */
