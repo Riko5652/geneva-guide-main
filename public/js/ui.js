@@ -946,9 +946,9 @@ export function renderActivities() {
                     </div>
                 ` : ''}
                 
-                <div class="p-6 flex flex-col flex-grow min-h-0">
+                <div class="p-6 flex flex-col h-full">
                     <!-- Header Section -->
-                    <div class="mb-4">
+                    <div class="mb-4 flex-shrink-0">
                         <h3 class="font-bold text-xl leading-tight mb-2" style="color: #4A6B7A;">${activity.name}</h3>
                         ${!activityImage ? `
                             <span class="activity-category-badge px-3 py-1.5 text-sm font-semibold rounded-full inline-block" style="background-color: #E5E1DA; color: #5A7A8A;">
@@ -957,8 +957,8 @@ export function renderActivities() {
                         ` : ''}
                     </div>
                     
-                    <!-- Content Section - Professional Layout -->
-                    <div class="flex-grow space-y-4 mb-6 min-h-0 overflow-hidden">
+                    <!-- Content Section - Simplified Layout -->
+                    <div class="flex-1 space-y-4 mb-6 overflow-y-auto">
                         <!-- Key Information Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
@@ -1074,7 +1074,7 @@ export function renderActivities() {
                     </div>
                     
                     <!-- Action Buttons Section -->
-                    <div class="flex flex-wrap gap-3 mt-auto">
+                    <div class="flex flex-wrap gap-3 flex-shrink-0">
                         ${activity.link ? `
                             <a href="${activity.link}" target="_blank" 
                                class="flex-1 inline-flex items-center justify-center gap-2 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
