@@ -213,32 +213,24 @@
                 </p>
             
                 <!-- Quick Status Panel for Mobile Users -->
-                <div class="rounded-xl sm:rounded-2xl p-4 sm:p-6 max-w-4xl mx-auto shadow-sm" style="background: #FFF8DE; border: 1px solid #D0E8C5;">
-                    <h2 class="text-base sm:text-lg font-bold mb-3 sm:mb-4 text-center" style="color: #A6AEBF;">🎯 סטטוס הטיול המהיר</h2>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 text-xs sm:text-sm">
-                        <div class="flex items-center justify-center p-2 sm:p-3 rounded-lg shadow-sm" style="background: #C5D3E8; border: 1px solid #A6AEBF;">
-                            <span class="font-semibold flex items-center gap-1 sm:gap-2" id="quick-weather" style="color: #A6AEBF;">
-                                <span class="text-sm sm:text-base">🌤️</span>
-                                <span class="truncate">טוען מזג אוויר...</span>
-                            </span>
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-base sm:text-lg font-bold mb-6 text-center" style="color: #A6AEBF;">🎯 סטטוס הטיול המהיר</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-lg">
+                            <h3 class="text-sm font-bold mb-2" style="color: #A6AEBF;">🌤️ מזג אוויר</h3>
+                            <p id="quick-weather" class="text-xs" style="color: #A6AEBF;">טוען...</p>
                         </div>
-                        <div class="flex items-center justify-center p-2 sm:p-3 rounded-lg shadow-sm" style="background: #C5D3E8; border: 1px solid #A6AEBF;">
-                            <span class="font-semibold flex items-center gap-1 sm:gap-2" id="quick-hotel" style="color: #A6AEBF;">
-                                <span class="text-sm sm:text-base">🏨</span>
-                                <span class="truncate">Mercure Meyrin</span>
-                            </span>
+                        <div class="bg-white p-4 rounded-xl shadow-lg">
+                            <h3 class="text-sm font-bold mb-2" style="color: #A6AEBF;">🏨 מלון</h3>
+                            <p id="quick-hotel" class="text-xs" style="color: #A6AEBF;">Mercure Meyrin</p>
                         </div>
-                        <div class="flex items-center justify-center p-2 sm:p-3 rounded-lg shadow-sm" style="background: #C5D3E8; border: 1px solid #A6AEBF;">
-                            <span class="font-semibold flex items-center gap-1 sm:gap-2" id="quick-transport" style="color: #A6AEBF;">
-                                <span class="text-sm sm:text-base">🚊</span>
-                                <span class="truncate">Geneva Card</span>
-                            </span>
+                        <div class="bg-white p-4 rounded-xl shadow-lg">
+                            <h3 class="text-sm font-bold mb-2" style="color: #A6AEBF;">🚊 תחבורה</h3>
+                            <p id="quick-transport" class="text-xs" style="color: #A6AEBF;">Geneva Card</p>
                         </div>
-                        <div class="flex items-center justify-center p-2 sm:p-3 rounded-lg shadow-sm" style="background: #C5D3E8; border: 1px solid #A6AEBF;">
-                            <span class="font-semibold flex items-center gap-1 sm:gap-2" style="color: #A6AEBF;">
-                                <span class="text-sm sm:text-base">🕐</span>
-                                <span id="current-time" class="truncate">--:--</span>
-                            </span>
+                        <div class="bg-white p-4 rounded-xl shadow-lg">
+                            <h3 class="text-sm font-bold mb-2" style="color: #A6AEBF;">🕐 שעה</h3>
+                            <p id="current-time" class="text-xs" style="color: #A6AEBF;">--:--</p>
                         </div>
                     </div>
                 </div>
