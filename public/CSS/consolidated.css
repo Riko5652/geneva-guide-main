@@ -989,9 +989,8 @@ input::placeholder, textarea::placeholder {
   display: grid;
   align-items: stretch; /* Ensures all grid items have the same height */
   overflow: hidden; /* Prevent grid overflow */
-  padding: 0; /* Remove any default padding */
-  min-width: 0; /* Allow grid to shrink below content width */
 }
+
 
 /* Ensure activities section container properly constrains its children */
 #activities .max-w-5xl {
@@ -999,43 +998,14 @@ input::placeholder, textarea::placeholder {
   width: 100%;
 }
 
-/* Override any Tailwind max-w-full classes that might be applied to activities-grid */
-#activities-grid.max-w-full {
-  max-width: 100% !important;
-}
 
-/* Force activity cards to respect container width - fix for 348px vs 308px issue */
-.activity-card {
-  width: 100% !important;
-  max-width: 100% !important;
-  min-width: 0 !important; /* Allow cards to shrink below their content width */
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-}
-
-/* Mobile-specific fix for activity card width overflow */
-@media (max-width: 768px) {
-  .activity-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    flex-shrink: 1 !important; /* Allow cards to shrink */
-  }
-  
-  #activities-grid {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-  }
-}
 
 /* Ensure grid cells constrain their content */
 #activities-grid > * {
-  min-width: 0 !important;
-  max-width: 100% !important;
-  overflow: hidden !important;
-  box-sizing: border-box !important;
-  width: 100% !important; /* Ensure grid items take full width of their grid cell */
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* Activity Cards Mobile Responsiveness */
@@ -1050,13 +1020,23 @@ input::placeholder, textarea::placeholder {
   overflow: hidden; /* Prevent card overflow */
 }
 
-/* Ensure activity card content wrapper is constrained */
-.activity-card .p-6.flex.flex-col.h-full {
-  min-width: 0 !important;
-  max-width: 100% !important;
-  width: 100% !important;
-  overflow: hidden !important;
+/* Responsive padding for activity cards */
+.activity-card .p-4 {
+  padding: 0.75rem;
 }
+
+@media (min-width: 640px) {
+  .activity-card .p-4 {
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .activity-card .p-4 {
+    padding: 1.25rem;
+  }
+}
+
 
 /* Fix for activity card content width constraints */
 .activity-card .flex-grow {
@@ -1076,18 +1056,12 @@ input::placeholder, textarea::placeholder {
   overflow: hidden;
 }
 
-/* Simplified fix for the restructured activity card layout */
-.activity-card .p-6.flex.flex-col.h-full {
+
+.activity-card .flex-1.space-y-4.mb-6.overflow-y-auto {
   min-width: 0;
   max-width: 100%;
   width: 100%;
-}
-
-.activity-card .flex-1.space-y-4.mb-6.overflow-y-auto {
-  min-width: 0 !important;
-  max-width: 100% !important;
-  width: 100% !important;
-  overflow: hidden !important;
+  overflow: hidden;
 }
 
 /* Ensure all grid containers respect width in the new structure */
@@ -1112,89 +1086,72 @@ input::placeholder, textarea::placeholder {
   overflow-wrap: break-word;
 }
 
-/* Force all activity card elements to respect container width */
-.activity-card,
-.activity-card *,
-.activity-card .p-6,
-.activity-card .flex-1,
-.activity-card .grid,
-.activity-card .grid > *,
-.activity-card .flex,
-.activity-card .flex > * {
-  min-width: 0 !important;
-  max-width: 100% !important;
-}
 
-/* Specific fixes for grid items and flex containers */
-.activity-card .grid.grid-cols-1 {
-  width: 100%;
-  max-width: 100%;
-}
 
-.activity-card .grid.grid-cols-1 > * {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-}
 
-.activity-card .grid.grid-cols-2 > * {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-}
 
-/* Fix for flex items inside grid items */
-.activity-card .flex {
-  min-width: 0;
-  max-width: 100%;
-}
-
-.activity-card .flex > * {
-  min-width: 0;
-}
-
-/* Simplified fixes for flex items inside grid items */
-.activity-card .grid .flex.items-center {
-  min-width: 0;
-  max-width: 100%;
-  width: 100%;
-}
-
-.activity-card .grid .flex.items-center > * {
-  min-width: 0;
-}
-
-.activity-card .grid .flex.items-center .w-8 {
-  flex-shrink: 0;
-}
-
-.activity-card .grid .flex.items-center > div:last-child {
-  min-width: 0;
-  flex: 1;
-  overflow: hidden;
-}
-
-/* Simplified fix for grid-cols-1 and grid-cols-2 */
-.activity-card .grid.grid-cols-1,
-.activity-card .grid.grid-cols-2 {
-  min-width: 0;
-  max-width: 100%;
-  width: 100%;
-}
-
-.activity-card .grid.grid-cols-1 > *,
-.activity-card .grid.grid-cols-2 > * {
-  min-width: 0;
-  max-width: 100%;
-  width: 100%;
-  overflow: hidden;
-}
 
 /* Ensure text content doesn't cause overflow */
 .activity-card p, .activity-card span, .activity-card div {
   word-break: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
+}
+
+/* Make activity card content responsive */
+.activity-card .grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.activity-card .grid.grid-cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.activity-card .grid.grid-cols-2 {
+  grid-template-columns: 1fr;
+}
+
+/* Responsive grid for larger screens */
+@media (min-width: 640px) {
+  .activity-card .grid.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Make buttons responsive */
+.activity-card .flex.flex-wrap.gap-3 {
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .activity-card .flex.flex-wrap.gap-3 {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+/* Make text responsive */
+.activity-card h3 {
+  font-size: 1.125rem;
+  line-height: 1.4;
+}
+
+@media (min-width: 640px) {
+  .activity-card h3 {
+    font-size: 1.25rem;
+  }
+}
+
+.activity-card .text-sm {
+  font-size: 0.8125rem;
+}
+
+@media (min-width: 640px) {
+  .activity-card .text-sm {
+    font-size: 0.875rem;
+  }
 }
 
 /* Fix for buttons with transform effects overflowing containers */
@@ -1255,20 +1212,20 @@ button[class*="hover:scale"] {
   
   /* Ensure activities section doesn't overflow on mobile */
   #activities {
-    margin: 0.5rem !important;
-    border-radius: 1rem !important;
+    margin: 0.5rem;
+    border-radius: 1rem;
   }
   
-  #activities .max-w-7xl {
-    padding-left: 0.75rem !important;
-    padding-right: 0.75rem !important;
+  #activities .max-w-5xl {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
   
   /* Ensure grid doesn't overflow */
   #activities-grid {
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-    gap: 1rem !important;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    gap: 1rem;
   }
   
   /* Additional mobile width constraints */

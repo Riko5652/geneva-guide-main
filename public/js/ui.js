@@ -930,7 +930,7 @@ export function renderActivities() {
                  data-category="${activity.category}" data-travel-time="${activity.time || '0'}" data-activity-id="${activity.id || activity.name}">
                 
                 ${activityImage ? `
-                    <div class="relative h-52 overflow-hidden">
+                    <div class="relative aspect-video overflow-hidden">
                         <img src="${activityImage}" 
                              alt="${activity.name}" 
                              class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
@@ -946,7 +946,7 @@ export function renderActivities() {
                     </div>
                 ` : ''}
                 
-                <div class="p-6 flex flex-col h-full">
+                <div class="p-4 flex flex-col h-full">
                     <!-- Header Section -->
                     <div class="mb-4 flex-shrink-0">
                         <h3 class="font-bold text-xl leading-tight mb-2" style="color: #4A6B7A;">${activity.name}</h3>
