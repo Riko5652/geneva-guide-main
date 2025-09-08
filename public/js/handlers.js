@@ -431,8 +431,8 @@ function handleDelegatedClicks(e) {
     }
     if (target.classList.contains('nav-photos-btn')) {
         console.log('📸 Photos button clicked');
-        // Scroll to the photo gallery section
-        const photoSection = document.querySelector('#photo-gallery');
+        // Scroll to the family sharing section which contains photos
+        const photoSection = document.querySelector('#family-sharing');
         if (photoSection) {
             photoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -996,7 +996,7 @@ function formatAiResponse(text) {
     // Wrap in an enhanced container with better styling and animations
     return `
         <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-            <div class="space-y-6 p-6 rounded-2xl shadow-lg" style="background: linear-gradient(135deg, #ffffff 0%, #D2E0FB 50%, #B3C8CF 100%); border: 1px solid #89A8B2;">
+                <div class="space-y-6 p-6 rounded-2xl shadow-lg" style="background: linear-gradient(135deg, #FFF8DE 0%, #C5D3E8 50%, #D0E8C5 100%); border: 1px solid #A6AEBF;">
                 <div class="text-center mb-6">
                     <div class="ai-response-button inline-flex items-center px-6 py-3 text-white rounded-2xl text-sm font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 relative overflow-hidden">
                         <div class="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(135deg, rgba(241, 240, 232, 0.3) 0%, transparent 100%);"></div>

@@ -2658,6 +2658,19 @@ export function renderQuickStatus() {
                 minute: '2-digit'
             });
             timeElement.textContent = genevaTime;
+            
+            // Update date
+            const dateElement = document.getElementById('current-date');
+            if (dateElement) {
+                const genevaDate = now.toLocaleDateString('he-IL', {
+                    timeZone: 'Europe/Zurich',
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                dateElement.textContent = genevaDate;
+            }
         };
         
         // Initial update
@@ -2673,13 +2686,52 @@ export function renderQuickStatus() {
     }
     
     // Update weather status
-    const weatherElement = document.getElementById('quick-weather');
-    if (weatherElement) {
+    const weatherTempElement = document.getElementById('weather-temp');
+    const weatherDescElement = document.getElementById('weather-desc');
+    const weatherIconElement = document.getElementById('weather-icon');
+    
+    if (weatherTempElement && weatherDescElement && weatherIconElement) {
         if (currentData && currentData.weather && currentData.weather.daily) {
             const todayTemp = Math.round(currentData.weather.daily.temperature_2m_max[0]);
-            weatherElement.textContent = `🌤️ ${todayTemp}°C`;
+            const todayDesc = currentData.weather.daily.weathercode[0];
+            
+            weatherTempElement.textContent = `${todayTemp}°C`;
+            
+            // Map weather codes to descriptions and icons
+            const weatherMap = {
+                0: { desc: 'שמש', icon: '☀️' },
+                1: { desc: 'שמש חלקית', icon: '⛅' },
+                2: { desc: 'עננים חלקיים', icon: '⛅' },
+                3: { desc: 'עננים', icon: '☁️' },
+                45: { desc: 'ערפל', icon: '🌫️' },
+                48: { desc: 'ערפל קפוא', icon: '🌫️' },
+                51: { desc: 'טפטוף קל', icon: '🌦️' },
+                53: { desc: 'טפטוף', icon: '🌦️' },
+                55: { desc: 'טפטוף חזק', icon: '🌧️' },
+                61: { desc: 'גשם קל', icon: '🌦️' },
+                63: { desc: 'גשם', icon: '🌧️' },
+                65: { desc: 'גשם חזק', icon: '⛈️' },
+                71: { desc: 'שלג קל', icon: '🌨️' },
+                73: { desc: 'שלג', icon: '❄️' },
+                75: { desc: 'שלג חזק', icon: '🌨️' },
+                77: { desc: 'גרגרי שלג', icon: '❄️' },
+                80: { desc: 'ממטרים קלים', icon: '🌦️' },
+                81: { desc: 'ממטרים', icon: '🌧️' },
+                82: { desc: 'ממטרים חזקים', icon: '⛈️' },
+                85: { desc: 'ממטרי שלג קלים', icon: '🌨️' },
+                86: { desc: 'ממטרי שלג', icon: '❄️' },
+                95: { desc: 'סופת רעמים', icon: '⛈️' },
+                96: { desc: 'סופת רעמים עם ברד', icon: '⛈️' },
+                99: { desc: 'סופת רעמים חזקה', icon: '⛈️' }
+            };
+            
+            const weatherInfo = weatherMap[todayDesc] || { desc: 'מזג אוויר משתנה', icon: '🌤️' };
+            weatherDescElement.textContent = weatherInfo.desc;
+            weatherIconElement.textContent = weatherInfo.icon;
         } else {
-            weatherElement.textContent = '🌤️ טוען מזג אוויר...';
+            weatherTempElement.textContent = '--°C';
+            weatherDescElement.textContent = 'טוען...';
+            weatherIconElement.textContent = '🌤️';
         }
     }
     
