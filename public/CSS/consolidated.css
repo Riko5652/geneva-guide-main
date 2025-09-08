@@ -985,7 +985,6 @@ input::placeholder, textarea::placeholder {
 #activities-grid {
   box-sizing: border-box;
   width: 100%;
-  max-width: 100%;
   display: grid;
   align-items: stretch; /* Ensures all grid items have the same height */
   overflow: hidden; /* Prevent grid overflow */
@@ -996,6 +995,7 @@ input::placeholder, textarea::placeholder {
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* Activity Cards Mobile Responsiveness */

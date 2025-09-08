@@ -878,13 +878,12 @@ async function handleChatSend() {
     const input = document.getElementById('chat-input');
     const messagesContainer = document.getElementById('chat-messages');
     const loader = document.getElementById('chat-loader');
-    const modelSelector = document.getElementById('gemini-model-selector');
     const message = input.value.trim();
     
     if (!message) return;
     
-    // Get selected model preference
-    const selectedModel = modelSelector ? modelSelector.value : 'flash-exp';
+    // Use default model (Gemini 2.0 Flash)
+    const selectedModel = 'flash-exp';
     
     // Add user message
     const userBubble = document.createElement('div');
