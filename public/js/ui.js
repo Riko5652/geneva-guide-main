@@ -925,8 +925,8 @@ export function renderActivities() {
         const activityImage = activity.image || getActivityImage(activity.category, activity.name);
         
     return `
-            <div class="activity-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col ${isNewItem ? 'new-item-highlight' : ''}" 
-                 style="border: 1px solid #B3C8CF;"
+            <div class="activity-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full ${isNewItem ? 'new-item-highlight' : ''}" 
+                 style="border: 1px solid #B3C8CF; min-height: 400px;"
                  data-category="${activity.category}" data-travel-time="${activity.time || '0'}" data-activity-id="${activity.id || activity.name}">
                 
                 ${activityImage ? `
@@ -946,7 +946,7 @@ export function renderActivities() {
                     </div>
                 ` : ''}
                 
-                <div class="p-6 flex flex-col flex-grow">
+                <div class="p-6 flex flex-col flex-grow min-h-0">
                     <!-- Header Section -->
                     <div class="mb-4">
                         <h3 class="font-bold text-xl leading-tight mb-2" style="color: #4A6B7A;">${activity.name}</h3>
@@ -958,7 +958,7 @@ export function renderActivities() {
                     </div>
                     
                     <!-- Content Section - Professional Layout -->
-                    <div class="flex-grow space-y-4 mb-6">
+                    <div class="flex-grow space-y-4 mb-6 min-h-0 overflow-hidden">
                         <!-- Key Information Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
@@ -981,6 +981,7 @@ export function renderActivities() {
                             </div>
                         </div>
                         
+                        ${(activity.recommendedTime || activity.duration) ? `
                         <!-- Additional Details Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             ${activity.recommendedTime ? `
@@ -993,7 +994,7 @@ export function renderActivities() {
                                         <p class="text-sm font-semibold" style="color: #4A6B7A;">${activity.recommendedTime}</p>
                                     </div>
                                 </div>
-                            ` : '<div></div>'}
+                            ` : ''}
                             ${activity.duration ? `
                                 <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
                                     <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: #D2E0FB;">
@@ -1004,9 +1005,11 @@ export function renderActivities() {
                                         <p class="text-sm font-semibold" style="color: #4A6B7A;">${activity.duration}</p>
                                     </div>
                                 </div>
-                            ` : '<div></div>'}
+                            ` : ''}
                         </div>
+                        ` : ''}
                         
+                        ${(activity.cost || activity.transport) ? `
                         <!-- Cost and Transport -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             ${activity.cost ? `
@@ -1019,7 +1022,7 @@ export function renderActivities() {
                                         <p class="text-sm font-semibold" style="color: #4A6B7A;">${activity.cost}</p>
                                     </div>
                                 </div>
-                            ` : '<div></div>'}
+                            ` : ''}
                             ${activity.transport ? `
                                 <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
                                     <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: #8EACCD;">
@@ -1030,8 +1033,9 @@ export function renderActivities() {
                                         <p class="text-sm font-semibold" style="color: #4A6B7A;">${activity.transport}</p>
                                     </div>
                                 </div>
-                            ` : '<div></div>'}
+                            ` : ''}
                         </div>
+                        ` : ''}
                         
                         ${activity.address ? `
                             <div class="flex items-start gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">

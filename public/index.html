@@ -360,8 +360,8 @@
             </div>
         </section>
 
-        <section id="activities" class="py-16 mb-16" style="background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%); border-radius: 2rem; margin: 2rem 1rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-            <div class="max-w-7xl mx-auto px-6">
+        <section id="activities" class="py-16 mb-16" style="background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%); border-radius: 2rem; margin: 1rem 0.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+            <div class="max-w-7xl mx-auto px-3 md:px-6">
                 <h2 class="section-title text-center text-3xl font-bold" style="color: #4A6B7A;">🎈 מאגר הפעילויות האינטראקטיבי</h2>
                 <p class="section-subtitle text-center" style="color: #5A7A8A;">מצאו את הבילוי המושלם לכל רגע. <strong>חשוב:</strong> לחצו תמיד על "לאתר הרשמי" כדי לוודא שעות פתיחה ומחירים עדכניים לפני היציאה.</p>
 
@@ -381,7 +381,7 @@
                 <button class="btn-filter rounded-full px-5 py-2 font-medium focus:ring-2 focus:outline-none" style="background: linear-gradient(135deg, #E5E1DA 0%, #B3C8CF 100%); color: #4A6B7A;" data-time-filter="60">🚆 מעל 40 דקות</button>
             </div>
 
-                <div id="activities-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div id="activities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 px-2 md:px-0 w-full max-w-full overflow-hidden">
                 </div>
                 <div class="text-center mt-8 space-y-4">
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
@@ -513,7 +513,7 @@
                         
                         <div class="text-center mb-4">
                             <input type="file" id="photo-upload-input-mobile" class="hidden" accept="image/*" multiple aria-label="העלאת תמונות">
-                            <button id="photo-upload-btn-mobile" class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+                            <button id="photo-upload-btn-mobile" class="text-white px-4 py-2 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg" style="background: linear-gradient(135deg, #89A8B2 0%, #6B8FA3 100%);">
                                 <span class="flex items-center gap-2">
                                     <span>📷</span>
                                     <span>הוסיפו תמונה</span>
@@ -538,8 +538,8 @@
                         
                         <div class="mb-4">
                             <div class="flex gap-2">
-                                <input type="text" id="bulletin-note-input-mobile" class="flex-1 border-2 border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 rounded-lg py-2 px-3 text-sm font-medium transition-all duration-300 bg-white shadow-sm" placeholder="הערה מהירה..." aria-label="הערה מהירה">
-                                <button id="add-bulletin-note-btn-mobile" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-3 py-2 rounded-lg text-base font-bold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+                                <input type="text" id="bulletin-note-input-mobile" class="flex-1 border-2 rounded-lg py-2 px-3 text-sm font-medium transition-all duration-300 bg-white shadow-sm" style="border-color: #B3C8CF; color: #4A6B7A;" placeholder="הערה מהירה..." aria-label="הערה מהירה">
+                                <button id="add-bulletin-note-btn-mobile" class="px-3 py-2 rounded-lg text-base font-bold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg" style="background: linear-gradient(135deg, #DEE5D4 0%, #C8D5B1 100%); color: #4A6B7A;">
                                     ➕
                                 </button>
                             </div>
@@ -561,9 +561,9 @@
                         </div>
                         
                         <div class="mb-4 space-y-2">
-                            <input type="text" id="memory-title-input-mobile" class="w-full border-2 border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg py-2 px-3 text-sm font-medium transition-all duration-300 bg-white shadow-sm" placeholder="כותרת זיכרון..." aria-label="כותרת זיכרון">
-                            <textarea id="memory-content-input-mobile" class="w-full border-2 border-slate-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg py-2 px-3 text-sm font-medium transition-all duration-300 bg-white shadow-sm resize-none" rows="2" placeholder="תארו את החוויה..."></textarea>
-                            <button id="add-memory-btn-mobile" class="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
+                            <input type="text" id="memory-title-input-mobile" class="w-full border-2 rounded-lg py-2 px-3 text-sm font-medium transition-all duration-300 bg-white shadow-sm" style="border-color: #B3C8CF; color: #4A6B7A;" placeholder="כותרת זיכרון..." aria-label="כותרת זיכרון">
+                            <textarea id="memory-content-input-mobile" class="w-full border-2 rounded-lg py-2 px-3 text-sm font-medium transition-all duration-300 bg-white shadow-sm resize-none" style="border-color: #B3C8CF; color: #4A6B7A;" rows="2" placeholder="תארו את החוויה..."></textarea>
+                            <button id="add-memory-btn-mobile" class="w-full px-4 py-2 rounded-lg text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg" style="background: linear-gradient(135deg, #FEF9D9 0%, #F4E4BC 100%); color: #4A6B7A;">
                                 <span class="flex items-center justify-center gap-2">
                                     <span>💫</span>
                                     <span>שמרו זיכרון</span>
@@ -601,7 +601,7 @@
             </button>
             <!-- Enhanced Header with Gradient -->
             <div class="relative bg-gradient-to-l from-cyan-500 via-teal-500 to-blue-500 p-8 text-white overflow-hidden">
-                <div class="absolute inset-0 bg-black/10"></div>
+                <div class="absolute inset-0" style="background: rgba(137, 168, 178, 0.1);"></div>
                 <div class="relative z-10">
                     <div class="flex items-center justify-center gap-3 mb-2">
                         <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
