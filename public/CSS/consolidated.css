@@ -1126,6 +1126,47 @@ input::placeholder, textarea::placeholder {
   hyphens: auto;
 }
 
+/* Fix for buttons with transform effects overflowing containers */
+.flex.gap-2, .flex.gap-3 {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.flex.gap-2 > *, .flex.gap-3 > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Specific fix for bulletin note buttons */
+#add-bulletin-note-btn, #add-bulletin-note-btn-mobile {
+  flex-shrink: 0;
+  min-width: fit-content;
+  position: relative;
+  z-index: 1;
+}
+
+#bulletin-note-input, #bulletin-note-input-mobile {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Fix for transform effects on buttons */
+button[class*="hover:scale"] {
+  transform-origin: center;
+}
+
+/* Ensure flex containers with buttons don't overflow */
+.flex.gap-2, .flex.gap-3 {
+  position: relative;
+  overflow: visible;
+}
+
+.flex.gap-2 > button, .flex.gap-3 > button {
+  position: relative;
+  z-index: 2;
+}
+
 /* Mobile-specific padding adjustments */
 @media (max-width: 768px) {
   .activity-card {
@@ -1172,6 +1213,49 @@ input::placeholder, textarea::placeholder {
   .activity-card .grid > * {
     max-width: 100%;
     min-width: 0;
+  }
+  
+  /* Mobile notes section container fixes */
+  .bg-white\/80.backdrop-blur-sm.rounded-2xl {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .bg-white\/80.backdrop-blur-sm.rounded-2xl .flex.gap-2 {
+    max-width: 100%;
+    overflow: visible;
+  }
+  
+  /* Mobile header optimizations */
+  #main-heading {
+    padding: 0 1rem;
+  }
+  
+  #main-heading .flex.items-center {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  #main-heading .flex.items-center span:last-child {
+    margin-top: 0.25rem;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  #main-heading {
+    font-size: 2rem !important;
+    padding: 0 0.5rem;
+  }
+  
+  #main-heading .flex.items-center {
+    gap: 0.25rem;
+  }
+  
+  #main-heading .inline-flex {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    font-size: 0.875rem !important;
   }
 }
 
