@@ -293,30 +293,23 @@ export class FamilyToast {
         const toastId = `toast-${Date.now()}`;
         toast.id = toastId;
         toast.className = `
-            max-w-sm w-full rounded-2xl shadow-2xl p-4 
+            max-w-sm w-full toast
             transform translate-x-full transition-all duration-300 
             pointer-events-auto cursor-pointer
             ${this.getTypeClasses(type)}
         `;
-        toast.style.background = 'linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%)';
-        toast.style.border = '1px solid #C8D5B1';
         
         const icon = this.icons[type] || this.icons.info;
         
         toast.innerHTML = `
-            <div class="flex items-center gap-3">
-                <div class="text-3xl animate-bounce">${icon}</div>
-                <div class="flex-1">
-                    <p class="font-medium" style="color: #4A6B7A;">${message}</p>
-                </div>
-                <button class="text-gray-400 hover:text-gray-600 text-xl" onclick="familyToast.hide('${toastId}')">
-                    ×
-                </button>
+            <div class="toast-icon">${icon}</div>
+            <div class="toast-content">
+                <div class="toast-message">${message}</div>
             </div>
-            <div class="toast-progress mt-2 h-1 rounded-full overflow-hidden" style="background: #E5E1DA;">
-                <div class="h-full transition-all duration-${duration}"
-                     style="width: 100%; transition: width ${duration}ms linear; background: linear-gradient(135deg, #C8D5B1 0%, #B3C8CF 100%);"></div>
-            </div>
+            <button class="toast-close" onclick="familyToast.hide('${toastId}')">
+                ×
+            </button>
+            <div class="toast-progress"></div>
         `;
         
         this.container.appendChild(toast);
