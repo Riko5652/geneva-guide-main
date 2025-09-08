@@ -2877,7 +2877,8 @@ export class EnhancedModalManager {
             }
             
             .enhanced-modal-content {
-                background: white;
+                background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%);
+                border: 1px solid #B3C8CF;
                 border-radius: 16px;
                 box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
                 max-width: 90vw;
@@ -2893,7 +2894,8 @@ export class EnhancedModalManager {
             
             .enhanced-modal-header {
                 padding: 20px 24px;
-                border-bottom: 1px solid #e5e7eb;
+                border-bottom: 1px solid #B3C8CF;
+                background: linear-gradient(135deg, #D2E0FB 0%, #B3C8CF 100%);
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -2902,15 +2904,15 @@ export class EnhancedModalManager {
             .enhanced-modal-title {
                 font-size: 20px;
                 font-weight: 600;
-                color: #1f2937;
+                color: #4A6B7A;
                 margin: 0;
             }
             
             .enhanced-modal-close {
-                background: none;
-                border: none;
+                background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%);
+                border: 1px solid #B3C8CF;
                 font-size: 24px;
-                color: #6b7280;
+                color: #5A7A8A;
                 cursor: pointer;
                 padding: 4px;
                 border-radius: 6px;
@@ -2918,19 +2920,22 @@ export class EnhancedModalManager {
             }
             
             .enhanced-modal-close:hover {
-                background: #f3f4f6;
-                color: #374151;
+                background: linear-gradient(135deg, #E5E1DA 0%, #B3C8CF 100%);
+                color: #4A6B7A;
             }
             
             .enhanced-modal-body {
                 padding: 24px;
                 overflow-y: auto;
                 max-height: 60vh;
+                background: #F1F0E8;
+                color: #4A6B7A;
             }
             
             .enhanced-modal-footer {
                 padding: 16px 24px;
-                border-top: 1px solid #e5e7eb;
+                border-top: 1px solid #B3C8CF;
+                background: #F1F0E8;
                 display: flex;
                 gap: 12px;
                 justify-content: flex-end;

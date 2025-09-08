@@ -981,7 +981,7 @@ input::placeholder, textarea::placeholder {
    MISSING MODAL STYLES - WARM & WHOLESOME
    ======================================== */
 
-/* Modal Overlay - Soft and warm */
+/* Modal Overlay - Swiss-inspired */
 .modal {
   position: fixed;
   top: 0;
@@ -1005,9 +1005,9 @@ input::placeholder, textarea::placeholder {
   visibility: visible;
 }
 
-/* Modal Content - Warm and inviting */
+/* Modal Content - Swiss-inspired */
 .modal-content {
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%);
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   max-width: 90vw;
@@ -1016,41 +1016,37 @@ input::placeholder, textarea::placeholder {
   position: relative;
   transform: scale(0.9) translateY(20px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #B3C8CF;
 }
 
 .modal.show .modal-content {
   transform: scale(1) translateY(0);
 }
 
-/* Modal Header - Warm and friendly */
+/* Modal Header - Swiss-inspired */
 .modal-header {
-  background: linear-gradient(135deg, #f0fdfa 0%, #ecfdf5 100%);
+  background: linear-gradient(135deg, #D2E0FB 0%, #B3C8CF 100%);
   padding: 24px 32px 16px;
   border-radius: 20px 20px 0 0;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #B3C8CF;
   position: relative;
 }
 
 .modal-title {
   font-size: 24px;
   font-weight: 700;
-  color: #1f2937;
+  color: #4A6B7A;
   margin: 0;
   text-align: center;
-  background: linear-gradient(135deg, #0891b2, #14b8a6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
-/* Modal Close Button - Soft and rounded */
+/* Modal Close Button - Swiss-inspired */
 .modal-close-btn {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-  border: none;
+  background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%);
+  border: 1px solid #B3C8CF;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -1063,7 +1059,7 @@ input::placeholder, textarea::placeholder {
 }
 
 .modal-close-btn:hover {
-  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  background: linear-gradient(135deg, #E5E1DA 0%, #B3C8CF 100%);
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -1071,14 +1067,15 @@ input::placeholder, textarea::placeholder {
 .modal-close-btn svg {
   width: 20px;
   height: 20px;
-  color: #6b7280;
+  color: #5A7A8A;
 }
 
-/* Modal Body - Comfortable spacing */
+/* Modal Body - Swiss-inspired */
 .modal-body {
   padding: 24px 32px;
   line-height: 1.6;
-  color: #374151;
+  color: #4A6B7A;
+  background: #F1F0E8;
 }
 
 /* Modal Footer - Action buttons */
@@ -1086,6 +1083,7 @@ input::placeholder, textarea::placeholder {
   padding: 16px 32px 24px;
   display: flex;
   gap: 12px;
+  background: #F1F0E8;
   justify-content: center;
   background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
   border-radius: 0 0 20px 20px;
