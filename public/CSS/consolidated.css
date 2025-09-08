@@ -989,11 +989,13 @@ input::placeholder, textarea::placeholder {
   display: grid;
   align-items: stretch; /* Ensures all grid items have the same height */
   overflow: hidden; /* Prevent grid overflow */
+  padding: 0; /* Remove any default padding */
+  min-width: 0; /* Allow grid to shrink below content width */
 }
 
 /* Ensure activities section container properly constrains its children */
-#activities .max-w-6xl {
-  max-width: 72rem; /* 6xl = 72rem */
+#activities .max-w-5xl {
+  max-width: 64rem; /* 5xl = 64rem */
   width: 100%;
 }
 
@@ -1002,13 +1004,38 @@ input::placeholder, textarea::placeholder {
   max-width: 100% !important;
 }
 
+/* Force activity cards to respect container width - fix for 348px vs 308px issue */
+.activity-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important; /* Allow cards to shrink below their content width */
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+/* Mobile-specific fix for activity card width overflow */
+@media (max-width: 768px) {
+  .activity-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex-shrink: 1 !important; /* Allow cards to shrink */
+  }
+  
+  #activities-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
 /* Ensure grid cells constrain their content */
 #activities-grid > * {
-  min-width: 0;
-  max-width: 100%;
-  overflow: hidden;
-  box-sizing: border-box;
-  width: 100%; /* Ensure grid items take full width of their grid cell */
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  width: 100% !important; /* Ensure grid items take full width of their grid cell */
 }
 
 /* Activity Cards Mobile Responsiveness */

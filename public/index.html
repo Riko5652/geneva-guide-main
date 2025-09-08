@@ -15,7 +15,7 @@
     <meta name="apple-mobile-web-app-title" content="Geneva Guide">
     <meta name="msapplication-TileColor" content="#0891b2">
     <meta name="msapplication-config" content="/browserconfig.xml">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://unpkg.com https://www.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://unpkg.com https://www.gstatic.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://apis.google.com https://*.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com https://cdn.tailwindcss.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;">
     <meta property="og:title" content="המדריך האינטראקטיבי לטיול משפחתי בז'נבה">
     <meta property="og:description" content="תכננו את הטיול המושלם לז'נבה עם המדריך האינטראקטיבי שלנו">
     <meta property="og:type" content="website">
@@ -363,8 +363,8 @@
             </div>
         </section>
 
-        <section id="activities" class="py-16 mb-16" style="background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%); border-radius: 2rem; margin: 1rem 0.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-            <div class="max-w-6xl mx-auto px-3 md:px-6">
+        <section id="activities" class="py-8 mb-12" style="background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%); border-radius: 2rem; margin: 1rem 0.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+            <div class="max-w-5xl mx-auto px-2 md:px-4">
                 <h2 class="section-title text-center text-3xl font-bold" style="color: #4A6B7A;">🎈 מאגר הפעילויות האינטראקטיבי</h2>
                 <p class="section-subtitle text-center" style="color: #5A7A8A;">מצאו את הבילוי המושלם לכל רגע. <strong>חשוב:</strong> לחצו תמיד על "לאתר הרשמי" כדי לוודא שעות פתיחה ומחירים עדכניים לפני היציאה.</p>
 
@@ -384,7 +384,7 @@
                 <button class="btn-filter rounded-full px-5 py-2 font-medium focus:ring-2 focus:outline-none" style="background: linear-gradient(135deg, #E5E1DA 0%, #B3C8CF 100%); color: #4A6B7A;" data-time-filter="60">🚆 מעל 40 דקות</button>
             </div>
 
-                <div id="activities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 px-2 md:px-0 w-full overflow-hidden">
+                <div id="activities-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 w-full overflow-hidden">
                 </div>
                 <div class="text-center mt-8 space-y-4">
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
