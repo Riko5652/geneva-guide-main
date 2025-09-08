@@ -2940,6 +2940,75 @@ li {
 
 
 /* ========================================
+   HERO BANNER ENHANCED STYLING
+   ======================================== */
+
+.hero-banner {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.hero-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(197, 211, 232, 0.1) 50%, transparent 70%);
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero-banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 248, 222, 0.8) 0%, rgba(208, 232, 197, 0.1) 100%);
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.hero-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(166, 174, 191, 0.2);
+}
+
+.hero-banner:hover::before {
+    animation-duration: 1.5s;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    50% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+}
+
+/* Enhanced title animation */
+#main-heading {
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(166, 174, 191, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(197, 211, 232, 0.6), 0 0 30px rgba(208, 232, 197, 0.4);
+    }
+}
+
+/* ========================================
    ACTIVITIES GRID FIX
    ======================================== */
 
