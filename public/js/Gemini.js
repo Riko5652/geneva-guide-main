@@ -115,7 +115,16 @@ async function handleSendMessage() {
         
     } catch (err) {
         thinkingIndicator.remove();
-        addChatMessage(`⚠️ שגיאה: ${err.message}`, "bot");
+        
+        // Enhanced error message for quota issues
+        let errorMessage = err.message;
+        if (err.message.includes('מגבלת השימוש היומית')) {
+            errorMessage = `🚫 ${err.message}\n\n💡 טיפים:\n• נסו שוב מחר\n• שדרגו את התוכנית ב-Google AI Studio\n• השתמשו במודל מהיר יותר (Flash)`;
+        } else if (err.message.includes('בעיה עם התוכנית')) {
+            errorMessage = `💳 ${err.message}\n\n🔗 בקרו ב: https://aistudio.google.com/app/apikey`;
+        }
+        
+        addChatMessage(`⚠️ ${errorMessage}`, "bot");
     }
 }
 
@@ -178,7 +187,7 @@ export async function testGeminiEndpoint() {
     }
 }
 
-export async function callGeminiWithParts(parts) {
+export async function callGeminiWithParts(parts, modelPreference = 'flash-exp') {
     try {
         // Ensure parts is properly formatted for Gemini API
         const formattedParts = Array.isArray(parts) 
@@ -187,7 +196,11 @@ export async function callGeminiWithParts(parts) {
             
         console.log("🤖 Sending request to Gemini API:", { contents: [{ role: "user", parts: formattedParts }] });
         
-        const requestBody = { contents: [{ role: "user", parts: formattedParts }] };
+        // Include model preference in request body
+        const requestBody = { 
+            contents: [{ role: "user", parts: formattedParts }],
+            model: modelPreference
+        };
         console.log("🤖 Request body:", JSON.stringify(requestBody, null, 2));
         
         console.log("🤖 Making fetch request to /api/gemini...");
@@ -242,6 +255,10 @@ export async function callGeminiWithParts(parts) {
             throw new Error("הבקשה לקחה יותר מדי זמן. נסו שוב.");
         } else if (err.message.includes('NetworkError') || err.message.includes('Failed to fetch')) {
             throw new Error("בעיית חיבור לאינטרנט. בדקו את החיבור ונסו שוב.");
+        } else if (err.message.includes('quota') || err.message.includes('429') || err.message.includes('Too Many Requests')) {
+            throw new Error("הגעתם למגבלת השימוש היומית ב-AI. נסו שוב מחר או שדרגו את התוכנית שלכם.");
+        } else if (err.message.includes('billing') || err.message.includes('plan')) {
+            throw new Error("בעיה עם התוכנית שלכם. אנא בדקו את פרטי החיוב ב-Google AI Studio.");
         }
         
         throw err;

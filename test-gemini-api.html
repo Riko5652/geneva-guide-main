@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini API Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Gemini API Test Tool</h1>
+    
+    <div class="test-section info">
+        <h3>📋 Instructions</h3>
+        <p>This tool will help us debug your Gemini API quota issue. Click the buttons below to test different scenarios.</p>
+    </div>
+
+    <div class="test-section">
+        <h3>🔍 Test 1: Check Netlify Function</h3>
+        <p>Test if your Netlify function is working and what error it returns.</p>
+        <button onclick="testNetlifyFunction()">Test Netlify Function</button>
+        <div id="netlify-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>🔑 Test 2: Check API Key (Safe)</h3>
+        <p>Check if your API key is properly configured (shows only first 10 characters).</p>
+        <button onclick="checkApiKey()">Check API Key</button>
+        <div id="apikey-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>📊 Test 3: Check Quota Status</h3>
+        <p>Test a simple request to see the exact error message.</p>
+        <button onclick="testQuota()">Test Quota</button>
+        <div id="quota-result"></div>
+    </div>
+
+    <script>
+        async function testNetlifyFunction() {
+            const resultDiv = document.getElementById('netlify-result');
+            resultDiv.innerHTML = '<p>🔄 Testing Netlify function...</p>';
+            
+            try {
+                const response = await fetch('/api/gemini', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ role: 'user', parts: [{ text: 'Hello, this is a test message.' }] }],
+                        model: 'flash-exp'
+                    })
+                });
+                
+                const data = await response.text();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<div class="success"><h4>✅ Success!</h4><pre>${data}</pre></div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="error"><h4>❌ Error ${response.status}</h4><pre>${data}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><h4>❌ Network Error</h4><pre>${error.message}</pre></div>`;
+            }
+        }
+
+        async function checkApiKey() {
+            const resultDiv = document.getElementById('apikey-result');
+            resultDiv.innerHTML = '<p>🔄 Checking API key configuration...</p>';
+            
+            try {
+                // This will trigger the API key check in the Netlify function
+                const response = await fetch('/api/gemini', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ role: 'user', parts: [{ text: 'test' }] }]
+                    })
+                });
+                
+                if (response.status === 500) {
+                    const error = await response.text();
+                    if (error.includes('GEMINI_API_KEY environment variable not set')) {
+                        resultDiv.innerHTML = '<div class="error"><h4>❌ API Key Not Set</h4><p>The GEMINI_API_KEY environment variable is not configured in Netlify.</p></div>';
+                    } else {
+                        resultDiv.innerHTML = `<div class="error"><h4>❌ Server Error</h4><pre>${error}</pre></div>`;
+                    }
+                } else {
+                    resultDiv.innerHTML = '<div class="success"><h4>✅ API Key is Configured</h4><p>The API key is properly set in Netlify.</p></div>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><h4>❌ Error</h4><pre>${error.message}</pre></div>`;
+            }
+        }
+
+        async function testQuota() {
+            const resultDiv = document.getElementById('quota-result');
+            resultDiv.innerHTML = '<p>🔄 Testing quota limits...</p>';
+            
+            try {
+                const response = await fetch('/api/gemini', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ role: 'user', parts: [{ text: 'What is the weather like today?' }] }],
+                        model: 'flash-exp'
+                    })
+                });
+                
+                const data = await response.text();
+                
+                if (response.status === 429) {
+                    resultDiv.innerHTML = `<div class="error"><h4>🚫 Quota Exceeded (429)</h4><pre>${data}</pre><p><strong>This confirms you're hitting quota limits!</strong></p></div>`;
+                } else if (response.ok) {
+                    resultDiv.innerHTML = `<div class="success"><h4>✅ Quota OK</h4><p>Your quota is working fine. The issue might be intermittent.</p></div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="error"><h4>❌ Error ${response.status}</h4><pre>${data}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><h4>❌ Network Error</h4><pre>${error.message}</pre></div>`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -656,7 +656,7 @@ async function handleGenerateCustomPlan() {
         const response = await callGeminiWithParts([
             `צור תוכנית יומית מפורטת לטיול משפחתי בז'נבה עם ילדים בני 2 ו-3 בהתבסס על הבקשה: "${prompt}". 
             כלול המלצות ספציפיות, זמני נסיעה, ועצות מעשיות להורים.`
-        ]);
+        ], 'pro'); // Use Pro model for complex planning
         
         // Save custom plan to Firebase
         const customPlanData = {
@@ -770,7 +770,7 @@ Respond with JSON array only:
   }
 ]`;
 
-        const response = await callGeminiWithParts([prompt]);
+        const response = await callGeminiWithParts([prompt], 'pro'); // Use Pro model for complex analysis
         
         // Try to parse JSON response
         let newActivities = [];
@@ -877,9 +877,13 @@ async function handleChatSend() {
     const input = document.getElementById('chat-input');
     const messagesContainer = document.getElementById('chat-messages');
     const loader = document.getElementById('chat-loader');
+    const modelSelector = document.getElementById('gemini-model-selector');
     const message = input.value.trim();
     
     if (!message) return;
+    
+    // Get selected model preference
+    const selectedModel = modelSelector ? modelSelector.value : 'flash-exp';
     
     // Add user message
     const userBubble = document.createElement('div');
@@ -913,7 +917,7 @@ async function handleChatSend() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
     
     try {
-        const response = await callGeminiWithParts([message]);
+        const response = await callGeminiWithParts([message], selectedModel);
         
         const geminieBubble = document.createElement('div');
         geminieBubble.className = 'chat-bubble gemini';
@@ -944,7 +948,19 @@ async function handleChatSend() {
     } catch (error) {
         const errorBubble = document.createElement('div');
         errorBubble.className = 'chat-bubble gemini';
-        errorBubble.textContent = 'סליחה, אני לא יכול לענות כרגע. נסה שוב מאוחר יותר.';
+        
+        // Enhanced error message for quota issues
+        let errorMessage = 'סליחה, אני לא יכול לענות כרגע. נסה שוב מאוחר יותר.';
+        if (error.message && error.message.includes('מגבלת השימוש היומית')) {
+            errorMessage = `🚫 ${error.message}\n\n💡 טיפים:\n• נסו שוב מחר\n• שדרגו את התוכנית ב-Google AI Studio\n• השתמשו במודל מהיר יותר (Flash)`;
+            
+            // Show quota exceeded notification
+            showQuotaExceededNotification();
+        } else if (error.message && error.message.includes('בעיה עם התוכנית')) {
+            errorMessage = `💳 ${error.message}\n\n🔗 בקרו ב: https://aistudio.google.com/app/apikey`;
+        }
+        
+        errorBubble.textContent = errorMessage;
         messagesContainer.appendChild(errorBubble);
         console.warn('Chat error:', error);
     }
@@ -1120,7 +1136,7 @@ async function handleAiRequest(type, event) {
     } catch (error) {
         console.warn('AI request failed:', error);
         // Show error in modal
-        showAiResponseModal('שגיאה בקבלת תשובה מהמומחה. נסו שוב מאוחר יותר.', modalTitle, false);
+        showAiResponseModal('שגיאה בקבלת תשובה מהמומחה. נסו שוב מאוחר יותר.', modalTitle || 'שגיאה', false);
     } finally {
         // Restore button
         button.disabled = false;
@@ -2341,6 +2357,46 @@ export function initializeEnhancedEventHandlers() {
     });
     
     console.log('Enhanced event handlers initialized');
+}
+
+// Show quota exceeded notification
+function showQuotaExceededNotification() {
+    // Check if notification already exists
+    if (document.getElementById('quota-exceeded-notification')) return;
+    
+    const notification = document.createElement('div');
+    notification.id = 'quota-exceeded-notification';
+    notification.className = 'fixed top-4 right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm';
+    notification.innerHTML = `
+        <div class="flex items-start">
+            <div class="flex-shrink-0">
+                <span class="text-2xl">🚫</span>
+            </div>
+            <div class="ml-3 flex-1">
+                <h3 class="text-sm font-semibold">מגבלת AI הושלמה</h3>
+                <p class="text-xs mt-1 opacity-90">הגעתם למגבלת השימוש היומית. נסו שוב מחר או שדרגו את התוכנית.</p>
+                <div class="mt-2 flex gap-2">
+                    <a href="https://aistudio.google.com/app/apikey" target="_blank" 
+                       class="text-xs bg-white bg-opacity-20 hover:bg-opacity-30 px-2 py-1 rounded transition-colors">
+                        שדרג תוכנית
+                    </a>
+                    <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" 
+                            class="text-xs bg-white bg-opacity-20 hover:bg-opacity-30 px-2 py-1 rounded transition-colors">
+                        סגור
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto-remove after 10 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 10000);
 }
 
 // Apply AI suggestions to the luggage planner
