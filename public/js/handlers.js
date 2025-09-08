@@ -969,84 +969,36 @@ async function handleChatSend() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// Format AI response with enhanced styling and structure
+// Format AI response with clean, site-consistent styling
 function formatAiResponse(text) {
-    // First, clean up and normalize the text
+    // Clean up the text - remove bullet points and excessive formatting
     let cleanedText = text
-        // Remove excessive asterisks and normalize formatting
-        .replace(/\*{3,}/g, '**') // Replace 3+ asterisks with 2
-        .replace(/\*{1}(?!\*)/g, '•') // Replace single asterisks with bullet points
-        .replace(/\*\*([^*]+)\*\*/g, '**$1**') // Normalize double asterisks
+        // Remove bullet points and asterisks
+        .replace(/^\s*[•\*\-]\s*/gm, '') // Remove bullet points
+        .replace(/\*{1,}/g, '') // Remove all asterisks
         .replace(/\n{3,}/g, '\n\n') // Reduce excessive line breaks
-        // Filter out inappropriate content for nature activities
-        .replace(/שכשוך בבריכה ומשחק בחול[^.]*\.?/g, 'טיול בטבע וצפייה בחיות (פארק טבע)')
-        .replace(/swimming in pool and playing in sand[^.]*\.?/g, 'Nature walk and animal watching (nature park)')
-        .replace(/\(קרוב לפארק\)/g, '') // Remove "(near the park)" references
-        .replace(/\(near the park\)/g, '') // Remove English version
+        .replace(/[^\u0000-\u007F\u0590-\u05FF\u2000-\u206F\u2E00-\u2E7F\u3000-\u303F\uFEFF]/g, '') // Remove non-printable characters
         .trim();
     
-    // Convert markdown-style formatting to HTML with enhanced styling
+    // Simple, clean formatting that matches the site's style
     let formatted = cleanedText
-        // Convert main headers with enhanced styling
-        .replace(/^## (.+)$/gm, '<h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-6 border-b-4 border-gradient-to-r from-blue-200 to-purple-200 pb-3 text-center drop-shadow-sm">$1</h2>')
+        // Convert headers to simple styled headers
+        .replace(/^(.+?):\s*$/gm, '<h3 class="text-lg font-bold mb-3" style="color: #4A6B7A;">$1</h3>')
         
-        // Convert section headers with enhanced styling (remove asterisks)
-        .replace(/^\*\*(.+?):\*\*/gm, '<h3 class="text-xl font-bold text-gray-800 mt-6 mb-4 flex items-center bg-gradient-to-r from-gray-50 to-blue-50 p-4 rounded-xl border-l-4 border-blue-500 shadow-sm"><span class="w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-3 shadow-md"></span><span class="text-lg">$1</span></h3>')
+        // Convert line breaks to proper paragraph breaks
+        .replace(/\n\n/g, '</p><p class="mb-3 text-gray-700 leading-relaxed">')
         
-        // Convert time ranges with special enhanced styling (remove asterisks)
-        .replace(/^\*\*(.+? - .+?):\*\*/gm, '<h4 class="text-lg font-semibold text-white mt-4 mb-3 flex items-center bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-lg shadow-md"><span class="text-xl mr-3">⏰</span><span class="font-bold">$1</span></h4>')
-        
-        // Convert detailed bullet points with enhanced styling (remove asterisks)
-        .replace(/^\* \*\*(.+?):\*\* (.+)$/gm, '<div class="mb-4 p-4 bg-gradient-to-br from-white to-blue-50 rounded-xl border-2 border-blue-200 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"><div class="font-bold text-blue-800 mb-2 text-lg flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>$1:</div><div class="text-gray-700 leading-relaxed text-base">$2</div></div>')
-        
-        // Convert simple bullet points with enhanced styling (remove asterisks)
-        .replace(/^\* (.+)$/gm, '<div class="mb-3 flex items-start p-3 bg-gradient-to-r from-gray-50 to-white rounded-lg border-l-4 border-purple-400 shadow-sm hover:shadow-md transition-all duration-200"><span class="text-purple-500 mr-3 mt-1 text-lg font-bold">•</span><span class="text-gray-700 leading-relaxed">$1</span></div>')
-        
-        // Handle numbered lists with enhanced styling
-        .replace(/^\d+\.\s+(.+)$/gm, '<div class="mb-3 flex items-start p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border-l-4 border-green-400 shadow-sm hover:shadow-md transition-all duration-200"><span class="text-green-600 mr-3 mt-1 text-sm font-bold bg-green-100 rounded-full w-6 h-6 flex items-center justify-center">$1</span><span class="text-gray-700 leading-relaxed">$2</span></div>')
-        
-        // Remove remaining asterisks from inline text
-        .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-800">$1</strong>')
-        .replace(/\*([^*]+)\*/g, '<em class="italic text-gray-700">$1</em>')
-        
-        // Convert line breaks to proper spacing with enhanced containers
-        .replace(/<br><br>/g, '</div><div class="mt-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border border-yellow-200">')
-        .replace(/<br>/g, '<br class="mb-3">')
-        
-        // Enhanced emojis with better styling (remove asterisks from labels)
-        .replace(/מטרה:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-red-100 to-pink-100 text-red-800 border border-red-200">🎯 מטרה:</span>')
-        .replace(/זמן:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-800 border border-blue-200">⏰ זמן:</span>')
-        .replace(/תחבורה:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-200">🚌 תחבורה:</span>')
-        .replace(/תוכנית:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-purple-100 to-violet-100 text-purple-800 border border-purple-200">📋 תוכנית:</span>')
-        .replace(/מיקום:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-orange-100 to-amber-100 text-orange-800 border border-orange-200">📍 מיקום:</span>')
-        .replace(/פעילות:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-pink-100 to-rose-100 text-pink-800 border border-pink-200">🎪 פעילות:</span>')
-        .replace(/טיפ:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-800 border border-yellow-200">💡 טיפ:</span>')
-        .replace(/טיפים נוספים:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-800 border border-yellow-200">💡 טיפים נוספים:</span>')
-        .replace(/בגדים:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-indigo-100 to-blue-100 text-indigo-800 border border-indigo-200">👕 בגדים:</span>')
-        .replace(/נעליים:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-gray-100 to-slate-100 text-gray-800 border border-gray-200">👟 נעליים:</span>')
-        .replace(/ציוד:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 border border-emerald-200">🎒 ציוד:</span>')
-        .replace(/זמן גמיש:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-800 border border-cyan-200">🔄 זמן גמיש:</span>')
-        .replace(/מפה:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-200">🗺️ מפה:</span>')
-        
-        // Enhanced friendly closing messages with animations
-        .replace(/תהנו מטיול משפחתי נפלא בז'נבה!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 animate-pulse">🎉 תהנו מטיול משפחתי נפלא בז\'נבה! 🎉</div>')
-        .replace(/בוקר נעים!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 animate-bounce">🌅 בוקר נעים! 🌅</div>')
-        .replace(/לילה טוב, ילדים!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-600 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300">🌙 לילה טוב, ילדים! 🌙</div>')
-        
-        // Clean up any remaining asterisks or markdown artifacts
-        .replace(/\*{1,}/g, '') // Remove any remaining single or multiple asterisks
-        .replace(/_{1,}/g, '') // Remove underscores
-        .replace(/`{1,}/g, '') // Remove backticks
-        .replace(/\s+/g, ' ') // Normalize whitespace
-        .trim();
+        // Wrap the entire content in a paragraph
+        .replace(/^/, '<p class="mb-3 text-gray-700 leading-relaxed">')
+        .replace(/$/, '</p>');
     
     // Wrap in an enhanced container with better styling and animations
     return `
         <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-            <div class="space-y-6 p-6 bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-2xl border border-blue-200 shadow-lg">
+            <div class="space-y-6 p-6 rounded-2xl shadow-lg" style="background: linear-gradient(135deg, #ffffff 0%, #D2E0FB 50%, #B3C8CF 100%); border: 1px solid #89A8B2;">
                 <div class="text-center mb-6">
                     <div class="ai-response-button inline-flex items-center px-6 py-3 text-white rounded-2xl text-sm font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(135deg, rgba(241, 240, 232, 0.3) 0%, transparent 100%);"></div>
                         <div class="relative flex items-center">
                             <div class="flex items-center mr-3">
                                 <span class="w-3 h-3 bg-white rounded-full mr-1 animate-pulse"></span>

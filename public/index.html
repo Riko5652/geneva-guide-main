@@ -68,8 +68,18 @@
                 <a href="#" class="text-xl font-bold text-accent">ז'נבה עם קטנטנים 🧸</a>
                 
                 <div class="hidden lg:flex items-center space-x-6 space-x-reverse">
-                    <a href="#plan" class="hover:text-accent">🗺️ מסלול</a>
-                    <a href="#activities" class="hover:text-accent">🎈 פעילויות</a>
+                    <a href="#plan" class="hover:text-accent flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                        </svg>
+                        מסלול
+                    </a>
+                    <a href="#activities" class="hover:text-accent flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        פעילויות
+                    </a>
                     <button id="open-packing-modal-btn" class="hover:text-accent flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -124,8 +134,18 @@
                 </div>
             </div>
             <div id="mobile-menu" class="hidden lg:hidden mt-3 space-y-2">
-                <a href="#plan" class="mobile-menu-link block py-2 px-4 text-sm hover:bg-gray-200 rounded-md">🗺️ מסלול</a>
-                <a href="#activities" class="mobile-menu-link block py-2 px-4 text-sm hover:bg-gray-200 rounded-md">🎈 פעילויות</a>
+                <a href="#plan" class="mobile-menu-link block py-2 px-4 text-sm hover:bg-gray-200 rounded-md flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                    </svg>
+                    מסלול
+                </a>
+                <a href="#activities" class="mobile-menu-link block py-2 px-4 text-sm hover:bg-gray-200 rounded-md flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    פעילויות
+                </a>
                 <button id="open-packing-modal-btn-mobile"
                     class="w-full text-right py-2 px-4 text-sm hover:bg-gray-200 rounded-md flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
@@ -193,29 +213,29 @@
                 </p>
             
                 <!-- Quick Status Panel for Mobile Users -->
-                <div class="rounded-xl sm:rounded-2xl p-4 sm:p-6 max-w-4xl mx-auto shadow-sm" style="background: linear-gradient(135deg, #D2E0FB 0%, #B3C8CF 100%); border: 1px solid #89A8B2;">
-                    <h2 class="text-base sm:text-lg font-bold text-gray-800 mb-3 sm:mb-4 text-center">🎯 סטטוס הטיול המהיר</h2>
+                <div class="rounded-xl sm:rounded-2xl p-4 sm:p-6 max-w-4xl mx-auto shadow-sm" style="background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%); border: 1px solid #B3C8CF;">
+                    <h2 class="text-base sm:text-lg font-bold mb-3 sm:mb-4 text-center" style="color: #4A6B7A;">🎯 סטטוס הטיול המהיר</h2>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 text-xs sm:text-sm">
-                        <div class="flex items-center justify-center p-2 sm:p-3 bg-white rounded-lg shadow-sm">
+                        <div class="flex items-center justify-center p-2 sm:p-3 rounded-lg shadow-sm" style="background: #F4E4BC; border: 1px solid #C8D5B1;">
                             <span class="font-semibold flex items-center gap-1 sm:gap-2" id="quick-weather" style="color: #4A6B7A;">
                                 <span class="text-sm sm:text-base">🌤️</span>
                                 <span class="truncate">טוען מזג אוויר...</span>
                             </span>
                         </div>
-                        <div class="flex items-center justify-center p-2 sm:p-3 bg-white rounded-lg shadow-sm">
-                            <span class="text-green-600 font-semibold flex items-center gap-1 sm:gap-2" id="quick-hotel">
+                        <div class="flex items-center justify-center p-2 sm:p-3 rounded-lg shadow-sm" style="background: #F4E4BC; border: 1px solid #C8D5B1;">
+                            <span class="font-semibold flex items-center gap-1 sm:gap-2" id="quick-hotel" style="color: #4A6B7A;">
                                 <span class="text-sm sm:text-base">🏨</span>
                                 <span class="truncate">Mercure Meyrin</span>
                             </span>
                         </div>
-                        <div class="flex items-center justify-center p-2 sm:p-3 bg-white rounded-lg shadow-sm">
-                            <span class="text-purple-600 font-semibold flex items-center gap-1 sm:gap-2" id="quick-transport">
+                        <div class="flex items-center justify-center p-2 sm:p-3 rounded-lg shadow-sm" style="background: #F4E4BC; border: 1px solid #C8D5B1;">
+                            <span class="font-semibold flex items-center gap-1 sm:gap-2" id="quick-transport" style="color: #4A6B7A;">
                                 <span class="text-sm sm:text-base">🚊</span>
                                 <span class="truncate">Geneva Card</span>
                             </span>
                         </div>
-                        <div class="flex items-center justify-center p-2 sm:p-3 bg-white rounded-lg shadow-sm">
-                            <span class="text-orange-600 font-semibold flex items-center gap-1 sm:gap-2">
+                        <div class="flex items-center justify-center p-2 sm:p-3 rounded-lg shadow-sm" style="background: #F4E4BC; border: 1px solid #C8D5B1;">
+                            <span class="font-semibold flex items-center gap-1 sm:gap-2" style="color: #4A6B7A;">
                                 <span class="text-sm sm:text-base">🕐</span>
                                 <span id="current-time" class="truncate">--:--</span>
                             </span>
@@ -225,8 +245,8 @@
             </div>
         </section>
 
-        <section id="bookings" class="rounded-2xl p-8 md:p-12 mb-16 shadow-lg" style="background: linear-gradient(135deg, #ffffff 0%, #D2E0FB 50%, #B3C8CF 100%); border: 1px solid #89A8B2;">
-            <h2 class="text-3xl font-bold text-center mb-4" style="background: linear-gradient(135deg, #89A8B2 0%, #6B8FA3 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">✈️ מרכז ההזמנות שלכם 🏨</h2>
+        <section id="bookings" class="rounded-2xl p-8 md:p-12 mb-16 shadow-lg" style="background: #F1F0E8; border: 1px solid #B3C8CF;">
+            <h2 class="text-3xl font-bold text-center mb-4" style="color: #4A6B7A;">✈️ מרכז ההזמנות שלכם 🏨</h2>
             <p class="text-lg text-gray-600 text-center mb-8">גישה מהירה לפרטי הטיסות והמלון שלכם.</p>
             <div id="flight-alert" class="hidden max-w-4xl mx-auto mb-4 p-4 bg-red-100 border-l-4 border-red-500 text-red-700">
                 <p class="font-bold">🚨 עדכון חשוב בטיסות!</p>
@@ -356,7 +376,12 @@
         </section>
 
         <section id="plan" class="py-16 mb-16">
-            <h2 class="section-title text-center text-3xl font-bold">🗺️ מסלול יומי גמיש והיררכי</h2>
+            <h2 class="section-title text-center text-3xl font-bold flex items-center justify-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+                מסלול יומי גמיש והיררכי
+            </h2>
             <p class="section-subtitle text-center">זוהי הצעה מפורטת עם חלופות לכל יום. אתם מוזמנים לבחור את השילוב המושלם עבורכם.</p>
             <div id="itinerary-container" class="space-y-8 max-w-4xl mx-auto">
                 <!-- Itinerary day cards will be populated by js based on Firebase itineraryData -->
@@ -365,7 +390,12 @@
 
         <section id="activities" class="py-8 mb-12" style="background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%); border-radius: 2rem; margin: 1rem 0.5rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
             <div class="max-w-5xl mx-auto px-2 md:px-4">
-                <h2 class="section-title text-center text-3xl font-bold" style="color: #4A6B7A;">🎈 מאגר הפעילויות האינטראקטיבי</h2>
+                <h2 class="section-title text-center text-3xl font-bold flex items-center justify-center gap-3" style="color: #4A6B7A;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    מאגר הפעילויות האינטראקטיבי
+                </h2>
                 <p class="section-subtitle text-center" style="color: #5A7A8A;">מצאו את הבילוי המושלם לכל רגע. <strong>חשוב:</strong> לחצו תמיד על "לאתר הרשמי" כדי לוודא שעות פתיחה ומחירים עדכניים לפני היציאה.</p>
 
                 <div class="flex flex-wrap justify-center gap-3 mb-8 p-4 rounded-2xl shadow-sm" style="background: rgba(255, 255, 255, 0.7); border: 1px solid #B3C8CF;">
@@ -908,7 +938,7 @@
     </div>
 
     <!-- Enhanced Loading Screen -->
-    <div id="family-loader" class="fixed inset-0 bg-gradient-to-br from-blue-50 to-cyan-100 flex items-center justify-center z-50">
+    <div id="family-loader" class="fixed inset-0 flex items-center justify-center z-50" style="background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%);">
         <div class="text-center">
             <div class="loader mb-4"></div>
             <h2 class="text-2xl font-bold text-gray-800 mb-2">טוען את המדריך...</h2>
