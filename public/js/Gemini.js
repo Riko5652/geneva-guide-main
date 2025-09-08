@@ -209,7 +209,7 @@ export async function callGeminiWithParts(parts, modelPreference = 'flash-exp') 
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(requestBody),
-            signal: AbortSignal.timeout(10000) // 10 second timeout for faster debugging
+            signal: AbortSignal.timeout(30000) // 30 second timeout for AI requests
         });
         
         console.log("🤖 Fetch request completed, processing response...");
@@ -251,8 +251,8 @@ export async function callGeminiWithParts(parts, modelPreference = 'flash-exp') 
         });
         
         // More specific error messages
-        if (err.name === 'AbortError') {
-            throw new Error("הבקשה לקחה יותר מדי זמן. נסו שוב.");
+        if (err.name === 'AbortError' || err.name === 'TimeoutError') {
+            throw new Error("הבקשה לקחה יותר מדי זמן (30 שניות). נסו שוב או פשטו את השאלה.");
         } else if (err.message.includes('NetworkError') || err.message.includes('Failed to fetch')) {
             throw new Error("בעיית חיבור לאינטרנט. בדקו את החיבור ונסו שוב.");
         } else if (err.message.includes('quota') || err.message.includes('429') || err.message.includes('Too Many Requests')) {
