@@ -1609,13 +1609,31 @@ export function handleSwapActivity(button) {
     console.log('📊 Current data:', currentData);
     console.log('📋 Itinerary data:', currentData?.itineraryData);
     
-    const dayData = currentData.itineraryData && currentData.itineraryData[dayIndex];
+    // Check if we have itinerary data at all
+    if (!currentData?.itineraryData || !Array.isArray(currentData.itineraryData)) {
+        console.log('❌ No itinerary data available');
+        alert('לא נמצאו נתוני תוכנית. אנא ודא שהתוכנית נטענה כראוי.');
+        return;
+    }
+    
+    // Check if the requested day exists
+    const dayData = currentData.itineraryData[dayIndex];
     console.log('📅 Day data for index', dayIndex, ':', dayData);
     
     if (!dayData) {
         console.log('❌ No day data found for index:', dayIndex);
-        console.log('📋 Available itinerary data:', currentData.itineraryData);
-        alert(`לא נמצאו נתונים ליום ${dayIndex + 1}. אנא ודא שהתוכנית נטענה כראוי.`);
+        console.log('📋 Available itinerary data length:', currentData.itineraryData.length);
+        console.log('📋 Available days:', currentData.itineraryData.map((day, idx) => `Day ${idx + 1}: ${day.dayName || 'Unnamed'}`));
+        
+        // Provide more helpful error message
+        const availableDays = currentData.itineraryData.length;
+        const requestedDay = dayIndex + 1;
+        
+        if (requestedDay > availableDays) {
+            alert(`התוכנית כוללת רק ${availableDays} ימים. לא ניתן להחליף פעילות ביום ${requestedDay}.`);
+        } else {
+            alert(`לא נמצאו נתונים ליום ${requestedDay}. אנא ודא שהתוכנית נטענה כראוי.`);
+        }
         return;
     }
     

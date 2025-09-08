@@ -231,6 +231,9 @@ class ModalManager {
         const stackIndex = this.modalStack.findIndex(item => item.id === modalId);
         if (stackIndex !== -1) {
             this.modalStack.splice(stackIndex, 1);
+            console.log('📋 Removed modal from stack, remaining:', this.modalStack.length);
+        } else {
+            console.log('⚠️ Modal not found in stack, but closing anyway');
         }
         
         // Add fade-out animation
@@ -245,9 +248,19 @@ class ModalManager {
             
             // Restore scroll if no modals are open
             if (this.modalStack.length === 0) {
-                document.body.style.overflow = 'auto';
-                document.body.style.overflowX = 'hidden'; // Maintain CSS overflow-x: hidden
-                console.log('🎭 Body scroll restored');
+                // Double-check that no modals are actually visible
+                const visibleModals = document.querySelectorAll('.modal:not(.hidden)');
+                if (visibleModals.length === 0) {
+                    // Force remove overflow restrictions while preserving other styles
+                    document.body.style.overflow = 'auto';
+                    document.body.style.overflowY = 'auto';
+                    document.body.style.overflowX = 'hidden';
+                    console.log('🎭 Body scroll restored - overflow: auto, overflowY: auto, overflowX: hidden');
+                } else {
+                    console.log('⚠️ Found visible modals, not restoring body overflow:', visibleModals.length);
+                }
+            } else {
+                console.log('📋 Still have modals in stack, not restoring body overflow:', this.modalStack.length);
             }
             
             // Back button removal not needed - no back button exists
@@ -376,6 +389,16 @@ export function goBackModal() {
 
 export function closeAllModals() {
     modalManager.closeAllModals();
+}
+
+/**
+ * Force restore body overflow - useful as a fallback
+ */
+export function forceRestoreBodyOverflow() {
+    document.body.style.overflow = 'auto';
+    document.body.style.overflowY = 'auto';
+    document.body.style.overflowX = 'hidden';
+    console.log('🔧 Force restored body overflow');
 }
 
 /**

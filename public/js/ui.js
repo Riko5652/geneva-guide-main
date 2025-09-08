@@ -574,76 +574,122 @@ function renderItinerary() {
             if (activity) {
                 const googleMapsUrl = activity.lat && activity.lon ? 
                     `https://www.google.com/maps/dir/?api=1&destination=${activity.lat},${activity.lon}` : null;
+                const formattedHours = getFormattedOpeningHours(activity);
                 
             return `
-                    <div class="activity-detail-card bg-blue-50 border border-blue-200 p-4 rounded-lg mb-2">
-                        <h5 class="font-bold text-blue-800">${activity.name}</h5>
-                        <div class="text-sm text-gray-700 mt-2 space-y-2">
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-blue-500">⏱️</span>
-                                    <span><strong>זמן נסיעה:</strong> ${activity.time || 'לא ידוע'} דקות</span>
+                    <div class="activity-detail-card bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-6 mb-4">
+                        <div class="flex items-start justify-between mb-4">
+                            <h5 class="font-bold text-xl text-slate-800">${activity.name}</h5>
+                            <span class="activity-category-badge bg-slate-100 text-slate-700 px-3 py-1.5 text-sm font-semibold rounded-full">
+                                ${activity.category}
+                            </span>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <!-- Key Information Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-blue-600 text-sm">⏱️</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-500 font-medium">זמן נסיעה</p>
+                                        <p class="text-sm font-semibold text-slate-700">${activity.time || 'לא ידוע'} דקות</p>
+                                    </div>
                                 </div>
-                                ${activity.openingHours ? `
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-green-500">🕒</span>
-                                        <span><strong>שעות פתיחה:</strong> ${activity.openingHours}</span>
+                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-green-600 text-sm">🕒</span>
                                     </div>
-                                ` : ''}
+                                    <div>
+                                        <p class="text-xs text-slate-500 font-medium">שעות פתיחה</p>
+                                        <p class="text-sm font-semibold text-slate-700">${formattedHours.today}</p>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <!-- Additional Details Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 ${activity.recommendedTime ? `
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-purple-500">⭐</span>
-                                        <span><strong>זמן מומלץ:</strong> ${activity.recommendedTime}</span>
+                                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                        <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                                            <span class="text-purple-600 text-sm">⭐</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500 font-medium">זמן מומלץ</p>
+                                            <p class="text-sm font-semibold text-slate-700">${activity.recommendedTime}</p>
+                                        </div>
                                     </div>
-                                ` : ''}
+                                ` : '<div></div>'}
                                 ${activity.duration ? `
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-orange-500">⏰</span>
-                                        <span><strong>משך ביקור:</strong> ${activity.duration}</span>
+                                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                        <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
+                                            <span class="text-orange-600 text-sm">⏰</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500 font-medium">משך ביקור</p>
+                                            <p class="text-sm font-semibold text-slate-700">${activity.duration}</p>
+                                        </div>
                                     </div>
-                                ` : ''}
+                                ` : '<div></div>'}
                             </div>
                             
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                ${activity.transport ? `
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-indigo-500">🚌</span>
-                                        <span><strong>תחבורה:</strong> ${activity.transport}</span>
-                                    </div>
-                                ` : ''}
+                            <!-- Cost and Transport -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 ${activity.cost ? `
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-emerald-500">💰</span>
-                                        <span><strong>עלות:</strong> ${activity.cost}</span>
+                                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                        <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                                            <span class="text-emerald-600 text-sm">💰</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500 font-medium">עלות</p>
+                                            <p class="text-sm font-semibold text-slate-700">${activity.cost}</p>
+                                        </div>
                                     </div>
-                                ` : ''}
+                                ` : '<div></div>'}
+                                ${activity.transport ? `
+                                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                        <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
+                                            <span class="text-indigo-600 text-sm">🚌</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-slate-500 font-medium">תחבורה</p>
+                                            <p class="text-sm font-semibold text-slate-700">${activity.transport}</p>
+                                        </div>
+                                    </div>
+                                ` : '<div></div>'}
                             </div>
                             
                             ${activity.address ? `
-                                <div class="flex items-start gap-2">
-                                    <span class="text-red-500 mt-0.5">📍</span>
-                                    <span><strong>כתובת:</strong> ${activity.address}</span>
+                                <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mt-0.5">
+                                        <span class="text-red-600 text-sm">📍</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-500 font-medium">כתובת</p>
+                                        <p class="text-sm font-semibold text-slate-700">${activity.address}</p>
+                                    </div>
                                 </div>
                             ` : ''}
                             
                             ${activity.description ? `
-                                <div class="mt-3 p-3 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border-l-4 border-blue-400">
-                                    <div class="flex items-start gap-2">
-                                        <span class="text-blue-500 mt-0.5">📝</span>
-                                        <div>
-                                            <strong class="text-gray-800">תיאור:</strong>
-                                            <p class="text-gray-700 mt-1 leading-relaxed">${activity.description}</p>
+                                <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mt-0.5">
+                                            <span class="text-blue-600 text-sm">📝</span>
+                                        </div>
+                                        <div class="flex-1">
+                                            <p class="text-xs text-blue-600 font-semibold mb-1">תיאור</p>
+                                            <p class="text-sm text-slate-700 leading-relaxed">${activity.description}</p>
                                         </div>
                                     </div>
                                 </div>
                             ` : ''}
+                            
                             ${googleMapsUrl ? `
-                                <div class="mt-3">
+                                <div class="flex justify-center pt-2">
                                     <a href="${googleMapsUrl}" target="_blank" 
-                                       class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg shadow-md">
+                                       class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg shadow-md">
                                         <span class="text-base">🗺️</span>
                                         <span>נווט באפליקציה</span>
                                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -689,8 +735,8 @@ function renderItinerary() {
         return `<li>${description}</li>`;
     };
     
-    container.innerHTML = currentData.itineraryData.map(day => `
-        <div class="bg-white p-6 rounded-xl shadow-lg border-r-4 border-accent" data-day-index="${day.dayIndex || day.day}">
+    container.innerHTML = currentData.itineraryData.map((day, index) => `
+        <div class="bg-white p-6 rounded-xl shadow-lg border-r-4 border-accent" data-day-index="${index}">
             <h3 class="font-bold text-2xl mb-4 text-gray-800">${day.dayName} - ${day.date}</h3>
             <h4 class="text-lg font-semibold text-gray-700 mb-4">${day.title}</h4>
             <div class="space-y-4">
@@ -721,28 +767,28 @@ function renderItinerary() {
                                 <div class="border-t pt-6 mt-6">
                             <h5 class="text-sm font-semibold text-gray-600 mb-4 text-center">פעולות חכמות ליום זה</h5>
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3">
-                                <button class="group relative bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-plan-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="group relative bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-plan-btn text-sm md:text-base" data-day-index="${index}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">✨</span>
                                         <span class="whitespace-nowrap">תכנן בוקר</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-summary-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="group relative bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-summary-btn text-sm md:text-base" data-day-index="${index}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">📝</span>
                                         <span class="whitespace-nowrap">סכם לילדים</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-story-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="group relative bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-story-btn text-sm md:text-base" data-day-index="${index}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">📖</span>
                                         <span class="whitespace-nowrap">סיפור לילדים</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg swap-activity-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="group relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg swap-activity-btn text-sm md:text-base" data-day-index="${index}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">🔄</span>
                                         <span class="whitespace-nowrap">החלף פעילות</span>
@@ -895,116 +941,166 @@ export function renderActivities() {
         const activityImage = activity.image || getActivityImage(activity.category, activity.name);
         
     return `
-            <div class="activity-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col ${isNewItem ? 'new-item-highlight' : ''}" 
+            <div class="activity-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col border border-slate-200 ${isNewItem ? 'new-item-highlight' : ''}" 
                  data-category="${activity.category}" data-travel-time="${activity.time || '0'}" data-activity-id="${activity.id || activity.name}">
                 
                 ${activityImage ? `
-                    <div class="relative h-48 overflow-hidden">
+                    <div class="relative h-52 overflow-hidden">
                         <img src="${activityImage}" 
                              alt="${activity.name}" 
                              class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                              onerror="this.onerror=null; this.src='${generatePlaceholderImage(activity.name)}'; this.alt='${activity.name} - תמונה לא זמינה';"
                              loading="lazy">
-                        <div class="absolute top-2 right-2">
-                            <span class="category-badge ${activity.category} px-2 py-1 text-xs rounded-full">${activity.category}</span>
+                        <!-- Enhanced Category Badge -->
+                        <div class="absolute top-3 right-3">
+                            <span class="activity-category-badge bg-white/90 backdrop-blur-sm text-slate-700 px-3 py-1.5 text-sm font-semibold rounded-full shadow-md border border-slate-200">
+                                ${activity.category}
+                            </span>
                         </div>
-                        ${activity.generated ? '<div class="absolute top-2 left-2 bg-purple-500 text-white px-2 py-1 text-xs rounded-full">🤖 AI</div>' : ''}
+                        ${activity.generated ? '<div class="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white px-3 py-1.5 text-xs font-semibold rounded-full shadow-md">🤖 AI</div>' : ''}
                     </div>
                 ` : ''}
                 
                 <div class="p-6 flex flex-col flex-grow">
                     <!-- Header Section -->
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="font-bold text-lg text-gray-800 leading-tight">${activity.name}</h3>
-                        ${!activityImage ? `<span class="category-badge ${activity.category}">${activity.category}</span>` : ''}
+                    <div class="mb-4">
+                        <h3 class="font-bold text-xl text-slate-800 leading-tight mb-2">${activity.name}</h3>
+                        ${!activityImage ? `
+                            <span class="activity-category-badge bg-slate-100 text-slate-700 px-3 py-1.5 text-sm font-semibold rounded-full inline-block">
+                                ${activity.category}
+                            </span>
+                        ` : ''}
                     </div>
                     
-                    <!-- Content Section - Flexible -->
-                    <div class="flex-grow space-y-3 mb-4">
-                        <!-- Timing Information Grid -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            <div class="flex items-center gap-2 p-2 bg-blue-50 rounded-lg">
-                                <span class="text-blue-500 text-sm">⏱️</span>
-                                <span class="text-sm font-medium text-gray-700">זמן נסיעה: ${travelTime} דקות</span>
+                    <!-- Content Section - Professional Layout -->
+                    <div class="flex-grow space-y-4 mb-6">
+                        <!-- Key Information Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                                    <span class="text-blue-600 text-sm">⏱️</span>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 font-medium">זמן נסיעה</p>
+                                    <p class="text-sm font-semibold text-slate-700">${travelTime} דקות</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
-                                <span class="text-green-500 text-sm">🕒</span>
-                                <span class="text-sm font-medium text-gray-700">${formattedHours.today}</span>
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <span class="text-green-600 text-sm">🕒</span>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 font-medium">שעות פתיחה</p>
+                                    <p class="text-sm font-semibold text-slate-700">${formattedHours.today}</p>
+                                </div>
                             </div>
                         </div>
                         
-                        <!-- Additional Information Grid -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <!-- Additional Details Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             ${activity.recommendedTime ? `
-                                <div class="flex items-center gap-2 p-2 bg-purple-50 rounded-lg">
-                                    <span class="text-purple-500 text-sm">⭐</span>
-                                    <span class="text-sm font-medium text-gray-700">זמן מומלץ: ${activity.recommendedTime}</span>
+                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-purple-600 text-sm">⭐</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-500 font-medium">זמן מומלץ</p>
+                                        <p class="text-sm font-semibold text-slate-700">${activity.recommendedTime}</p>
+                                    </div>
                                 </div>
                             ` : '<div></div>'}
                             ${activity.duration ? `
-                                <div class="flex items-center gap-2 p-2 bg-orange-50 rounded-lg">
-                                    <span class="text-orange-500 text-sm">⏰</span>
-                                    <span class="text-sm font-medium text-gray-700">משך ביקור: ${activity.duration}</span>
+                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-orange-600 text-sm">⏰</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-500 font-medium">משך ביקור</p>
+                                        <p class="text-sm font-semibold text-slate-700">${activity.duration}</p>
+                                    </div>
                                 </div>
                             ` : '<div></div>'}
                         </div>
                         
                         <!-- Cost and Transport -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             ${activity.cost ? `
-                                <div class="flex items-center gap-2 p-2 bg-emerald-50 rounded-lg">
-                                    <span class="text-emerald-500 text-sm">💰</span>
-                                    <span class="text-sm font-medium text-gray-700">${activity.cost}</span>
+                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-emerald-600 text-sm">💰</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-500 font-medium">עלות</p>
+                                        <p class="text-sm font-semibold text-slate-700">${activity.cost}</p>
+                                    </div>
                                 </div>
                             ` : '<div></div>'}
                             ${activity.transport ? `
-                                <div class="flex items-center gap-2 p-2 bg-indigo-50 rounded-lg">
-                                    <span class="text-indigo-500 text-sm">🚌</span>
-                                    <span class="text-sm font-medium text-gray-700">${activity.transport}</span>
+                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                    <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
+                                        <span class="text-indigo-600 text-sm">🚌</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-500 font-medium">תחבורה</p>
+                                        <p class="text-sm font-semibold text-slate-700">${activity.transport}</p>
+                                    </div>
                                 </div>
                             ` : '<div></div>'}
                         </div>
                         
                         ${activity.address ? `
-                            <div class="flex items-start gap-2 p-2 bg-red-50 rounded-lg">
-                                <span class="text-red-500 text-sm mt-0.5">📍</span>
-                                <span class="text-sm font-medium text-gray-700">${activity.address}</span>
+                            <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
+                                <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mt-0.5">
+                                    <span class="text-red-600 text-sm">📍</span>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-500 font-medium">כתובת</p>
+                                    <p class="text-sm font-semibold text-slate-700">${activity.address}</p>
+                                </div>
                             </div>
                         ` : ''}
                         
-                        ${activity.description ? `<p class="text-gray-700 text-sm line-clamp-3">${activity.description}</p>` : ''}
+                        ${activity.description ? `
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                                <p class="text-slate-700 text-sm leading-relaxed">${activity.description}</p>
+                            </div>
+                        ` : ''}
                         
-                        <!-- What to Bring Section - Always present for consistent height -->
-                        <div class="text-xs text-gray-600 bg-blue-50 p-3 rounded-lg min-h-[3rem] flex items-center">
-                            ${activity.whatToBring && activity.whatToBring.length > 0 ? `
-                                <div>
-                                    <strong>💡 מה לקחת:</strong> ${activity.whatToBring.join(', ')}
+                        <!-- What to Bring Section -->
+                        <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
+                            <div class="flex items-start gap-3">
+                                <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mt-0.5">
+                                    <span class="text-blue-600 text-sm">💡</span>
                                 </div>
-                            ` : `
-                                <div class="text-gray-400 italic">
-                                    💡 מה לקחת: מידע לא זמין
+                                <div class="flex-1">
+                                    <p class="text-xs text-blue-600 font-semibold mb-1">מה לקחת</p>
+                                    ${activity.whatToBring && activity.whatToBring.length > 0 ? `
+                                        <p class="text-sm text-slate-700">${activity.whatToBring.join(', ')}</p>
+                                    ` : `
+                                        <p class="text-sm text-slate-500 italic">מידע לא זמין</p>
+                                    `}
                                 </div>
-                            `}
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Action Buttons Section - Fixed at bottom -->
-                    <div class="flex flex-wrap gap-2 justify-between md:justify-stretch mt-auto">
+                    <!-- Action Buttons Section -->
+                    <div class="flex flex-wrap gap-3 mt-auto">
                         ${activity.link ? `
                             <a href="${activity.link}" target="_blank" 
-                               class="inline-flex items-center gap-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-xs px-3 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex-1 md:flex-none md:flex-grow text-center font-medium">
+                               class="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
                                 <span>🌐</span>
                                 <span>לאתר הרשמי</span>
                             </a>
                         ` : ''}
                         ${googleMapsUrl ? `
                             <a href="${googleMapsUrl}" target="_blank" 
-                               class="inline-flex items-center gap-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-xs px-3 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex-1 md:flex-none md:flex-grow text-center font-medium">
+                               class="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
                                 <span>🗺️</span>
                                 <span>נווט</span>
                             </a>
                         ` : ''}
-                        <button class="activity-details-btn inline-flex items-center gap-1 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 text-xs px-3 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-md flex-1 md:flex-none md:flex-grow text-center font-medium" data-activity-id="${activity.id || activity.name}">
+                        <button class="activity-details-btn flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-slate-100 to-slate-200 hover:from-slate-200 hover:to-slate-300 text-slate-700 px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-md" data-activity-id="${activity.id || activity.name}">
                             <span>👁️</span>
                             <span>פרטים</span>
                         </button>

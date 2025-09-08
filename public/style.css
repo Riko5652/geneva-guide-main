@@ -921,6 +921,56 @@ input[type="text"]:focus {
     flex-direction: column;
 }
 
+/* Enhanced Activity Category Badge */
+.activity-category-badge {
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    line-height: 1;
+    backdrop-filter: blur(8px);
+    transition: all 0.2s ease-in-out;
+}
+
+.activity-category-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Professional Activity Card Enhancements */
+.activity-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.activity-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: rgba(148, 163, 184, 0.3);
+}
+
+/* Enhanced Information Cards */
+.activity-card .bg-slate-50 {
+    transition: all 0.2s ease-in-out;
+}
+
+.activity-card .bg-slate-50:hover {
+    background-color: rgba(248, 250, 252, 0.8);
+    transform: translateY(-1px);
+}
+
+/* Professional Button Styling */
+.activity-card .bg-gradient-to-r {
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.activity-card .bg-gradient-to-r:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
 /* Enhanced Packing Section Animations */
 @keyframes card-float {
     0%, 100% { transform: translateY(0px); }
