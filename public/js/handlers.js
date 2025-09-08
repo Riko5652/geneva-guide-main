@@ -404,6 +404,7 @@ function handleDelegatedClicks(e) {
     if (target.classList.contains('gemini-summary-btn')) handleAiRequest('summary', e);
     if (target.classList.contains('gemini-story-btn')) handleAiRequest('story', e);
     if (target.id === 'what-to-wear-btn') handleWhatToWearRequest();
+    if (target.id === 'fun-fact-btn') handleFunFactRequest();
     
     // --- Modal Opening Logic ---
     if (target.closest('#open-flights-modal-btn, #open-flights-modal-btn-main, #open-flights-modal-btn-mobile')) {
@@ -1128,6 +1129,53 @@ async function handleAiRequest(type, event) {
         // Restore button
         button.disabled = false;
         button.innerHTML = originalText;
+    }
+}
+
+// Handle fun fact requests for Swiss stereotypes
+async function handleFunFactRequest() {
+    const button = document.getElementById('fun-fact-btn');
+    const resultDiv = document.getElementById('fun-fact-result');
+    const contentDiv = document.getElementById('fun-fact-content');
+    const textSpan = document.getElementById('fun-fact-text');
+    
+    if (!button || !resultDiv || !contentDiv || !textSpan) {
+        console.error('Fun fact elements not found');
+        return;
+    }
+    
+    // Show loading state
+    const originalText = textSpan.textContent;
+    button.disabled = true;
+    textSpan.textContent = 'טוען עובדה מעניינת...';
+    
+    try {
+        // Create prompt for Swiss stereotypes and fun facts
+        const prompt = `תן לי עובדה מעניינת או סטריאוטיפ מצחיק על שוויץ. זה יכול להיות על:
+        - האופי השוויצרי (דיוק, נקיון, ארגון)
+        - האוכל השוויצרי (שוקולד, גבינה, פונדו)
+        - התרבות השוויצרית (בנקים, שעונים, הרים)
+        - היסטוריה מעניינת
+        - דברים מוזרים או מצחיקים על שוויץ
+        
+        תן תשובה קצרה ומשעשעת בעברית, עם טון קליל ומצחיק.`;
+        
+        const response = await callGeminiWithParts([prompt]);
+        
+        // Show the result
+        contentDiv.textContent = response;
+        resultDiv.classList.remove('hidden');
+        
+        // Update button text
+        textSpan.textContent = '🎭 עוד עובדה מעניינת';
+        
+    } catch (error) {
+        console.error('Fun fact request failed:', error);
+        contentDiv.textContent = 'שגיאה בקבלת עובדה מעניינת. נסו שוב מאוחר יותר.';
+        resultDiv.classList.remove('hidden');
+        textSpan.textContent = originalText;
+    } finally {
+        button.disabled = false;
     }
 }
 

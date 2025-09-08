@@ -217,20 +217,33 @@
                     <h2 class="text-lg font-normal mb-8 text-center" style="color: #6B7280;">סטטוס הטיול המהיר</h2>
                     <div class="grid grid-cols-1 gap-6">
                         <div class="bg-white p-6 rounded-xl shadow-lg">
+                            <h3 class="text-sm font-normal mb-3" style="color: #6B7280;">שעה מקומית</h3>
+                            <div class="flex items-center justify-between">
+                                <p id="current-time" class="text-2xl font-mono" style="color: #A6AEBF;">--:--</p>
+                                <p id="current-date" class="text-sm" style="color: #6B7280;">טוען תאריך...</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-lg">
                             <h3 class="text-sm font-normal mb-3" style="color: #6B7280;">מזג אוויר</h3>
-                            <p id="quick-weather" class="text-sm" style="color: #6B7280;">טוען...</p>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p id="weather-temp" class="text-2xl font-semibold" style="color: #A6AEBF;">--°C</p>
+                                    <p id="weather-desc" class="text-sm" style="color: #6B7280;">טוען...</p>
+                                </div>
+                                <div id="weather-icon" class="text-3xl">🌤️</div>
+                            </div>
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow-lg">
                             <h3 class="text-sm font-normal mb-3" style="color: #6B7280;">מלון</h3>
                             <p id="quick-hotel" class="text-sm" style="color: #6B7280;">Mercure Meyrin</p>
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow-lg">
-                            <h3 class="text-sm font-normal mb-3" style="color: #6B7280;">תחבורה</h3>
-                            <p id="quick-transport" class="text-sm" style="color: #6B7280;">Geneva Card</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-lg">
-                            <h3 class="text-sm font-normal mb-3" style="color: #6B7280;">שעה</h3>
-                            <p id="current-time" class="text-sm" style="color: #6B7280;">--:--</p>
+                            <button id="fun-fact-btn" class="w-full text-center py-3 px-4 rounded-lg transition-all duration-200 hover:shadow-md" style="background: #C5D3E8; color: #A6AEBF; border: 1px solid #A6AEBF;">
+                                <span id="fun-fact-text">🎭 עובדה מעניינת על שוויץ</span>
+                            </button>
+                            <div id="fun-fact-result" class="mt-3 p-3 rounded-lg hidden" style="background: #FFF8DE; border: 1px solid #D0E8C5;">
+                                <p id="fun-fact-content" class="text-sm" style="color: #6B7280;"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
