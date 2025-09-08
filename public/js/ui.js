@@ -577,125 +577,109 @@ function renderItinerary() {
                 const formattedHours = getFormattedOpeningHours(activity);
                 
             return `
-                    <div class="activity-detail-card bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-6 mb-4">
+                    <div class="activity-detail-card bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-6 mb-4" style="border-color: #B3C8CF;">
                         <div class="flex items-start justify-between mb-4">
-                            <h5 class="font-bold text-xl text-slate-800">${activity.name}</h5>
-                            <span class="activity-category-badge bg-slate-100 text-slate-700 px-3 py-1.5 text-sm font-semibold rounded-full">
+                            <h5 class="font-bold text-xl" style="color: #4A6B7A;">${activity.name}</h5>
+                            <span class="activity-category-badge px-3 py-1.5 text-sm font-semibold rounded-full" style="background-color: #E5E1DA; color: #5A7A8A;">
                                 ${activity.category}
                             </span>
                         </div>
                         
                         <div class="space-y-4">
-                            <!-- Key Information Grid -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                    <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                                        <span class="text-blue-600 text-sm">⏱️</span>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-slate-500 font-medium">זמן נסיעה</p>
-                                        <p class="text-sm font-semibold text-slate-700">${activity.time || 'לא ידוע'} דקות</p>
+                            <!-- Key Information - Clean List Format -->
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-lg" style="color: #89A8B2;">⏱️</span>
+                                    <div class="flex-1">
+                                        <span class="text-sm font-medium" style="color: #6B8FA3;">זמן נסיעה:</span>
+                                        <span class="text-sm font-semibold ml-2" style="color: #4A6B7A;">${activity.time || 'לא ידוע'} דקות</span>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                                        <span class="text-green-600 text-sm">🕒</span>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-slate-500 font-medium">שעות פתיחה</p>
-                                        <p class="text-sm font-semibold text-slate-700">${formattedHours.today}</p>
+                                
+                                <div class="flex items-center gap-3">
+                                    <span class="text-lg" style="color: #DEE5D4;">🕒</span>
+                                    <div class="flex-1">
+                                        <span class="text-sm font-medium" style="color: #6B8FA3;">שעות פתיחה:</span>
+                                        <span class="text-sm font-semibold ml-2" style="color: #4A6B7A;">${formattedHours.today}</span>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <!-- Additional Details Grid -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                
                                 ${activity.recommendedTime ? `
-                                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                        <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                                            <span class="text-purple-600 text-sm">⭐</span>
-                                        </div>
-                                        <div>
-                                            <p class="text-xs text-slate-500 font-medium">זמן מומלץ</p>
-                                            <p class="text-sm font-semibold text-slate-700">${activity.recommendedTime}</p>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg" style="color: #FEF9D9;">⭐</span>
+                                        <div class="flex-1">
+                                            <span class="text-sm font-medium" style="color: #6B8FA3;">זמן מומלץ:</span>
+                                            <span class="text-sm font-semibold ml-2" style="color: #4A6B7A;">${activity.recommendedTime}</span>
                                         </div>
                                     </div>
-                                ` : '<div></div>'}
+                                ` : ''}
+                                
                                 ${activity.duration ? `
-                                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                        <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-                                            <span class="text-orange-600 text-sm">⏰</span>
-                                        </div>
-                                        <div>
-                                            <p class="text-xs text-slate-500 font-medium">משך ביקור</p>
-                                            <p class="text-sm font-semibold text-slate-700">${activity.duration}</p>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg" style="color: #D2E0FB;">⏰</span>
+                                        <div class="flex-1">
+                                            <span class="text-sm font-medium" style="color: #6B8FA3;">משך ביקור:</span>
+                                            <span class="text-sm font-semibold ml-2" style="color: #4A6B7A;">${activity.duration}</span>
                                         </div>
                                     </div>
-                                ` : '<div></div>'}
-                            </div>
-                            
-                            <!-- Cost and Transport -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                ` : ''}
+                                
                                 ${activity.cost ? `
-                                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                        <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                                            <span class="text-emerald-600 text-sm">💰</span>
-                                        </div>
-                                        <div>
-                                            <p class="text-xs text-slate-500 font-medium">עלות</p>
-                                            <p class="text-sm font-semibold text-slate-700">${activity.cost}</p>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg" style="color: #DEE5D4;">💰</span>
+                                        <div class="flex-1">
+                                            <span class="text-sm font-medium" style="color: #6B8FA3;">עלות:</span>
+                                            <span class="text-sm font-semibold ml-2" style="color: #4A6B7A;">${activity.cost}</span>
                                         </div>
                                     </div>
-                                ` : '<div></div>'}
+                                ` : ''}
+                                
                                 ${activity.transport ? `
-                                    <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                        <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
-                                            <span class="text-indigo-600 text-sm">🚌</span>
-                                        </div>
-                                        <div>
-                                            <p class="text-xs text-slate-500 font-medium">תחבורה</p>
-                                            <p class="text-sm font-semibold text-slate-700">${activity.transport}</p>
+                                    <div class="flex items-center gap-3">
+                                        <span class="text-lg" style="color: #8EACCD;">🚌</span>
+                                        <div class="flex-1">
+                                            <span class="text-sm font-medium" style="color: #6B8FA3;">תחבורה:</span>
+                                            <span class="text-sm font-semibold ml-2" style="color: #4A6B7A;">${activity.transport}</span>
                                         </div>
                                     </div>
-                                ` : '<div></div>'}
+                                ` : ''}
+                                
+                                ${activity.address ? `
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-lg mt-0.5" style="color: #F5B7B1;">📍</span>
+                                        <div class="flex-1">
+                                            <span class="text-sm font-medium" style="color: #6B8FA3;">כתובת:</span>
+                                            <span class="text-sm font-semibold ml-2" style="color: #4A6B7A;">${activity.address}</span>
+                                        </div>
+                                    </div>
+                                ` : ''}
                             </div>
-                            
-                            ${activity.address ? `
-                                <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                    <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mt-0.5">
-                                        <span class="text-red-600 text-sm">📍</span>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-slate-500 font-medium">כתובת</p>
-                                        <p class="text-sm font-semibold text-slate-700">${activity.address}</p>
-                                    </div>
-                                </div>
-                            ` : ''}
                             
                             ${activity.description ? `
-                                <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
+                                <div class="pt-4" style="border-top: 1px solid #B3C8CF;">
                                     <div class="flex items-start gap-3">
-                                        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mt-0.5">
-                                            <span class="text-blue-600 text-sm">📝</span>
-                                        </div>
+                                        <span class="text-lg mt-0.5" style="color: #89A8B2;">📝</span>
                                         <div class="flex-1">
-                                            <p class="text-xs text-blue-600 font-semibold mb-1">תיאור</p>
-                                            <p class="text-sm text-slate-700 leading-relaxed">${activity.description}</p>
+                                            <p class="text-sm font-medium mb-2" style="color: #6B8FA3;">תיאור</p>
+                                            <p class="text-sm leading-relaxed" style="color: #5A7A8A;">${activity.description}</p>
                                         </div>
                                     </div>
                                 </div>
                             ` : ''}
                             
                             ${googleMapsUrl ? `
-                                <div class="flex justify-center pt-2">
-                                    <a href="${googleMapsUrl}" target="_blank" 
-                                       class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg shadow-md">
-                                        <span class="text-base">🗺️</span>
-                                        <span>נווט באפליקציה</span>
-                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                                        </svg>
-                                    </a>
+                                <div class="pt-4" style="border-top: 1px solid #B3C8CF;">
+                                    <div class="flex justify-center">
+                                        <a href="${googleMapsUrl}" target="_blank" 
+                                           class="inline-flex items-center gap-2 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg shadow-md"
+                                           style="background: linear-gradient(135deg, #89A8B2 0%, #6B8FA3 100%);">
+                                            <span class="text-base">🗺️</span>
+                                            <span>נווט באפליקציה</span>
+                                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                            </svg>
+                                        </a>
+                                    </div>
                                 </div>
                             ` : ''}
                         </div>
@@ -941,7 +925,8 @@ export function renderActivities() {
         const activityImage = activity.image || getActivityImage(activity.category, activity.name);
         
     return `
-            <div class="activity-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col border border-slate-200 ${isNewItem ? 'new-item-highlight' : ''}" 
+            <div class="activity-card bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col ${isNewItem ? 'new-item-highlight' : ''}" 
+                 style="border: 1px solid #B3C8CF;"
                  data-category="${activity.category}" data-travel-time="${activity.time || '0'}" data-activity-id="${activity.id || activity.name}">
                 
                 ${activityImage ? `
@@ -953,20 +938,20 @@ export function renderActivities() {
                              loading="lazy">
                         <!-- Enhanced Category Badge -->
                         <div class="absolute top-3 right-3">
-                            <span class="activity-category-badge bg-white/90 backdrop-blur-sm text-slate-700 px-3 py-1.5 text-sm font-semibold rounded-full shadow-md border border-slate-200">
+                            <span class="activity-category-badge bg-white/90 backdrop-blur-sm px-3 py-1.5 text-sm font-semibold rounded-full shadow-md" style="color: #5A7A8A; border: 1px solid #B3C8CF;">
                                 ${activity.category}
                             </span>
                         </div>
-                        ${activity.generated ? '<div class="absolute top-3 left-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white px-3 py-1.5 text-xs font-semibold rounded-full shadow-md">🤖 AI</div>' : ''}
+                        ${activity.generated ? '<div class="absolute top-3 left-3 text-white px-3 py-1.5 text-xs font-semibold rounded-full shadow-md" style="background: linear-gradient(135deg, #8EACCD 0%, #6B8FA3 100%);">🤖 AI</div>' : ''}
                     </div>
                 ` : ''}
                 
                 <div class="p-6 flex flex-col flex-grow">
                     <!-- Header Section -->
                     <div class="mb-4">
-                        <h3 class="font-bold text-xl text-slate-800 leading-tight mb-2">${activity.name}</h3>
+                        <h3 class="font-bold text-xl leading-tight mb-2" style="color: #4A6B7A;">${activity.name}</h3>
                         ${!activityImage ? `
-                            <span class="activity-category-badge bg-slate-100 text-slate-700 px-3 py-1.5 text-sm font-semibold rounded-full inline-block">
+                            <span class="activity-category-badge px-3 py-1.5 text-sm font-semibold rounded-full inline-block" style="background-color: #E5E1DA; color: #5A7A8A;">
                                 ${activity.category}
                             </span>
                         ` : ''}
@@ -976,22 +961,22 @@ export function renderActivities() {
                     <div class="flex-grow space-y-4 mb-6">
                         <!-- Key Information Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                                    <span class="text-blue-600 text-sm">⏱️</span>
+                            <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
+                                <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: #D2E0FB;">
+                                    <span class="text-sm" style="color: #89A8B2;">⏱️</span>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-slate-500 font-medium">זמן נסיעה</p>
-                                    <p class="text-sm font-semibold text-slate-700">${travelTime} דקות</p>
+                                    <p class="text-xs font-medium" style="color: #6B8FA3;">זמן נסיעה</p>
+                                    <p class="text-sm font-semibold" style="color: #4A6B7A;">${travelTime} דקות</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                                    <span class="text-green-600 text-sm">🕒</span>
+                            <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
+                                <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: #DEE5D4;">
+                                    <span class="text-sm" style="color: #89A8B2;">🕒</span>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-slate-500 font-medium">שעות פתיחה</p>
-                                    <p class="text-sm font-semibold text-slate-700">${formattedHours.today}</p>
+                                    <p class="text-xs font-medium" style="color: #6B8FA3;">שעות פתיחה</p>
+                                    <p class="text-sm font-semibold" style="color: #4A6B7A;">${formattedHours.today}</p>
                                 </div>
                             </div>
                         </div>
@@ -999,24 +984,24 @@ export function renderActivities() {
                         <!-- Additional Details Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             ${activity.recommendedTime ? `
-                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                    <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                                        <span class="text-purple-600 text-sm">⭐</span>
+                                <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
+                                    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: #FEF9D9;">
+                                        <span class="text-sm" style="color: #89A8B2;">⭐</span>
                                     </div>
                                     <div>
-                                        <p class="text-xs text-slate-500 font-medium">זמן מומלץ</p>
-                                        <p class="text-sm font-semibold text-slate-700">${activity.recommendedTime}</p>
+                                        <p class="text-xs font-medium" style="color: #6B8FA3;">זמן מומלץ</p>
+                                        <p class="text-sm font-semibold" style="color: #4A6B7A;">${activity.recommendedTime}</p>
                                     </div>
                                 </div>
                             ` : '<div></div>'}
                             ${activity.duration ? `
-                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                    <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-                                        <span class="text-orange-600 text-sm">⏰</span>
+                                <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
+                                    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: #D2E0FB;">
+                                        <span class="text-sm" style="color: #89A8B2;">⏰</span>
                                     </div>
                                     <div>
-                                        <p class="text-xs text-slate-500 font-medium">משך ביקור</p>
-                                        <p class="text-sm font-semibold text-slate-700">${activity.duration}</p>
+                                        <p class="text-xs font-medium" style="color: #6B8FA3;">משך ביקור</p>
+                                        <p class="text-sm font-semibold" style="color: #4A6B7A;">${activity.duration}</p>
                                     </div>
                                 </div>
                             ` : '<div></div>'}
@@ -1025,59 +1010,59 @@ export function renderActivities() {
                         <!-- Cost and Transport -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             ${activity.cost ? `
-                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                    <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-                                        <span class="text-emerald-600 text-sm">💰</span>
+                                <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
+                                    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: #DEE5D4;">
+                                        <span class="text-sm" style="color: #89A8B2;">💰</span>
                                     </div>
                                     <div>
-                                        <p class="text-xs text-slate-500 font-medium">עלות</p>
-                                        <p class="text-sm font-semibold text-slate-700">${activity.cost}</p>
+                                        <p class="text-xs font-medium" style="color: #6B8FA3;">עלות</p>
+                                        <p class="text-sm font-semibold" style="color: #4A6B7A;">${activity.cost}</p>
                                     </div>
                                 </div>
                             ` : '<div></div>'}
                             ${activity.transport ? `
-                                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                    <div class="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
-                                        <span class="text-indigo-600 text-sm">🚌</span>
+                                <div class="flex items-center gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
+                                    <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: #8EACCD;">
+                                        <span class="text-sm" style="color: #F1F0E8;">🚌</span>
                                     </div>
                                     <div>
-                                        <p class="text-xs text-slate-500 font-medium">תחבורה</p>
-                                        <p class="text-sm font-semibold text-slate-700">${activity.transport}</p>
+                                        <p class="text-xs font-medium" style="color: #6B8FA3;">תחבורה</p>
+                                        <p class="text-sm font-semibold" style="color: #4A6B7A;">${activity.transport}</p>
                                     </div>
                                 </div>
                             ` : '<div></div>'}
                         </div>
                         
                         ${activity.address ? `
-                            <div class="flex items-start gap-3 p-3 bg-slate-50 rounded-xl border border-slate-100">
-                                <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mt-0.5">
-                                    <span class="text-red-600 text-sm">📍</span>
+                            <div class="flex items-start gap-3 p-3 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
+                                <div class="w-8 h-8 rounded-lg flex items-center justify-center mt-0.5" style="background-color: #F5B7B1;">
+                                    <span class="text-sm" style="color: #8B5A5A;">📍</span>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-slate-500 font-medium">כתובת</p>
-                                    <p class="text-sm font-semibold text-slate-700">${activity.address}</p>
+                                    <p class="text-xs font-medium" style="color: #6B8FA3;">כתובת</p>
+                                    <p class="text-sm font-semibold" style="color: #4A6B7A;">${activity.address}</p>
                                 </div>
                             </div>
                         ` : ''}
                         
                         ${activity.description ? `
-                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                                <p class="text-slate-700 text-sm leading-relaxed">${activity.description}</p>
+                            <div class="p-4 rounded-xl" style="background-color: #F1F0E8; border: 1px solid #E5E1DA;">
+                                <p class="text-sm leading-relaxed" style="color: #5A7A8A;">${activity.description}</p>
                             </div>
                         ` : ''}
                         
                         <!-- What to Bring Section -->
-                        <div class="p-4 bg-blue-50 rounded-xl border border-blue-100">
+                        <div class="p-4 rounded-xl" style="background-color: #D2E0FB; border: 1px solid #B3C8CF;">
                             <div class="flex items-start gap-3">
-                                <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center mt-0.5">
-                                    <span class="text-blue-600 text-sm">💡</span>
+                                <div class="w-8 h-8 rounded-lg flex items-center justify-center mt-0.5" style="background-color: #FEF9D9;">
+                                    <span class="text-sm" style="color: #89A8B2;">💡</span>
                                 </div>
                                 <div class="flex-1">
-                                    <p class="text-xs text-blue-600 font-semibold mb-1">מה לקחת</p>
+                                    <p class="text-xs font-semibold mb-1" style="color: #5A7A8A;">מה לקחת</p>
                                     ${activity.whatToBring && activity.whatToBring.length > 0 ? `
-                                        <p class="text-sm text-slate-700">${activity.whatToBring.join(', ')}</p>
+                                        <p class="text-sm" style="color: #4A6B7A;">${activity.whatToBring.join(', ')}</p>
                                     ` : `
-                                        <p class="text-sm text-slate-500 italic">מידע לא זמין</p>
+                                        <p class="text-sm italic" style="color: #6B8FA3;">מידע לא זמין</p>
                                     `}
                                 </div>
                             </div>
@@ -1088,19 +1073,23 @@ export function renderActivities() {
                     <div class="flex flex-wrap gap-3 mt-auto">
                         ${activity.link ? `
                             <a href="${activity.link}" target="_blank" 
-                               class="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                               class="flex-1 inline-flex items-center justify-center gap-2 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                               style="background: linear-gradient(135deg, #DEE5D4 0%, #C8D5B1 100%); color: #4A6B7A;">
                                 <span>🌐</span>
                                 <span>לאתר הרשמי</span>
                             </a>
                         ` : ''}
                         ${googleMapsUrl ? `
                             <a href="${googleMapsUrl}" target="_blank" 
-                               class="flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                               class="flex-1 inline-flex items-center justify-center gap-2 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                               style="background: linear-gradient(135deg, #89A8B2 0%, #6B8FA3 100%);">
                                 <span>🗺️</span>
                                 <span>נווט</span>
                             </a>
                         ` : ''}
-                        <button class="activity-details-btn flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-slate-100 to-slate-200 hover:from-slate-200 hover:to-slate-300 text-slate-700 px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-md" data-activity-id="${activity.id || activity.name}">
+                        <button class="activity-details-btn flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-md" 
+                                style="background: linear-gradient(135deg, #E5E1DA 0%, #B3C8CF 100%); color: #4A6B7A;"
+                                data-activity-id="${activity.id || activity.name}">
                             <span>👁️</span>
                             <span>פרטים</span>
                         </button>
