@@ -1466,33 +1466,35 @@ export function renderPackingGuide() {
             </section>
             
             <!-- Interactive Packing List Section -->
-            <div class="mt-6 sm:mt-8 bg-gradient-to-br from-teal-50 to-emerald-50 p-4 sm:p-6 rounded-xl border-2 border-teal-200 shadow-lg">
-                <h2 class="text-xl sm:text-2xl font-bold text-teal-800 mb-3 sm:mb-4">🎒 רשימת האריזה האינטראקטיבית</h2>
-                <p class="text-gray-600 text-sm sm:text-base mb-4 sm:mb-6">עקבו אחר מה כבר ארזתם ומה עוד נשאר. ניתן להוסיף פריטים אישיים לרשימה.</p>
+            <div class="mt-6 sm:mt-8 p-4 sm:p-6 rounded-xl shadow-lg" style="background: linear-gradient(135deg, #D2E0FB 0%, #B3C8CF 100%); border: 2px solid #B3C8CF;">
+                <h2 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4" style="color: #4A6B7A;">🎒 רשימת האריזה האינטראקטיבית</h2>
+                <p class="text-sm sm:text-base mb-4 sm:mb-6" style="color: #5A7A8A;">עקבו אחר מה כבר ארזתם ומה עוד נשאר. ניתן להוסיף פריטים אישיים לרשימה.</p>
                 
                 <!-- Enhanced 3-Column Layout with Better Separation -->
                 <div class="space-y-8 mb-8">
                     <!-- Desktop: Horizontal Layout -->
                     <div class="hidden lg:grid lg:grid-cols-3 gap-8">
                         <!-- Add Item Card -->
-                        <div class="packing-card group relative bg-gradient-to-br from-white via-blue-50 to-cyan-50 p-8 rounded-3xl shadow-xl border-2 border-blue-200 hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.03] hover:-translate-y-2">
+                        <div class="packing-card group relative p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.03] hover:-translate-y-2" style="background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%); border: 2px solid #B3C8CF;">
                             <!-- Decorative Background Elements -->
-                            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/30 to-cyan-200/30 rounded-full blur-2xl"></div>
-                            <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-100/40 to-transparent rounded-full blur-xl"></div>
+                            <div class="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl" style="background: linear-gradient(135deg, rgba(210, 224, 251, 0.3) 0%, rgba(179, 200, 207, 0.3) 100%);"></div>
+                            <div class="absolute bottom-0 left-0 w-24 h-24 rounded-full blur-xl" style="background: linear-gradient(135deg, rgba(241, 240, 232, 0.4) 0%, transparent 100%);"></div>
                             
                             <div class="relative z-10">
                                 <div class="flex items-center mb-6">
-                                    <div class="packing-icon w-16 h-16 bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mr-5 shadow-lg">
+                                    <div class="packing-icon w-16 h-16 rounded-2xl flex items-center justify-center mr-5 shadow-lg" style="background: linear-gradient(135deg, #89A8B2 0%, #6B8FA3 100%);">
                                         <span class="text-3xl">📝</span>
                                     </div>
-                                    <h3 class="font-bold text-xl text-gray-800">הוסיפו פריט לרשימה</h3>
+                                    <h3 class="font-bold text-xl" style="color: #4A6B7A;">הוסיפו פריט לרשימה</h3>
                                 </div>
                                 <div class="space-y-4">
                                     <input type="text" id="packing-item-input" 
-                                           class="w-full border-2 border-blue-200 rounded-2xl py-4 px-5 text-lg focus:ring-4 focus:ring-blue-200 focus:border-blue-400 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-md" 
+                                           class="w-full border-2 rounded-2xl py-4 px-5 text-lg transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-md" 
+                                           style="border-color: #B3C8CF; color: #4A6B7A;"
                                            placeholder="למשל: משקפי שמש לילדים">
                                     <button id="add-packing-item-btn" 
-                                            class="w-full bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 hover:from-blue-600 hover:via-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3">
+                                            class="w-full text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3"
+                                            style="background: linear-gradient(135deg, #89A8B2 0%, #6B8FA3 100%);">
                                         <span class="text-xl">➕</span>
                                         <span>הוסף פריט</span>
                                     </button>
@@ -1501,27 +1503,28 @@ export function renderPackingGuide() {
                         </div>
 
                         <!-- Photo Upload Card -->
-                        <div class="packing-card group relative bg-gradient-to-br from-white via-purple-50 to-pink-50 p-8 rounded-3xl shadow-xl border-2 border-purple-200 hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.03] hover:-translate-y-2">
+                        <div class="packing-card group relative p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.03] hover:-translate-y-2" style="background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%); border: 2px solid #B3C8CF;">
                             <!-- Decorative Background Elements -->
-                            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full blur-2xl"></div>
-                            <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-purple-100/40 to-transparent rounded-full blur-xl"></div>
+                            <div class="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl" style="background: linear-gradient(135deg, rgba(254, 249, 217, 0.3) 0%, rgba(244, 228, 188, 0.3) 100%);"></div>
+                            <div class="absolute bottom-0 left-0 w-24 h-24 rounded-full blur-xl" style="background: linear-gradient(135deg, rgba(241, 240, 232, 0.4) 0%, transparent 100%);"></div>
                             
                             <div class="relative z-10">
                                 <div class="flex items-center mb-6">
-                                    <div class="packing-icon w-16 h-16 bg-gradient-to-br from-purple-500 via-pink-500 to-purple-600 rounded-2xl flex items-center justify-center mr-5 shadow-lg">
+                                    <div class="packing-icon w-16 h-16 rounded-2xl flex items-center justify-center mr-5 shadow-lg" style="background: linear-gradient(135deg, #8EACCD 0%, #6B8FA3 100%);">
                                         <span class="text-3xl">📷</span>
                                     </div>
-                                    <h3 class="font-bold text-xl text-gray-800">הוסיפו תמונת ציוד</h3>
+                                    <h3 class="font-bold text-xl" style="color: #4A6B7A;">הוסיפו תמונת ציוד</h3>
                                 </div>
                                 <div class="text-center space-y-5">
                                     <input type="file" id="packing-photo-input" class="hidden" accept="image/*" multiple>
                                     <button id="packing-photo-upload-btn" 
-                                            class="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 hover:from-purple-600 hover:via-pink-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3">
+                                            class="w-full text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3"
+                                            style="background: linear-gradient(135deg, #8EACCD 0%, #6B8FA3 100%);">
                                         <span class="text-xl">📸</span>
                                         <span>צלמו ציוד</span>
                                     </button>
-                                    <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-purple-200 shadow-md">
-                                        <p class="text-sm text-gray-700 font-medium">
+                                    <div class="backdrop-blur-sm rounded-2xl p-4 shadow-md" style="background: rgba(255, 255, 255, 0.6); border: 1px solid #B3C8CF;">
+                                        <p class="text-sm font-medium" style="color: #5A7A8A;">
                                             תמונות של מזוודות, ציוד ופריטים לאריזה
                                         </p>
                                     </div>
@@ -1530,31 +1533,31 @@ export function renderPackingGuide() {
                         </div>
                         
                         <!-- Progress Card -->
-                        <div class="packing-card group relative bg-gradient-to-br from-white via-emerald-50 to-teal-50 p-8 rounded-3xl shadow-xl border-2 border-emerald-200 hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.03] hover:-translate-y-2">
+                        <div class="packing-card group relative p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.03] hover:-translate-y-2" style="background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%); border: 2px solid #B3C8CF;">
                             <!-- Decorative Background Elements -->
-                            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-200/30 to-teal-200/30 rounded-full blur-2xl"></div>
-                            <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-emerald-100/40 to-transparent rounded-full blur-xl"></div>
+                            <div class="absolute top-0 right-0 w-32 h-32 rounded-full blur-2xl" style="background: linear-gradient(135deg, rgba(222, 229, 212, 0.3) 0%, rgba(200, 213, 177, 0.3) 100%);"></div>
+                            <div class="absolute bottom-0 left-0 w-24 h-24 rounded-full blur-xl" style="background: linear-gradient(135deg, rgba(241, 240, 232, 0.4) 0%, transparent 100%);"></div>
                             
                             <div class="relative z-10">
                                 <div class="flex items-center mb-6">
-                                    <div class="packing-icon w-16 h-16 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 rounded-2xl flex items-center justify-center mr-5 shadow-lg">
-                                        <span class="text-3xl">📊</span>
+                                    <div class="packing-icon w-16 h-16 rounded-2xl flex items-center justify-center mr-5 shadow-lg" style="background: linear-gradient(135deg, #DEE5D4 0%, #C8D5B1 100%);">
+                                        <span class="text-3xl" style="color: #4A6B7A;">📊</span>
                                     </div>
-                                    <h3 class="font-bold text-xl text-gray-800">התקדמות האריזה</h3>
+                                    <h3 class="font-bold text-xl" style="color: #4A6B7A;">התקדמות האריזה</h3>
                                 </div>
                                 <div class="space-y-5">
                                     <div class="relative">
-                                        <div class="w-full bg-gray-200 rounded-full h-10 shadow-inner">
+                                        <div class="w-full rounded-full h-10 shadow-inner" style="background-color: #E5E1DA;">
                                             <div id="packing-overall-progress" 
-                                                 class="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold transition-all duration-700 ease-out shadow-lg relative overflow-hidden progress-shimmer" 
-                                                 style="width: 0%">
+                                                 class="h-10 rounded-full flex items-center justify-center text-white text-lg font-bold transition-all duration-700 ease-out shadow-lg relative overflow-hidden progress-shimmer"
+                                                 style="background: linear-gradient(135deg, #89A8B2 0%, #6B8FA3 100%); width: 0%;">
                                                 <span class="relative z-10">0%</span>
                                                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse"></div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-emerald-200 shadow-md">
-                                        <p class="text-sm text-gray-700 font-medium text-center">
+                                    <div class="backdrop-blur-sm rounded-2xl p-4 shadow-md" style="background: rgba(255, 255, 255, 0.6); border: 1px solid #B3C8CF;">
+                                        <p class="text-sm font-medium text-center" style="color: #5A7A8A;">
                                             עקבו אחר ההתקדמות שלכם באריזה
                                         </p>
                                     </div>
@@ -1626,7 +1629,7 @@ export function renderPackingGuide() {
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <p class="text-sm text-gray-600 bg-white/60 rounded-lg p-3 border border-emerald-200">
+                                    <p class="text-sm rounded-lg p-3" style="color: #5A7A8A; background: rgba(255, 255, 255, 0.6); border: 1px solid #B3C8CF;">
                                         עקבו אחר ההתקדמות שלכם באריזה
                                     </p>
                                 </div>
