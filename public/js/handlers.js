@@ -540,6 +540,7 @@ function handleDelegatedClicks(e) {
         }, 200);
     }
     if(target.classList.contains('swap-activity-btn')) {
+        console.log('🔄 Swap activity button detected in click handler');
         handleSwapActivity(target);
     }
     if(target.id === 'daily-special-ai-btn') {
@@ -971,28 +972,49 @@ async function handleChatSend() {
 
 // Format AI response with enhanced styling and structure
 function formatAiResponse(text) {
+    // First, clean up and normalize the text
+    let cleanedText = text
+        // Remove excessive asterisks and normalize formatting
+        .replace(/\*{3,}/g, '**') // Replace 3+ asterisks with 2
+        .replace(/\*{1}(?!\*)/g, '•') // Replace single asterisks with bullet points
+        .replace(/\*\*([^*]+)\*\*/g, '**$1**') // Normalize double asterisks
+        .replace(/\n{3,}/g, '\n\n') // Reduce excessive line breaks
+        // Filter out inappropriate content for nature activities
+        .replace(/שכשוך בבריכה ומשחק בחול[^.]*\.?/g, 'טיול בטבע וצפייה בחיות (פארק טבע)')
+        .replace(/swimming in pool and playing in sand[^.]*\.?/g, 'Nature walk and animal watching (nature park)')
+        .replace(/\(קרוב לפארק\)/g, '') // Remove "(near the park)" references
+        .replace(/\(near the park\)/g, '') // Remove English version
+        .trim();
+    
     // Convert markdown-style formatting to HTML with enhanced styling
-    let formatted = text
+    let formatted = cleanedText
         // Convert main headers with enhanced styling
         .replace(/^## (.+)$/gm, '<h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-6 border-b-4 border-gradient-to-r from-blue-200 to-purple-200 pb-3 text-center drop-shadow-sm">$1</h2>')
         
-        // Convert section headers with enhanced styling
+        // Convert section headers with enhanced styling (remove asterisks)
         .replace(/^\*\*(.+?):\*\*/gm, '<h3 class="text-xl font-bold text-gray-800 mt-6 mb-4 flex items-center bg-gradient-to-r from-gray-50 to-blue-50 p-4 rounded-xl border-l-4 border-blue-500 shadow-sm"><span class="w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-3 shadow-md"></span><span class="text-lg">$1</span></h3>')
         
-        // Convert time ranges with special enhanced styling
+        // Convert time ranges with special enhanced styling (remove asterisks)
         .replace(/^\*\*(.+? - .+?):\*\*/gm, '<h4 class="text-lg font-semibold text-white mt-4 mb-3 flex items-center bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-lg shadow-md"><span class="text-xl mr-3">⏰</span><span class="font-bold">$1</span></h4>')
         
-        // Convert detailed bullet points with enhanced styling
+        // Convert detailed bullet points with enhanced styling (remove asterisks)
         .replace(/^\* \*\*(.+?):\*\* (.+)$/gm, '<div class="mb-4 p-4 bg-gradient-to-br from-white to-blue-50 rounded-xl border-2 border-blue-200 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"><div class="font-bold text-blue-800 mb-2 text-lg flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>$1:</div><div class="text-gray-700 leading-relaxed text-base">$2</div></div>')
         
-        // Convert simple bullet points with enhanced styling
+        // Convert simple bullet points with enhanced styling (remove asterisks)
         .replace(/^\* (.+)$/gm, '<div class="mb-3 flex items-start p-3 bg-gradient-to-r from-gray-50 to-white rounded-lg border-l-4 border-purple-400 shadow-sm hover:shadow-md transition-all duration-200"><span class="text-purple-500 mr-3 mt-1 text-lg font-bold">•</span><span class="text-gray-700 leading-relaxed">$1</span></div>')
+        
+        // Handle numbered lists with enhanced styling
+        .replace(/^\d+\.\s+(.+)$/gm, '<div class="mb-3 flex items-start p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border-l-4 border-green-400 shadow-sm hover:shadow-md transition-all duration-200"><span class="text-green-600 mr-3 mt-1 text-sm font-bold bg-green-100 rounded-full w-6 h-6 flex items-center justify-center">$1</span><span class="text-gray-700 leading-relaxed">$2</span></div>')
+        
+        // Remove remaining asterisks from inline text
+        .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-800">$1</strong>')
+        .replace(/\*([^*]+)\*/g, '<em class="italic text-gray-700">$1</em>')
         
         // Convert line breaks to proper spacing with enhanced containers
         .replace(/<br><br>/g, '</div><div class="mt-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border border-yellow-200">')
         .replace(/<br>/g, '<br class="mb-3">')
         
-        // Enhanced emojis with better styling
+        // Enhanced emojis with better styling (remove asterisks from labels)
         .replace(/מטרה:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-red-100 to-pink-100 text-red-800 border border-red-200">🎯 מטרה:</span>')
         .replace(/זמן:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-800 border border-blue-200">⏰ זמן:</span>')
         .replace(/תחבורה:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-200">🚌 תחבורה:</span>')
@@ -1010,16 +1032,30 @@ function formatAiResponse(text) {
         // Enhanced friendly closing messages with animations
         .replace(/תהנו מטיול משפחתי נפלא בז'נבה!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 animate-pulse">🎉 תהנו מטיול משפחתי נפלא בז\'נבה! 🎉</div>')
         .replace(/בוקר נעים!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 animate-bounce">🌅 בוקר נעים! 🌅</div>')
-        .replace(/לילה טוב, ילדים!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-600 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300">🌙 לילה טוב, ילדים! 🌙</div>');
+        .replace(/לילה טוב, ילדים!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-600 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300">🌙 לילה טוב, ילדים! 🌙</div>')
+        
+        // Clean up any remaining asterisks or markdown artifacts
+        .replace(/\*{1,}/g, '') // Remove any remaining single or multiple asterisks
+        .replace(/_{1,}/g, '') // Remove underscores
+        .replace(/`{1,}/g, '') // Remove backticks
+        .replace(/\s+/g, ' ') // Normalize whitespace
+        .trim();
     
     // Wrap in an enhanced container with better styling and animations
     return `
         <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
             <div class="space-y-6 p-6 bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-2xl border border-blue-200 shadow-lg">
                 <div class="text-center mb-6">
-                    <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-sm font-semibold shadow-md">
-                        <span class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
-                        תשובה מותאמת אישית
+                    <div class="ai-response-button inline-flex items-center px-6 py-3 text-white rounded-2xl text-sm font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="relative flex items-center">
+                            <div class="flex items-center mr-3">
+                                <span class="w-3 h-3 bg-white rounded-full mr-1 animate-pulse"></span>
+                                <span class="w-2 h-2 bg-white/80 rounded-full mr-1 animate-pulse" style="animation-delay: 0.2s;"></span>
+                                <span class="w-1 h-1 bg-white/60 rounded-full animate-pulse" style="animation-delay: 0.4s;"></span>
+                            </div>
+                            <span class="text-white font-bold tracking-wide">✨ תשובה מותאמת אישית ✨</span>
+                        </div>
                     </div>
                 </div>
                 <div class="space-y-4 animate-fade-in">
@@ -1567,11 +1603,19 @@ function initFullscreenMap() {
 }
 
 export function handleSwapActivity(button) {
+    console.log('🔄 Swap activity button clicked:', button);
     const dayIndex = parseInt(button.dataset.dayIndex || 0);
+    console.log('📅 Day index:', dayIndex);
+    console.log('📊 Current data:', currentData);
+    console.log('📋 Itinerary data:', currentData?.itineraryData);
+    
     const dayData = currentData.itineraryData && currentData.itineraryData[dayIndex];
+    console.log('📅 Day data for index', dayIndex, ':', dayData);
     
     if (!dayData) {
-        console.log('No day data found for index:', dayIndex);
+        console.log('❌ No day data found for index:', dayIndex);
+        console.log('📋 Available itinerary data:', currentData.itineraryData);
+        alert(`לא נמצאו נתונים ליום ${dayIndex + 1}. אנא ודא שהתוכנית נטענה כראוי.`);
         return;
     }
     
@@ -1586,24 +1630,40 @@ export function handleSwapActivity(button) {
             return activity.category === 'משחקייה' || activity.category === 'תרבות';
         });
         
-        modalContent.innerHTML = `
-            <h3 class="text-xl font-bold mb-4">החלף פעילות - ${dayData.dayName}</h3>
-            <p class="text-gray-600 mb-4">בחר פעילות חלופית מהרשימה:</p>
-            <div class="grid gap-4 max-h-96 overflow-y-auto">
-                ${availableActivities.map(activity => `
-                    <div class="border rounded-lg p-4 hover:bg-blue-50 cursor-pointer activity-swap-option" 
-                         data-activity-id="${activity.id}" data-day-index="${dayIndex}">
-                        <h4 class="font-semibold">${activity.name}</h4>
-                        <p class="text-sm text-gray-600">${activity.description}</p>
-                        <div class="text-xs text-gray-500 mt-2">
-                            <span>⏱️ ${activity.time} דקות</span> | 
-                            <span>🚌 ${activity.transport}</span> |
-                            <span>💰 ${activity.cost}</span>
+        console.log('🎯 Available activities for swapping:', availableActivities);
+        
+        if (availableActivities.length === 0) {
+            modalContent.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="text-6xl mb-4">🎯</div>
+                    <h3 class="text-xl font-bold mb-4">אין פעילויות זמינות להחלפה</h3>
+                    <p class="text-gray-600 mb-4">כרגע אין פעילויות מתאימות להחלפה ליום זה.</p>
+                    <button onclick="document.getElementById('swap-activity-modal').classList.add('hidden')" 
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">
+                        סגור
+                    </button>
+                </div>
+            `;
+        } else {
+            modalContent.innerHTML = `
+                <h3 class="text-xl font-bold mb-4">החלף פעילות - ${dayData.dayName}</h3>
+                <p class="text-gray-600 mb-4">בחר פעילות חלופית מהרשימה:</p>
+                <div class="grid gap-4 max-h-96 overflow-y-auto">
+                    ${availableActivities.map(activity => `
+                        <div class="border rounded-lg p-4 hover:bg-blue-50 cursor-pointer activity-swap-option" 
+                             data-activity-id="${activity.id}" data-day-index="${dayIndex}">
+                            <h4 class="font-semibold">${activity.name}</h4>
+                            <p class="text-sm text-gray-600">${activity.description}</p>
+                            <div class="text-xs text-gray-500 mt-2">
+                                <span>⏱️ ${activity.time} דקות</span> | 
+                                <span>🚌 ${activity.transport}</span> |
+                                <span>💰 ${activity.cost}</span>
+                            </div>
                         </div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
+                    `).join('')}
+                </div>
+            `;
+        }
         
         // Add click handlers for activity selection
         modalContent.querySelectorAll('.activity-swap-option').forEach(option => {

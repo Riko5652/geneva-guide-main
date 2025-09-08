@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Swap Button</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Debug Swap Activity Button</h1>
+    
+    <div class="debug-section info">
+        <h3>📋 Instructions</h3>
+        <p>This tool will help debug why the swap activity button isn't working.</p>
+    </div>
+
+    <div class="debug-section">
+        <h3>🔍 Test Button Click</h3>
+        <p>Click the button below to test if the event handler is working:</p>
+        <button class="group relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg swap-activity-btn text-sm md:text-base" data-day-index="4">
+            <span class="flex items-center justify-center gap-1 md:gap-2">
+                <span class="text-base md:text-lg">🔄</span>
+                <span class="whitespace-nowrap">החלף פעילות</span>
+            </span>
+            <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
+        </button>
+        <div id="click-result"></div>
+    </div>
+
+    <div class="debug-section">
+        <h3>📊 Check Current Data</h3>
+        <button onclick="checkCurrentData()">Check Current Data</button>
+        <div id="data-result"></div>
+    </div>
+
+    <div class="debug-section">
+        <h3>🎯 Test Event Listener</h3>
+        <button onclick="testEventListener()">Test Event Listener Setup</button>
+        <div id="event-result"></div>
+    </div>
+
+    <script>
+        // Test if the button click is detected
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.swap-activity-btn')) {
+                const resultDiv = document.getElementById('click-result');
+                resultDiv.innerHTML = '<div class="success"><h4>✅ Button Click Detected!</h4><p>The button click is being captured by the event listener.</p></div>';
+            }
+        });
+
+        function checkCurrentData() {
+            const resultDiv = document.getElementById('data-result');
+            
+            try {
+                // Check if currentData exists
+                if (typeof currentData === 'undefined') {
+                    resultDiv.innerHTML = '<div class="error"><h4>❌ currentData is undefined</h4><p>The currentData object is not available.</p></div>';
+                    return;
+                }
+                
+                // Check itinerary data
+                const itineraryData = currentData.itineraryData;
+                if (!itineraryData) {
+                    resultDiv.innerHTML = '<div class="error"><h4>❌ No itinerary data</h4><p>currentData.itineraryData is not available.</p></div>';
+                    return;
+                }
+                
+                // Check day 4 data
+                const day4Data = itineraryData[4];
+                if (!day4Data) {
+                    resultDiv.innerHTML = `<div class="error"><h4>❌ No day 4 data</h4><p>No data found for day index 4. Available days: ${itineraryData.length}</p><pre>${JSON.stringify(itineraryData, null, 2)}</pre></div>`;
+                    return;
+                }
+                
+                resultDiv.innerHTML = `<div class="success"><h4>✅ Data Found!</h4><p>Day 4 data is available.</p><pre>${JSON.stringify(day4Data, null, 2)}</pre></div>`;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><h4>❌ Error checking data</h4><pre>${error.message}</pre></div>`;
+            }
+        }
+
+        function testEventListener() {
+            const resultDiv = document.getElementById('event-result');
+            
+            try {
+                // Check if the event listener is set up
+                const hasListeners = document.body.dataset.listenersAttached;
+                if (hasListeners === 'true') {
+                    resultDiv.innerHTML = '<div class="success"><h4>✅ Event Listeners Attached</h4><p>Event listeners are properly set up.</p></div>';
+                } else {
+                    resultDiv.innerHTML = '<div class="error"><h4>❌ Event Listeners Not Attached</h4><p>Event listeners are not set up. This might be the issue.</p></div>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><h4>❌ Error checking event listeners</h4><pre>${error.message}</pre></div>`;
+            }
+        }
+    </script>
+</body>
+</html>

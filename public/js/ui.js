@@ -578,21 +578,115 @@ function renderItinerary() {
             return `
                     <div class="activity-detail-card bg-blue-50 border border-blue-200 p-4 rounded-lg mb-2">
                         <h5 class="font-bold text-blue-800">${activity.name}</h5>
-                        <div class="text-sm text-gray-700 mt-2 space-y-1">
-                            <div><strong>⏱️ זמן נסיעה:</strong> ${activity.time || 'לא ידוע'} דקות</div>
-                            ${activity.transport ? `<div><strong>🚌 תחבורה:</strong> ${activity.transport}</div>` : ''}
-                            ${activity.address ? `<div><strong>📍 כתובת:</strong> ${activity.address}</div>` : ''}
-                            ${activity.cost ? `<div><strong>💰 עלות:</strong> ${activity.cost}</div>` : ''}
-                            ${activity.description ? `<div class="mt-2"><strong>תיאור:</strong> ${activity.description}</div>` : ''}
-                            ${googleMapsUrl ? `<div class="mt-2"><a href="${googleMapsUrl}" target="_blank" class="text-blue-600 underline text-sm">🗺️ נווט באפליקציה</a></div>` : ''}
+                        <div class="text-sm text-gray-700 mt-2 space-y-2">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-blue-500">⏱️</span>
+                                    <span><strong>זמן נסיעה:</strong> ${activity.time || 'לא ידוע'} דקות</span>
+                                </div>
+                                ${activity.openingHours ? `
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-green-500">🕒</span>
+                                        <span><strong>שעות פתיחה:</strong> ${activity.openingHours}</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                ${activity.recommendedTime ? `
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-purple-500">⭐</span>
+                                        <span><strong>זמן מומלץ:</strong> ${activity.recommendedTime}</span>
+                                    </div>
+                                ` : ''}
+                                ${activity.duration ? `
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-orange-500">⏰</span>
+                                        <span><strong>משך ביקור:</strong> ${activity.duration}</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                ${activity.transport ? `
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-indigo-500">🚌</span>
+                                        <span><strong>תחבורה:</strong> ${activity.transport}</span>
+                                    </div>
+                                ` : ''}
+                                ${activity.cost ? `
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-emerald-500">💰</span>
+                                        <span><strong>עלות:</strong> ${activity.cost}</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            
+                            ${activity.address ? `
+                                <div class="flex items-start gap-2">
+                                    <span class="text-red-500 mt-0.5">📍</span>
+                                    <span><strong>כתובת:</strong> ${activity.address}</span>
+                                </div>
+                            ` : ''}
+                            
+                            ${activity.description ? `
+                                <div class="mt-3 p-3 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border-l-4 border-blue-400">
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-blue-500 mt-0.5">📝</span>
+                                        <div>
+                                            <strong class="text-gray-800">תיאור:</strong>
+                                            <p class="text-gray-700 mt-1 leading-relaxed">${activity.description}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${googleMapsUrl ? `
+                                <div class="mt-3">
+                                    <a href="${googleMapsUrl}" target="_blank" 
+                                       class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg shadow-md">
+                                        <span class="text-base">🗺️</span>
+                                        <span>נווט באפליקציה</span>
+                                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            ` : ''}
                         </div>
                     </div>
                 `;
             }
         }
         
-        // Fallback to simple description
-        return `<li>${item.description || item}</li>`;
+        // Fallback to simple description with content filtering
+        let description = item.description || item;
+        
+        // Filter out inappropriate or misplaced content
+        const inappropriateContent = [
+            'שכשוך בבריכה ומשחק בחול',
+            'swimming in pool and playing in sand',
+            'בריכה וחול',
+            'pool and sand'
+        ];
+        
+        // Check if description contains inappropriate content
+        const hasInappropriateContent = inappropriateContent.some(content => 
+            description.toLowerCase().includes(content.toLowerCase())
+        );
+        
+        // If inappropriate content is found, replace with appropriate nature activity
+        if (hasInappropriateContent) {
+            description = 'טיול בטבע וצפייה בחיות (פארק טבע)';
+        }
+        
+        // Additional cleanup for common AI-generated content issues
+        description = description
+            .replace(/\(קרוב לפארק\)/g, '') // Remove "(near the park)" references
+            .replace(/\(near the park\)/g, '') // Remove English version
+            .replace(/\s+/g, ' ') // Normalize whitespace
+            .trim();
+        
+        return `<li>${description}</li>`;
     };
     
     container.innerHTML = currentData.itineraryData.map(day => `
@@ -675,6 +769,17 @@ function renderItinerary() {
     `).join('');
 }
 
+// Helper function to generate proper placeholder images
+function generatePlaceholderImage(text, width = 400, height = 300) {
+    // Clean and encode the text properly
+    const cleanText = text
+        .replace(/[^\w\s\-\.]/g, '') // Remove special characters except word chars, spaces, hyphens, dots
+        .replace(/\s+/g, '+') // Replace spaces with +
+        .substring(0, 50); // Limit length
+    
+    return `https://placehold.co/${width}x${height}/F3EFEA/4A4A4A?text=${encodeURIComponent(cleanText)}`;
+}
+
 // Helper function to get real images for known places, fallback to category-based images
 function getActivityImage(category, name) {
     // Real images for known places in Geneva
@@ -691,12 +796,25 @@ function getActivityImage(category, name) {
         'תיאטרון הבובות': 'https://www.marionnettes.ch/sites/default/files/styles/w1024/public/spectacles/2021-03/2019_TMG_LaPromesse_c_Eliphas_01.jpg?itok=zQ-a-6xJ',
         'Ludothèque de Meyrin': 'https://lh3.googleusercontent.com/p/AF1QipNQtGaxn5GS5hNT6lNRGoPGq96K3t3fwyNv3ESJ=w408-h306-k-no',
         'גן החיות של ז\'נבה': 'https://images.unsplash.com/photo-1549366021-9f761d77f8e0?w=400',
-        'פארק באסטיון': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400'
+        'פארק באסטיון': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400',
+        'Aquatis Aquarium-Vivarium': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop&crop=center',
+        'Pharmacie de la Bergère (Meyrin)': 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop&crop=center',
+        'Pharmacie Principale Gare Cornavin': 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop&crop=center'
     };
     
     // Check for exact name match first
     if (realImages[name]) {
         return realImages[name];
+    }
+    
+    // Check for pharmacy-related activities
+    if (name.toLowerCase().includes('pharmacie') || name.toLowerCase().includes('בית מרקחת')) {
+        return 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=300&fit=crop&crop=center';
+    }
+    
+    // Check for aquarium-related activities
+    if (name.toLowerCase().includes('aquarium') || name.toLowerCase().includes('אקווריום')) {
+        return 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop&crop=center';
     }
     
     // Fallback to category-based images with better quality
@@ -777,7 +895,7 @@ export function renderActivities() {
         const activityImage = activity.image || getActivityImage(activity.category, activity.name);
         
     return `
-            <div class="activity-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${isNewItem ? 'new-item-highlight' : ''}" 
+            <div class="activity-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col ${isNewItem ? 'new-item-highlight' : ''}" 
                  data-category="${activity.category}" data-travel-time="${activity.time || '0'}" data-activity-id="${activity.id || activity.name}">
                 
                 ${activityImage ? `
@@ -785,7 +903,7 @@ export function renderActivities() {
                         <img src="${activityImage}" 
                              alt="${activity.name}" 
                              class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                             onerror="this.onerror=null; this.src='https://placehold.co/400x300/F3EFEA/4A4A4A?text=${encodeURIComponent(activity.name)}'; this.alt='${activity.name} - תמונה לא זמינה';"
+                             onerror="this.onerror=null; this.src='${generatePlaceholderImage(activity.name)}'; this.alt='${activity.name} - תמונה לא זמינה';"
                              loading="lazy">
                         <div class="absolute top-2 right-2">
                             <span class="category-badge ${activity.category} px-2 py-1 text-xs rounded-full">${activity.category}</span>
@@ -794,33 +912,101 @@ export function renderActivities() {
                     </div>
                 ` : ''}
                 
-                <div class="p-6">
+                <div class="p-6 flex flex-col flex-grow">
+                    <!-- Header Section -->
                     <div class="flex justify-between items-start mb-4">
                         <h3 class="font-bold text-lg text-gray-800 leading-tight">${activity.name}</h3>
                         ${!activityImage ? `<span class="category-badge ${activity.category}">${activity.category}</span>` : ''}
                     </div>
                     
-                    <div class="space-y-2 mb-4">
-                        <p class="text-sm text-gray-600"><strong>⏱️ זמן נסיעה:</strong> ${travelTime} דקות</p>
-                        <p class="text-sm"><strong>🕒 שעות:</strong> ${formattedHours.today}</p>
-                        ${activity.cost ? `<p class="text-sm"><strong>💰 עלות:</strong> ${activity.cost}</p>` : ''}
-                        ${activity.transport ? `<p class="text-sm"><strong>🚌 תחבורה:</strong> ${activity.transport}</p>` : ''}
-                        ${activity.address ? `<p class="text-sm text-gray-500"><strong>📍 כתובת:</strong> ${activity.address}</p>` : ''}
+                    <!-- Content Section - Flexible -->
+                    <div class="flex-grow space-y-3 mb-4">
+                        <!-- Timing Information Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <div class="flex items-center gap-2 p-2 bg-blue-50 rounded-lg">
+                                <span class="text-blue-500 text-sm">⏱️</span>
+                                <span class="text-sm font-medium text-gray-700">זמן נסיעה: ${travelTime} דקות</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
+                                <span class="text-green-500 text-sm">🕒</span>
+                                <span class="text-sm font-medium text-gray-700">${formattedHours.today}</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Additional Information Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${activity.recommendedTime ? `
+                                <div class="flex items-center gap-2 p-2 bg-purple-50 rounded-lg">
+                                    <span class="text-purple-500 text-sm">⭐</span>
+                                    <span class="text-sm font-medium text-gray-700">זמן מומלץ: ${activity.recommendedTime}</span>
+                                </div>
+                            ` : '<div></div>'}
+                            ${activity.duration ? `
+                                <div class="flex items-center gap-2 p-2 bg-orange-50 rounded-lg">
+                                    <span class="text-orange-500 text-sm">⏰</span>
+                                    <span class="text-sm font-medium text-gray-700">משך ביקור: ${activity.duration}</span>
+                                </div>
+                            ` : '<div></div>'}
+                        </div>
+                        
+                        <!-- Cost and Transport -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            ${activity.cost ? `
+                                <div class="flex items-center gap-2 p-2 bg-emerald-50 rounded-lg">
+                                    <span class="text-emerald-500 text-sm">💰</span>
+                                    <span class="text-sm font-medium text-gray-700">${activity.cost}</span>
+                                </div>
+                            ` : '<div></div>'}
+                            ${activity.transport ? `
+                                <div class="flex items-center gap-2 p-2 bg-indigo-50 rounded-lg">
+                                    <span class="text-indigo-500 text-sm">🚌</span>
+                                    <span class="text-sm font-medium text-gray-700">${activity.transport}</span>
+                                </div>
+                            ` : '<div></div>'}
+                        </div>
+                        
+                        ${activity.address ? `
+                            <div class="flex items-start gap-2 p-2 bg-red-50 rounded-lg">
+                                <span class="text-red-500 text-sm mt-0.5">📍</span>
+                                <span class="text-sm font-medium text-gray-700">${activity.address}</span>
+                            </div>
+                        ` : ''}
+                        
+                        ${activity.description ? `<p class="text-gray-700 text-sm line-clamp-3">${activity.description}</p>` : ''}
+                        
+                        <!-- What to Bring Section - Always present for consistent height -->
+                        <div class="text-xs text-gray-600 bg-blue-50 p-3 rounded-lg min-h-[3rem] flex items-center">
+                            ${activity.whatToBring && activity.whatToBring.length > 0 ? `
+                                <div>
+                                    <strong>💡 מה לקחת:</strong> ${activity.whatToBring.join(', ')}
+                                </div>
+                            ` : `
+                                <div class="text-gray-400 italic">
+                                    💡 מה לקחת: מידע לא זמין
+                                </div>
+                            `}
+                        </div>
                     </div>
                     
-                    ${activity.description ? `<p class="text-gray-700 text-sm mb-4 line-clamp-3">${activity.description}</p>` : ''}
-                    
-                    ${activity.whatToBring && activity.whatToBring.length > 0 ? `
-                        <div class="text-xs text-gray-600 mb-4 bg-blue-50 p-3 rounded-lg">
-                            <strong>💡 מה לקחת:</strong> ${activity.whatToBring.join(', ')}
-                        </div>
-                    ` : ''}
-                    
-                    <div class="flex flex-wrap gap-2 justify-between md:justify-stretch">
-                        ${activity.link ? `<a href="${activity.link}" target="_blank" class="btn-primary text-xs px-3 py-2 rounded-lg hover:shadow-md transition-shadow flex-1 md:flex-none md:flex-grow text-center">לאתר הרשמי</a>` : ''}
-                        ${googleMapsUrl ? `<a href="${googleMapsUrl}" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-2 rounded-lg transition-colors flex-1 md:flex-none md:flex-grow text-center">🗺️ נווט</a>` : ''}
-                        <button class="activity-details-btn bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-3 py-2 rounded-lg transition-colors flex-1 md:flex-none md:flex-grow text-center" data-activity-id="${activity.id || activity.name}">
-                            👁️ פרטים
+                    <!-- Action Buttons Section - Fixed at bottom -->
+                    <div class="flex flex-wrap gap-2 justify-between md:justify-stretch mt-auto">
+                        ${activity.link ? `
+                            <a href="${activity.link}" target="_blank" 
+                               class="inline-flex items-center gap-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-xs px-3 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex-1 md:flex-none md:flex-grow text-center font-medium">
+                                <span>🌐</span>
+                                <span>לאתר הרשמי</span>
+                            </a>
+                        ` : ''}
+                        ${googleMapsUrl ? `
+                            <a href="${googleMapsUrl}" target="_blank" 
+                               class="inline-flex items-center gap-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-xs px-3 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex-1 md:flex-none md:flex-grow text-center font-medium">
+                                <span>🗺️</span>
+                                <span>נווט</span>
+                            </a>
+                        ` : ''}
+                        <button class="activity-details-btn inline-flex items-center gap-1 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 text-gray-700 text-xs px-3 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-md flex-1 md:flex-none md:flex-grow text-center font-medium" data-activity-id="${activity.id || activity.name}">
+                            <span>👁️</span>
+                            <span>פרטים</span>
                         </button>
                     </div>
                 </div>
@@ -1199,30 +1385,168 @@ export function renderPackingGuide() {
                 <h2 class="text-xl sm:text-2xl font-bold text-teal-800 mb-3 sm:mb-4">🎒 רשימת האריזה האינטראקטיבית</h2>
                 <p class="text-gray-600 text-sm sm:text-base mb-4 sm:mb-6">עקבו אחר מה כבר ארזתם ומה עוד נשאר. ניתן להוסיף פריטים אישיים לרשימה.</p>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-6">
-                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-gray-800">📝 הוסיפו פריט לרשימה</h3>
-                        <div class="flex flex-col sm:flex-row gap-2">
-                            <input type="text" id="packing-item-input" class="flex-1 border border-gray-300 rounded-lg py-2 px-3 text-sm sm:text-base focus:ring-2 focus:ring-teal-500 focus:border-transparent" placeholder="למשל: משקפי שמש לילדים">
-                            <button id="add-packing-item-btn" class="btn-primary px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base whitespace-nowrap">➕ הוסף</button>
+                <!-- Enhanced 3-Column Layout with Better Separation -->
+                <div class="space-y-8 mb-8">
+                    <!-- Desktop: Horizontal Layout -->
+                    <div class="hidden lg:grid lg:grid-cols-3 gap-8">
+                        <!-- Add Item Card -->
+                        <div class="packing-card group relative bg-gradient-to-br from-white via-blue-50 to-cyan-50 p-8 rounded-3xl shadow-xl border-2 border-blue-200 hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.03] hover:-translate-y-2">
+                            <!-- Decorative Background Elements -->
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/30 to-cyan-200/30 rounded-full blur-2xl"></div>
+                            <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-100/40 to-transparent rounded-full blur-xl"></div>
+                            
+                            <div class="relative z-10">
+                                <div class="flex items-center mb-6">
+                                    <div class="packing-icon w-16 h-16 bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mr-5 shadow-lg">
+                                        <span class="text-3xl">📝</span>
+                                    </div>
+                                    <h3 class="font-bold text-xl text-gray-800">הוסיפו פריט לרשימה</h3>
+                                </div>
+                                <div class="space-y-4">
+                                    <input type="text" id="packing-item-input" 
+                                           class="w-full border-2 border-blue-200 rounded-2xl py-4 px-5 text-lg focus:ring-4 focus:ring-blue-200 focus:border-blue-400 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-md" 
+                                           placeholder="למשל: משקפי שמש לילדים">
+                                    <button id="add-packing-item-btn" 
+                                            class="w-full bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 hover:from-blue-600 hover:via-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3">
+                                        <span class="text-xl">➕</span>
+                                        <span>הוסף פריט</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Photo Upload Card -->
+                        <div class="packing-card group relative bg-gradient-to-br from-white via-purple-50 to-pink-50 p-8 rounded-3xl shadow-xl border-2 border-purple-200 hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.03] hover:-translate-y-2">
+                            <!-- Decorative Background Elements -->
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full blur-2xl"></div>
+                            <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-purple-100/40 to-transparent rounded-full blur-xl"></div>
+                            
+                            <div class="relative z-10">
+                                <div class="flex items-center mb-6">
+                                    <div class="packing-icon w-16 h-16 bg-gradient-to-br from-purple-500 via-pink-500 to-purple-600 rounded-2xl flex items-center justify-center mr-5 shadow-lg">
+                                        <span class="text-3xl">📷</span>
+                                    </div>
+                                    <h3 class="font-bold text-xl text-gray-800">הוסיפו תמונת ציוד</h3>
+                                </div>
+                                <div class="text-center space-y-5">
+                                    <input type="file" id="packing-photo-input" class="hidden" accept="image/*" multiple>
+                                    <button id="packing-photo-upload-btn" 
+                                            class="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 hover:from-purple-600 hover:via-pink-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3">
+                                        <span class="text-xl">📸</span>
+                                        <span>צלמו ציוד</span>
+                                    </button>
+                                    <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-purple-200 shadow-md">
+                                        <p class="text-sm text-gray-700 font-medium">
+                                            תמונות של מזוודות, ציוד ופריטים לאריזה
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Progress Card -->
+                        <div class="packing-card group relative bg-gradient-to-br from-white via-emerald-50 to-teal-50 p-8 rounded-3xl shadow-xl border-2 border-emerald-200 hover:shadow-2xl transition-all duration-500 transform hover:scale-[1.03] hover:-translate-y-2">
+                            <!-- Decorative Background Elements -->
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-200/30 to-teal-200/30 rounded-full blur-2xl"></div>
+                            <div class="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-emerald-100/40 to-transparent rounded-full blur-xl"></div>
+                            
+                            <div class="relative z-10">
+                                <div class="flex items-center mb-6">
+                                    <div class="packing-icon w-16 h-16 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 rounded-2xl flex items-center justify-center mr-5 shadow-lg">
+                                        <span class="text-3xl">📊</span>
+                                    </div>
+                                    <h3 class="font-bold text-xl text-gray-800">התקדמות האריזה</h3>
+                                </div>
+                                <div class="space-y-5">
+                                    <div class="relative">
+                                        <div class="w-full bg-gray-200 rounded-full h-10 shadow-inner">
+                                            <div id="packing-overall-progress" 
+                                                 class="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 h-10 rounded-full flex items-center justify-center text-white text-lg font-bold transition-all duration-700 ease-out shadow-lg relative overflow-hidden progress-shimmer" 
+                                                 style="width: 0%">
+                                                <span class="relative z-10">0%</span>
+                                                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-4 border border-emerald-200 shadow-md">
+                                        <p class="text-sm text-gray-700 font-medium text-center">
+                                            עקבו אחר ההתקדמות שלכם באריזה
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-gray-800">📷 הוסיפו תמונת ציוד</h3>
-                        <div class="text-center">
-                            <input type="file" id="packing-photo-input" class="hidden" accept="image/*" multiple>
-                            <button id="packing-photo-upload-btn" class="bg-purple-500 hover:bg-purple-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors duration-200 text-sm sm:text-base">📸 צלמו ציוד</button>
-                            <p class="text-xs text-gray-600 mt-1">תמונות של מזוודות, ציוד וכו'</p>
+                    <!-- Mobile/Tablet: Vertical Stack Layout -->
+                    <div class="lg:hidden space-y-6">
+                        <!-- Add Item Card -->
+                        <div class="packing-card group relative bg-gradient-to-br from-white via-blue-50 to-cyan-50 p-6 rounded-2xl shadow-lg border-2 border-blue-200 hover:shadow-xl transition-all duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="packing-icon w-12 h-12 bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 rounded-xl flex items-center justify-center mr-4 shadow-md">
+                                    <span class="text-2xl">📝</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-800">הוסיפו פריט לרשימה</h3>
+                            </div>
+                            <div class="space-y-3">
+                                <input type="text" id="packing-item-input-mobile" 
+                                       class="w-full border-2 border-blue-200 rounded-xl py-3 px-4 text-base focus:ring-4 focus:ring-blue-200 focus:border-blue-400 transition-all duration-200 bg-white shadow-sm" 
+                                       placeholder="למשל: משקפי שמש לילדים">
+                                <button id="add-packing-item-btn-mobile" 
+                                        class="w-full bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 hover:from-blue-600 hover:via-cyan-600 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+                                    <span class="text-lg">➕</span>
+                                    <span>הוסף פריט</span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100 sm:col-span-2 lg:col-span-1">
-                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-gray-800">📊 התקדמות האריזה</h3>
-                        <div class="w-full bg-gray-200 rounded-full h-4 sm:h-6">
-                            <div id="packing-overall-progress" class="bg-gradient-to-r from-teal-500 to-emerald-500 h-4 sm:h-6 rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-bold transition-all duration-300" style="width: 0%">0%</div>
+
+                        <!-- Photo Upload Card -->
+                        <div class="packing-card group relative bg-gradient-to-br from-white via-purple-50 to-pink-50 p-6 rounded-2xl shadow-lg border-2 border-purple-200 hover:shadow-xl transition-all duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="packing-icon w-12 h-12 bg-gradient-to-br from-purple-500 via-pink-500 to-purple-600 rounded-xl flex items-center justify-center mr-4 shadow-md">
+                                    <span class="text-2xl">📷</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-800">הוסיפו תמונת ציוד</h3>
+                            </div>
+                            <div class="text-center space-y-4">
+                                <input type="file" id="packing-photo-input-mobile" class="hidden" accept="image/*" multiple>
+                                <button id="packing-photo-upload-btn-mobile" 
+                                        class="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 hover:from-purple-600 hover:via-pink-600 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+                                    <span class="text-lg">📸</span>
+                                    <span>צלמו ציוד</span>
+                                </button>
+                                <p class="text-sm text-gray-600 bg-white/60 rounded-lg p-3 border border-purple-200">
+                                    תמונות של מזוודות, ציוד ופריטים לאריזה
+                                </p>
+                            </div>
                         </div>
-                        <p class="text-xs text-gray-600 mt-1">עקבו אחר ההתקדמות שלכם</p>
+                        
+                        <!-- Progress Card -->
+                        <div class="packing-card group relative bg-gradient-to-br from-white via-emerald-50 to-teal-50 p-6 rounded-2xl shadow-lg border-2 border-emerald-200 hover:shadow-xl transition-all duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="packing-icon w-12 h-12 bg-gradient-to-br from-emerald-500 via-teal-500 to-emerald-600 rounded-xl flex items-center justify-center mr-4 shadow-md">
+                                    <span class="text-2xl">📊</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-gray-800">התקדמות האריזה</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="relative">
+                                    <div class="w-full bg-gray-200 rounded-full h-8 shadow-inner">
+                                        <div id="packing-overall-progress-mobile" 
+                                             class="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold transition-all duration-500 ease-out shadow-lg relative overflow-hidden progress-shimmer" 
+                                             style="width: 0%">
+                                            <span class="relative z-10">0%</span>
+                                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-sm text-gray-600 bg-white/60 rounded-lg p-3 border border-emerald-200">
+                                        עקבו אחר ההתקדמות שלכם באריזה
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -2097,7 +2421,7 @@ export function renderPhotoAlbum() {
                 <img src="${photo.url}" alt="${photo.caption || 'תמונה משפחתית'}" 
                      class="w-full h-32 md:h-48 object-cover transition-transform duration-300 group-hover:scale-110"
                      loading="lazy"
-                     onerror="this.onerror=null; this.src='https://placehold.co/300x200/F3EFEA/4A4A4A?text=תמונה+לא+זמינה'; this.alt='תמונה לא זמינה';">
+                     onerror="this.onerror=null; this.src='${generatePlaceholderImage('תמונה לא זמינה', 300, 200)}'; this.alt='תמונה לא זמינה';">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div class="bg-white/20 backdrop-blur-sm rounded-full p-2">
