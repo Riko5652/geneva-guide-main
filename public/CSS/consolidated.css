@@ -1001,12 +1001,65 @@ input::placeholder, textarea::placeholder {
   flex-direction: column;
 }
 
+/* Fix for activity card content width constraints */
+.activity-card .flex-grow {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.activity-card .grid {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.activity-card .grid > * {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
 /* Ensure activity card content doesn't overflow */
 .activity-card * {
   box-sizing: border-box;
   max-width: 100%;
   word-wrap: break-word;
   overflow-wrap: break-word;
+}
+
+/* Specific fixes for grid items and flex containers */
+.activity-card .grid.grid-cols-1 {
+  width: 100%;
+  max-width: 100%;
+}
+
+.activity-card .grid.grid-cols-1 > * {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.activity-card .grid.grid-cols-2 > * {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Fix for flex items inside grid items */
+.activity-card .flex {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.activity-card .flex > * {
+  min-width: 0;
+}
+
+/* Ensure text content doesn't cause overflow */
+.activity-card p, .activity-card span, .activity-card div {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 /* Mobile-specific padding adjustments */
@@ -1040,6 +1093,43 @@ input::placeholder, textarea::placeholder {
     padding-left: 0.5rem !important;
     padding-right: 0.5rem !important;
     gap: 1rem !important;
+  }
+  
+  /* Additional mobile width constraints */
+  .activity-card .flex-grow {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .activity-card .grid {
+    max-width: 100%;
+  }
+  
+  .activity-card .grid > * {
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Tablet and desktop width constraints */
+@media (min-width: 769px) {
+  .activity-card {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .activity-card .flex-grow {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .activity-card .grid {
+    max-width: 100%;
+  }
+  
+  .activity-card .grid > * {
+    max-width: 100%;
+    min-width: 0;
   }
 }
 

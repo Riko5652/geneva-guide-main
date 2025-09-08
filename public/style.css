@@ -914,12 +914,19 @@ input[type="text"]:focus {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 1.5rem;
     align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .activity-card {
     height: 100%;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 /* Enhanced Activity Category Badge */
