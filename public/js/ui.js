@@ -2647,9 +2647,12 @@ export function renderInteractivePackingList() {
 let timeUpdateInterval = null;
 
 export function renderQuickStatus() {
+    console.log('🕐 renderQuickStatus called');
+    
     // Update current time
     const timeElement = document.getElementById('current-time');
     if (timeElement) {
+        console.log('🕐 Found time element');
         const updateTime = () => {
             const now = new Date();
             const genevaTime = now.toLocaleTimeString('he-IL', {
@@ -2662,6 +2665,7 @@ export function renderQuickStatus() {
             // Update date
             const dateElement = document.getElementById('current-date');
             if (dateElement) {
+                console.log('📅 Found date element');
                 const genevaDate = now.toLocaleDateString('he-IL', {
                     timeZone: 'Europe/Zurich',
                     weekday: 'long',
@@ -2670,6 +2674,9 @@ export function renderQuickStatus() {
                     day: 'numeric'
                 });
                 dateElement.textContent = genevaDate;
+                console.log('📅 Updated date to:', genevaDate);
+            } else {
+                console.log('📅 Date element not found');
             }
         };
         
@@ -2690,7 +2697,17 @@ export function renderQuickStatus() {
     const weatherDescElement = document.getElementById('weather-desc');
     const weatherIconElement = document.getElementById('weather-icon');
     
+    console.log('🌤️ Weather elements found:', {
+        temp: !!weatherTempElement,
+        desc: !!weatherDescElement,
+        icon: !!weatherIconElement
+    });
+    
     if (weatherTempElement && weatherDescElement && weatherIconElement) {
+        console.log('🌤️ Current data available:', !!currentData);
+        console.log('🌤️ Weather data available:', !!(currentData && currentData.weather));
+        console.log('🌤️ Daily weather available:', !!(currentData && currentData.weather && currentData.weather.daily));
+        
         if (currentData && currentData.weather && currentData.weather.daily) {
             const todayTemp = Math.round(currentData.weather.daily.temperature_2m_max[0]);
             const todayDesc = currentData.weather.daily.weathercode[0];
@@ -2729,10 +2746,13 @@ export function renderQuickStatus() {
             weatherDescElement.textContent = weatherInfo.desc;
             weatherIconElement.textContent = weatherInfo.icon;
         } else {
+            console.log('🌤️ No weather data available, showing fallback');
             weatherTempElement.textContent = '--°C';
             weatherDescElement.textContent = 'טוען...';
             weatherIconElement.textContent = '🌤️';
         }
+    } else {
+        console.log('🌤️ Weather elements not found');
     }
     
     // Update hotel status
