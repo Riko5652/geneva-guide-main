@@ -404,6 +404,7 @@ function handleDelegatedClicks(e) {
     if (target.classList.contains('gemini-summary-btn')) handleAiRequest('summary', e);
     if (target.classList.contains('gemini-story-btn')) handleAiRequest('story', e);
     if (target.id === 'what-to-wear-btn') handleWhatToWearRequest();
+    if (target.id === 'fun-fact-btn') handleFunFactRequest();
     
     // --- Modal Opening Logic ---
     if (target.closest('#open-flights-modal-btn, #open-flights-modal-btn-main, #open-flights-modal-btn-mobile')) {
@@ -430,8 +431,8 @@ function handleDelegatedClicks(e) {
     }
     if (target.classList.contains('nav-photos-btn')) {
         console.log('📸 Photos button clicked');
-        // Scroll to the photo gallery section
-        const photoSection = document.querySelector('#photo-gallery');
+        // Scroll to the family sharing section which contains photos
+        const photoSection = document.querySelector('#family-sharing');
         if (photoSection) {
             photoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -540,6 +541,7 @@ function handleDelegatedClicks(e) {
         }, 200);
     }
     if(target.classList.contains('swap-activity-btn')) {
+        console.log('🔄 Swap activity button detected in click handler');
         handleSwapActivity(target);
     }
     if(target.id === 'daily-special-ai-btn') {
@@ -656,7 +658,7 @@ async function handleGenerateCustomPlan() {
         const response = await callGeminiWithParts([
             `צור תוכנית יומית מפורטת לטיול משפחתי בז'נבה עם ילדים בני 2 ו-3 בהתבסס על הבקשה: "${prompt}". 
             כלול המלצות ספציפיות, זמני נסיעה, ועצות מעשיות להורים.`
-        ]);
+        ], 'pro'); // Use Pro model for complex planning
         
         // Save custom plan to Firebase
         const customPlanData = {
@@ -770,7 +772,7 @@ Respond with JSON array only:
   }
 ]`;
 
-        const response = await callGeminiWithParts([prompt]);
+        const response = await callGeminiWithParts([prompt], 'pro'); // Use Pro model for complex analysis
         
         // Try to parse JSON response
         let newActivities = [];
@@ -881,6 +883,9 @@ async function handleChatSend() {
     
     if (!message) return;
     
+    // Use default model (Gemini 2.0 Flash)
+    const selectedModel = 'flash-exp';
+    
     // Add user message
     const userBubble = document.createElement('div');
     userBubble.className = 'chat-bubble user';
@@ -913,7 +918,7 @@ async function handleChatSend() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
     
     try {
-        const response = await callGeminiWithParts([message]);
+        const response = await callGeminiWithParts([message], selectedModel);
         
         const geminieBubble = document.createElement('div');
         geminieBubble.className = 'chat-bubble gemini';
@@ -944,7 +949,19 @@ async function handleChatSend() {
     } catch (error) {
         const errorBubble = document.createElement('div');
         errorBubble.className = 'chat-bubble gemini';
-        errorBubble.textContent = 'סליחה, אני לא יכול לענות כרגע. נסה שוב מאוחר יותר.';
+        
+        // Enhanced error message for quota issues
+        let errorMessage = 'סליחה, אני לא יכול לענות כרגע. נסה שוב מאוחר יותר.';
+        if (error.message && error.message.includes('מגבלת השימוש היומית')) {
+            errorMessage = `🚫 ${error.message}\n\n💡 טיפים:\n• נסו שוב מחר\n• שדרגו את התוכנית ב-Google AI Studio\n• השתמשו במודל מהיר יותר (Flash)`;
+            
+            // Show quota exceeded notification
+            showQuotaExceededNotification();
+        } else if (error.message && error.message.includes('בעיה עם התוכנית')) {
+            errorMessage = `💳 ${error.message}\n\n🔗 בקרו ב: https://aistudio.google.com/app/apikey`;
+        }
+        
+        errorBubble.textContent = errorMessage;
         messagesContainer.appendChild(errorBubble);
         console.warn('Chat error:', error);
     }
@@ -953,57 +970,44 @@ async function handleChatSend() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// Format AI response with enhanced styling and structure
+// Format AI response with clean, site-consistent styling
 function formatAiResponse(text) {
-    // Convert markdown-style formatting to HTML with enhanced styling
-    let formatted = text
-        // Convert main headers with enhanced styling
-        .replace(/^## (.+)$/gm, '<h2 class="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-6 border-b-4 border-gradient-to-r from-blue-200 to-purple-200 pb-3 text-center drop-shadow-sm">$1</h2>')
+    // Clean up the text - remove bullet points and excessive formatting
+    let cleanedText = text
+        // Remove bullet points and asterisks
+        .replace(/^\s*[•\*\-]\s*/gm, '') // Remove bullet points
+        .replace(/\*{1,}/g, '') // Remove all asterisks
+        .replace(/\n{3,}/g, '\n\n') // Reduce excessive line breaks
+        .replace(/[^\u0000-\u007F\u0590-\u05FF\u2000-\u206F\u2E00-\u2E7F\u3000-\u303F\uFEFF]/g, '') // Remove non-printable characters
+        .trim();
+    
+    // Simple, clean formatting that matches the site's style
+    let formatted = cleanedText
+        // Convert headers to simple styled headers
+        .replace(/^(.+?):\s*$/gm, '<h3 class="text-lg font-bold mb-3" style="color: #4A6B7A;">$1</h3>')
         
-        // Convert section headers with enhanced styling
-        .replace(/^\*\*(.+?):\*\*/gm, '<h3 class="text-xl font-bold text-gray-800 mt-6 mb-4 flex items-center bg-gradient-to-r from-gray-50 to-blue-50 p-4 rounded-xl border-l-4 border-blue-500 shadow-sm"><span class="w-3 h-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-3 shadow-md"></span><span class="text-lg">$1</span></h3>')
+        // Convert line breaks to proper paragraph breaks
+        .replace(/\n\n/g, '</p><p class="mb-3 text-gray-700 leading-relaxed">')
         
-        // Convert time ranges with special enhanced styling
-        .replace(/^\*\*(.+? - .+?):\*\*/gm, '<h4 class="text-lg font-semibold text-white mt-4 mb-3 flex items-center bg-gradient-to-r from-green-500 to-emerald-600 p-3 rounded-lg shadow-md"><span class="text-xl mr-3">⏰</span><span class="font-bold">$1</span></h4>')
-        
-        // Convert detailed bullet points with enhanced styling
-        .replace(/^\* \*\*(.+?):\*\* (.+)$/gm, '<div class="mb-4 p-4 bg-gradient-to-br from-white to-blue-50 rounded-xl border-2 border-blue-200 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"><div class="font-bold text-blue-800 mb-2 text-lg flex items-center"><span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>$1:</div><div class="text-gray-700 leading-relaxed text-base">$2</div></div>')
-        
-        // Convert simple bullet points with enhanced styling
-        .replace(/^\* (.+)$/gm, '<div class="mb-3 flex items-start p-3 bg-gradient-to-r from-gray-50 to-white rounded-lg border-l-4 border-purple-400 shadow-sm hover:shadow-md transition-all duration-200"><span class="text-purple-500 mr-3 mt-1 text-lg font-bold">•</span><span class="text-gray-700 leading-relaxed">$1</span></div>')
-        
-        // Convert line breaks to proper spacing with enhanced containers
-        .replace(/<br><br>/g, '</div><div class="mt-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border border-yellow-200">')
-        .replace(/<br>/g, '<br class="mb-3">')
-        
-        // Enhanced emojis with better styling
-        .replace(/מטרה:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-red-100 to-pink-100 text-red-800 border border-red-200">🎯 מטרה:</span>')
-        .replace(/זמן:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-800 border border-blue-200">⏰ זמן:</span>')
-        .replace(/תחבורה:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-200">🚌 תחבורה:</span>')
-        .replace(/תוכנית:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-purple-100 to-violet-100 text-purple-800 border border-purple-200">📋 תוכנית:</span>')
-        .replace(/מיקום:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-orange-100 to-amber-100 text-orange-800 border border-orange-200">📍 מיקום:</span>')
-        .replace(/פעילות:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-pink-100 to-rose-100 text-pink-800 border border-pink-200">🎪 פעילות:</span>')
-        .replace(/טיפ:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-800 border border-yellow-200">💡 טיפ:</span>')
-        .replace(/טיפים נוספים:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-800 border border-yellow-200">💡 טיפים נוספים:</span>')
-        .replace(/בגדים:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-indigo-100 to-blue-100 text-indigo-800 border border-indigo-200">👕 בגדים:</span>')
-        .replace(/נעליים:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-gray-100 to-slate-100 text-gray-800 border border-gray-200">👟 נעליים:</span>')
-        .replace(/ציוד:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 border border-emerald-200">🎒 ציוד:</span>')
-        .replace(/זמן גמיש:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-800 border border-cyan-200">🔄 זמן גמיש:</span>')
-        .replace(/מפה:/g, '<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 border border-green-200">🗺️ מפה:</span>')
-        
-        // Enhanced friendly closing messages with animations
-        .replace(/תהנו מטיול משפחתי נפלא בז'נבה!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 animate-pulse">🎉 תהנו מטיול משפחתי נפלא בז\'נבה! 🎉</div>')
-        .replace(/בוקר נעים!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300 animate-bounce">🌅 בוקר נעים! 🌅</div>')
-        .replace(/לילה טוב, ילדים!/g, '<div class="mt-8 p-6 bg-gradient-to-r from-purple-500 via-indigo-600 to-blue-600 text-white rounded-2xl text-center font-bold text-lg shadow-2xl transform hover:scale-105 transition-all duration-300">🌙 לילה טוב, ילדים! 🌙</div>');
+        // Wrap the entire content in a paragraph
+        .replace(/^/, '<p class="mb-3 text-gray-700 leading-relaxed">')
+        .replace(/$/, '</p>');
     
     // Wrap in an enhanced container with better styling and animations
     return `
         <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-            <div class="space-y-6 p-6 bg-gradient-to-br from-white via-blue-50 to-purple-50 rounded-2xl border border-blue-200 shadow-lg">
+                <div class="space-y-6 p-6 rounded-2xl shadow-lg" style="background: linear-gradient(135deg, #FFF8DE 0%, #C5D3E8 50%, #D0E8C5 100%); border: 1px solid #A6AEBF;">
                 <div class="text-center mb-6">
-                    <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-sm font-semibold shadow-md">
-                        <span class="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
-                        תשובה מותאמת אישית
+                    <div class="ai-response-button inline-flex items-center px-6 py-3 text-white rounded-2xl text-sm font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 relative overflow-hidden">
+                        <div class="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(135deg, rgba(241, 240, 232, 0.3) 0%, transparent 100%);"></div>
+                        <div class="relative flex items-center">
+                            <div class="flex items-center mr-3">
+                                <span class="w-3 h-3 bg-white rounded-full mr-1 animate-pulse"></span>
+                                <span class="w-2 h-2 bg-white/80 rounded-full mr-1 animate-pulse" style="animation-delay: 0.2s;"></span>
+                                <span class="w-1 h-1 bg-white/60 rounded-full animate-pulse" style="animation-delay: 0.4s;"></span>
+                            </div>
+                            <span class="text-white font-bold tracking-wide">✨ תשובה מותאמת אישית ✨</span>
+                        </div>
                     </div>
                 </div>
                 <div class="space-y-4 animate-fade-in">
@@ -1120,11 +1124,58 @@ async function handleAiRequest(type, event) {
     } catch (error) {
         console.warn('AI request failed:', error);
         // Show error in modal
-        showAiResponseModal('שגיאה בקבלת תשובה מהמומחה. נסו שוב מאוחר יותר.', modalTitle, false);
+        showAiResponseModal('שגיאה בקבלת תשובה מהמומחה. נסו שוב מאוחר יותר.', modalTitle || 'שגיאה', false);
     } finally {
         // Restore button
         button.disabled = false;
         button.innerHTML = originalText;
+    }
+}
+
+// Handle fun fact requests for Swiss stereotypes
+async function handleFunFactRequest() {
+    const button = document.getElementById('fun-fact-btn');
+    const resultDiv = document.getElementById('fun-fact-result');
+    const contentDiv = document.getElementById('fun-fact-content');
+    const textSpan = document.getElementById('fun-fact-text');
+    
+    if (!button || !resultDiv || !contentDiv || !textSpan) {
+        console.error('Fun fact elements not found');
+        return;
+    }
+    
+    // Show loading state
+    const originalText = textSpan.textContent;
+    button.disabled = true;
+    textSpan.textContent = 'טוען עובדה מעניינת...';
+    
+    try {
+        // Create prompt for Swiss stereotypes and fun facts
+        const prompt = `תן לי עובדה מעניינת או סטריאוטיפ מצחיק על שוויץ. זה יכול להיות על:
+        - האופי השוויצרי (דיוק, נקיון, ארגון)
+        - האוכל השוויצרי (שוקולד, גבינה, פונדו)
+        - התרבות השוויצרית (בנקים, שעונים, הרים)
+        - היסטוריה מעניינת
+        - דברים מוזרים או מצחיקים על שוויץ
+        
+        תן תשובה קצרה ומשעשעת בעברית, עם טון קליל ומצחיק.`;
+        
+        const response = await callGeminiWithParts([prompt]);
+        
+        // Show the result
+        contentDiv.textContent = response;
+        resultDiv.classList.remove('hidden');
+        
+        // Update button text
+        textSpan.textContent = '🎭 עוד עובדה מעניינת';
+        
+    } catch (error) {
+        console.error('Fun fact request failed:', error);
+        contentDiv.textContent = 'שגיאה בקבלת עובדה מעניינת. נסו שוב מאוחר יותר.';
+        resultDiv.classList.remove('hidden');
+        textSpan.textContent = originalText;
+    } finally {
+        button.disabled = false;
     }
 }
 
@@ -1551,11 +1602,37 @@ function initFullscreenMap() {
 }
 
 export function handleSwapActivity(button) {
+    console.log('🔄 Swap activity button clicked:', button);
     const dayIndex = parseInt(button.dataset.dayIndex || 0);
-    const dayData = currentData.itineraryData && currentData.itineraryData[dayIndex];
+    console.log('📅 Day index:', dayIndex);
+    console.log('📊 Current data:', currentData);
+    console.log('📋 Itinerary data:', currentData?.itineraryData);
+    
+    // Check if we have itinerary data at all
+    if (!currentData?.itineraryData || !Array.isArray(currentData.itineraryData)) {
+        console.log('❌ No itinerary data available');
+        alert('לא נמצאו נתוני תוכנית. אנא ודא שהתוכנית נטענה כראוי.');
+        return;
+    }
+    
+    // Check if the requested day exists
+    const dayData = currentData.itineraryData[dayIndex];
+    console.log('📅 Day data for index', dayIndex, ':', dayData);
     
     if (!dayData) {
-        console.log('No day data found for index:', dayIndex);
+        console.log('❌ No day data found for index:', dayIndex);
+        console.log('📋 Available itinerary data length:', currentData.itineraryData.length);
+        console.log('📋 Available days:', currentData.itineraryData.map((day, idx) => `Day ${idx + 1}: ${day.dayName || 'Unnamed'}`));
+        
+        // Provide more helpful error message
+        const availableDays = currentData.itineraryData.length;
+        const requestedDay = dayIndex + 1;
+        
+        if (requestedDay > availableDays) {
+            alert(`התוכנית כוללת רק ${availableDays} ימים. לא ניתן להחליף פעילות ביום ${requestedDay}.`);
+        } else {
+            alert(`לא נמצאו נתונים ליום ${requestedDay}. אנא ודא שהתוכנית נטענה כראוי.`);
+        }
         return;
     }
     
@@ -1570,24 +1647,40 @@ export function handleSwapActivity(button) {
             return activity.category === 'משחקייה' || activity.category === 'תרבות';
         });
         
-        modalContent.innerHTML = `
-            <h3 class="text-xl font-bold mb-4">החלף פעילות - ${dayData.dayName}</h3>
-            <p class="text-gray-600 mb-4">בחר פעילות חלופית מהרשימה:</p>
-            <div class="grid gap-4 max-h-96 overflow-y-auto">
-                ${availableActivities.map(activity => `
-                    <div class="border rounded-lg p-4 hover:bg-blue-50 cursor-pointer activity-swap-option" 
-                         data-activity-id="${activity.id}" data-day-index="${dayIndex}">
-                        <h4 class="font-semibold">${activity.name}</h4>
-                        <p class="text-sm text-gray-600">${activity.description}</p>
-                        <div class="text-xs text-gray-500 mt-2">
-                            <span>⏱️ ${activity.time} דקות</span> | 
-                            <span>🚌 ${activity.transport}</span> |
-                            <span>💰 ${activity.cost}</span>
+        console.log('🎯 Available activities for swapping:', availableActivities);
+        
+        if (availableActivities.length === 0) {
+            modalContent.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="text-6xl mb-4">🎯</div>
+                    <h3 class="text-xl font-bold mb-4">אין פעילויות זמינות להחלפה</h3>
+                    <p class="text-gray-600 mb-4">כרגע אין פעילויות מתאימות להחלפה ליום זה.</p>
+                    <button onclick="document.getElementById('swap-activity-modal').classList.add('hidden')" 
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">
+                        סגור
+                    </button>
+                </div>
+            `;
+        } else {
+            modalContent.innerHTML = `
+                <h3 class="text-xl font-bold mb-4">החלף פעילות - ${dayData.dayName}</h3>
+                <p class="text-gray-600 mb-4">בחר פעילות חלופית מהרשימה:</p>
+                <div class="grid gap-4 max-h-96 overflow-y-auto">
+                    ${availableActivities.map(activity => `
+                        <div class="border rounded-lg p-4 hover:bg-blue-50 cursor-pointer activity-swap-option" 
+                             data-activity-id="${activity.id}" data-day-index="${dayIndex}">
+                            <h4 class="font-semibold">${activity.name}</h4>
+                            <p class="text-sm text-gray-600">${activity.description}</p>
+                            <div class="text-xs text-gray-500 mt-2">
+                                <span>⏱️ ${activity.time} דקות</span> | 
+                                <span>🚌 ${activity.transport}</span> |
+                                <span>💰 ${activity.cost}</span>
+                            </div>
                         </div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
+                    `).join('')}
+                </div>
+            `;
+        }
         
         // Add click handlers for activity selection
         modalContent.querySelectorAll('.activity-swap-option').forEach(option => {
@@ -2341,6 +2434,46 @@ export function initializeEnhancedEventHandlers() {
     });
     
     console.log('Enhanced event handlers initialized');
+}
+
+// Show quota exceeded notification
+function showQuotaExceededNotification() {
+    // Check if notification already exists
+    if (document.getElementById('quota-exceeded-notification')) return;
+    
+    const notification = document.createElement('div');
+    notification.id = 'quota-exceeded-notification';
+    notification.className = 'fixed top-4 right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm';
+    notification.innerHTML = `
+        <div class="flex items-start">
+            <div class="flex-shrink-0">
+                <span class="text-2xl">🚫</span>
+            </div>
+            <div class="ml-3 flex-1">
+                <h3 class="text-sm font-semibold">מגבלת AI הושלמה</h3>
+                <p class="text-xs mt-1 opacity-90">הגעתם למגבלת השימוש היומית. נסו שוב מחר או שדרגו את התוכנית.</p>
+                <div class="mt-2 flex gap-2">
+                    <a href="https://aistudio.google.com/app/apikey" target="_blank" 
+                       class="text-xs bg-white bg-opacity-20 hover:bg-opacity-30 px-2 py-1 rounded transition-colors">
+                        שדרג תוכנית
+                    </a>
+                    <button onclick="this.parentElement.parentElement.parentElement.parentElement.remove()" 
+                            class="text-xs bg-white bg-opacity-20 hover:bg-opacity-30 px-2 py-1 rounded transition-colors">
+                        סגור
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto-remove after 10 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 10000);
 }
 
 // Apply AI suggestions to the luggage planner

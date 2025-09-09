@@ -14,6 +14,16 @@
    1. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
    ======================================== */
 :root {
+  /* Pastel Color Scheme */
+  --pastel-cream: #F1F0E8;
+  --pastel-beige: #E5E1DA;
+  --pastel-blue: #D2E0FB;
+  --pastel-teal: #B3C8CF;
+  --pastel-sage: #C8D5B1;
+  --pastel-yellow: #F4E4BC;
+  --pastel-rose: #F5B7B1;
+  --pastel-dark: #4A6B7A;
+  
   /* Colors - Teal-inspired palette from New Folder 2 */
   --accent-orange: #f97316;
   --accent-yellow: #f59e0b;
@@ -992,10 +1002,278 @@ input::placeholder, textarea::placeholder {
 }
 
 /* ========================================
+   MOBILE RESPONSIVENESS FIXES
+   ======================================== */
+
+/* Activities Grid with auto-fill and minmax */
+#activities-grid {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%; /* Respect parent container width */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  align-items: stretch; /* Ensures all grid items have the same height */
+  overflow: hidden; /* Prevent grid overflow */
+}
+
+/* Responsive gap adjustments */
+@media (min-width: 640px) {
+  #activities-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #activities-grid {
+    gap: 2rem;
+  }
+}
+
+
+/* Ensure activities section container properly constrains its children */
+#activities .max-w-5xl {
+  max-width: 64rem; /* 5xl = 64rem */
+  width: 100%;
+}
+
+
+
+/* Ensure grid cells constrain their content */
+#activities-grid > * {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Activity Cards Mobile Responsiveness */
+.activity-card {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0; /* Prevents flex items from overflowing */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent card overflow */
+}
+
+
+
+/* Fix for activity card content width constraints */
+.activity-card .flex-grow {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.activity-card .grid {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.activity-card .grid > * {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+
+.activity-card .flex-1.space-y-4.mb-6.overflow-y-auto {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Ensure all grid containers respect width in the new structure */
+.activity-card .flex-1 .grid {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+.activity-card .flex-1 .grid > * {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Ensure activity card content doesn't overflow */
+.activity-card * {
+  box-sizing: border-box;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+
+
+
+
+
+/* Ensure text content doesn't cause overflow */
+.activity-card p, .activity-card span, .activity-card div {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+
+/* Fix for buttons with transform effects overflowing containers */
+.flex.gap-2, .flex.gap-3 {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.flex.gap-2 > *, .flex.gap-3 > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Specific fix for bulletin note buttons */
+#add-bulletin-note-btn, #add-bulletin-note-btn-mobile {
+  flex-shrink: 0;
+  min-width: fit-content;
+  position: relative;
+  z-index: 1;
+}
+
+#bulletin-note-input, #bulletin-note-input-mobile {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Fix for transform effects on buttons */
+button[class*="hover:scale"] {
+  transform-origin: center;
+}
+
+/* Ensure flex containers with buttons don't overflow */
+.flex.gap-2, .flex.gap-3 {
+  position: relative;
+  overflow: visible;
+}
+
+.flex.gap-2 > button, .flex.gap-3 > button {
+  position: relative;
+  z-index: 2;
+}
+
+/* Mobile-specific padding adjustments */
+@media (max-width: 768px) {
+  .activity-card {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .activity-card .p-4 {
+    padding: 0.75rem;
+  }
+  
+  .activity-card .p-3 {
+    padding: 0.5rem;
+  }
+  
+  /* Ensure activities section doesn't overflow on mobile */
+  #activities {
+    margin: 0.5rem;
+    border-radius: 1rem;
+  }
+  
+  #activities .max-w-5xl {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  /* Ensure grid doesn't overflow */
+  #activities-grid {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    gap: 1rem;
+  }
+  
+  /* Additional mobile width constraints */
+  .activity-card .flex-grow {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .activity-card .grid {
+    max-width: 100%;
+  }
+  
+  .activity-card .grid > * {
+    max-width: 100%;
+    min-width: 0;
+  }
+  
+  /* Mobile notes section container fixes */
+  .bg-white\/80.backdrop-blur-sm.rounded-2xl {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .bg-white\/80.backdrop-blur-sm.rounded-2xl .flex.gap-2 {
+    max-width: 100%;
+    overflow: visible;
+  }
+  
+  /* Mobile header optimizations - now handled by HTML structure */
+  #main-heading .flex.items-center {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  #main-heading {
+    font-size: 2rem !important;
+    padding: 0 0.5rem;
+  }
+  
+  #main-heading .flex.items-center {
+    gap: 0.25rem;
+  }
+  
+  #main-heading .inline-flex {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+/* Tablet and desktop width constraints */
+@media (min-width: 769px) {
+  .activity-card {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .activity-card .flex-grow {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .activity-card .grid {
+    max-width: 100%;
+  }
+  
+  .activity-card .grid > * {
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+
+/* ========================================
    MISSING MODAL STYLES - WARM & WHOLESOME
    ======================================== */
 
-/* Modal Overlay - Soft and warm */
+/* Modal Overlay - Swiss-inspired */
 .modal {
   position: fixed;
   top: 0;
@@ -1019,9 +1297,9 @@ input::placeholder, textarea::placeholder {
   visibility: visible;
 }
 
-/* Modal Content - Warm and inviting */
+/* Modal Content - Swiss-inspired */
 .modal-content {
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%);
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   max-width: 90vw;
@@ -1030,41 +1308,37 @@ input::placeholder, textarea::placeholder {
   position: relative;
   transform: scale(0.9) translateY(20px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #B3C8CF;
 }
 
 .modal.show .modal-content {
   transform: scale(1) translateY(0);
 }
 
-/* Modal Header - Warm and friendly */
+/* Modal Header - Swiss-inspired */
 .modal-header {
-  background: linear-gradient(135deg, #f0fdfa 0%, #ecfdf5 100%);
+  background: linear-gradient(135deg, #D2E0FB 0%, #B3C8CF 100%);
   padding: 24px 32px 16px;
   border-radius: 20px 20px 0 0;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #B3C8CF;
   position: relative;
 }
 
 .modal-title {
   font-size: 24px;
   font-weight: 700;
-  color: #1f2937;
+  color: #4A6B7A;
   margin: 0;
   text-align: center;
-  background: linear-gradient(135deg, #0891b2, #14b8a6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
-/* Modal Close Button - Soft and rounded */
+/* Modal Close Button - Swiss-inspired */
 .modal-close-btn {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-  border: none;
+  background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%);
+  border: 1px solid #B3C8CF;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -1077,7 +1351,7 @@ input::placeholder, textarea::placeholder {
 }
 
 .modal-close-btn:hover {
-  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  background: linear-gradient(135deg, #E5E1DA 0%, #B3C8CF 100%);
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -1085,14 +1359,15 @@ input::placeholder, textarea::placeholder {
 .modal-close-btn svg {
   width: 20px;
   height: 20px;
-  color: #6b7280;
+  color: #5A7A8A;
 }
 
-/* Modal Body - Comfortable spacing */
+/* Modal Body - Swiss-inspired */
 .modal-body {
   padding: 24px 32px;
   line-height: 1.6;
-  color: #374151;
+  color: #4A6B7A;
+  background: #F1F0E8;
 }
 
 /* Modal Footer - Action buttons */
@@ -1100,6 +1375,7 @@ input::placeholder, textarea::placeholder {
   padding: 16px 32px 24px;
   display: flex;
   gap: 12px;
+  background: #F1F0E8;
   justify-content: center;
   background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
   border-radius: 0 0 20px 20px;
@@ -2796,6 +3072,103 @@ li {
         border-color: var(--gray-600);
         color: var(--gray-100);
     }
+}
+
+
+/* ========================================
+   HERO BANNER ENHANCED STYLING
+   ======================================== */
+
+.hero-banner {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.hero-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(197, 211, 232, 0.1) 50%, transparent 70%);
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero-banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 248, 222, 0.8) 0%, rgba(208, 232, 197, 0.1) 100%);
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.hero-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(166, 174, 191, 0.2);
+}
+
+.hero-banner:hover::before {
+    animation-duration: 1.5s;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    50% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+}
+
+/* Enhanced title animation */
+#main-heading {
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(166, 174, 191, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(197, 211, 232, 0.6), 0 0 30px rgba(208, 232, 197, 0.4);
+    }
+}
+
+/* Enhanced loading animation colors */
+.loader {
+    border: 3px solid #FFF8DE;
+    border-top: 3px solid #C5D3E8;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ========================================
+   ACTIVITIES GRID FIX
+   ======================================== */
+
+#activities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    overflow: hidden;
 }
 
 /* ========================================

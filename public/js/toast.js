@@ -70,23 +70,23 @@ class ToastManager {
             }
             
             .toast.success {
-                border-left-color: #10b981;
-                background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+                border-left-color: #C8D5B1;
+                background: linear-gradient(135deg, #F1F0E8 0%, #E5E1DA 100%);
             }
             
             .toast.error {
-                border-left-color: #ef4444;
-                background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+                border-left-color: #F5B7B1;
+                background: linear-gradient(135deg, #F4E4BC 0%, #F5B7B1 100%);
             }
             
             .toast.warning {
-                border-left-color: #f59e0b;
-                background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+                border-left-color: #F4E4BC;
+                background: linear-gradient(135deg, #F4E4BC 0%, #C8D5B1 100%);
             }
             
             .toast.info {
-                border-left-color: #3b82f6;
-                background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+                border-left-color: #D2E0FB;
+                background: linear-gradient(135deg, #D2E0FB 0%, #B3C8CF 100%);
             }
             
             .toast-icon {
@@ -101,23 +101,23 @@ class ToastManager {
             }
             
             .toast.success .toast-icon {
-                background: #10b981;
-                color: white;
+                background: #C8D5B1;
+                color: #4A6B7A;
             }
             
             .toast.error .toast-icon {
-                background: #ef4444;
-                color: white;
+                background: #F5B7B1;
+                color: #4A6B7A;
             }
             
             .toast.warning .toast-icon {
-                background: #f59e0b;
-                color: white;
+                background: #F4E4BC;
+                color: #4A6B7A;
             }
             
             .toast.info .toast-icon {
-                background: #3b82f6;
-                color: white;
+                background: #D2E0FB;
+                color: #4A6B7A;
             }
             
             .toast-content {
@@ -171,19 +171,19 @@ class ToastManager {
             }
             
             .toast.success .toast-progress {
-                background: #10b981;
+                background: #C8D5B1;
             }
             
             .toast.error .toast-progress {
-                background: #ef4444;
+                background: #F5B7B1;
             }
             
             .toast.warning .toast-progress {
-                background: #f59e0b;
+                background: #F4E4BC;
             }
             
             .toast.info .toast-progress {
-                background: #3b82f6;
+                background: #D2E0FB;
             }
             
             @media (max-width: 640px) {

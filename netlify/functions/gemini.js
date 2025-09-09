@@ -19,13 +19,32 @@ exports.handler = async function(event) {
       return { statusCode: 500, body: JSON.stringify({ error: "GEMINI_API_KEY environment variable not set."}) };
   }
   
-  // The official Gemini API endpoint URL. We append our secret key here.
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+  // Parse request body to check for model preference
+  const requestBody = JSON.parse(event.body);
+  
+  // Model selection based on request or default to enhanced model
+  const modelPreference = requestBody.model || 'gemini-2.0-flash-exp';
+  const availableModels = {
+    'flash': 'gemini-1.5-flash',
+    'pro': 'gemini-1.5-pro', 
+    'flash-exp': 'gemini-2.0-flash-exp',
+    'pro-exp': 'gemini-2.0-flash-exp' // Fallback for experimental pro
+  };
+  
+  const selectedModel = availableModels[modelPreference] || 'gemini-2.0-flash-exp';
+  
+  // Log model selection for debugging
+  console.log(`🤖 Using Gemini model: ${selectedModel} (requested: ${modelPreference})`);
+  console.log(`🔑 API Key prefix: ${API_KEY.substring(0, 10)}...`); // Log first 10 chars for debugging
+  console.log(`🔑 API Key suffix: ...${API_KEY.substring(API_KEY.length - 5)}`); // Log last 5 chars
+  console.log(`📊 API Key length: ${API_KEY.length} characters`); // Log key length
+  
+  // The official Gemini API endpoint URL with selected model
+  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${API_KEY}`;
 
   try {
-    // The body of the request from the frontend (script.js) contains the prompt for Gemini.
-    // We parse it from the event object.
-    const requestBody = JSON.parse(event.body);
+    // Remove model preference from request body before sending to API
+    const { model, ...apiRequestBody } = requestBody;
 
     // Make the actual, secure server-to-server request to the Gemini API.
     // We forward the request body that we received from the client.
@@ -34,7 +53,7 @@ exports.handler = async function(event) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(requestBody),
+      body: JSON.stringify(apiRequestBody),
     });
 
     // If the response from the Gemini API is not successful (e.g., 400, 500),

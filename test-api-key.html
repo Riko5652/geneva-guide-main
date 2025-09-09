@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Key Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        input { width: 100%; padding: 8px; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>🔑 API Key Test Tool</h1>
+    
+    <div class="test-section info">
+        <h3>📋 Instructions</h3>
+        <p>This tool will help us test your API key directly to see what's causing the 429 error.</p>
+    </div>
+
+    <div class="test-section">
+        <h3>🔍 Test Your API Key</h3>
+        <p>Enter your API key (ending in P3C8) to test it directly:</p>
+        <input type="text" id="apiKeyInput" placeholder="Enter your API key here..." />
+        <button onclick="testApiKey()">Test API Key</button>
+        <div id="test-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>🌐 Test Netlify Function</h3>
+        <p>Test your current Netlify function to see what error it returns:</p>
+        <button onclick="testNetlifyFunction()">Test Netlify Function</button>
+        <div id="netlify-result"></div>
+    </div>
+
+    <script>
+        async function testApiKey() {
+            const apiKey = document.getElementById('apiKeyInput').value.trim();
+            const resultDiv = document.getElementById('test-result');
+            
+            if (!apiKey) {
+                resultDiv.innerHTML = '<div class="error"><h4>❌ Please enter an API key</h4></div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<p>🔄 Testing API key...</p>';
+            
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ role: 'user', parts: [{ text: 'Hello, this is a test message.' }] }]
+                    })
+                });
+                
+                const data = await response.text();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<div class="success"><h4>✅ API Key Works!</h4><p>Your API key is working correctly.</p></div>`;
+                } else if (response.status === 429) {
+                    resultDiv.innerHTML = `<div class="error"><h4>🚫 Quota Exceeded (429)</h4><pre>${data}</pre><p><strong>This confirms the quota issue!</strong></p></div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="error"><h4>❌ Error ${response.status}</h4><pre>${data}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><h4>❌ Network Error</h4><pre>${error.message}</pre></div>`;
+            }
+        }
+
+        async function testNetlifyFunction() {
+            const resultDiv = document.getElementById('netlify-result');
+            resultDiv.innerHTML = '<p>🔄 Testing Netlify function...</p>';
+            
+            try {
+                const response = await fetch('/api/gemini', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ role: 'user', parts: [{ text: 'Hello, this is a test message.' }] }],
+                        model: 'flash-exp'
+                    })
+                });
+                
+                const data = await response.text();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<div class="success"><h4>✅ Netlify Function Works!</h4><p>Your Netlify function is working correctly.</p></div>`;
+                } else if (response.status === 429) {
+                    resultDiv.innerHTML = `<div class="error"><h4>🚫 Quota Exceeded (429)</h4><pre>${data}</pre><p><strong>This confirms the quota issue in Netlify!</strong></p></div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="error"><h4>❌ Error ${response.status}</h4><pre>${data}</pre></div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><h4>❌ Network Error</h4><pre>${error.message}</pre></div>`;
+            }
+        }
+    </script>
+</body>
+</html>
