@@ -197,79 +197,32 @@
     </header>
 
     <main id="main-content" class="container mx-auto px-6" role="main">
-        <section class="relative overflow-hidden rounded-b-2xl sm:rounded-b-3xl mb-8 sm:mb-12 md:mb-16 shadow-2xl hero-banner-v2" aria-labelledby="main-heading">
-            <!-- Subtle floating elements -->
-            <div class="absolute inset-0 pointer-events-none hero-3d-elements">
-                <div class="absolute w-12 h-12 top-20 left-16 float-item" style="animation-delay: -2s;">
-                    <div class="w-full h-full bg-white/20 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-white text-lg">
-                        ✈️
-                    </div>
-                </div>
-                <div class="absolute w-10 h-10 top-32 right-20 float-item-alt" style="animation-delay: -4s;">
-                    <div class="w-full h-full bg-white/20 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-white text-sm">
-                        🏔️
-                    </div>
-                </div>
-                <div class="absolute w-8 h-8 bottom-32 left-24 float-item-slow" style="animation-delay: -6s;">
-                    <div class="w-full h-full bg-white/20 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-white text-xs">
-                        🎒
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hero Content -->
-            <div class="relative z-10 flex flex-col justify-center items-center min-h-[80vh] px-4 sm:px-6 md:px-8 text-center">
-                <!-- Main Title -->
-                <div class="mb-8 animate-entrance">
-                    <h1 id="main-heading" class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white mb-4" style="text-shadow: 3px 3px 12px rgba(0,0,0,0.5); line-height: 0.9;">
-                        המדריך המשפחתי
-                    </h1>
-                    <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-yellow-300 mb-2" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">
-                        לז'נבה
-                    </h2>
-                </div>
-
-                <!-- Subtitle -->
-                <div class="mb-12 animate-entrance" style="animation-delay: 0.3s;">
-                    <p class="text-xl sm:text-2xl md:text-3xl text-white font-medium max-w-4xl mx-auto leading-relaxed" style="text-shadow: 2px 2px 6px rgba(0,0,0,0.5);">
-                        המדריך האישי שלכם לטיול בלתי נשכח עם המשפחה
-                    </p>
-                </div>
-
-                <!-- CTA Buttons -->
-                <div class="flex flex-col sm:flex-row gap-6 items-center animate-entrance" style="animation-delay: 0.6s;">
-                    <!-- Primary CTA -->
-                    <button id="start-adventure-btn" class="group relative bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold text-xl px-12 py-6 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-3xl" aria-label="התחילו לתכנן את ההרפתקה">
-                        <span class="relative z-10 flex items-center gap-3">
-                            <span class="text-2xl group-hover:animate-bounce">🚀</span>
-                            <span>בואו נתחיל את ההרפתקה!</span>
-                        </span>
-                        <div class="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+        <section class="text-center pt-8 sm:pt-12 md:pt-16 pb-8 sm:pb-10 md:pb-12 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 rounded-2xl sm:rounded-3xl mb-8 sm:mb-12 md:mb-16 shadow-lg mx-2 sm:mx-4 md:mx-0 fade-in">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-800 mb-4 sm:mb-6">
+                    המדריך המשפחתי לז'נבה
+                </h1>
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">
+                    המדריך האישי שלכם לטיול בלתי נשכח עם המשפחה
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+                    <button id="start-adventure-btn" class="btn-primary px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                        🚀 בואו נתחיל את ההרפתקה!
                     </button>
-
-                    <!-- Secondary CTA -->
-                    <button id="fun-fact-btn" class="group bg-white/20 backdrop-blur-md hover:bg-white/30 text-white font-semibold text-lg px-8 py-4 rounded-full border-2 border-white/30 hover:border-white/50 transition-all duration-300 transform hover:scale-105">
-                        <span class="flex items-center gap-2">
-                            <span class="text-xl group-hover:animate-spin">✨</span>
-                            <span>גלו עובדה מעניינת</span>
+                    <button id="fun-fact-btn" class="btn-hero-secondary group">
+                        <span id="fun-fact-text" class="relative font-bold text-base flex items-center justify-center gap-3">
+                            <span class="text-xl animate-pulse group-hover:animate-bounce">✨</span>
+                            <span>גלו עובדה מעניינת על שוויץ</span>
+                            <span class="text-xl animate-pulse group-hover:animate-bounce">✨</span>
                         </span>
                     </button>
                 </div>
-
-                <!-- Fun Fact Result -->
-                <div id="fun-fact-result" class="mt-8 max-w-2xl mx-auto p-6 rounded-2xl hidden shadow-2xl border-2 animate-entrance" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-color: rgba(255, 255, 255, 0.3);">
-                    <div class="flex items-start gap-4">
-                        <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r from-yellow-400 to-orange-400 text-white text-xl">
-                            💡
+                <div id="fun-fact-result" class="mt-6 max-w-md mx-auto p-4 rounded-xl hidden shadow-lg border-2" style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(5px); border-color: #d1d5db;">
+                    <div class="flex items-start gap-3">
+                        <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-gray-200">
+                            <span class="text-sm">💡</span>
                         </div>
-                        <p id="fun-fact-content" class="text-lg leading-relaxed font-medium text-gray-800 text-right"></p>
-                    </div>
-                </div>
-
-                <!-- Scroll Indicator -->
-                <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-                    <div class="w-8 h-12 border-2 border-white/50 rounded-full flex justify-center">
-                        <div class="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
+                        <p id="fun-fact-content" class="text-sm md:text-base leading-relaxed font-medium text-gray-700 text-right"></p>
                     </div>
                 </div>
             </div>
