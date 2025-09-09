@@ -3324,11 +3324,12 @@ li {
    UPDATED BODY AND BASE STYLES
    ======================================== */
 
+/* Override conflicting body styles */
 body {
-    font-family: 'Assistant', sans-serif;
-    background-color: #FDFBF7;
-    color: #4A4A4A;
-    line-height: 1.6;
+    font-family: 'Assistant', sans-serif !important;
+    background-color: #FDFBF7 !important;
+    color: #4A4A4A !important;
+    line-height: 1.6 !important;
 }
 
 .bg-primary {
@@ -3386,44 +3387,45 @@ body {
 .hero-banner-v2 {
     background: 
         linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),
-        url('../images/hero-family-landscape.png') no-repeat center center / cover;
-    border: none;
-    position: relative;
-    min-height: 80vh;
+        url('./images/hero-family-landscape.png') no-repeat center center / cover !important;
+    border: none !important;
+    position: relative !important;
+    min-height: 80vh !important;
+    background-attachment: fixed !important;
 }
 
 /* Base style for all floating 3D items */
 .float-item, .float-item-alt, .float-item-slow {
-    transition: transform 0.3s ease-out;
-    filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease-out !important;
+    filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.1)) !important;
 }
 
 /* Swiss icon styling */
 .swiss-icon {
-    transition: all 0.3s ease;
-    z-index: 10;
+    transition: all 0.3s ease !important;
+    z-index: 10 !important;
 }
 
 .swiss-icon:hover {
     transform: scale(1.1) !important;
-    filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.2)) !important;
 }
 
 .swiss-icon > div {
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(5px) !important;
 }
 
 .float-item {
-    animation: float-up-down 8s ease-in-out infinite;
+    animation: float-up-down 8s ease-in-out infinite !important;
 }
 
 .float-item-alt {
-    animation: float-up-down-alt 10s ease-in-out infinite;
+    animation: float-up-down-alt 10s ease-in-out infinite !important;
 }
 
 .float-item-slow {
-    animation: float-up-down 15s ease-in-out infinite;
+    animation: float-up-down 15s ease-in-out infinite !important;
 }
 
 /* Keyframe animation for the floating effect */
@@ -3470,12 +3472,12 @@ body {
 }
 
 .animate-entrance {
-    animation: slideUpFadeIn 0.8s ease-out forwards;
-    opacity: 0;
+    animation: slideUpFadeIn 0.8s ease-out forwards !important;
+    opacity: 0 !important;
 }
 
 .animate-entrance[style*="animation-delay"] {
-    animation-fill-mode: both;
+    animation-fill-mode: both !important;
 }
 
 /* Enhanced shadow effects */
@@ -3485,12 +3487,12 @@ body {
 
 /* Hero text enhancements */
 .hero-banner-v2 h1, .hero-banner-v2 h2 {
-    background: linear-gradient(45deg, #ffffff, #f0f8ff, #ffffff);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: textShimmer 3s ease-in-out infinite;
+    background: linear-gradient(45deg, #ffffff, #f0f8ff, #ffffff) !important;
+    background-size: 200% 200% !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    animation: textShimmer 3s ease-in-out infinite !important;
 }
 
 @keyframes textShimmer {
@@ -3500,7 +3502,7 @@ body {
 
 /* Enhanced button hover effects */
 .hero-banner-v2 button:hover {
-    transform: translateY(-2px) scale(1.05);
+    transform: translateY(-2px) scale(1.05) !important;
 }
 
 /* Scroll indicator animation */
@@ -3510,7 +3512,7 @@ body {
 }
 
 .hero-banner-v2 .animate-bounce {
-    animation: scrollBounce 2s ease-in-out infinite;
+    animation: scrollBounce 2s ease-in-out infinite !important;
 }
 
 /* ========================================
