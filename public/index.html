@@ -198,99 +198,46 @@
     </header>
 
     <main id="main-content" class="container mx-auto px-6" role="main">
-        <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl mb-8 sm:mb-12 md:mb-16 shadow-2xl mx-2 sm:mx-4 md:mx-0 hero-banner" style="background: linear-gradient(135deg, #FFF8DE 0%, #C5D3E8 50%, #D0E8C5 100%); border: 2px solid #A6AEBF;" aria-labelledby="main-heading">
-            <!-- Macaron-Inspired Background Elements -->
-            <div class="absolute inset-0 overflow-hidden pointer-events-none">
-                <!-- Macaron-style floating elements -->
-                <div class="absolute top-8 left-8 w-12 h-12 rounded-full opacity-30 macaron-float-slow" style="background: linear-gradient(45deg, #FFB6C1, #FFC0CB, #FFB6C1);">
-                    <div class="absolute inset-1 rounded-full" style="background: linear-gradient(45deg, #FFF8DE, #FFE4E1);"></div>
-                </div>
-                <div class="absolute top-16 right-12 w-16 h-16 rounded-full opacity-25 macaron-float-medium" style="background: linear-gradient(45deg, #87CEEB, #B0E0E6, #87CEEB);">
-                    <div class="absolute inset-1 rounded-full" style="background: linear-gradient(45deg, #C5D3E8, #E0F6FF);"></div>
-                </div>
-                <div class="absolute bottom-16 left-16 w-14 h-14 rounded-full opacity-35 macaron-float-fast" style="background: linear-gradient(45deg, #98FB98, #90EE90, #98FB98);">
-                    <div class="absolute inset-1 rounded-full" style="background: linear-gradient(45deg, #D0E8C5, #F0FFF0);"></div>
-                </div>
-                <div class="absolute top-1/2 right-8 w-10 h-10 rounded-full opacity-20 macaron-float-slow" style="background: linear-gradient(45deg, #DDA0DD, #E6E6FA, #DDA0DD);">
-                    <div class="absolute inset-1 rounded-full" style="background: linear-gradient(45deg, #FFF8DE, #F5F5DC);"></div>
-                </div>
-                
-                <!-- Flying Boy Illustration Elements -->
-                <div class="absolute top-12 right-20 text-3xl opacity-40 flying-boy">🧑‍✈️</div>
-                <div class="absolute bottom-20 left-12 text-2xl opacity-30 cloud-float">☁️</div>
-                <div class="absolute top-1/3 left-8 text-xl opacity-25 cloud-float-delay">☁️</div>
-                <div class="absolute bottom-1/3 right-16 text-lg opacity-35 cloud-float-slow">☁️</div>
-                
-                <!-- Swiss-themed floating elements -->
-                <div class="absolute top-20 left-1/2 transform -translate-x-1/2 text-2xl opacity-30 swiss-float">🏔️</div>
-                <div class="absolute bottom-24 right-1/4 text-xl opacity-25 swiss-float-delay">⛰️</div>
+        <section class="relative overflow-hidden rounded-b-2xl sm:rounded-b-3xl mb-8 sm:mb-12 md:mb-16 shadow-2xl hero-banner-v2" aria-labelledby="main-heading">
+            <div class="absolute inset-0 pointer-events-none hero-3d-elements">
+                <img src="https://storage.googleapis.com/gemini-prod/images/swiss_knife_3d.png" alt="אולר שוויצרי מעוצב" class="absolute w-32 md:w-48 top-8 left-4 md:left-12 float-item" style="animation-delay: -2s; transform: rotate(-25deg);">
+                <img src="https://storage.googleapis.com/gemini-prod/images/swiss_cheese_3d.png" alt="גבינה שוויצרית מעוצבת" class="absolute w-24 md:w-32 top-12 right-8 md:right-16 float-item" style="animation-delay: -4s; transform: rotate(15deg);">
+                <img src="https://storage.googleapis.com/gemini-prod/images/passport_3d.png" alt="דרכון שוויצרי מעוצב" class="absolute w-28 md:w-40 bottom-24 right-4 md:right-24 float-item-alt" style="transform: rotate(20deg);">
+                <img src="https://storage.googleapis.com/gemini-prod/images/watch_3d.png" alt="שעון שוויצרי מעוצב" class="absolute w-24 md:w-32 bottom-16 left-8 md:left-20 float-item-alt" style="animation-delay: -3s; transform: rotate(-10deg);">
             </div>
-            
-            <!-- Main Content with Layered Design -->
-            <div class="relative z-10 px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-20">
-                <!-- Hero Title with Macaron-inspired styling -->
-                <div class="text-center mb-8 sm:mb-12">
-                    <div class="inline-block relative">
-                        <!-- Macaron-style decorative elements -->
-                        <div class="absolute -top-6 -left-6 w-12 h-12 rounded-full macaron-spin" style="background: linear-gradient(45deg, #FFB6C1, #FFC0CB); opacity: 0.4;">
-                            <div class="absolute inset-1 rounded-full" style="background: #FFF8DE;"></div>
+
+            <div class="relative z-10 px-4 sm:px-6 md:px-8 py-24 sm:py-32 md:py-40 text-center">
+                <h1 id="main-heading" class="text-5xl sm:text-6xl md:text-7xl font-extrabold text-gray-800 animate-entrance" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.1);">
+                    המדריך המשפחתי לז'נבה
+                </h1>
+                <p class="mt-4 sm:mt-6 max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl text-gray-600 animate-entrance" style="animation-delay: 0.2s;">
+                    המדריך האישי שלכם לטיול בלתי נשכח
+                </p>
+                <div class="mt-8 sm:mt-10 animate-entrance" style="animation-delay: 0.4s;">
+                    <a href="#itinerary-section" class="inline-block bg-red-600 text-white font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:bg-red-700 transition-all duration-300 transform hover:scale-105" aria-label="התחילו לתכנן את ההרפתקה">
+                        בואו נתחיל את ההרפתקה!
+                    </a>
+                </div>
+
+                <div class="mt-8 animate-entrance" style="animation-delay: 0.6s;">
+                    <button id="fun-fact-btn" class="btn-hero-secondary group">
+                        <span id="fun-fact-text" class="relative font-bold text-base flex items-center justify-center gap-3">
+                            <span class="text-xl animate-pulse group-hover:animate-bounce">✨</span>
+                            <span>גלו עובדה מעניינת על שוויץ</span>
+                            <span class="text-xl animate-pulse group-hover:animate-bounce">✨</span>
+                        </span>
+                    </button>
+                    <div id="fun-fact-result" class="mt-4 max-w-md mx-auto p-4 rounded-xl hidden shadow-lg border-2" style="background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(5px); border-color: #d1d5db;">
+                        <div class="flex items-start gap-3">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-gray-200">
+                                <span class="text-sm">💡</span>
+                            </div>
+                            <p id="fun-fact-content" class="text-sm md:text-base leading-relaxed font-medium text-gray-700 text-right"></p>
                         </div>
-                        <div class="absolute -bottom-6 -right-6 w-10 h-10 rounded-full macaron-pulse" style="background: linear-gradient(45deg, #87CEEB, #B0E0E6); opacity: 0.5;">
-                            <div class="absolute inset-1 rounded-full" style="background: #C5D3E8;"></div>
-                        </div>
-                        
-                        <h1 id="main-heading" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-gray-800 relative">
-                            <span class="flex items-center justify-center gap-3 sm:gap-4 flex-wrap">
-                                <!-- Enhanced CH Badge with macaron styling -->
-                                <span class="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-red-500 text-white font-bold text-lg sm:text-xl rounded-2xl shadow-xl flex-shrink-0 transform hover:scale-110 transition-transform duration-300 macaron-bounce">
-                                    CH
-                                </span>
-                                <span class="text-center relative">
-                                    <span class="block text-shadow-soft">המדריך</span>
-                                    <span class="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl macaron-text" style="color: #A6AEBF;">האינטראקטיבי</span>
-                                </span>
-                            </span>
-                            <br>
-                            <span class="text-yellow-500 text-center block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold macaron-fade-in">לטיול משפחתי בז'נבה</span>
-                        </h1>
                     </div>
                 </div>
-                
-                <!-- Enhanced Subtitle with macaron-inspired elements -->
-                <div class="max-w-4xl mx-auto mb-12 sm:mb-16">
-                    <div class="relative">
-                        <!-- Macaron-style decorative lines -->
-                        <div class="absolute left-0 top-1/2 w-20 h-1 transform -translate-y-1/2 rounded-full" style="background: linear-gradient(to right, #FFB6C1, #87CEEB, transparent);"></div>
-                        <div class="absolute right-0 top-1/2 w-20 h-1 transform -translate-y-1/2 rounded-full" style="background: linear-gradient(to left, #98FB98, #DDA0DD, transparent);"></div>
-                        
-                        <p class="text-xl sm:text-2xl md:text-3xl text-gray-700 leading-relaxed font-medium text-center px-4">
-                            <span class="inline-block macaron-fade-up">כל מה שמשפחה עם פעוטות צריכה</span>
-                            <br>
-                            <span class="inline-block macaron-fade-up-delay" style="color: #6B7280;">לטיול מושלם בבירת השלום</span>
-                            <br>
-                            <span class="inline-block macaron-fade-up-delay-2 text-lg sm:text-xl md:text-2xl" style="color: #A6AEBF;">מתוכנן במיוחד עבור דור, עדי, בר ורן</span>
-                        </p>
-                    </div>
-                </div>
-                
-                <!-- Interactive Elements with macaron styling -->
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8">
-                    <!-- Family Icons with macaron-style animation -->
-                    <div class="flex items-center gap-2 macaron-bounce-gentle">
-                        <span class="text-2xl">👨‍👩‍👧‍👦</span>
-                        <span class="text-sm font-medium" style="color: #6B7280;">משפחה</span>
-                    </div>
-                    <div class="w-2 h-2 rounded-full macaron-pulse" style="background: #FFB6C1;"></div>
-                    <div class="flex items-center gap-2 macaron-bounce-gentle-delay">
-                        <span class="text-2xl">🧳</span>
-                        <span class="text-sm font-medium" style="color: #6B7280;">טיול</span>
-                    </div>
-                    <div class="w-2 h-2 rounded-full macaron-pulse-delay" style="background: #87CEEB;"></div>
-                    <div class="flex items-center gap-2 macaron-bounce-gentle-delay-2">
-                        <span class="text-2xl">🇨🇭</span>
-                        <span class="text-sm font-medium" style="color: #6B7280;">שוויץ</span>
-                    </div>
-                </div>
+            </div>
+        </section>
             
                 <!-- Quick Status Panel for Mobile Users -->
                 <div class="max-w-6xl mx-auto p-8 rounded-xl" style="border: 2px solid #D0E8C5;">

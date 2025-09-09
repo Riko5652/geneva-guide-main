@@ -3473,3 +3473,33 @@ export function renderPackingPhotosGallery() {
     
     gallery.innerHTML = photosHTML;
 }
+
+// === START: ON-SCROLL REVEAL ANIMATION LOGIC ===
+document.addEventListener("DOMContentLoaded", function() {
+    const scrollElements = document.querySelectorAll(".reveal-on-scroll");
+
+    // Check if IntersectionObserver is supported
+    if (!('IntersectionObserver' in window)) {
+        // Fallback for older browsers: just show the elements
+        scrollElements.forEach(el => {
+            el.classList.add("is-visible");
+        });
+        return;
+    }
+
+    const elementObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target); // Stop observing once it's visible for performance
+            }
+        });
+    }, {
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    });
+
+    scrollElements.forEach(el => {
+        elementObserver.observe(el);
+    });
+});
+// === END: ON-SCROLL REVEAL ANIMATION LOGIC ===

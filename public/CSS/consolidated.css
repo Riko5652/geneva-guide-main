@@ -3321,6 +3321,191 @@ li {
 }
 
 /* ========================================
+   UPDATED BODY AND BASE STYLES
+   ======================================== */
+
+body {
+    font-family: 'Assistant', sans-serif;
+    background-color: #FDFBF7;
+    color: #4A4A4A;
+    line-height: 1.6;
+}
+
+.bg-primary {
+    background-color: #FDFBF7;
+}
+
+.bg-secondary {
+    background-color: #F3EFEA;
+}
+
+.text-accent {
+    color: #008080;
+}
+
+.border-accent {
+    border-color: #008080;
+}
+
+.btn-primary {
+    background-color: #008080;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #006666;
+}
+
+.btn-primary:disabled {
+    background-color: #a0aec0;
+    cursor: not-allowed;
+}
+
+.btn-filter.active {
+    background-color: #008080;
+    color: white;
+}
+
+.btn-filter {
+    background-color: #E0D8CC;
+    color: #4A4A4A;
+}
+
+.section-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #333;
+}
+
+/* ========================================
+   HERO BANNER V2 STYLES
+   ======================================== */
+
+/* New background for the hero banner, inspired by the screenshots */
+.hero-banner-v2 {
+    background: radial-gradient(circle at 10% 20%, rgba(255, 244, 220, 0.8), transparent 70%),
+                radial-gradient(circle at 90% 80%, rgba(220, 235, 255, 0.8), transparent 70%),
+                linear-gradient(135deg, #E0F2FF 0%, #FFF8F0 100%);
+    border: none;
+}
+
+/* Base style for all floating 3D items */
+.float-item, .float-item-alt, .float-item-slow {
+    transition: transform 0.3s ease-out;
+    filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.1));
+}
+
+.float-item {
+    animation: float-up-down 8s ease-in-out infinite;
+}
+
+.float-item-alt {
+    animation: float-up-down-alt 10s ease-in-out infinite;
+}
+
+.float-item-slow {
+    animation: float-up-down 15s ease-in-out infinite;
+}
+
+/* Keyframe animation for the floating effect */
+@keyframes float-up-down {
+    0%, 100% {
+        transform: translateY(0) rotate(var(--initial-rotate, 0deg));
+    }
+    50% {
+        transform: translateY(-20px) rotate(calc(var(--initial-rotate, 0deg) + 5deg));
+    }
+}
+
+@keyframes float-up-down-alt {
+    0%, 100% {
+        transform: translateY(0) rotate(var(--initial-rotate, 0deg));
+    }
+    50% {
+        transform: translateY(20px) rotate(calc(var(--initial-rotate, 0deg) - 5deg));
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-3d-elements img {
+        transform: scale(0.7);
+    }
+    #main-heading {
+        font-size: 3.5rem;
+    }
+}
+
+/* ========================================
+   ENTRANCE ANIMATION STYLES
+   ======================================== */
+
+@keyframes slideUpFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-entrance {
+    animation: slideUpFadeIn 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+/* ========================================
+   ON-SCROLL ANIMATION STYLES
+   ======================================== */
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================
+   INTERACTIVE CARD HOVER EFFECT
+   ======================================== */
+
+.interactive-card-lift {
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.interactive-card-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* ========================================
+   STYLES FOR FUN FACT BUTTON
+   ======================================== */
+
+.btn-hero-secondary {
+    background-color: transparent;
+    color: #4b5563; /* text-gray-600 */
+    border: 2px solid #d1d5db; /* border-gray-300 */
+    padding: 0.75rem 1.5rem; /* py-3 px-6 */
+    border-radius: 9999px; /* rounded-full */
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-hero-secondary:hover {
+    background-color: #f3f4f6; /* bg-gray-100 */
+    border-color: #9ca3af; /* border-gray-400 */
+    color: #1f2937; /* text-gray-800 */
+    transform: scale(1.05);
+}
+
+/* ========================================
    ACTIVITIES GRID FIX
    ======================================== */
 
