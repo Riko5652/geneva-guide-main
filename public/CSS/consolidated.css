@@ -14,17 +14,16 @@
    1. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
    ======================================== */
 :root {
-  /* Pastel Color Scheme */
-  --pastel-cream: #F1F0E8;
-  --pastel-beige: #E5E1DA;
-  --pastel-blue: #D2E0FB;
-  --pastel-teal: #B3C8CF;
-  --pastel-sage: #C8D5B1;
-  --pastel-yellow: #F4E4BC;
-  --pastel-rose: #F5B7B1;
-  --pastel-dark: #4A6B7A;
+  /* Standard Color Scheme */
+  --primary-color: #008080;
+  --secondary-color: #006666;
+  --accent-color: #4A6B7A;
+  --text-color: #333333;
+  --bg-color: #ffffff;
+  --light-bg: #f8f9fa;
+  --border-color: #e0e0e0;
   
-  /* Colors - Teal-inspired palette from New Folder 2 */
+  /* Accent colors */
   --accent-orange: #f97316;
   --accent-yellow: #f59e0b;
   --accent-green: #10b981;
@@ -3010,8 +3009,8 @@ li {
 
 /* Enhanced loading animation colors */
 .loader {
-    border: 3px solid #FFF8DE;
-    border-top: 3px solid #C5D3E8;
+    border: 3px solid var(--light-bg);
+    border-top: 3px solid var(--primary-color);
     border-radius: 50%;
     width: 24px;
     height: 24px;
@@ -3306,14 +3305,6 @@ li {
     opacity: 0;
 }
 
-.macaron-text {
-    background: linear-gradient(45deg, #A6AEBF, #C5D3E8, #A6AEBF);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: macaron-gradient 3s ease-in-out infinite;
-}
 
 @keyframes macaron-gradient {
     0%, 100% { background-position: 0% 50%; }
@@ -3326,57 +3317,57 @@ li {
 
 /* Override conflicting body styles */
 body {
-    font-family: 'Assistant', sans-serif !important;
-    background-color: #FDFBF7 !important;
-    color: #4A4A4A !important;
-    line-height: 1.6 !important;
+    font-family: 'Assistant', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
 }
 
 .bg-primary {
-    background-color: #FDFBF7;
+    background-color: var(--bg-color);
 }
 
 .bg-secondary {
-    background-color: #F3EFEA;
+    background-color: var(--light-bg);
 }
 
 .text-accent {
-    color: #008080;
+    color: var(--primary-color);
 }
 
 .border-accent {
-    border-color: #008080;
+    border-color: var(--primary-color);
 }
 
 .btn-primary {
-    background-color: #008080;
+    background-color: var(--primary-color);
     color: white;
     transition: background-color 0.3s;
 }
 
 .btn-primary:hover {
-    background-color: #006666;
+    background-color: var(--secondary-color);
 }
 
 .btn-primary:disabled {
-    background-color: #a0aec0;
+    background-color: var(--border-color);
     cursor: not-allowed;
 }
 
 .btn-filter.active {
-    background-color: #008080;
+    background-color: var(--primary-color);
     color: white;
 }
 
 .btn-filter {
-    background-color: #E0D8CC;
-    color: #4A4A4A;
+    background-color: var(--light-bg);
+    color: var(--text-color);
 }
 
 .section-title {
     font-size: 2.25rem;
     font-weight: 700;
-    color: #333;
+    color: var(--text-color);
 }
 
 
