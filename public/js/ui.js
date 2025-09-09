@@ -38,6 +38,138 @@ function getPriorityIcon(item) {
     return '🟢';
 }
 
+// Fun Facts functionality for the hero section
+export function initFunFacts() {
+    const funFactBtn = document.getElementById('fun-fact-btn');
+    const funFactResult = document.getElementById('fun-fact-result');
+    const funFactContent = document.getElementById('fun-fact-content');
+    
+    if (!funFactBtn || !funFactResult || !funFactContent) return;
+    
+    const funFacts = [
+        "בשוויץ יש יותר פסגות הרים גבוהות מכל מדינה אחרת באירופה.",
+        "לא חוקי להחזיק רק חזיר ים אחד בשוויץ; הם נחשבים חיות חברתיות וחייבים להיות בזוגות.",
+        "שוויץ היא אחת משתי המדינות היחידות בעולם עם דגל ריבועי.",
+        "אלברט איינשטיין פיתח את תורת היחסות המפורסמת שלו, E=mc², בזמן שעבד בברן, שוויץ.",
+        "שוויץ היא המדינה היחידה בעולם עם דמוקרטיה ישירה ברמה הלאומית.",
+        "השעון השוויצרי המפורסם ביותר בעולם נמצא בתחנת הרכבת של ז'נבה.",
+        "שוויץ מייצרת יותר שוקולד מכל מדינה אחרת בעולם.",
+        "בשוויץ יש יותר מ-1,500 אגמים, מה שהופך אותה לאחת המדינות עם הכי הרבה אגמים באירופה."
+    ];
+
+    let factVisible = false;
+
+    funFactBtn.addEventListener('click', () => {
+        factVisible = !factVisible;
+        if(factVisible) {
+            const randomFact = funFacts[Math.floor(Math.random() * funFacts.length)];
+            funFactContent.textContent = randomFact;
+            funFactResult.classList.remove('hidden');
+            
+            // Add a subtle animation when showing the fact
+            funFactResult.style.opacity = '0';
+            funFactResult.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                funFactResult.style.transition = 'all 0.3s ease-out';
+                funFactResult.style.opacity = '1';
+                funFactResult.style.transform = 'translateY(0)';
+            }, 10);
+        } else {
+            funFactResult.style.transition = 'all 0.3s ease-out';
+            funFactResult.style.opacity = '0';
+            funFactResult.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                funFactResult.classList.add('hidden');
+            }, 300);
+        }
+    });
+}
+
+// CTA Button functionality for "Let's start the adventure!"
+export function initCTAButton() {
+    const ctaButton = document.querySelector('.btn-cta-themed');
+    
+    if (!ctaButton) return;
+    
+    ctaButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Add visual feedback
+        ctaButton.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            ctaButton.style.transform = 'scale(1.05)';
+        }, 150);
+        
+        // Show loading state
+        const originalText = ctaButton.textContent;
+        ctaButton.textContent = 'מתחילים את ההרפתקה... 🚀';
+        ctaButton.style.pointerEvents = 'none';
+        
+        // Scroll to plan section with smooth animation
+        const planSection = document.getElementById('plan');
+        if (planSection) {
+            // Add a small delay for better UX
+            setTimeout(() => {
+                planSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Add highlight effect to the plan section
+                planSection.style.transition = 'all 0.5s ease-out';
+                planSection.style.boxShadow = '0 0 30px rgba(13, 148, 136, 0.3)';
+                planSection.style.transform = 'scale(1.02)';
+                
+                // Remove highlight after animation
+                setTimeout(() => {
+                    planSection.style.boxShadow = '';
+                    planSection.style.transform = '';
+                }, 2000);
+                
+                // Restore button state
+                setTimeout(() => {
+                    ctaButton.textContent = originalText;
+                    ctaButton.style.pointerEvents = 'auto';
+                    ctaButton.style.transform = '';
+                }, 1000);
+                
+            }, 500);
+        } else {
+            // Fallback: scroll to top of activities section
+            const activitiesSection = document.getElementById('activities');
+            if (activitiesSection) {
+                setTimeout(() => {
+                    activitiesSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Restore button state
+                    setTimeout(() => {
+                        ctaButton.textContent = originalText;
+                        ctaButton.style.pointerEvents = 'auto';
+                        ctaButton.style.transform = '';
+                    }, 1000);
+                }, 500);
+            } else {
+                // Final fallback: restore button state
+                setTimeout(() => {
+                    ctaButton.textContent = originalText;
+                    ctaButton.style.pointerEvents = 'auto';
+                    ctaButton.style.transform = '';
+                }, 1000);
+            }
+        }
+        
+        // Show success toast
+        if (window.familyToast) {
+            setTimeout(() => {
+                window.familyToast.success('בואו נתחיל לתכנן את הטיול המושלם! 🎯');
+            }, 1500);
+        }
+    });
+}
+
 // Family-Friendly Animations & Effects
 export class FamilyAnimations {
     constructor() {
@@ -523,10 +655,15 @@ function renderFallbackContent() {
         `;
     }
     
-    // Show connection status
-    const statusElement = document.getElementById('quick-weather');
+    // Show connection status in navigation bar (desktop and mobile)
+    const statusElement = document.getElementById('nav-weather');
     if (statusElement) {
-        statusElement.innerHTML = '<span>🔄</span> מתחבר...';
+        statusElement.innerHTML = 'מתחבר...';
+    }
+    
+    const mobileStatusElement = document.getElementById('mobile-nav-weather');
+    if (mobileStatusElement) {
+        mobileStatusElement.innerHTML = 'מתחבר...';
     }
 }
 
@@ -2229,51 +2366,64 @@ export function renderInteractivePackingList() {
 let timeUpdateInterval = null;
 
 export function renderQuickStatus() {
-    // Update current time
-    const timeElement = document.getElementById('current-time');
-    if (timeElement) {
-        const updateTime = () => {
-            const now = new Date();
-            const genevaTime = now.toLocaleTimeString('he-IL', {
-                timeZone: 'Europe/Zurich',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
+    // Update current time in navigation bar (desktop and mobile)
+    const updateTime = () => {
+        const now = new Date();
+        const genevaTime = now.toLocaleTimeString('he-IL', {
+            timeZone: 'Europe/Zurich',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+        
+        // Update desktop nav
+        const timeElement = document.getElementById('nav-time');
+        if (timeElement) {
             timeElement.textContent = genevaTime;
-        };
-        
-        // Initial update
-        updateTime();
-        
-        // Clear existing interval if any
-        if (timeUpdateInterval) {
-            clearInterval(timeUpdateInterval);
         }
         
-        // Set up new interval
-        timeUpdateInterval = setInterval(updateTime, 60000);
+        // Update mobile nav
+        const mobileTimeElement = document.getElementById('mobile-nav-time');
+        if (mobileTimeElement) {
+            mobileTimeElement.textContent = genevaTime;
+        }
+    };
+    
+    // Initial update
+    updateTime();
+    
+    // Clear existing interval if any
+    if (timeUpdateInterval) {
+        clearInterval(timeUpdateInterval);
     }
     
-    // Update weather status
-    const weatherElement = document.getElementById('quick-weather');
-    if (weatherElement) {
+    // Set up new interval
+    timeUpdateInterval = setInterval(updateTime, 60000);
+    
+    // Update weather status in navigation bar (desktop and mobile)
+    const updateWeather = () => {
+        let weatherContent = 'טוען מזג אוויר...';
+        
         if (currentData && currentData.weather && currentData.weather.daily) {
             const todayTemp = Math.round(currentData.weather.daily.temperature_2m_max[0]);
-            weatherElement.textContent = `🌤️ ${todayTemp}°C`;
-        } else {
-            weatherElement.textContent = '🌤️ טוען מזג אוויר...';
+            const weatherCode = currentData.weather.daily.weather_code[0];
+            const weatherIcon = getWeatherIcon(weatherCode);
+            weatherContent = `${weatherIcon} ${todayTemp}°C`;
         }
-    }
+        
+        // Update desktop nav
+        const weatherElement = document.getElementById('nav-weather');
+        if (weatherElement) {
+            weatherElement.innerHTML = weatherContent;
+        }
+        
+        // Update mobile nav
+        const mobileWeatherElement = document.getElementById('mobile-nav-weather');
+        if (mobileWeatherElement) {
+            mobileWeatherElement.innerHTML = weatherContent;
+        }
+    };
     
-    // Update hotel status
-    const hotelElement = document.getElementById('quick-hotel');
-    if (hotelElement) {
-        if (currentData && currentData.hotelData && currentData.hotelData.name) {
-            hotelElement.textContent = `🏨 ${currentData.hotelData.name}`;
-        } else {
-            hotelElement.textContent = '🏨 Mercure Meyrin';
-        }
-    }
+    updateWeather();
     
     // Update transport status
     const transportElement = document.getElementById('quick-transport');

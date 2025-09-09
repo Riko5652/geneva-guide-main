@@ -3,7 +3,7 @@ import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gsta
 import { getFirestore, doc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
-import { renderAllComponents } from './ui.js';
+import { renderAllComponents, initFunFacts, initCTAButton } from './ui.js';
 import { setupEventListeners } from './handlers.js';
 import { setupGeminiChat } from "./Gemini.js";
 import { CONFIG } from './config.js';
@@ -151,6 +151,12 @@ async function initApp() {
         // Setup event listeners and chat once (with coordination)
         console.log('🔧 Setting up event listeners...');
         setupEventListeners();
+        
+        console.log('🎯 Initializing fun facts...');
+        initFunFacts();
+        
+        console.log('🚀 Initializing CTA button...');
+        initCTAButton();
         
         console.log('🤖 Setting up Gemini chat...');
         setupGeminiChat();

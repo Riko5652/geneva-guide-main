@@ -66,6 +66,18 @@
             <div class="flex justify-between items-center">
                 <a href="#" class="text-xl font-bold text-accent">ז'נבה עם קטנטנים 🧸</a>
                 
+                <!-- Time and Weather Info -->
+                <div class="hidden md:flex items-center space-x-4 space-x-reverse">
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="text-blue-600">🌤️</span>
+                        <span id="nav-weather" class="text-gray-700 font-medium">טוען מזג אוויר...</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="text-orange-600">🕐</span>
+                        <span id="nav-time" class="text-gray-700 font-medium">--:--</span>
+                    </div>
+                </div>
+                
                 <div class="hidden lg:flex items-center space-x-6 space-x-reverse">
                     <a href="#plan" class="hover:text-accent">🗺️ מסלול</a>
                     <a href="#activities" class="hover:text-accent">🎈 פעילויות</a>
@@ -123,6 +135,18 @@
                 </div>
             </div>
             <div id="mobile-menu" class="hidden lg:hidden mt-3 space-y-2">
+                <!-- Mobile Time and Weather -->
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg mb-2">
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="text-blue-600">🌤️</span>
+                        <span id="mobile-nav-weather" class="text-gray-700 font-medium">טוען מזג אוויר...</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="text-orange-600">🕐</span>
+                        <span id="mobile-nav-time" class="text-gray-700 font-medium">--:--</span>
+                    </div>
+                </div>
+                
                 <a href="#plan" class="mobile-menu-link block py-2 px-4 text-sm hover:bg-gray-200 rounded-md">🗺️ מסלול</a>
                 <a href="#activities" class="mobile-menu-link block py-2 px-4 text-sm hover:bg-gray-200 rounded-md">🎈 פעילויות</a>
                 <button id="open-packing-modal-btn-mobile"
@@ -177,49 +201,47 @@
     </header>
 
     <main id="main-content" class="container mx-auto px-6" role="main">
-        <section class="text-center pt-16 pb-12 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 rounded-3xl mb-16 shadow-lg" aria-labelledby="main-heading">
-            <h1 id="main-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-800">
-                <span>
-                    🇨🇭 המדריך האינטראקטיבי
-                </span>
-                <br>
-                <span class="text-yellow-500">לטיול משפחתי בז'נבה</span>
-            </h1>
-            <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-                כל מה שמשפחה עם פעוטות צריכה לטיול מושלם בבירת השלום - מתוכנן במיוחד עבור דור, עדי, בר ורן
-            </p>
+        <!-- === ENHANCED HERO SECTION === -->
+        <section class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg hero-banner-themed mb-16" aria-labelledby="main-heading">
             
-            <!-- Quick Status Panel for Mobile Users -->
-            <div class="bg-gradient-to-r from-teal-50 to-blue-50 rounded-2xl p-6 max-w-4xl mx-auto border border-teal-200 shadow-sm">
-                <h2 class="text-lg font-bold text-gray-800 mb-4 text-center">🎯 סטטוס הטיול המהיר</h2>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                    <div class="flex items-center justify-center p-3 bg-white rounded-lg shadow-sm">
-                        <span class="text-blue-600 font-semibold flex items-center gap-2" id="quick-weather">
-                            <span>🌤️</span>
-                            <span>טוען מזג אוויר...</span>
+            <!-- Container for floating decorative elements with new brand colors -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="absolute top-8 left-8 w-12 h-12 rounded-full opacity-40 floating-element-slow" style="background: linear-gradient(45deg, #5eead4, #14b8a6);"></div>
+                <div class="absolute top-16 right-12 w-16 h-16 rounded-full opacity-30 floating-element" style="background: linear-gradient(45deg, #3b82f6, #2563eb);"></div>
+                <div class="absolute bottom-16 left-16 w-14 h-14 rounded-full opacity-50 floating-element-slow" style="background: linear-gradient(45deg, #9333ea, #7c3aed);"></div>
+                <div class="absolute top-1/2 right-8 w-10 h-10 rounded-full opacity-25 floating-element" style="background: linear-gradient(45deg, #f97316, #f59e0b);"></div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="relative z-10 px-4 sm:px-6 md:px-8 py-24 sm:py-32 md:py-40 text-center">
+                <h1 id="main-heading" class="text-5xl sm:text-6xl md:text-7xl font-extrabold animate-entrance" style="color: #1f2937;">
+                    המדריך המשפחתי לז'נבה
+                </h1>
+                <p class="mt-4 sm:mt-6 max-w-2xl mx-auto text-lg sm:text-xl md:text-2xl animate-entrance" style="animation-delay: 0.2s; color: #374151;">
+                    המדריך האישי שלכם לטיול בלתי נשכח
+                </p>
+                <div class="mt-8 sm:mt-10 animate-entrance" style="animation-delay: 0.4s;">
+                    <a href="#plan" class="inline-block text-white font-bold text-lg px-8 py-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 btn-cta-themed" aria-label="התחילו לתכנן את ההרפתקה">
+                        בואו נתחיל את ההרפתקה!
+                    </a>
+                </div>
+
+                <!-- Fun Fact Button -->
+                <div class="mt-8 animate-entrance" style="animation-delay: 0.6s;">
+                    <button id="fun-fact-btn" class="btn-themed group">
+                        <span id="fun-fact-text" class="relative font-bold text-base flex items-center justify-center gap-3">
+                            <span class="text-xl animate-pulse group-hover:animate-bounce">✨</span>
+                            <span>גלו עובדה מעניינת על שוויץ</span>
+                            <span class="text-xl animate-pulse group-hover:animate-bounce">✨</span>
                         </span>
-                    </div>
-                    <div class="flex items-center justify-center p-3 bg-white rounded-lg shadow-sm">
-                        <span class="text-green-600 font-semibold flex items-center gap-2" id="quick-hotel">
-                            <span>🏨</span>
-                            <span>Mercure Meyrin</span>
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-center p-3 bg-white rounded-lg shadow-sm">
-                        <span class="text-purple-600 font-semibold flex items-center gap-2" id="quick-transport">
-                            <span>🚊</span>
-                            <span>Geneva Card</span>
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-center p-3 bg-white rounded-lg shadow-sm">
-                        <span class="text-orange-600 font-semibold flex items-center gap-2">
-                            <span>🕐</span>
-                            <span id="current-time">--:--</span>
-                        </span>
+                    </button>
+                    <div id="fun-fact-result" class="mt-6 max-w-md mx-auto p-6 rounded-xl hidden">
+                        <p id="fun-fact-content" class="text-sm md:text-base leading-relaxed font-medium text-center" style="color: #4b5563;"></p>
                     </div>
                 </div>
             </div>
         </section>
+
 
         <section id="bookings" class="bg-gradient-to-br from-white via-blue-50 to-cyan-50 rounded-2xl p-8 md:p-12 mb-16 shadow-lg border border-blue-100">
             <h2 class="text-3xl font-bold text-center mb-4 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">✈️ מרכז ההזמנות שלכם 🏨</h2>
