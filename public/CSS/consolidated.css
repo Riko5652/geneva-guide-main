@@ -3396,6 +3396,16 @@ body {
     filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.1));
 }
 
+/* Swiss icon styling */
+.swiss-icon {
+    transition: all 0.3s ease;
+}
+
+.swiss-icon:hover {
+    transform: scale(1.1) !important;
+    filter: drop-shadow(0px 15px 25px rgba(0, 0, 0, 0.2));
+}
+
 .float-item {
     animation: float-up-down 8s ease-in-out infinite;
 }

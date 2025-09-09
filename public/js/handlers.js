@@ -405,6 +405,7 @@ function handleDelegatedClicks(e) {
     if (target.classList.contains('gemini-story-btn')) handleAiRequest('story', e);
     if (target.id === 'what-to-wear-btn') handleWhatToWearRequest();
     if (target.id === 'fun-fact-btn') handleFunFactRequest();
+    if (target.id === 'start-adventure-btn') handleStartAdventure();
     
     // --- Modal Opening Logic ---
     if (target.closest('#open-flights-modal-btn, #open-flights-modal-btn-main, #open-flights-modal-btn-mobile')) {
@@ -1176,6 +1177,45 @@ async function handleFunFactRequest() {
         textSpan.textContent = originalText;
     } finally {
         button.disabled = false;
+    }
+}
+
+// Handle start adventure button click
+function handleStartAdventure() {
+    console.log('🚀 Start adventure button clicked');
+    
+    // Find the itinerary section
+    const itinerarySection = document.getElementById('itinerary-section');
+    
+    if (itinerarySection) {
+        // Smooth scroll to the itinerary section
+        itinerarySection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+        
+        // Add a subtle highlight effect
+        itinerarySection.style.transition = 'box-shadow 0.3s ease';
+        itinerarySection.style.boxShadow = '0 0 20px rgba(0, 128, 128, 0.3)';
+        
+        // Remove the highlight after 2 seconds
+        setTimeout(() => {
+            itinerarySection.style.boxShadow = '';
+        }, 2000);
+        
+        console.log('✅ Scrolled to itinerary section');
+    } else {
+        console.warn('⚠️ Itinerary section not found');
+        
+        // Fallback: scroll to activities section if itinerary doesn't exist
+        const activitiesSection = document.getElementById('activities-section');
+        if (activitiesSection) {
+            activitiesSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            console.log('✅ Scrolled to activities section as fallback');
+        }
     }
 }
 
