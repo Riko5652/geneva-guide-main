@@ -3387,11 +3387,15 @@ body {
 .hero-banner-v2 {
     background: 
         linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)),
-        url('./images/hero-family-landscape.png') no-repeat center center / cover !important;
+        url('../images/hero-family-landscape.png') no-repeat center center / cover !important;
     border: none !important;
     position: relative !important;
     min-height: 80vh !important;
     background-attachment: fixed !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 1 !important;
 }
 
 /* Base style for all floating 3D items */
@@ -3513,6 +3517,32 @@ body {
 
 .hero-banner-v2 .animate-bounce {
     animation: scrollBounce 2s ease-in-out infinite !important;
+}
+
+/* Debug styles to ensure hero content is visible */
+.hero-banner-v2 * {
+    visibility: visible !important;
+}
+
+.hero-banner-v2 h1, .hero-banner-v2 h2, .hero-banner-v2 p, .hero-banner-v2 button {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Ensure loading screen is hidden */
+#family-loader {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    z-index: -1 !important;
+}
+
+/* Ensure main content is visible */
+#main-content {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* ========================================
