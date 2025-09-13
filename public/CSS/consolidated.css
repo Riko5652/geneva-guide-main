@@ -50,8 +50,30 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--text-main);
   font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--space-4);
+  color: var(--text-primary, #333333); /* Uses your token with a fallback */
+}
+
+h1 { font-size: var(--text-4xl, 2.25rem); }
+h2 { font-size: var(--text-3xl, 1.875rem); }
+h3 { font-size: var(--text-2xl, 1.5rem); }
+
+.section-title {
+  font-size: var(--text-3xl, 1.875rem);
+  text-align: center;
+  margin-bottom: var(--space-2);
+}
+
+.section-subtitle {
+  font-size: var(--text-lg, 1.125rem);
+  color: var(--text-secondary, #6b7280);
+  text-align: center;
+  margin-bottom: var(--space-8);
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 a {
@@ -417,4 +439,134 @@ nav .nav-icon {
 
 .shadow-lg {
   box-shadow: var(--shadow-lg);
+}
+
+/* === CORE ANIMATION FIX === */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideUpFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-main, #E5E7EB);
+  border-top-color: var(--c-primary, #BCCCDC);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.animate-entrance {
+    animation: slideUpFadeIn 0.8s ease-out forwards;
+}
+
+/* === RESPONSIVE SIZING & CONTAINER FIX === */
+
+/* --- General Containers --- */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 var(--space-4);
+}
+
+#activities-grid {
+    grid-template-columns: repeat(1, 1fr); /* Mobile First */
+}
+
+
+/* --- Modals (Mobile First) --- */
+.modal > div {
+    width: 95vw;
+    max-width: 500px; /* Prevents excessive width even on mobile landscape */
+}
+
+
+/* --- Tablet Breakpoint --- */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-8);
+  }
+
+  #activities-grid {
+      grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modal > div {
+    width: 80vw;
+    max-width: 640px;
+  }
+}
+
+/* --- Desktop Breakpoint --- */
+@media (min-width: 1024px) {
+  #activities-grid {
+      grid-template-columns: repeat(3, 1fr);
+  }
+
+  .modal > div {
+    width: 60vw;
+    max-width: 768px; /* Constrains width for readability on large screens */
+  }
+
+  /* Specific override for the wider packing modal */
+  #packing-guide-modal > div {
+      width: 80vw;
+      max-width: 1100px;
+  }
+}
+
+/* === DESKTOP NAVIGATION & MOBILE MENU FIX === */
+
+/* This rule hides the desktop nav by default */
+.desktop-nav {
+  display: none;
+}
+
+/* This media query shows the desktop nav ONLY on large screens (1024px and up) */
+@media (min-width: 1024px) {
+  .desktop-nav {
+    display: flex;
+  }
+}
+
+/* This rule hides the mobile menu button by default on large screens */
+@media (min-width: 1024px) {
+  #menu-btn {
+    display: none;
+  }
+}
+
+/* These rules control the visibility of the slide-out mobile menu */
+#mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-lg);
+  border-top: 1px solid var(--border-main);
+  padding: var(--space-4);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+#mobile-menu:not(.mobile-menu-hidden) {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
 }
