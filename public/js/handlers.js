@@ -218,7 +218,7 @@ export function setupEventListeners() {
     // Setup mobile menu functionality
     setupMobileMenu();
     
-    // Simple fallback mobile menu toggle
+    // Mobile menu toggle using semantic classes
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     
@@ -229,35 +229,24 @@ export function setupEventListeners() {
             e.preventDefault();
             e.stopPropagation();
             
-            // Force check the actual display state, not just the class
-            const computedStyle = window.getComputedStyle(mobileMenu);
-            const isActuallyHidden = computedStyle.display === 'none';
-            const hasHiddenClass = mobileMenu.classList.contains('hidden');
+            // Check if mobile menu is open using semantic class
+            const isOpen = mobileMenu.classList.contains('is-open');
             
-            console.log('🍔 Mobile menu has hidden class:', hasHiddenClass);
-            console.log('🍔 Mobile menu computed display:', computedStyle.display);
-            console.log('🍔 Mobile menu is actually hidden:', isActuallyHidden);
-            
-            // Use the actual display state instead of just the class
-            const isHidden = isActuallyHidden;
-            
-            if (isHidden) {
+            if (!isOpen) {
                 console.log('🍔 Opening mobile menu');
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.style.display = 'block'; // Show with inline style
+                mobileMenu.classList.add('is-open');
                 menuBtn.setAttribute('aria-expanded', 'true');
                 menuBtn.innerHTML = `
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 `;
             } else {
                 console.log('🍔 Closing mobile menu');
-                mobileMenu.classList.add('hidden');
-                mobileMenu.style.display = 'none'; // Hide with inline style
+                mobileMenu.classList.remove('is-open');
                 menuBtn.setAttribute('aria-expanded', 'false');
                 menuBtn.innerHTML = `
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
                 `;
@@ -271,10 +260,10 @@ export function setupEventListeners() {
         const menuBtn = document.getElementById('menu-btn');
         if (mobileMenu && menuBtn) {
         // Force resetting mobile menu state...
-        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('is-open');
             menuBtn.setAttribute('aria-expanded', 'false');
             menuBtn.innerHTML = `
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
             `;
@@ -296,17 +285,16 @@ function setupMobileMenu() {
     
     if (menuBtn && mobileMenu) {
         console.log('🍔 Initializing mobile menu state');
-        // Ensure proper initial state - mobile menu starts hidden
-        mobileMenu.classList.add('hidden');
-        mobileMenu.style.display = 'none'; // Force hidden with inline style too
+        // Ensure proper initial state - mobile menu starts closed
+        mobileMenu.classList.remove('is-open');
         menuBtn.setAttribute('aria-expanded', 'false');
         menuBtn.innerHTML = `
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
             </svg>
         `;
-        console.log('🍔 Mobile menu forced to hidden state');
-        console.log('🍔 Mobile menu classes after forcing hidden:', mobileMenu.className);
+        console.log('🍔 Mobile menu initialized to closed state');
+        console.log('🍔 Mobile menu classes after initialization:', mobileMenu.className);
         
         // Mobile menu initialized to hidden state
         
@@ -335,7 +323,7 @@ function setupMobileMenu() {
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                if (!mobileMenu.classList.contains('hidden')) {
+                if (mobileMenu.classList.contains('is-open')) {
                     menuBtn.click();
                 }
             }
@@ -440,11 +428,10 @@ function handleDelegatedClicks(e) {
         const mobileMenu = document.getElementById('mobile-menu');
         const menuBtn = document.getElementById('menu-btn');
         if (mobileMenu && menuBtn) {
-            mobileMenu.classList.add('hidden');
-            mobileMenu.style.display = 'none';
+            mobileMenu.classList.remove('is-open');
             menuBtn.setAttribute('aria-expanded', 'false');
             menuBtn.innerHTML = `
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
             `;
@@ -1068,11 +1055,7 @@ function showAiResponseModal(response, modalTitle, isLoading = false) {
     }
     
     // Show modal
-    modal.classList.remove('hidden');
-    modal.style.setProperty('display', 'flex', 'important');
-    modal.style.setProperty('visibility', 'visible', 'important');
-    modal.style.setProperty('opacity', '1', 'important');
-    modal.style.setProperty('z-index', '9999', 'important');
+    modal.classList.add('is-open');
 }
 
 // Handle AI requests (weather, planning, stories)
@@ -1541,7 +1524,7 @@ function openPhotoModal(photoIndex) {
     // Store current photo index for navigation
     modal.dataset.currentPhoto = photoIndex;
     
-    modal.classList.remove('hidden');
+    modal.classList.add('is-open');
 }
 
 // Initialize fullscreen map in modal
@@ -1655,7 +1638,7 @@ export function handleSwapActivity(button) {
                     <div class="text-6xl mb-4">🎯</div>
                     <h3 class="text-xl font-bold mb-4">אין פעילויות זמינות להחלפה</h3>
                     <p class="text-gray-600 mb-4">כרגע אין פעילויות מתאימות להחלפה ליום זה.</p>
-                    <button onclick="document.getElementById('swap-activity-modal').classList.add('hidden')" 
+                    <button onclick="document.getElementById('swap-activity-modal').classList.remove('is-open')" 
                             class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">
                         סגור
                     </button>
@@ -1702,7 +1685,7 @@ function confirmActivitySwap(activityId, dayIndex) {
         console.log(`Swapping activity ${activityId} for day ${dayIndex}`);
         
         // Close modal and show success message
-        document.getElementById('swap-activity-modal').classList.add('hidden');
+        document.getElementById('swap-activity-modal').classList.remove('is-open');
         alert(`הפעילות "${activity.name}" נוספה לתכנית!`);
         
         // You could re-render the itinerary here if needed

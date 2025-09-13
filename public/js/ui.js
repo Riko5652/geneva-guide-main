@@ -413,7 +413,7 @@ export class FamilyToast {
         if (!this.container) {
             this.container = document.createElement('div');
             this.container.id = 'toast-container';
-            this.container.className = 'fixed top-4 right-4 z-[9998] flex flex-col gap-2 pointer-events-none';
+            this.container.className = 'toast-container';
             document.body.appendChild(this.container);
         }
     }
@@ -985,7 +985,7 @@ export function renderActivities() {
                     `;
                 }
                 button.disabled = false;
-                button.className = 'bg-gradient-to-r from-sage-500 to-sage-600 hover:from-sage-600 hover:to-sage-700 text-sage-800 px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg';
+                button.className = 'btn btn-accent';
                 button.classList.remove('opacity-50', 'cursor-not-allowed');
             }
         } else {
