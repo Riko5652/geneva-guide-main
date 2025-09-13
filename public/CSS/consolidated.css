@@ -14,171 +14,39 @@
    1. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
    ======================================== */
 :root {
-  /* Updated Color Scheme - Soft Pastel Gentle */
-  --color-primary: #BCCCDC;
-  --color-secondary: #D9EAFD;
-  --color-light: #F8FAFC;
-  --color-cream: #F8FAFC;
-  --color-dark: #9AA6B2;
-  --color-accent: #BCCCDC;
-  --color-border: #D9EAFD;
-  
-  /* New Aesthetic Color Palette - Soft Pastel Gentle (From Screenshots) */
-  --color-rose: #F8F0ED;        /* Soft Pink/Beige - Primary Background */
-  --color-warm: #E8D9A8;        /* Warm Yellow/Gold - Banner/Accent */
-  --color-sage: #CDE0D8;        /* Light Green - Accent Background */
-  --color-mint: #D8E0ED;        /* Light Blue/Purple - Section Background */
-  
-  /* Button Gradient Colors - Soft Pastel Gentle (From Screenshots) */
-  --btn-rose-light: #F8F0ED;     /* Soft Pink/Beige */
-  --btn-rose-dark: #F0E6E0;      /* Slightly darker pink/beige */
-  --btn-warm-light: #E8D9A8;     /* Warm Yellow/Gold */
-  --btn-warm-dark: #E0D19A;      /* Slightly darker yellow/gold */
-  --btn-sage-light: #CDE0D8;     /* Light Green */
-  --btn-sage-dark: #C5D8D0;      /* Slightly darker green */
-  --btn-mint-light: #D8E0ED;     /* Light Blue/Purple */
-  --btn-mint-dark: #D0D8E5;      /* Slightly darker blue/purple */
-  
-  /* Standardized Button Styles */
-  --btn-primary-bg: linear-gradient(135deg, var(--btn-sage-light) 0%, var(--btn-sage-dark) 100%);
-  --btn-secondary-bg: linear-gradient(135deg, var(--btn-mint-light) 0%, var(--btn-mint-dark) 100%);
-  --btn-accent-bg: linear-gradient(135deg, var(--btn-rose-light) 0%, var(--btn-rose-dark) 100%);
-  --btn-warning-bg: linear-gradient(135deg, var(--btn-warm-light) 0%, var(--btn-warm-dark) 100%);
-  
-  --btn-primary-text: #333333;    /* Dark Grey from screenshots */
-  --btn-secondary-text: #333333;  /* Dark Grey from screenshots */
-  --btn-accent-text: #333333;     /* Dark Grey from screenshots */
-  --btn-warning-text: #333333;    /* Dark Grey from screenshots */
-  
-  /* Custom Color Classes for Tailwind - Soft Pastel Gentle (From Screenshots) */
-  --rose-300: #F8F0ED;     /* Soft Pink/Beige */
-  --rose-400: #F0E6E0;     /* Slightly darker pink/beige */
-  --rose-500: #E8DCD4;     /* Medium pink/beige */
-  --rose-600: #E0D2C8;     /* Darker pink/beige */
-  --mint-300: #D8E0ED;     /* Light Blue/Purple */
-  --mint-400: #D0D8E5;     /* Slightly darker blue/purple */
-  --mint-500: #C8D0DD;     /* Medium blue/purple */
-  --mint-600: #C0C8D5;     /* Darker blue/purple */
-  --sage-300: #CDE0D8;     /* Light Green */
-  --sage-400: #C5D8D0;     /* Slightly darker green */
-  --sage-500: #BDD0C8;     /* Medium green */
-  --sage-600: #B5C8C0;     /* Darker green */
-  
-  /* Warm Color Variables (From Screenshots) */
-  --warm-300: #E8D9A8;     /* Warm Yellow/Gold */
-  --warm-400: #E0D19A;     /* Slightly darker yellow/gold */
-  --warm-500: #D8C98C;     /* Medium yellow/gold */
-  --warm-600: #D0C17E;     /* Darker yellow/gold */
-  
-  /* Custom Color Classes */
-  .from-rose-400 { background: linear-gradient(to right, var(--rose-400), transparent); }
-  .to-rose-500 { background: linear-gradient(to right, transparent, var(--rose-500)); }
-  .from-rose-500 { background: linear-gradient(to right, var(--rose-500), transparent); }
-  .to-rose-600 { background: linear-gradient(to right, transparent, var(--rose-600)); }
-  .from-mint-400 { background: linear-gradient(to right, var(--mint-400), transparent); }
-  .to-mint-500 { background: linear-gradient(to right, transparent, var(--mint-500)); }
-  .from-mint-500 { background: linear-gradient(to right, var(--mint-500), transparent); }
-  .to-mint-600 { background: linear-gradient(to right, transparent, var(--mint-600)); }
-  .from-sage-400 { background: linear-gradient(to right, var(--sage-400), transparent); }
-  .to-sage-500 { background: linear-gradient(to right, transparent, var(--sage-500)); }
-  .from-sage-500 { background: linear-gradient(to right, var(--sage-500), transparent); }
-  .to-sage-600 { background: linear-gradient(to right, transparent, var(--sage-600)); }
-  .border-rose-300 { border-color: var(--rose-300); }
-  .border-mint-300 { border-color: var(--mint-300); }
-  .border-sage-300 { border-color: var(--sage-300); }
-  
-  /* Colors - Soft Pastel Gentle Aesthetic Palette */
-  --accent-orange: #EDE8DC;
-  --accent-yellow: #EDE8DC;
-  --accent-green: #A5B68D;
-  --accent-purple: #BCCCDC;
-  --accent-pink: #E7CCCC;
-  
-  /* High contrast colors for accessibility */
-  --high-contrast-text: #000000;
-  --high-contrast-bg: #F8FAFC;
-  --high-contrast-border: #000000;
-  
-  /* Neutral colors */
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
-  --gray-400: #9ca3af;
-  --gray-500: #6b7280;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
-  --gray-800: #1f2937;
-  --gray-900: #111827;
-  
-  /* Semantic colors - Soft Pastel Gentle Palette */
-  --text-primary: #9AA6B2;
-  --text-secondary: #BCCCDC;
-  --text-accent: #BCCCDC;
-  --text-success: #A5B68D;
-  --text-warning: #EDE8DC;
-  --text-error: #E7CCCC;
-  --text-white: #F8FAFC;
-  
-  /* Background colors - Soft Pastel Gentle Palette (From Screenshots) */
-  --bg-primary: #F8F0ED;        /* Soft Pink/Beige - Primary Background */
-  --bg-secondary: #D8E0ED;       /* Light Blue/Purple - Section Background */
-  --bg-accent: #CDE0D8;          /* Light Green - Accent Background */
-  --bg-glass: rgba(248, 240, 237, 0.8);
-  
-  /* Spacing scale */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.25rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  
-  /* Typography scale */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  --text-4xl: 2.25rem;
-  --text-5xl: 3rem;
-  
-  /* Border radius */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-  --radius-2xl: 1rem;
+  /* === CORE PALETTE === */
+  --c-primary: #BCCCDC;      /* Soft Blue */
+  --c-primary-dark: #A8B8C8; /* Darker blue for hover */
+  --c-secondary: #F8F0ED;    /* Soft Rose */
+  --c-accent: #CDE0D8;      /* Sage Green */
+  --c-warm: #E8D9A8;        /* Warm Gold */
+
+  /* === SUPPORTING & NEUTRAL PALETTE === */
+  --text-main: #333333;      /* Headings */
+  --text-body: #6b7280;      /* Paragraphs */
+  --text-light: #FFFFFF;      /* Text on dark backgrounds */
+  --bg-main: #F8F9FA;        /* Page background */
+  --bg-card: #FFFFFF;       /* Card/modal background */
+  --border-main: #E5E7EB;    /* Dividers, inputs */
+
+  /* === SPACING & SIZING === */
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem;
+  --space-6: 1.5rem; --space-8: 2rem;
+
+  /* === TYPOGRAPHY === */
+  --font-main: 'Assistant', sans-serif;
+  --text-base: 1rem; --text-lg: 1.125rem; --text-xl: 1.25rem;
+
+  /* === BORDER RADIUS === */
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
   --radius-full: 9999px;
-  
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+  /* === SHADOWS & TRANSITIONS === */
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  
-  /* Transitions */
-  --duration-fast: 150ms;
-  --duration-normal: 300ms;
-  --duration-slow: 500ms;
-  --ease-out: cubic-bezier(0, 0, 0.2, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  
-  /* Z-index scale */
-  --z-dropdown: 1000;
-  --z-sticky: 1020;
-  --z-fixed: 1030;
-  --z-modal-backdrop: 1040;
-  --z-modal: 1050;
-  --z-popover: 1060;
-  --z-tooltip: 1070;
-  --z-toast: 1080;
+  --transition-main: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ========================================
@@ -192,12 +60,14 @@ html {
 }
 
 body {
-  font-family: 'Assistant', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  font-family: var(--font-main);
+  background-color: var(--bg-main);
+  color: var(--text-body);
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* ========================================
@@ -899,168 +769,47 @@ header {
   }
 }
 
-/* ========================================
-   STANDARDIZED BUTTONS
-   ======================================== */
-
-/* Primary Button Style (Sage) */
-.btn-primary-standard {
-  background: var(--btn-primary-bg);
-  color: var(--btn-primary-text);
-  border: 2px solid var(--btn-sage-dark);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+/* === UNIFIED BUTTON SYSTEM === */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2); padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full); font-weight: 700;
+  border: 2px solid transparent; cursor: pointer; text-align: center;
+  transition: var(--transition-main);
 }
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
-.btn-primary-standard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, var(--btn-sage-dark) 0%, var(--btn-sage-light) 100%);
-}
-
-/* Secondary Button Style (Mint) */
-.btn-secondary-standard {
-  background: var(--btn-secondary-bg);
-  color: var(--btn-secondary-text);
-  border: 2px solid var(--btn-mint-dark);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.btn-secondary-standard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, var(--btn-mint-dark) 0%, var(--btn-mint-light) 100%);
-}
-
-/* Accent Button Style (Rose) */
-.btn-accent-standard {
-  background: var(--btn-accent-bg);
-  color: var(--btn-accent-text);
-  border: 2px solid var(--btn-rose-dark);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.btn-accent-standard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, var(--btn-rose-dark) 0%, var(--btn-rose-light) 100%);
-}
-
-/* Warning Button Style (Warm) */
-.btn-warning-standard {
-  background: var(--btn-warning-bg);
-  color: var(--btn-warning-text);
-  border: 2px solid var(--btn-warm-dark);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.btn-warning-standard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(135deg, var(--btn-warm-dark) 0%, var(--btn-warm-light) 100%);
-}
-
-/* ========================================
-   6. BUTTONS
-   ======================================== */
 .btn-primary {
-  background: linear-gradient(135deg, #14b8a6, #0f766e);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
-  position: relative;
-  overflow: hidden;
+  background-color: var(--c-primary); border-color: var(--c-primary);
+  color: var(--text-light);
 }
-
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left var(--duration-slow) var(--ease-out);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(20, 184, 166, 0.4);
-  background: linear-gradient(135deg, #0f766e, #0d9488);
-}
-
-.btn-primary:hover::before {
-  left: 100%;
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
-}
+.btn-primary:hover { background-color: var(--c-primary-dark); border-color: var(--c-primary-dark); }
 
 .btn-secondary {
-  background: var(--color-light);
-  color: var(--text-primary);
-  border: 2px solid var(--color-border);
-  padding: var(--space-3) var(--space-6);
-  border-radius: var(--radius-lg);
-  font-weight: 600;
-  font-size: var(--text-sm);
-  cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-out);
+  background-color: transparent; border-color: var(--c-primary);
+  color: var(--c-primary);
+}
+.btn-secondary:hover { background-color: var(--c-primary); color: var(--text-light); }
+
+.btn-accent {
+  background-color: var(--c-accent); border-color: var(--c-accent);
+  color: var(--text-main);
 }
 
-.btn-secondary:hover {
-  border-color: var(--text-accent);
-  color: var(--text-accent);
-  background: var(--bg-accent);
+.btn-warm {
+  background-color: var(--c-warm); border-color: var(--c-warm);
+  color: var(--text-main);
 }
 
 .btn-filter {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  color: #92400e;
-  border: 2px solid #f59e0b;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+  background-color: var(--bg-card); color: var(--text-body);
+  border-color: var(--border-main); padding: var(--space-2) var(--space-4);
+}
+.btn-filter.active, .btn-filter:hover {
+  background-color: var(--c-accent); border-color: var(--c-accent);
+  color: var(--text-main);
 }
 
-.btn-filter:hover {
-  background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-}
-
-.btn-filter.active {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  color: white;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
-}
 
 /* ========================================
    7. CARDS
@@ -1566,130 +1315,6 @@ input::placeholder, textarea::placeholder {
   outline-offset: 2px;
 }
 
-/* ========================================
-   MISSING BUTTON STYLES - WARM & WHOLESOME
-   ======================================== */
-
-/* Primary Button - Warm and inviting */
-.btn-primary {
-  background: linear-gradient(135deg, #0891b2 0%, #14b8a6 100%);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(8, 145, 178, 0.4);
-  background: linear-gradient(135deg, #0e7490 0%, #0f766e 100%);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(8, 145, 178, 0.3);
-}
-
-.btn-primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: 0 2px 8px rgba(8, 145, 178, 0.2);
-}
-
-/* Secondary Button - Soft and friendly */
-.btn-secondary {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  color: #475569;
-  border: 2px solid #e2e8f0;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.btn-secondary:hover {
-  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-  border-color: #cbd5e1;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Success Button - Warm green */
-.btn-success {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-}
-
-.btn-success:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
-}
-
-/* Danger Button - Warm red */
-.btn-danger {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-}
-
-.btn-danger:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
-  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-}
-
-/* Filter Button - Soft and rounded */
-.btn-filter {
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  color: #92400e;
-  border: 2px solid #f59e0b;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
-}
-
-.btn-filter:hover {
-  background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-}
-
-.btn-filter.active {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  color: white;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
-}
 
 /* ========================================
    MOBILE RESPONSIVENESS FIXES
