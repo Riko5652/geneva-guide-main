@@ -504,14 +504,14 @@ export class FamilyToast {
     
     getProgressGradient(type) {
         const gradients = {
-            success: 'from-green-400 to-green-600',
-            error: 'from-red-400 to-red-600',
-            warning: 'from-yellow-400 to-yellow-600',
-            info: 'from-blue-400 to-blue-600',
-            love: 'from-pink-400 to-pink-600',
-            star: 'from-yellow-300 to-yellow-500',
-            rocket: 'from-purple-400 to-purple-600',
-            gift: 'from-teal-400 to-teal-600'
+            success: 'from-mint-400 to-mint-600',
+            error: 'from-rose-400 to-rose-600',
+            warning: 'from-amber-400 to-amber-600',
+            info: 'from-sage-400 to-sage-600',
+            love: 'from-rose-400 to-rose-600',
+            star: 'from-amber-300 to-amber-500',
+            rocket: 'from-sage-400 to-sage-600',
+            gift: 'from-mint-400 to-mint-600'
         };
         return gradients[type] || gradients.info;
     }
@@ -764,28 +764,28 @@ function renderItinerary() {
                                 <div class="border-t pt-6 mt-6">
                             <h5 class="text-sm font-semibold text-gray-600 mb-4 text-center">פעולות חכמות ליום זה</h5>
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3">
-                                <button class="group relative bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-plan-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="group relative bg-gradient-to-r from-sage-500 to-sage-600 hover:from-sage-600 hover:to-sage-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-plan-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">✨</span>
                                         <span class="whitespace-nowrap">תכנן בוקר</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-summary-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="group relative bg-gradient-to-r from-mint-500 to-mint-600 hover:from-mint-600 hover:to-mint-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-summary-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">📝</span>
                                         <span class="whitespace-nowrap">סכם לילדים</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-story-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="group relative bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-story-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">📖</span>
                                         <span class="whitespace-nowrap">סיפור לילדים</span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg swap-activity-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="group relative bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg swap-activity-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">🔄</span>
                                         <span class="whitespace-nowrap">החלף פעילות</span>
@@ -989,7 +989,7 @@ export function renderActivities() {
                     `;
                 }
                 button.disabled = false;
-                button.className = 'bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg';
+                button.className = 'bg-gradient-to-r from-sage-500 to-sage-600 hover:from-sage-600 hover:to-sage-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg';
                 button.classList.remove('opacity-50', 'cursor-not-allowed');
             }
         } else {
@@ -1814,7 +1814,7 @@ export function renderDailySpecial() {
     container.innerHTML = `
         <div class="space-y-4 md:space-y-6">
             <div class="mb-4 md:mb-6">
-                <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-lg md:shadow-xl">
+                <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-amber-300 to-warm-400 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-lg md:shadow-xl">
                     <span class="text-2xl md:text-3xl">✨</span>
                 </div>
                 <div class="bg-white/60 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-lg border border-white/30">
@@ -1823,13 +1823,13 @@ export function renderDailySpecial() {
             </div>
             
             <div class="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
-                <button id="daily-special-ai-btn" class="bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm md:text-base">
+                <button id="daily-special-ai-btn" class="bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm md:text-base">
                     <span class="flex items-center justify-center gap-1 md:gap-2">
                         <span class="text-base md:text-lg">✨</span>
                         <span class="whitespace-nowrap">ספר לי עוד על המלצה זו</span>
                     </span>
                 </button>
-                <button id="add-to-plan-btn" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm md:text-base">
+                <button id="add-to-plan-btn" class="bg-gradient-to-r from-mint-500 to-mint-600 hover:from-mint-600 hover:to-mint-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm md:text-base">
                     <span class="flex items-center justify-center gap-1 md:gap-2">
                         <span class="text-base md:text-lg">➕</span>
                         <span class="whitespace-nowrap">הוסף למסלול שלי</span>
