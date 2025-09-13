@@ -1098,7 +1098,7 @@ export function renderPackingGuide() {
                         <p class="section-subtitle">כל הפריטים הדרושים לטיול משפחתי מושלם</p>
                     </div>
                 </div>
-                <div class="section-content bg-gradient-to-br from-white via-blue-50/30 to-cyan-50/50">
+                <div class="section-content bg-gradient-to-br from-white via-rose-300/30 to-sage-300/50">
                     <div class="content-intro">
                         <p class="text-gray-700 mb-4 text-base leading-relaxed">רשימה מקיפה של כל הפריטים הדרושים לטיול משפחתי בז'נבה עם פעוטות. סמנו כל פריט שארזתם כדי לעקוב אחר ההתקדמות.</p>
                     </div>
@@ -1155,11 +1155,11 @@ export function renderPackingGuide() {
 
             <section id="packing-arsenal" class="scroll-mt-24">
                 <h2 class="text-2xl font-bold mb-4 text-right">🎒 ארסנל הכבודה</h2>
-                <div class="bg-gradient-to-br from-white to-sage-50 p-6 rounded-xl shadow-sm border border-sage-200">
+                <div class="bg-gradient-to-br from-white to-sage-300 p-6 rounded-xl shadow-sm border border-sage-400">
                     <p class="text-gray-700 mb-4">הפריטים החיוניים ביותר שאסור לשכוח:</p>
                     <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-rose-50 border-r-4 border-rose-400 p-4 rounded">
-                            <h4 class="font-bold text-rose-800 mb-2">🚨 חיוני ביותר</h4>
+                        <div class="bg-rose-300 border-r-4 border-rose-500 p-4 rounded">
+                            <h4 class="font-bold text-gray-800 mb-2">🚨 חיוני ביותר</h4>
                             <ul class="text-sm space-y-1">
                                 <li>• דרכונים + צילומים</li>
                                 <li>• כרטיסי טיסה</li>
@@ -1168,8 +1168,8 @@ export function renderPackingGuide() {
                                 <li>• מטען נייד</li>
                             </ul>
                         </div>
-                        <div class="bg-mint-50 border-r-4 border-mint-400 p-4 rounded">
-                            <h4 class="font-bold text-mint-800 mb-2">👶 ציוד לילדים</h4>
+                        <div class="bg-mint-300 border-r-4 border-mint-500 p-4 rounded">
+                            <h4 class="font-bold text-gray-800 mb-2">👶 ציוד לילדים</h4>
                             <ul class="text-sm space-y-1">
                                 <li>• עגלת יויו</li>
                                 <li>• חיתולים + מגבונים</li>
@@ -1184,11 +1184,11 @@ export function renderPackingGuide() {
 
             <section id="packing-vacuum-guide" class="scroll-mt-24">
                 <h2 class="text-2xl font-bold mb-4 text-right">💨 מדריך אריזת ואקום</h2>
-                <div class="bg-gradient-to-br from-white to-mint-50 p-6 rounded-xl shadow-sm border border-mint-200">
+                <div class="bg-gradient-to-br from-white to-mint-300 p-6 rounded-xl shadow-sm border border-mint-400">
                     <div class="space-y-4">
                         <p class="text-gray-700">טיפים לחיסכון במקום בתיק:</p>
-                        <div class="bg-mint-50 p-4 rounded-lg">
-                            <h4 class="font-semibold text-mint-800 mb-2">✅ מתאים לואקום</h4>
+                        <div class="bg-mint-300 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">✅ מתאים לואקום</h4>
                             <ul class="text-sm space-y-1">
                                 <li>• פליזים וסווטשירטים</li>
                                 <li>• פיג'מות</li>
@@ -1196,8 +1196,8 @@ export function renderPackingGuide() {
                                 <li>• מגבות (אם לוקחים)</li>
                             </ul>
                         </div>
-                        <div class="bg-orange-50 p-4 rounded-lg">
-                            <h4 class="font-semibold text-orange-800 mb-2">❌ לא לואקום</h4>
+                        <div class="bg-warm-300 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-800 mb-2">❌ לא לואקום</h4>
                             <ul class="text-sm space-y-1">
                                 <li>• בגדי ים</li>
                                 <li>• נעליים</li>
@@ -1211,33 +1211,33 @@ export function renderPackingGuide() {
 
             <section id="packing-plan" class="scroll-mt-24">
                 <h2 class="text-xl sm:text-2xl font-bold mb-4 text-right">📅 תכנית אריזה</h2>
-                <div class="bg-gradient-to-br from-sage-50 to-mint-50 p-4 sm:p-6 rounded-xl shadow-lg border border-sage-200">
+                <div class="bg-gradient-to-br from-sage-300 to-mint-300 p-4 sm:p-6 rounded-xl shadow-lg border border-sage-400">
                     <div class="space-y-4">
                         <h4 class="font-bold text-lg text-gray-800 mb-4">לוח זמנים מומלץ:</h4>
                         <div class="space-y-2 sm:space-y-3">
-                            <div class="flex flex-col sm:flex-row sm:items-center bg-sage-50 p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-sage-500 hover:shadow-md transition-shadow duration-200">
-                                <span class="font-bold text-sage-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-sage-300 p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-sage-500 hover:shadow-md transition-shadow duration-200">
+                                <span class="font-bold text-gray-800 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
                                     <span class="w-2 h-2 bg-sage-500 rounded-full mr-2"></span>
                                     שבוע לפני:
                                 </span>
                                 <span class="text-gray-700 text-sm sm:text-base">רכישת פריטים חסרים, ארגון מסמכים</span>
                             </div>
-                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-mint-500 hover:shadow-md transition-shadow duration-200">
-                                <span class="font-bold text-mint-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-mint-300 p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-mint-500 hover:shadow-md transition-shadow duration-200">
+                                <span class="font-bold text-gray-800 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
                                     <span class="w-2 h-2 bg-mint-500 rounded-full mr-2"></span>
                                     3 יום לפני:
                                 </span>
                                 <span class="text-gray-700 text-sm sm:text-base">אריזת בגדים וציוד בסיסי</span>
                             </div>
-                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-amber-500 hover:shadow-md transition-shadow duration-200">
-                                <span class="font-bold text-amber-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
-                                    <span class="w-2 h-2 bg-amber-500 rounded-full mr-2"></span>
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-warm-300 p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-warm-500 hover:shadow-md transition-shadow duration-200">
+                                <span class="font-bold text-gray-800 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
+                                    <span class="w-2 h-2 bg-warm-500 rounded-full mr-2"></span>
                                     יום לפני:
                                 </span>
                                 <span class="text-gray-700 text-sm sm:text-base">ביקורת אחרונה, תיק יד, מטענים</span>
                             </div>
-                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-rose-500 hover:shadow-md transition-shadow duration-200">
-                                <span class="font-bold text-rose-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-rose-300 p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-rose-500 hover:shadow-md transition-shadow duration-200">
+                                <span class="font-bold text-gray-800 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
                                     <span class="w-2 h-2 bg-rose-500 rounded-full mr-2"></span>
                                     בוקר הטיסה:
                                 </span>
@@ -1250,30 +1250,30 @@ export function renderPackingGuide() {
 
             <section id="packing-assistant" class="scroll-mt-24">
                 <h2 class="text-2xl font-bold mb-4 text-right">🤖 עוזר חכם</h2>
-                <div class="bg-sage-50 p-6 rounded-lg shadow-md border border-gray-200">
+                <div class="bg-sage-300 p-6 rounded-lg shadow-md border border-sage-400">
                     <div class="text-center">
-                        <div class="bg-gradient-to-r from-rose-50 to-warm-50 p-6 rounded-xl mb-4">
-                            <h4 class="font-bold text-rose-800 mb-2">📸 מתכנן אריזה חכם עם AI</h4>
+                        <div class="bg-gradient-to-r from-rose-300 to-warm-300 p-6 rounded-xl mb-4">
+                            <h4 class="font-bold text-gray-800 mb-2">📸 מתכנן אריזה חכם עם AI</h4>
                             <p class="text-sm text-gray-700 mb-4">העלו תמונות של המזוודות והפריטים שרוצים לארוז - הבינה המלאכותית תנתח ותציע תוכנית אריזה מותאמת אישית</p>
                             <div class="grid md:grid-cols-2 gap-4 mb-4">
                                 <div class="text-center">
                                     <input type="file" id="luggage-photo-input" class="hidden" accept="image/*" multiple>
-                                    <button id="upload-luggage-photo-btn" class="bg-sage-500 text-white px-4 py-2 rounded-lg hover:bg-sage-600 w-full">
+                                    <button id="upload-luggage-photo-btn" class="btn-primary-standard w-full">
                                         📷 תמונת מזוודות
                                     </button>
                                 </div>
                                 <div class="text-center">
                                     <input type="file" id="items-photo-input" class="hidden" accept="image/*" multiple>
-                                    <button id="upload-items-photo-btn" class="bg-mint-500 text-white px-4 py-2 rounded-lg hover:bg-mint-600 w-full">
+                                    <button id="upload-items-photo-btn" class="btn-secondary-standard w-full">
                                         🎒 תמונת פריטים
                                     </button>
                                 </div>
                             </div>
-                            <div id="smart-packing-analysis" class="hidden mb-4 p-4 bg-sage-50 rounded-lg border">
-                                <h5 class="font-semibold mb-2">📊 ניתוח התמונות:</h5>
+                            <div id="smart-packing-analysis" class="hidden mb-4 p-4 bg-sage-300 rounded-lg border border-sage-400">
+                                <h5 class="font-semibold mb-2 text-gray-800">📊 ניתוח התמונות:</h5>
                                 <div id="analysis-results"></div>
                             </div>
-                            <button id="packing-ai-help-btn" class="bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 w-full">
+                            <button id="packing-ai-help-btn" class="btn-accent-standard w-full">
                                 ✨ נתח תמונות וצור תוכנית אריזה חכמה
                             </button>
                         </div>
@@ -1283,43 +1283,43 @@ export function renderPackingGuide() {
 
             <section id="packing-action-plan" class="scroll-mt-24">
                 <h2 class="text-2xl font-bold mb-4 text-right">🎯 תכנית פעולה</h2>
-                <div class="bg-sage-50 p-6 rounded-lg shadow-md border border-gray-200">
+                <div class="bg-sage-300 p-6 rounded-lg shadow-md border border-sage-400">
                     <div class="space-y-4">
                         <h4 class="font-semibold">רגע האמת - מה לעשות עכשיו:</h4>
-                        <div class="bg-gradient-to-br from-sage-50 to-mint-50 p-4 sm:p-6 rounded-xl border border-sage-200 shadow-sm">
+                        <div class="bg-gradient-to-br from-sage-300 to-mint-300 p-4 sm:p-6 rounded-xl border border-sage-400 shadow-sm">
                             <ol class="space-y-3 sm:space-y-4">
-                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-100 hover:shadow-md transition-shadow duration-200">
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-400 hover:shadow-md transition-shadow duration-200">
                                     <span class="flex-shrink-0 w-6 h-6 bg-sage-500 text-white rounded-full flex items-center justify-center text-xs font-bold">1</span>
                                     <span class="text-sm sm:text-base text-gray-800 leading-relaxed">עבור על הרשימה המלאה למעלה וסמן כל פריט <span class="text-mint-600 font-semibold">✅</span></span>
                                 </li>
-                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-100 hover:shadow-md transition-shadow duration-200">
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-400 hover:shadow-md transition-shadow duration-200">
                                     <span class="flex-shrink-0 w-6 h-6 bg-sage-500 text-white rounded-full flex items-center justify-center text-xs font-bold">2</span>
                                     <span class="text-sm sm:text-base text-gray-800 leading-relaxed">הכן ערימה של בגדים לכל בן משפחה <span class="text-sage-600">👕</span></span>
                                 </li>
-                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-100 hover:shadow-md transition-shadow duration-200">
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-400 hover:shadow-md transition-shadow duration-200">
                                     <span class="flex-shrink-0 w-6 h-6 bg-sage-500 text-white rounded-full flex items-center justify-center text-xs font-bold">3</span>
                                     <span class="text-sm sm:text-base text-gray-800 leading-relaxed">ארוז תיק עזרה ראשונה עם תרופות אישיות <span class="text-rose-600">💊</span></span>
                                 </li>
-                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-100 hover:shadow-md transition-shadow duration-200">
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-400 hover:shadow-md transition-shadow duration-200">
                                     <span class="flex-shrink-0 w-6 h-6 bg-sage-500 text-white rounded-full flex items-center justify-center text-xs font-bold">4</span>
                                     <span class="text-sm sm:text-base text-gray-800 leading-relaxed">הכן תיק יד עם מסמכים וחטיפים <span class="text-sage-600">✈️</span></span>
                                 </li>
-                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-100 hover:shadow-md transition-shadow duration-200">
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-400 hover:shadow-md transition-shadow duration-200">
                                     <span class="flex-shrink-0 w-6 h-6 bg-sage-500 text-white rounded-full flex items-center justify-center text-xs font-bold">5</span>
                                     <span class="text-sm sm:text-base text-gray-800 leading-relaxed">שקול כל תיק - מקס' 23 ק"ג <span class="text-amber-600">🏋️‍♂️</span></span>
                                 </li>
-                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-100 hover:shadow-md transition-shadow duration-200">
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-400 hover:shadow-md transition-shadow duration-200">
                                     <span class="flex-shrink-0 w-6 h-6 bg-sage-500 text-white rounded-full flex items-center justify-center text-xs font-bold">6</span>
                                     <span class="text-sm sm:text-base text-gray-800 leading-relaxed">עשה תמונה של הדרכונים (גיבוי) <span class="text-rose-600">📸</span></span>
                                 </li>
-                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-100 hover:shadow-md transition-shadow duration-200">
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-sm border border-sage-400 hover:shadow-md transition-shadow duration-200">
                                     <span class="flex-shrink-0 w-6 h-6 bg-sage-500 text-white rounded-full flex items-center justify-center text-xs font-bold">7</span>
                                     <span class="text-sm sm:text-base text-gray-800 leading-relaxed">הורד אפליקציית תרגום (Google Translate) <span class="text-mint-600">🗣️</span></span>
                                 </li>
                             </ol>
                         </div>
                         <div class="text-center pt-4">
-                            <button class="bg-mint-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-mint-700">
+                            <button class="btn-secondary-standard">
                                 🎉 סיימתי לארוז - אני מוכן לטיול!
                             </button>
                         </div>

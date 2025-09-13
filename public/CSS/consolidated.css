@@ -23,21 +23,21 @@
   --color-accent: #BCCCDC;
   --color-border: #D9EAFD;
   
-  /* New Aesthetic Color Palette - Soft Pastel Gentle */
-  --color-rose: #E7CCCC;
-  --color-warm: #EDE8DC;
-  --color-sage: #A5B68D;
-  --color-mint: #C1CFA1;
+  /* New Aesthetic Color Palette - Soft Pastel Gentle (From Screenshots) */
+  --color-rose: #F8F0ED;        /* Soft Pink/Beige - Primary Background */
+  --color-warm: #E8D9A8;        /* Warm Yellow/Gold - Banner/Accent */
+  --color-sage: #CDE0D8;        /* Light Green - Accent Background */
+  --color-mint: #D8E0ED;        /* Light Blue/Purple - Section Background */
   
-  /* Button Gradient Colors - Soft Pastel Gentle */
-  --btn-rose-light: #E7CCCC;
-  --btn-rose-dark: #D4B8B8;
-  --btn-warm-light: #EDE8DC;
-  --btn-warm-dark: #E0D6C8;
-  --btn-sage-light: #A5B68D;
-  --btn-sage-dark: #8FA077;
-  --btn-mint-light: #C1CFA1;
-  --btn-mint-dark: #A8B88A;
+  /* Button Gradient Colors - Soft Pastel Gentle (From Screenshots) */
+  --btn-rose-light: #F8F0ED;     /* Soft Pink/Beige */
+  --btn-rose-dark: #F0E6E0;      /* Slightly darker pink/beige */
+  --btn-warm-light: #E8D9A8;     /* Warm Yellow/Gold */
+  --btn-warm-dark: #E0D19A;      /* Slightly darker yellow/gold */
+  --btn-sage-light: #CDE0D8;     /* Light Green */
+  --btn-sage-dark: #C5D8D0;      /* Slightly darker green */
+  --btn-mint-light: #D8E0ED;     /* Light Blue/Purple */
+  --btn-mint-dark: #D0D8E5;      /* Slightly darker blue/purple */
   
   /* Standardized Button Styles */
   --btn-primary-bg: linear-gradient(135deg, var(--btn-sage-light) 0%, var(--btn-sage-dark) 100%);
@@ -45,24 +45,30 @@
   --btn-accent-bg: linear-gradient(135deg, var(--btn-rose-light) 0%, var(--btn-rose-dark) 100%);
   --btn-warning-bg: linear-gradient(135deg, var(--btn-warm-light) 0%, var(--btn-warm-dark) 100%);
   
-  --btn-primary-text: #2D3748;
-  --btn-secondary-text: #2D3748;
-  --btn-accent-text: #2D3748;
-  --btn-warning-text: #2D3748;
+  --btn-primary-text: #333333;    /* Dark Grey from screenshots */
+  --btn-secondary-text: #333333;  /* Dark Grey from screenshots */
+  --btn-accent-text: #333333;     /* Dark Grey from screenshots */
+  --btn-warning-text: #333333;    /* Dark Grey from screenshots */
   
-  /* Custom Color Classes for Tailwind - Soft Pastel Gentle */
-  --rose-300: #E7CCCC;
-  --rose-400: #D4B8B8;
-  --rose-500: #C1A4A4;
-  --rose-600: #AE9090;
-  --mint-300: #C1CFA1;
-  --mint-400: #A8B88A;
-  --mint-500: #8FA173;
-  --mint-600: #768A5C;
-  --sage-300: #A5B68D;
-  --sage-400: #8FA077;
-  --sage-500: #798A61;
-  --sage-600: #63744B;
+  /* Custom Color Classes for Tailwind - Soft Pastel Gentle (From Screenshots) */
+  --rose-300: #F8F0ED;     /* Soft Pink/Beige */
+  --rose-400: #F0E6E0;     /* Slightly darker pink/beige */
+  --rose-500: #E8DCD4;     /* Medium pink/beige */
+  --rose-600: #E0D2C8;     /* Darker pink/beige */
+  --mint-300: #D8E0ED;     /* Light Blue/Purple */
+  --mint-400: #D0D8E5;     /* Slightly darker blue/purple */
+  --mint-500: #C8D0DD;     /* Medium blue/purple */
+  --mint-600: #C0C8D5;     /* Darker blue/purple */
+  --sage-300: #CDE0D8;     /* Light Green */
+  --sage-400: #C5D8D0;     /* Slightly darker green */
+  --sage-500: #BDD0C8;     /* Medium green */
+  --sage-600: #B5C8C0;     /* Darker green */
+  
+  /* Warm Color Variables (From Screenshots) */
+  --warm-300: #E8D9A8;     /* Warm Yellow/Gold */
+  --warm-400: #E0D19A;     /* Slightly darker yellow/gold */
+  --warm-500: #D8C98C;     /* Medium yellow/gold */
+  --warm-600: #D0C17E;     /* Darker yellow/gold */
   
   /* Custom Color Classes */
   .from-rose-400 { background: linear-gradient(to right, var(--rose-400), transparent); }
@@ -114,11 +120,11 @@
   --text-error: #E7CCCC;
   --text-white: #F8FAFC;
   
-  /* Background colors - Soft Pastel Gentle Palette */
-  --bg-primary: #F8FAFC;
-  --bg-secondary: #D9EAFD;
-  --bg-accent: #BCCCDC;
-  --bg-glass: rgba(248, 250, 252, 0.8);
+  /* Background colors - Soft Pastel Gentle Palette (From Screenshots) */
+  --bg-primary: #F8F0ED;        /* Soft Pink/Beige - Primary Background */
+  --bg-secondary: #D8E0ED;       /* Light Blue/Purple - Section Background */
+  --bg-accent: #CDE0D8;          /* Light Green - Accent Background */
+  --bg-glass: rgba(248, 240, 237, 0.8);
   
   /* Spacing scale */
   --space-1: 0.25rem;
@@ -341,6 +347,140 @@ header {
 @media (min-width: 1024px) {
   #menu-btn {
     display: none;
+  }
+}
+
+/* ========================================
+   PACKING MODAL RESPONSIVE FIXES
+   ======================================== */
+
+/* Packing Modal Container - Responsive Sizing */
+.packing-modal-container {
+  max-width: 95vw;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .packing-modal-container {
+    max-width: 90vw;
+  }
+}
+
+@media (min-width: 768px) {
+  .packing-modal-container {
+    max-width: 80vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .packing-modal-container {
+    max-width: 70vw;
+  }
+}
+
+@media (min-width: 1280px) {
+  .packing-modal-container {
+    max-width: 60vw;
+  }
+}
+
+@media (min-width: 1536px) {
+  .packing-modal-container {
+    max-width: 50vw;
+  }
+}
+
+/* Packing Modal Content - Prevent Overflow */
+#packing-modal-content {
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  #packing-modal-content {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  #packing-modal-content {
+    padding: 2rem;
+  }
+}
+
+/* Packing Categories Grid - Responsive Layout */
+.packing-categories-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .packing-categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .packing-categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Category Cards - Prevent Overflow */
+.category-card {
+  min-width: 0;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.category-card h3 {
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+@media (min-width: 640px) {
+  .category-card h3 {
+    font-size: 1.125rem;
+  }
+}
+
+/* Packing Items List - Responsive Text */
+.packing-items-list-enhanced {
+  font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .packing-items-list-enhanced {
+    font-size: 1rem;
+  }
+}
+
+/* Modal Navigation - Responsive */
+.modal-nav {
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .modal-nav {
+    flex-wrap: nowrap;
+    gap: 1rem;
+  }
+}
+
+.modal-nav button {
+  font-size: 0.75rem;
+  padding: 0.5rem 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .modal-nav button {
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
   }
 }
 
