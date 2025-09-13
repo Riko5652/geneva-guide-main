@@ -425,7 +425,7 @@ export class FamilyToast {
         const toastId = `toast-${Date.now()}`;
         toast.id = toastId;
         toast.className = `
-            max-w-sm w-full bg-white rounded-2xl shadow-2xl p-4 
+            max-w-sm w-full bg-sage-50 rounded-2xl shadow-2xl p-4 
             transform translate-x-full transition-all duration-300 
             pointer-events-auto cursor-pointer
             ${this.getTypeClasses(type)}
@@ -625,7 +625,7 @@ function renderFallbackContent() {
     const itineraryContainer = document.getElementById('itinerary-container');
     if (itineraryContainer) {
         itineraryContainer.innerHTML = `
-            <div class="bg-white p-6 rounded-xl shadow-lg border-r-4 border-accent">
+            <div class="bg-sage-50 p-6 rounded-xl shadow-lg border-r-4 border-accent">
                 <h3 class="font-bold text-2xl mb-4 text-gray-800">טוען נתונים...</h3>
                 <p class="text-gray-600">מתחבר לשרת לטעינת תוכנית הטיול...</p>
                 <div class="mt-4">
@@ -641,7 +641,7 @@ function renderFallbackContent() {
     if (activitiesContainer) {
         activitiesContainer.innerHTML = `
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-sage-50 rounded-xl shadow-lg overflow-hidden">
                     <div class="p-6">
                         <h3 class="font-bold text-xl mb-2">טוען פעילויות...</h3>
                         <p class="text-gray-600">מביא את הפעילויות הכי מומלצות בז'נבה</p>
@@ -733,7 +733,7 @@ function renderItinerary() {
     };
     
     container.innerHTML = currentData.itineraryData.map(day => `
-        <div class="bg-white p-6 rounded-xl shadow-lg border-r-4 border-accent" data-day-index="${day.dayIndex || day.day}">
+        <div class="bg-sage-50 p-6 rounded-xl shadow-lg border-r-4 border-accent" data-day-index="${day.dayIndex || day.day}">
             <h3 class="font-bold text-2xl mb-4 text-gray-800">${day.dayName} - ${day.date}</h3>
             <h4 class="text-lg font-semibold text-gray-700 mb-4">${day.title}</h4>
             <div class="space-y-4">
@@ -769,28 +769,28 @@ function renderItinerary() {
                                         <span class="text-base md:text-lg">✨</span>
                                         <span class="whitespace-nowrap">תכנן בוקר</span>
                                     </span>
-                                    <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
+                                    <div class="absolute inset-0 bg-sage-100 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-200"></div>
                                 </button>
                                 <button class="group relative bg-gradient-to-r from-mint-500 to-mint-600 hover:from-mint-600 hover:to-mint-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-summary-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">📝</span>
                                         <span class="whitespace-nowrap">סכם לילדים</span>
                                     </span>
-                                    <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
+                                    <div class="absolute inset-0 bg-sage-100 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-200"></div>
                                 </button>
                                 <button class="group relative bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-story-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">📖</span>
                                         <span class="whitespace-nowrap">סיפור לילדים</span>
                                     </span>
-                                    <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
+                                    <div class="absolute inset-0 bg-sage-100 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-200"></div>
                                 </button>
                                 <button class="group relative bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg swap-activity-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">🔄</span>
                                         <span class="whitespace-nowrap">החלף פעילות</span>
                                     </span>
-                                    <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 rounded-lg transition-opacity duration-200"></div>
+                                    <div class="absolute inset-0 bg-sage-100 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-200"></div>
                                 </button>
                 </div>
             </div>
@@ -914,7 +914,7 @@ export function renderActivities() {
         const activityImage = activity.image || getActivityImage(activity.category, activity.name);
         
     return `
-            <div class="activity-card bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${isNewItem ? 'new-item-highlight' : ''}" 
+            <div class="activity-card bg-sage-50 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${isNewItem ? 'new-item-highlight' : ''}" 
                  data-category="${activity.category}" data-travel-time="${activity.time || '0'}" data-activity-id="${activity.id || activity.name}">
                 
                 ${activityImage ? `
@@ -1219,7 +1219,7 @@ export function renderPackingGuide() {
                     <div class="space-y-4">
                         <h4 class="font-bold text-lg text-gray-800 mb-4">לוח זמנים מומלץ:</h4>
                         <div class="space-y-2 sm:space-y-3">
-                            <div class="flex flex-col sm:flex-row sm:items-center bg-white p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-sage-500 hover:shadow-md transition-shadow duration-200">
+                            <div class="flex flex-col sm:flex-row sm:items-center bg-sage-50 p-3 sm:p-4 rounded-lg shadow-sm border-l-4 border-sage-500 hover:shadow-md transition-shadow duration-200">
                                 <span class="font-bold text-sage-600 text-sm sm:text-base mb-1 sm:mb-0 sm:w-28 sm:flex-shrink-0 flex items-center">
                                     <span class="w-2 h-2 bg-sage-500 rounded-full mr-2"></span>
                                     שבוע לפני:
@@ -1254,7 +1254,7 @@ export function renderPackingGuide() {
 
             <section id="packing-assistant" class="scroll-mt-24">
                 <h2 class="text-2xl font-bold mb-4 text-right">🤖 עוזר חכם</h2>
-                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <div class="bg-sage-50 p-6 rounded-lg shadow-md border border-gray-200">
                     <div class="text-center">
                         <div class="bg-gradient-to-r from-rose-50 to-warm-50 p-6 rounded-xl mb-4">
                             <h4 class="font-bold text-rose-800 mb-2">📸 מתכנן אריזה חכם עם AI</h4>
@@ -1273,7 +1273,7 @@ export function renderPackingGuide() {
                                     </button>
                                 </div>
                             </div>
-                            <div id="smart-packing-analysis" class="hidden mb-4 p-4 bg-white rounded-lg border">
+                            <div id="smart-packing-analysis" class="hidden mb-4 p-4 bg-sage-50 rounded-lg border">
                                 <h5 class="font-semibold mb-2">📊 ניתוח התמונות:</h5>
                                 <div id="analysis-results"></div>
                             </div>
@@ -1287,7 +1287,7 @@ export function renderPackingGuide() {
 
             <section id="packing-action-plan" class="scroll-mt-24">
                 <h2 class="text-2xl font-bold mb-4 text-right">🎯 תכנית פעולה</h2>
-                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <div class="bg-sage-50 p-6 rounded-lg shadow-md border border-gray-200">
                     <div class="space-y-4">
                         <h4 class="font-semibold">רגע האמת - מה לעשות עכשיו:</h4>
                         <div class="bg-gradient-to-br from-sage-50 to-mint-50 p-4 sm:p-6 rounded-xl border border-sage-200 shadow-sm">
