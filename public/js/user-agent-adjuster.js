@@ -80,9 +80,6 @@ class UserAgentAdjuster {
         
         this.addDeviceClasses();
         this.setupResponsiveHandlers();
-        this.adjustModalLayouts();
-        this.adjustNavigationLayouts();
-        this.adjustPackingModalLayout();
         this.setupOrientationChange();
         
         this.isInitialized = true;
@@ -140,9 +137,6 @@ class UserAgentAdjuster {
                     this.orientation = newOrientation;
                     
                     this.addDeviceClasses();
-                    this.adjustModalLayouts();
-                    this.adjustNavigationLayouts();
-                    this.adjustPackingModalLayout();
                     
                     console.log(`🔄 Device changed to: ${this.deviceType} (${this.screenSize ? this.screenSize.width : 'unknown'}x${this.screenSize ? this.screenSize.height : 'unknown'})`);
                 }
@@ -150,94 +144,8 @@ class UserAgentAdjuster {
         });
     }
 
-    adjustModalLayouts() {
-        const modals = document.querySelectorAll('.modal-warm, .modal, [class*="modal"]');
-        
-        modals.forEach(modal => {
-            // Remove existing device-specific classes
-            modal.classList.remove('modal-mobile', 'modal-tablet', 'modal-desktop');
-            
-            // Add device-specific class (let CSS handle the styling)
-            modal.classList.add(`modal-${this.deviceType}`);
-            
-            // Remove any inline styles that might override CSS
-            modal.style.maxWidth = '';
-            modal.style.maxHeight = '';
-            modal.style.margin = '';
-        });
-    }
 
-    adjustNavigationLayouts() {
-        console.log('🔧 User Agent Adjuster: adjustNavigationLayouts called');
-        const mobileMenu = document.querySelector('#mobile-menu');
-        const desktopNav = document.querySelector('.hidden.lg\\:flex');
-        const mobileMenuBtn = document.querySelector('#menu-btn');
-        
-        if (this.deviceType === 'mobile' || this.deviceType === 'tablet') {
-            console.log('🔧 User Agent Adjuster: Mobile device detected, adjusting navigation');
-            // Show mobile menu button and ensure desktop nav is hidden
-            if (mobileMenuBtn) {
-                mobileMenuBtn.style.display = 'block';
-                mobileMenuBtn.classList.remove('hidden');
-            }
-            if (desktopNav) {
-                // Don't add hidden class - it already has hidden lg:flex which works with CSS
-                desktopNav.style.display = 'none';
-            }
-            if (mobileMenu) {
-                console.log('🔧 User Agent Adjuster: Adding hidden class to mobile menu');
-                mobileMenu.classList.add('hidden');
-            }
-        } else {
-            // Show desktop nav and hide mobile menu button
-            if (mobileMenuBtn) {
-                mobileMenuBtn.style.display = 'none';
-                mobileMenuBtn.classList.add('hidden');
-            }
-            if (desktopNav) {
-                // Don't remove hidden class - let CSS handle it with lg:flex
-                desktopNav.style.display = '';
-            }
-            if (mobileMenu) {
-                mobileMenu.classList.add('hidden');
-            }
-        }
-    }
 
-    adjustPackingModalLayout() {
-        const packingModal = document.querySelector('#packing-modal');
-        if (!packingModal) return;
-        
-        const content = packingModal.querySelector('#packing-modal-content');
-        const nav = packingModal.querySelector('.sticky.top-0');
-        
-        // Remove all inline styles and let CSS handle the responsive design
-        if (content) {
-            content.style.padding = '';
-            content.style.fontSize = '';
-        }
-        if (nav) {
-            nav.style.padding = '';
-        }
-        
-        // Remove inline grid styles
-        const categoriesGrid = packingModal.querySelector('.packing-categories-grid');
-        if (categoriesGrid) {
-            categoriesGrid.style.gridTemplateColumns = '';
-            categoriesGrid.style.gap = '';
-        }
-        
-        // Remove inline pill styles
-        const navPills = packingModal.querySelectorAll('.nav-pill');
-        navPills.forEach(pill => {
-            pill.style.fontSize = '';
-            pill.style.padding = '';
-        });
-        
-        // Add device-specific class for CSS-based responsive design
-        packingModal.classList.remove('modal-mobile', 'modal-tablet', 'modal-desktop');
-        packingModal.classList.add(`modal-${this.deviceType}`);
-    }
 
     setupOrientationChange() {
         window.addEventListener('orientationchange', () => {
@@ -246,9 +154,6 @@ class UserAgentAdjuster {
                 if (newOrientation !== this.orientation) {
                     this.orientation = newOrientation;
                     this.addDeviceClasses();
-                    this.adjustModalLayouts();
-                    this.adjustNavigationLayouts();
-                    this.adjustPackingModalLayout();
                     
                     console.log(`🔄 Orientation changed to: ${this.orientation}`);
                 }
@@ -282,9 +187,6 @@ class UserAgentAdjuster {
         this.orientation = this.getOrientation();
         
         this.addDeviceClasses();
-        this.adjustModalLayouts();
-        this.adjustNavigationLayouts();
-        this.adjustPackingModalLayout();
         
         console.log(`🔄 User Agent Adjuster refreshed: ${this.deviceType}`);
     }
