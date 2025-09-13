@@ -104,16 +104,16 @@ async function initApp() {
     
     // Initialize new modules
     console.log('🎨 Initializing animation manager...');
-    animationManager = new AnimationManager();
-    window.animationManager = animationManager;
+    // AnimationManager is already initialized in animations.js
+    animationManager = window.animationManager;
     
     console.log('🔔 Initializing toast manager...');
-    toastManager = new ToastManager();
-    window.toastManager = toastManager;
+    // ToastManager is already initialized in toast.js
+    toastManager = window.toastManager;
     
     console.log('⏳ Initializing loading manager...');
-    loadingManager = new LoadingManager();
-    window.loadingManager = loadingManager;
+    // LoadingManager is already initialized in loading.js
+    loadingManager = window.loadingManager;
     
     // Only show loader if page isn't already fully loaded and no existing loader
     const existingLoader = document.getElementById('family-loader');
