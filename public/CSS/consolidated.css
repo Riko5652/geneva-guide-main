@@ -237,19 +237,19 @@ nav a {
   text-decoration: none;
 }
 
-nav .hidden {
-  display: none;
+.hidden {
+  display: none !important;
 }
 
 @media (min-width: 768px) {
-  nav .md\\:flex {
-    display: flex;
+  .md\\:flex {
+    display: flex !important;
   }
 }
 
 @media (min-width: 1024px) {
-  nav .lg\\:flex {
-    display: flex;
+  .lg\\:flex {
+    display: flex !important;
   }
 }
 
