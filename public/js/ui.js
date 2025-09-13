@@ -1089,66 +1089,60 @@ export function renderPackingGuide() {
     
     console.log('🎨 Setting modal content HTML...');
     modalContent.innerHTML = `
-        <div class="modal-checklist-container space-y-8 pb-8">
+        <div class="packing-modal-content">
             <!-- Master List Section -->
-            <section id="packing-master-list" class="scroll-mt-32 section-card">
+            <section id="packing-master-list" class="packing-section">
                 <div class="section-header">
-                    <div class="section-title-wrapper">
+                    <div class="section-icon">📋</div>
+                    <div class="section-title-group">
                         <h2 class="section-title">רשימה מלאה</h2>
                         <p class="section-subtitle">כל הפריטים הדרושים לטיול משפחתי מושלם</p>
                     </div>
                 </div>
-                <div class="section-content bg-gradient-to-br from-white via-rose-300/30 to-sage-300/50">
+                
+                <div class="section-content">
                     <div class="content-intro">
-                        <p class="text-gray-700 mb-4 text-base leading-relaxed">רשימה מקיפה של כל הפריטים הדרושים לטיול משפחתי בז'נבה עם פעוטות. סמנו כל פריט שארזתם כדי לעקוב אחר ההתקדמות.</p>
+                        <p class="intro-text">רשימה מקיפה של כל הפריטים הדרושים לטיול משפחתי בז'נבה עם פעוטות. סמנו כל פריט שארזתם כדי לעקוב אחר ההתקדמות.</p>
                     </div>
+                    
                     <div class="packing-categories-grid">
                     ${Object.entries(packingData).map(([category, items], categoryIndex) => `
-                            <div class="category-card enhanced-card" data-category-index="${categoryIndex}">
-                                <!-- Decorative header with gradient -->
-                                <div class="category-header-enhanced">
-                                    <div class="category-icon-wrapper">
-                                        <span class="category-icon">${getCategoryIcon(category)}</span>
-                                    </div>
+                            <div class="category-card" data-category-index="${categoryIndex}">
+                                <div class="category-header">
+                                    <div class="category-icon">${getCategoryIcon(category)}</div>
                                     <div class="category-info">
-                                        <h3 class="category-title-enhanced">${category}</h3>
-                                        <div class="category-progress-enhanced">
+                                        <h3 class="category-title">${category}</h3>
+                                        <div class="category-progress">
                                             <div class="progress-bar-container">
                                                 <div class="progress-bar" data-category="${category}"></div>
                                             </div>
-                                            <span class="category-count-enhanced">0/${Array.isArray(items) ? items.length : 0}</span>
+                                            <span class="category-count">0/${Array.isArray(items) ? items.length : 0}</span>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <!-- Enhanced content area -->
-                                <div class="category-content-enhanced">
+                                <div class="category-content">
                                     <div class="packing-items-container">
-                                        <ul class="packing-items-list-enhanced">
+                                        <ul class="packing-items-list">
                                         ${Array.isArray(items) ? items.map((item, index) => `
-                                                <li class="packing-item-row-enhanced">
-                                                    <label class="packing-item-label-enhanced">
-                                                        <input type="checkbox" class="packing-checkbox-enhanced" 
+                                                <li class="packing-item">
+                                                    <label class="packing-item-label">
+                                                        <input type="checkbox" class="packing-checkbox" 
                                                        data-category="${category}" data-index="${index}" 
                                                                ${item.checked ? 'checked' : ''}>
-                                                        <span class="checkbox-custom-enhanced">
-                                                            <span class="checkmark-icon">✓</span>
+                                                        <span class="checkbox-custom">
+                                                            <span class="checkmark">✓</span>
                                                         </span>
-                                                        <span class="item-text-enhanced">${item.name}</span>
+                                                        <span class="item-text">${item.name}</span>
                                                         <span class="item-priority ${getItemPriority(item)}">${getPriorityIcon(item)}</span>
                                                     </label>
                                                 </li>
-                                            `).join('') : '<li class="no-items-enhanced">אין פריטים זמינים</li>'}
-                                    </ul>
-                                </div>
-                                
-                                <!-- Category completion badge -->
-                                <div class="category-completion-badge" data-category="${category}">
-                                    <span class="completion-text">0% הושלם</span>
+                                            `).join('') : '<li class="packing-item"><div class="packing-item-label"><span class="item-text">אין פריטים זמינים</span></div></li>'}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `).join('')}
+                        `).join('')}
                     </div>
                 </div>
             </section>
@@ -2400,6 +2394,7 @@ export function renderQuickStatus() {
         let weatherContent = '🌤️ מזג אוויר';
         
         try {
+            console.log('🌤️ Checking weather data:', currentData?.weather);
             if (currentData && currentData.weather && currentData.weather.daily && 
                 currentData.weather.daily.temperature_2m_max && 
                 currentData.weather.daily.temperature_2m_max[0] !== undefined &&
@@ -2409,8 +2404,15 @@ export function renderQuickStatus() {
                 const weatherCode = currentData.weather.daily.weathercode[0];
                 const weatherInfo = getWeatherInfo(weatherCode);
                 weatherContent = `${weatherInfo.icon} ${todayTemp}°C`;
+                console.log('🌤️ Weather updated successfully:', weatherContent);
             } else {
-                console.log('🌤️ Weather data not available or incomplete:', currentData?.weather);
+                console.log('🌤️ Weather data not available or incomplete:', {
+                    hasCurrentData: !!currentData,
+                    hasWeather: !!(currentData?.weather),
+                    hasDaily: !!(currentData?.weather?.daily),
+                    hasTempMax: !!(currentData?.weather?.daily?.temperature_2m_max),
+                    hasWeatherCode: !!(currentData?.weather?.daily?.weathercode)
+                });
             }
         } catch (error) {
             console.error('🌤️ Error updating weather:', error);

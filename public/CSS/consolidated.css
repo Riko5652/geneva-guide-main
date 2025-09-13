@@ -488,6 +488,284 @@ header {
 .border-mint-600 { border-color: var(--tw-mint-600) !important; }
 
 /* ========================================
+   AESTHETIC PACKING MODAL REDESIGN
+   ======================================== */
+
+/* Packing Modal Container */
+.packing-modal-content {
+  padding: 1.5rem;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+/* Section Styling */
+.packing-section {
+  margin-bottom: 2rem;
+  background: var(--color-light);
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--color-light) 0%, var(--color-cream) 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section-icon {
+  font-size: 2rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-light);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border);
+}
+
+.section-title-group {
+  flex: 1;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.section-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0.25rem 0 0 0;
+}
+
+.section-content {
+  padding: 1.5rem;
+}
+
+.content-intro {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--color-cream);
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border);
+}
+
+.intro-text {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Categories Grid */
+.packing-categories-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .packing-categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .packing-categories-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Category Cards */
+.category-card {
+  background: var(--color-light);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--color-light) 0%, var(--color-cream) 100%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.category-icon {
+  font-size: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-light);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border);
+}
+
+.category-info {
+  flex: 1;
+}
+
+.category-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+.category-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.progress-bar-container {
+  flex: 1;
+  height: 0.5rem;
+  background: var(--color-border);
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-sage) 0%, var(--color-mint) 100%);
+  border-radius: 0.25rem;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+.category-count {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  min-width: 3rem;
+  text-align: right;
+}
+
+.category-content {
+  padding: 1rem;
+}
+
+.packing-items-container {
+  max-height: 20rem;
+  overflow-y: auto;
+}
+
+.packing-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.packing-item {
+  margin-bottom: 0.5rem;
+}
+
+.packing-item:last-child {
+  margin-bottom: 0;
+}
+
+.packing-item-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--color-light);
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.packing-item-label:hover {
+  background: var(--color-cream);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.packing-checkbox {
+  display: none;
+}
+
+.checkbox-custom {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--color-border);
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-light);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.packing-checkbox:checked + .checkbox-custom {
+  background: var(--color-sage);
+  border-color: var(--color-sage);
+  color: white;
+}
+
+.checkmark {
+  font-size: 0.75rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.packing-checkbox:checked + .checkbox-custom .checkmark {
+  opacity: 1;
+}
+
+.item-text {
+  flex: 1;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.item-priority {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.item-priority.high {
+  background: var(--color-rose);
+  color: white;
+}
+
+.item-priority.medium {
+  background: var(--color-warm);
+  color: var(--text-primary);
+}
+
+.item-priority.low {
+  background: var(--color-mint);
+  color: var(--text-primary);
+}
+
+/* ========================================
    PACKING MODAL RESPONSIVE FIXES
    ======================================== */
 
