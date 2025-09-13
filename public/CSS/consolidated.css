@@ -526,20 +526,20 @@ nav .nav-icon {
 
 /* This rule hides the desktop nav by default */
 .desktop-nav {
-  display: none;
+  display: none !important;
 }
 
 /* This media query shows the desktop nav ONLY on large screens (1024px and up) */
 @media (min-width: 1024px) {
   .desktop-nav {
-    display: flex;
+    display: flex !important;
   }
 }
 
 /* This rule hides the mobile menu button by default on large screens */
 @media (min-width: 1024px) {
   #menu-btn {
-    display: none;
+    display: none !important;
   }
 }
 
