@@ -39,8 +39,8 @@
     <link rel="dns-prefetch" href="https://unpkg.com">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     
-    <!-- Mobile navigation styles are handled in style.css -->
-    <link rel="stylesheet" href="/style.css">
+    <!-- All styles are handled in consolidated.css -->
+    <link rel="stylesheet" href="/CSS/consolidated.css">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -52,7 +52,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <!-- Consolidated CSS already loaded above -->
     
     <!-- Performance Optimizations -->
     <!-- Preload links removed to prevent unused resource warnings -->
@@ -61,7 +61,7 @@
 <body class="bg-primary">
 
 
-    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-md">
+    <header class="bg-white sticky top-0 z-50 shadow-md">
         <nav class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
                 <a href="#" class="text-xl font-bold text-accent">ז'נבה עם קטנטנים 🧸</a>
@@ -281,7 +281,7 @@
         <section id="daily-special" class="bg-gradient-to-br from-amber-50 via-warm-50 to-rose-50 border-r-4 border-amber-300 rounded-2xl shadow-lg mb-16">
             <div class="p-4 md:p-8">
                 <h2 class="section-title text-center mb-4 md:mb-6 text-2xl md:text-3xl font-bold">🌟 ההמלצה המיוחדת שלנו לכם היום 🌟</h2>
-                <div class="bg-gradient-to-br from-white/90 to-sage-50/80 backdrop-blur-sm rounded-2xl p-4 md:p-8 max-w-4xl mx-auto shadow-xl border border-white/20">
+                <div class="bg-gradient-to-br from-white to-sage-50 rounded-2xl p-4 md:p-8 max-w-4xl mx-auto shadow-xl border border-gray-200">
                     <div id="daily-special-content" class="text-center">
                         <div class="mb-4 md:mb-6">
                             <div class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-r from-amber-300 to-warm-400 rounded-full flex items-center justify-center mx-auto mb-4 md:mb-6 shadow-lg md:shadow-xl">
@@ -385,7 +385,7 @@
             <h2 class="section-title text-center text-3xl font-bold">🎈 מאגר הפעילויות האינטראקטיבי</h2>
             <p class="section-subtitle text-center">מצאו את הבילוי המושלם לכל רגע. <strong>חשוב:</strong> לחצו תמיד על "לאתר הרשמי" כדי לוודא שעות פתיחה ומחירים עדכניים לפני היציאה.</p>
 
-            <div class="flex flex-wrap justify-center gap-3 mb-8 p-4 bg-white/50 backdrop-blur-sm rounded-2xl shadow-sm">
+            <div class="flex flex-wrap justify-center gap-3 mb-8 p-4 bg-white rounded-2xl shadow-sm">
                 <p class="w-full text-center text-sm font-semibold text-gray-600 mb-2">סנן לפי סוג פעילות:</p>
                 <button class="btn-filter active px-6 py-3 rounded-full font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none" data-filter="all">הכל</button>
                 <button class="btn-filter px-6 py-3 rounded-full font-medium focus:ring-2 focus:ring-blue-500 focus:outline-none" data-filter="משחקייה">🧸 משחקיות מקורות</button>
@@ -568,7 +568,7 @@
             </div>
             
             <!-- Enhanced Sticky Navigation -->
-            <div class="sticky top-0 bg-white/95 backdrop-blur-md z-20 border-b border-gray-200 shadow-sm">
+            <div class="sticky top-0 bg-white z-20 border-b border-gray-200 shadow-sm">
                 <!-- Progress Bar -->
                 <div class="px-6 pt-4 pb-2">
                     <div class="flex items-center justify-between mb-2">
@@ -846,7 +846,7 @@
     </div>
 
     <!-- Enhanced Loading Screen -->
-    <div id="family-loader" class="fixed inset-0 bg-gradient-to-br from-sage-50 to-mint-100 flex items-center justify-center z-50">
+    <div id="family-loader" class="fixed inset-0 bg-gradient-to-br from-sage-50 to-mint-100 flex items-center justify-center z-50" style="background: #F8FAFC;">
         <div class="text-center">
             <div class="loader mb-4"></div>
             <h2 class="text-2xl font-bold text-gray-800 mb-2">טוען את המדריך...</h2>

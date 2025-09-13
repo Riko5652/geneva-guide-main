@@ -24,7 +24,7 @@ export class FamilyLoader {
         // Create loading overlay
         const loader = document.createElement('div');
         loader.id = 'family-loader';
-        loader.className = 'fixed inset-0 bg-white/95 backdrop-blur-md z-[9999] flex items-center justify-center';
+        loader.className = 'fixed inset-0 bg-white z-[9999] flex items-center justify-center';
         loader.innerHTML = `
             <div class="text-center p-8 max-w-md">
                 <div class="relative w-32 h-32 mx-auto mb-6">
