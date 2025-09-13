@@ -1328,59 +1328,59 @@ export function renderPackingGuide() {
             </section>
             
             <!-- Interactive Packing List Section -->
-            <div class="mt-6 sm:mt-8 bg-gradient-to-br from-teal-50 to-emerald-50 p-4 sm:p-6 rounded-xl border-2 border-teal-200 shadow-lg">
-                <h2 class="text-xl sm:text-2xl font-bold text-teal-800 mb-3 sm:mb-4">🎒 רשימת האריזה האינטראקטיבית</h2>
-                <p class="text-gray-600 text-sm sm:text-base mb-4 sm:mb-6">עקבו אחר מה כבר ארזתם ומה עוד נשאר. ניתן להוסיף פריטים אישיים לרשימה.</p>
+            <div class="mt-6 sm:mt-8 bg-gradient-to-br from-sage-50 to-mint-50 p-4 sm:p-6 rounded-xl border-2 border-sage-200 shadow-lg">
+                <h2 class="text-xl sm:text-2xl font-bold text-sage-800 mb-3 sm:mb-4">🎒 רשימת האריזה האינטראקטיבית</h2>
+                <p class="text-sage-600 text-sm sm:text-base mb-4 sm:mb-6">עקבו אחר מה כבר ארזתם ומה עוד נשאר. ניתן להוסיף פריטים אישיים לרשימה.</p>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-6">
-                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-gray-800">📝 הוסיפו פריט לרשימה</h3>
+                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-sage-100 hover:shadow-md transition-shadow duration-200">
+                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-sage-800">📝 הוסיפו פריט לרשימה</h3>
                         <div class="flex flex-col sm:flex-row gap-2">
-                            <input type="text" id="packing-item-input" class="flex-1 border border-gray-300 rounded-lg py-2 px-3 text-sm sm:text-base focus:ring-2 focus:ring-teal-500 focus:border-transparent" placeholder="למשל: משקפי שמש לילדים">
-                            <button id="add-packing-item-btn" class="btn-primary px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base whitespace-nowrap">➕ הוסף</button>
+                            <input type="text" id="packing-item-input" class="flex-1 border border-sage-300 rounded-lg py-2 px-3 text-sm sm:text-base focus:ring-2 focus:ring-sage-500 focus:border-transparent transition-all duration-200" placeholder="למשל: משקפי שמש לילדים">
+                            <button id="add-packing-item-btn" class="btn-primary-standard px-3 sm:px-4 py-2 rounded-lg text-sm sm:text-base whitespace-nowrap">➕ הוסף</button>
                         </div>
                     </div>
 
-                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-gray-800">📷 הוסיפו תמונת ציוד</h3>
+                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-rose-100 hover:shadow-md transition-shadow duration-200">
+                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-rose-800">📷 הוסיפו תמונת ציוד</h3>
                         <div class="text-center">
                             <input type="file" id="packing-photo-input" class="hidden" accept="image/*" multiple>
-                            <button id="packing-photo-upload-btn" class="bg-purple-500 hover:bg-purple-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors duration-200 text-sm sm:text-base">📸 צלמו ציוד</button>
-                            <p class="text-xs text-gray-600 mt-1">תמונות של מזוודות, ציוד וכו'</p>
+                            <button id="packing-photo-upload-btn" class="btn-accent-standard px-3 sm:px-4 py-2 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base">📸 צלמו ציוד</button>
+                            <p class="text-xs text-rose-600 mt-1">תמונות של מזוודות, ציוד וכו'</p>
                         </div>
                     </div>
                     
-                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-gray-100 sm:col-span-2 lg:col-span-1">
-                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-gray-800">📊 התקדמות האריזה</h3>
-                        <div class="w-full bg-gray-200 rounded-full h-4 sm:h-6">
-                            <div id="packing-overall-progress" class="bg-gradient-to-r from-teal-500 to-emerald-500 h-4 sm:h-6 rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-bold transition-all duration-300" style="width: 0%">0%</div>
+                    <div class="bg-white p-3 sm:p-4 rounded-xl shadow-sm border border-mint-100 hover:shadow-md transition-shadow duration-200 sm:col-span-2 lg:col-span-1">
+                        <h3 class="font-bold text-base sm:text-lg mb-2 sm:mb-3 text-mint-800">📊 התקדמות האריזה</h3>
+                        <div class="w-full bg-mint-200 rounded-full h-4 sm:h-6 shadow-inner">
+                            <div id="packing-overall-progress" class="bg-gradient-to-r from-mint-500 to-sage-500 h-4 sm:h-6 rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-bold transition-all duration-300 shadow-sm" style="width: 0%">0%</div>
                         </div>
-                        <p class="text-xs text-gray-600 mt-1">עקבו אחר ההתקדמות שלכם</p>
+                        <p class="text-xs text-mint-600 mt-1">עקבו אחר ההתקדמות שלכם</p>
                     </div>
                 </div>
 
                 <!-- Luggage Planner Section -->
-                <div class="mb-4 sm:mb-6 bg-gradient-to-br from-amber-50 to-orange-50 p-4 sm:p-6 rounded-xl border-2 border-amber-200 shadow-lg">
-                    <h3 class="font-bold text-lg sm:text-xl mb-4 sm:mb-6 text-center text-amber-800">👜 מתכנן המזוודות - חלוקה לפי בן משפחה</h3>
+                <div class="mb-4 sm:mb-6 bg-gradient-to-br from-warm-50 to-rose-50 p-4 sm:p-6 rounded-xl border-2 border-warm-200 shadow-lg">
+                    <h3 class="font-bold text-lg sm:text-xl mb-4 sm:mb-6 text-center text-warm-800">👜 מתכנן המזוודות - חלוקה לפי בן משפחה</h3>
                     <div id="luggage-planner" class="space-y-3 sm:space-y-4">
                         <!-- Luggage assignments will be populated by JavaScript -->
                     </div>
                     <div class="mt-4 sm:mt-6 text-center">
-                        <button id="optimize-luggage-btn" class="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-sm sm:text-base">🎯 אופטימיזציה אוטומטית</button>
+                        <button id="optimize-luggage-btn" class="btn-secondary-standard px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-sm sm:text-base">🎯 אופטימיזציה אוטומטית</button>
                     </div>
                 </div>
 
                 <!-- Packing Photos Gallery -->
-                <div id="packing-photos-section" class="mb-6">
-                    <h3 class="font-bold text-lg mb-4 text-center">📸 גלריית תמונות ציוד</h3>
+                <div id="packing-photos-section" class="mb-6 bg-gradient-to-br from-rose-50 to-warm-50 p-4 sm:p-6 rounded-xl border-2 border-rose-200 shadow-lg">
+                    <h3 class="font-bold text-lg mb-4 text-center text-rose-800">📸 גלריית תמונות ציוד</h3>
                     <div id="packing-photos-gallery" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
                         <!-- Packing photos will be populated by JavaScript -->
                     </div>
                     <div id="packing-photo-upload-progress" class="hidden mt-4">
-                        <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div id="packing-photo-progress-bar" class="bg-purple-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        <div class="w-full bg-rose-200 rounded-full h-2 shadow-inner">
+                            <div id="packing-photo-progress-bar" class="bg-rose-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
                         </div>
-                        <p class="text-center text-sm text-gray-600 mt-2">מעלה תמונות ציוד...</p>
+                        <p class="text-center text-sm text-rose-700 mt-2 font-medium">מעלה תמונות ציוד...</p>
                     </div>
                 </div>
                 
