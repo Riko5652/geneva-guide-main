@@ -14,44 +14,44 @@
    1. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
    ======================================== */
 :root {
-  /* Updated Color Scheme */
-  --color-primary: #89A8B2;
-  --color-secondary: #B3C8CF;
-  --color-light: #E5E1DA;
-  --color-cream: #F1F0E8;
-  --color-dark: #4A6B7A;
-  --color-accent: #89A8B2;
-  --color-border: #B3C8CF;
+  /* Updated Color Scheme - Pastel Monochromatic */
+  --color-primary: #C7D2D5;
+  --color-secondary: #D8E0E3;
+  --color-light: #F0F2F3;
+  --color-cream: #F8F9FA;
+  --color-dark: #6B7A7E;
+  --color-accent: #A8B8BB;
+  --color-border: #D1D9DC;
   
-  /* New Aesthetic Color Palette */
-  --color-rose: #E7CCCC;
-  --color-warm: #EDE8DC;
-  --color-sage: #A5B68D;
-  --color-mint: #C1CFA1;
+  /* New Aesthetic Color Palette - Pastel */
+  --color-rose: #F2E0E0;
+  --color-warm: #F5F0E8;
+  --color-sage: #E8F0E3;
+  --color-mint: #F0F5E8;
   
-  /* Button Gradient Colors */
-  --btn-rose-light: #E7CCCC;
-  --btn-rose-dark: #D4B5B5;
-  --btn-warm-light: #EDE8DC;
-  --btn-warm-dark: #E0D6C4;
-  --btn-sage-light: #A5B68D;
-  --btn-sage-dark: #8FA077;
-  --btn-mint-light: #C1CFA1;
-  --btn-mint-dark: #A8B88A;
+  /* Button Gradient Colors - Pastel */
+  --btn-rose-light: #F2E0E0;
+  --btn-rose-dark: #E8D0D0;
+  --btn-warm-light: #F5F0E8;
+  --btn-warm-dark: #F0E8D8;
+  --btn-sage-light: #E8F0E3;
+  --btn-sage-dark: #D8E8D3;
+  --btn-mint-light: #F0F5E8;
+  --btn-mint-dark: #E8F0D8;
   
-  /* Custom Color Classes for Tailwind */
-  --rose-300: #E7CCCC;
-  --rose-400: #D4B5B5;
-  --rose-500: #C19E9E;
-  --rose-600: #B08A8A;
-  --mint-300: #C1CFA1;
-  --mint-400: #A8B88A;
-  --mint-500: #8FA077;
-  --mint-600: #7A8B65;
-  --sage-300: #A5B68D;
-  --sage-400: #8FA077;
-  --sage-500: #7A8B65;
-  --sage-600: #6B7A55;
+  /* Custom Color Classes for Tailwind - Pastel */
+  --rose-300: #F2E0E0;
+  --rose-400: #E8D0D0;
+  --rose-500: #D8C0C0;
+  --rose-600: #C8B0B0;
+  --mint-300: #F0F5E8;
+  --mint-400: #E8F0D8;
+  --mint-500: #D8E8C8;
+  --mint-600: #C8D8B8;
+  --sage-300: #E8F0E3;
+  --sage-400: #D8E8D3;
+  --sage-500: #C8D8C3;
+  --sage-600: #B8C8B3;
   
   /* Custom Color Classes */
   .from-rose-400 { background: linear-gradient(to right, var(--rose-400), transparent); }
@@ -70,12 +70,12 @@
   .border-mint-300 { border-color: var(--mint-300); }
   .border-sage-300 { border-color: var(--sage-300); }
   
-  /* Colors - Teal-inspired palette from New Folder 2 */
-  --accent-orange: #f97316;
-  --accent-yellow: #f59e0b;
-  --accent-green: #10b981;
-  --accent-purple: #9333ea;
-  --accent-pink: #ec4899;
+  /* Colors - Pastel Monochromatic Aesthetic Palette */
+  --accent-orange: #F4D1AE;
+  --accent-yellow: #F7E7CE;
+  --accent-green: #D4E6D1;
+  --accent-purple: #E6D4F0;
+  --accent-pink: #F0D4E6;
   
   /* High contrast colors for accessibility */
   --high-contrast-text: #000000;
@@ -94,20 +94,20 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
   
-  /* Semantic colors - Updated Palette */
-  --text-primary: #4A6B7A;
-  --text-secondary: #6B7280;
-  --text-accent: #89A8B2;
-  --text-success: #059669;
-  --text-warning: #d97706;
-  --text-error: #dc2626;
+  /* Semantic colors - Pastel Palette */
+  --text-primary: #6B7A7E;
+  --text-secondary: #8A9396;
+  --text-accent: #A8B8BB;
+  --text-success: #7BA87B;
+  --text-warning: #B8A87B;
+  --text-error: #B87B7B;
   --text-white: #ffffff;
   
-  /* Background colors - Updated Palette */
-  --bg-primary: #F1F0E8;
-  --bg-secondary: #E5E1DA;
-  --bg-accent: #B3C8CF;
-  --bg-glass: rgba(241, 240, 232, 0.8);
+  /* Background colors - Pastel Palette */
+  --bg-primary: #F8F9FA;
+  --bg-secondary: #F0F2F3;
+  --bg-accent: #D8E0E3;
+  --bg-glass: rgba(248, 249, 250, 0.8);
   
   /* Spacing scale */
   --space-1: 0.25rem;
@@ -1345,11 +1345,11 @@ button[class*="hover:scale"] {
   visibility: visible;
 }
 
-/* Modal Content - Updated Color Palette */
+/* Modal Content - Pastel Color Palette */
 .modal-content {
-  background: #F1F0E8;
+  background: #F8F9FA;
   border-radius: 20px;
-  border: 2px solid #B3C8CF;
+  border: 2px solid #D1D9DC;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   max-width: 90vw;
   max-height: 90vh;
@@ -1363,12 +1363,12 @@ button[class*="hover:scale"] {
   transform: scale(1) translateY(0);
 }
 
-/* Modal Header - Updated Color Palette */
+/* Modal Header - Pastel Color Palette */
 .modal-header {
-  background: #B3C8CF;
+  background: #D8E0E3;
   padding: 24px 32px 16px;
   border-radius: 20px 20px 0 0;
-  border-bottom: 2px solid #89A8B2;
+  border-bottom: 2px solid #A8B8BB;
   position: relative;
 }
 
@@ -1380,13 +1380,13 @@ button[class*="hover:scale"] {
   text-align: center;
 }
 
-/* Modal Close Button - Updated Color Palette */
+/* Modal Close Button - Pastel Color Palette */
 .modal-close-btn {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: linear-gradient(135deg, #EDE8DC 0%, #E0D6C4 100%);
-  border: 2px solid #A5B68D;
+  background: linear-gradient(135deg, #F5F0E8 0%, #F0E8D8 100%);
+  border: 2px solid #D8E8D3;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -1399,10 +1399,10 @@ button[class*="hover:scale"] {
 }
 
 .modal-close-btn:hover {
-  background: linear-gradient(135deg, #E0D6C4 0%, #D4C7B0 100%);
+  background: linear-gradient(135deg, #F0E8D8 0%, #E8D8C8 100%);
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: #8FA077;
+  border-color: #C8D8C3;
 }
 
 .modal-close-btn svg {
@@ -1411,12 +1411,12 @@ button[class*="hover:scale"] {
   color: #5A7A8A;
 }
 
-/* Modal Body - Updated Color Palette */
+/* Modal Body - Pastel Color Palette */
 .modal-body {
   padding: 24px 32px;
   line-height: 1.6;
-  color: #4A6B7A;
-  background: #F1F0E8;
+  color: #6B7A7E;
+  background: #F8F9FA;
 }
 
 /* Modal Footer - Action buttons */
@@ -1424,15 +1424,15 @@ button[class*="hover:scale"] {
   padding: 16px 32px 24px;
   display: flex;
   gap: 12px;
-  background: #E5E1DA;
+  background: #F0F2F3;
   justify-content: center;
   border-radius: 0 0 20px 20px;
 }
 
-/* Modal Warm - Enhanced warm styling */
+/* Modal Warm - Enhanced pastel styling */
 .modal-warm {
-  background: #F1F0E8;
-  border: 2px solid #B3C8CF;
+  background: #F8F9FA;
+  border: 2px solid #D1D9DC;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
 }
 
@@ -1929,10 +1929,10 @@ li {
 
 /* === HERO SECTION ENHANCED STYLES === */
 
-/* Background updated to new color palette */
+/* Background updated to pastel color palette */
 .hero-banner-themed {
-    background: #F1F0E8;
-    border: 1px solid #B3C8CF;
+    background: #F8F9FA;
+    border: 1px solid #D1D9DC;
 }
 
 /* Animation for the floating elements */
@@ -1947,11 +1947,11 @@ li {
     animation: float-up-down 15s ease-in-out infinite;
 }
 
-/* "Fun Fact" button styled with light gradient and contrast */
+/* "Fun Fact" button styled with pastel gradient and contrast */
 .btn-themed {
-    background: linear-gradient(135deg, #EDE8DC 0%, #E0D6C4 100%);
-    color: #4A6B7A;
-    border: 2px solid #A5B68D;
+    background: linear-gradient(135deg, #F5F0E8 0%, #F0E8D8 100%);
+    color: #6B7A7E;
+    border: 2px solid #D8E8D3;
     padding: 0.75rem 1.5rem;
     border-radius: 9999px;
     font-weight: 600;
@@ -1959,27 +1959,27 @@ li {
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 .btn-themed:hover {
-    background: linear-gradient(135deg, #E0D6C4 0%, #D4C7B0 100%);
-    border-color: #8FA077;
-    color: #4A6B7A;
+    background: linear-gradient(135deg, #F0E8D8 0%, #E8D8C8 100%);
+    border-color: #C8D8C3;
+    color: #6B7A7E;
     transform: scale(1.05);
     box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 
-/* Main CTA button with light gradient and contrast */
+/* Main CTA button with pastel gradient and contrast */
 .btn-cta-themed {
-    background: linear-gradient(135deg, #A5B68D 0%, #8FA077 100%);
-    color: #4A6B7A;
+    background: linear-gradient(135deg, #C8D8C3 0%, #B8C8B3 100%);
+    color: #6B7A7E;
     transition: all 0.3s ease-in-out;
     position: relative;
     overflow: hidden;
-    border: 2px solid #8FA077;
+    border: 2px solid #B8C8B3;
 }
 .btn-cta-themed:hover {
-    background: linear-gradient(135deg, #8FA077 0%, #7A8B65 100%);
+    background: linear-gradient(135deg, #B8C8B3 0%, #A8B8A3 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(165, 182, 141, 0.3);
-    border-color: #7A8B65;
+    box-shadow: 0 8px 25px rgba(184, 200, 179, 0.3);
+    border-color: #A8B8A3;
 }
 .btn-cta-themed:active {
     transform: scale(0.95);
@@ -1987,10 +1987,10 @@ li {
 
 /* Card styling for the fun fact result */
 #fun-fact-result {
-    background: linear-gradient(135deg, #EDE8DC 0%, #E0D6C4 100%);
+    background: linear-gradient(135deg, #F5F0E8 0%, #F0E8D8 100%);
     padding: 24px; /* p-6 */
     border-radius: 12px; /* rounded-xl */
-    border: 2px solid #A5B68D;
+    border: 2px solid #D8E8D3;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 

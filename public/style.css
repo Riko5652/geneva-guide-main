@@ -1,42 +1,42 @@
 /* Modern CSS Variables for Consistent Design System */
 :root {
-    /* Primary Colors - Updated Palette */
-    --primary-50: #F1F0E8;   /* Cream - lightest background */
-    --primary-100: #E5E1DA;  /* Light beige - light background */
-    --primary-200: #B3C8CF;  /* Light blue-gray - secondary */
-    --primary-300: #89A8B2;  /* Primary color - accent */
-    --primary-400: #B3C8CF;  /* Secondary color - accent */
-    --primary-500: #6B8FA3;  /* Medium blue-gray */
-    --primary-600: #5A7A8A;  /* Darker blue-gray */
-    --primary-700: #4A6B7A;  /* Dark - primary text */
-    --primary-800: #3A5B6A;  /* Darker blue-gray */
-    --primary-900: #2A4B5A;  /* Darkest blue-gray */
+    /* Primary Colors - Pastel Palette */
+    --primary-50: #F8F9FA;   /* Lightest pastel - background */
+    --primary-100: #F0F2F3;  /* Light pastel - light background */
+    --primary-200: #D8E0E3;  /* Light blue-gray - secondary */
+    --primary-300: #C7D2D5;  /* Primary color - accent */
+    --primary-400: #A8B8BB;  /* Secondary color - accent */
+    --primary-500: #8A9396;  /* Medium blue-gray */
+    --primary-600: #6B7A7E;  /* Darker blue-gray */
+    --primary-700: #6B7A7E;  /* Dark - primary text */
+    --primary-800: #5A6A6E;  /* Darker blue-gray */
+    --primary-900: #4A5A5E;  /* Darkest blue-gray */
     
-    /* Neutral Colors - Updated Palette */
-    --neutral-50: #F1F0E8;   /* Cream - highlight */
-    --neutral-100: #F1F0E8;  /* Cream */
-    --neutral-200: #E5E1DA;  /* Light beige */
-    --neutral-300: #B3C8CF;  /* Light blue-gray - accent */
-    --neutral-400: #B3C8CF;  /* Light blue-gray */
-    --neutral-500: #89A8B2;  /* Primary color */
-    --neutral-600: #6B8FA3;  /* Medium blue-gray */
-    --neutral-700: #5A7A8A;  /* Dark blue-gray */
-    --neutral-800: #4A6B7A;  /* Dark - primary text */
-    --neutral-900: #3A5B6A;  /* Darkest blue-gray */
+    /* Neutral Colors - Pastel Palette */
+    --neutral-50: #F8F9FA;   /* Lightest pastel - highlight */
+    --neutral-100: #F0F2F3;  /* Light pastel */
+    --neutral-200: #D8E0E3;  /* Light blue-gray */
+    --neutral-300: #C7D2D5;  /* Light blue-gray - accent */
+    --neutral-400: #A8B8BB;  /* Light blue-gray */
+    --neutral-500: #8A9396;  /* Primary color */
+    --neutral-600: #6B7A7E;  /* Medium blue-gray */
+    --neutral-700: #6B7A7E;  /* Dark blue-gray */
+    --neutral-800: #5A6A6E;  /* Dark - primary text */
+    --neutral-900: #4A5A5E;  /* Darkest blue-gray */
     
-    /* Accent Colors - Updated Palette */
-    --accent-warm: #F1F0E8;  /* Cream - highlight */
-    --accent-cool: #89A8B2;  /* Primary color - accent */
-    --accent-success: #DEE5D4; /* Sage green - nature */
-    --accent-warning: #F1F0E8; /* Cream - warning */
-    --accent-error: #F5B7B1;  /* Soft coral - error */
+    /* Accent Colors - Pastel Palette */
+    --accent-warm: #F5F0E8;  /* Pastel cream - highlight */
+    --accent-cool: #A8B8BB;  /* Pastel blue-gray - accent */
+    --accent-success: #E8F0E3; /* Pastel sage green - nature */
+    --accent-warning: #F0F5E8; /* Pastel mint - warning */
+    --accent-error: #F2E0E0;  /* Pastel rose - error */
     
-    /* Solid Colors - Updated Palette */
-    --gradient-primary: #F1F0E8;
-    --gradient-warm: #F1F0E8;
-    --gradient-cool: #89A8B2;
-    --gradient-neutral: #E5E1DA;
-    --gradient-nature: #DEE5D4;
+    /* Solid Colors - Pastel Palette */
+    --gradient-primary: #F8F9FA;
+    --gradient-warm: #F5F0E8;
+    --gradient-cool: #A8B8BB;
+    --gradient-neutral: #F0F2F3;
+    --gradient-nature: #E8F0E3;
     
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
