@@ -536,6 +536,17 @@ nav .nav-icon {
   }
 }
 
+/* Additional overrides for any remaining Tailwind conflicts */
+@media (min-width: 1024px) {
+  .hidden.lg\\:flex {
+    display: flex !important;
+  }
+  
+  .lg\\:hidden {
+    display: none !important;
+  }
+}
+
 /* This rule hides the mobile menu button by default on large screens */
 @media (min-width: 1024px) {
   #menu-btn {
