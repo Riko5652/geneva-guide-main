@@ -14,44 +14,44 @@
    1. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
    ======================================== */
 :root {
-  /* Updated Color Scheme - Pastel Monochromatic */
-  --color-primary: #C7D2D5;
-  --color-secondary: #D8E0E3;
-  --color-light: #F0F2F3;
-  --color-cream: #F8F9FA;
-  --color-dark: #6B7A7E;
-  --color-accent: #A8B8BB;
-  --color-border: #D1D9DC;
+  /* Updated Color Scheme - Soft Pastel Gentle */
+  --color-primary: #BCCCDC;
+  --color-secondary: #D9EAFD;
+  --color-light: #F8FAFC;
+  --color-cream: #F8FAFC;
+  --color-dark: #9AA6B2;
+  --color-accent: #BCCCDC;
+  --color-border: #D9EAFD;
   
-  /* New Aesthetic Color Palette - Pastel */
-  --color-rose: #F2E0E0;
-  --color-warm: #F5F0E8;
-  --color-sage: #E8F0E3;
-  --color-mint: #F0F5E8;
+  /* New Aesthetic Color Palette - Soft Pastel Gentle */
+  --color-rose: #E7CCCC;
+  --color-warm: #EDE8DC;
+  --color-sage: #A5B68D;
+  --color-mint: #C1CFA1;
   
-  /* Button Gradient Colors - Pastel */
-  --btn-rose-light: #F2E0E0;
-  --btn-rose-dark: #E8D0D0;
-  --btn-warm-light: #F5F0E8;
-  --btn-warm-dark: #F0E8D8;
-  --btn-sage-light: #E8F0E3;
-  --btn-sage-dark: #D8E8D3;
-  --btn-mint-light: #F0F5E8;
-  --btn-mint-dark: #E8F0D8;
+  /* Button Gradient Colors - Soft Pastel Gentle */
+  --btn-rose-light: #E7CCCC;
+  --btn-rose-dark: #D4B8B8;
+  --btn-warm-light: #EDE8DC;
+  --btn-warm-dark: #E0D6C8;
+  --btn-sage-light: #A5B68D;
+  --btn-sage-dark: #8FA077;
+  --btn-mint-light: #C1CFA1;
+  --btn-mint-dark: #A8B88A;
   
-  /* Custom Color Classes for Tailwind - Pastel */
-  --rose-300: #F2E0E0;
-  --rose-400: #E8D0D0;
-  --rose-500: #D8C0C0;
-  --rose-600: #C8B0B0;
-  --mint-300: #F0F5E8;
-  --mint-400: #E8F0D8;
-  --mint-500: #D8E8C8;
-  --mint-600: #C8D8B8;
-  --sage-300: #E8F0E3;
-  --sage-400: #D8E8D3;
-  --sage-500: #C8D8C3;
-  --sage-600: #B8C8B3;
+  /* Custom Color Classes for Tailwind - Soft Pastel Gentle */
+  --rose-300: #E7CCCC;
+  --rose-400: #D4B8B8;
+  --rose-500: #C1A4A4;
+  --rose-600: #AE9090;
+  --mint-300: #C1CFA1;
+  --mint-400: #A8B88A;
+  --mint-500: #8FA173;
+  --mint-600: #768A5C;
+  --sage-300: #A5B68D;
+  --sage-400: #8FA077;
+  --sage-500: #798A61;
+  --sage-600: #63744B;
   
   /* Custom Color Classes */
   .from-rose-400 { background: linear-gradient(to right, var(--rose-400), transparent); }
@@ -70,12 +70,12 @@
   .border-mint-300 { border-color: var(--mint-300); }
   .border-sage-300 { border-color: var(--sage-300); }
   
-  /* Colors - Pastel Monochromatic Aesthetic Palette */
-  --accent-orange: #F4D1AE;
-  --accent-yellow: #F7E7CE;
-  --accent-green: #D4E6D1;
-  --accent-purple: #E6D4F0;
-  --accent-pink: #F0D4E6;
+  /* Colors - Soft Pastel Gentle Aesthetic Palette */
+  --accent-orange: #EDE8DC;
+  --accent-yellow: #EDE8DC;
+  --accent-green: #A5B68D;
+  --accent-purple: #BCCCDC;
+  --accent-pink: #E7CCCC;
   
   /* High contrast colors for accessibility */
   --high-contrast-text: #000000;
@@ -94,20 +94,20 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
   
-  /* Semantic colors - Pastel Palette */
-  --text-primary: #6B7A7E;
-  --text-secondary: #8A9396;
-  --text-accent: #A8B8BB;
-  --text-success: #7BA87B;
-  --text-warning: #B8A87B;
-  --text-error: #B87B7B;
+  /* Semantic colors - Soft Pastel Gentle Palette */
+  --text-primary: #9AA6B2;
+  --text-secondary: #BCCCDC;
+  --text-accent: #BCCCDC;
+  --text-success: #A5B68D;
+  --text-warning: #EDE8DC;
+  --text-error: #E7CCCC;
   --text-white: #ffffff;
   
-  /* Background colors - Pastel Palette */
-  --bg-primary: #F8F9FA;
-  --bg-secondary: #F0F2F3;
-  --bg-accent: #D8E0E3;
-  --bg-glass: rgba(248, 249, 250, 0.8);
+  /* Background colors - Soft Pastel Gentle Palette */
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #D9EAFD;
+  --bg-accent: #BCCCDC;
+  --bg-glass: rgba(248, 250, 252, 0.8);
   
   /* Spacing scale */
   --space-1: 0.25rem;

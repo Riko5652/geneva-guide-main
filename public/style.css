@@ -1,42 +1,42 @@
 /* Modern CSS Variables for Consistent Design System */
 :root {
-    /* Primary Colors - Pastel Palette */
-    --primary-50: #F8F9FA;   /* Lightest pastel - background */
-    --primary-100: #F0F2F3;  /* Light pastel - light background */
-    --primary-200: #D8E0E3;  /* Light blue-gray - secondary */
-    --primary-300: #C7D2D5;  /* Primary color - accent */
-    --primary-400: #A8B8BB;  /* Secondary color - accent */
-    --primary-500: #8A9396;  /* Medium blue-gray */
-    --primary-600: #6B7A7E;  /* Darker blue-gray */
-    --primary-700: #6B7A7E;  /* Dark - primary text */
-    --primary-800: #5A6A6E;  /* Darker blue-gray */
-    --primary-900: #4A5A5E;  /* Darkest blue-gray */
+    /* Primary Colors - Soft Pastel Gentle Palette */
+    --primary-50: #F8FAFC;   /* Lightest pastel - background */
+    --primary-100: #D9EAFD;  /* Light pastel - light background */
+    --primary-200: #BCCCDC;  /* Light blue-gray - secondary */
+    --primary-300: #BCCCDC;  /* Primary color - accent */
+    --primary-400: #BCCCDC;  /* Secondary color - accent */
+    --primary-500: #9AA6B2;  /* Medium blue-gray */
+    --primary-600: #9AA6B2;  /* Darker blue-gray */
+    --primary-700: #9AA6B2;  /* Dark - primary text */
+    --primary-800: #9AA6B2;  /* Darker blue-gray */
+    --primary-900: #9AA6B2;  /* Darkest blue-gray */
     
-    /* Neutral Colors - Pastel Palette */
-    --neutral-50: #F8F9FA;   /* Lightest pastel - highlight */
-    --neutral-100: #F0F2F3;  /* Light pastel */
-    --neutral-200: #D8E0E3;  /* Light blue-gray */
-    --neutral-300: #C7D2D5;  /* Light blue-gray - accent */
-    --neutral-400: #A8B8BB;  /* Light blue-gray */
-    --neutral-500: #8A9396;  /* Primary color */
-    --neutral-600: #6B7A7E;  /* Medium blue-gray */
-    --neutral-700: #6B7A7E;  /* Dark blue-gray */
-    --neutral-800: #5A6A6E;  /* Dark - primary text */
-    --neutral-900: #4A5A5E;  /* Darkest blue-gray */
+    /* Neutral Colors - Soft Pastel Gentle Palette */
+    --neutral-50: #F8FAFC;   /* Lightest pastel - highlight */
+    --neutral-100: #D9EAFD;  /* Light pastel */
+    --neutral-200: #BCCCDC;  /* Light blue-gray */
+    --neutral-300: #BCCCDC;  /* Light blue-gray - accent */
+    --neutral-400: #BCCCDC;  /* Light blue-gray */
+    --neutral-500: #9AA6B2;  /* Primary color */
+    --neutral-600: #9AA6B2;  /* Medium blue-gray */
+    --neutral-700: #9AA6B2;  /* Dark blue-gray */
+    --neutral-800: #9AA6B2;  /* Dark - primary text */
+    --neutral-900: #9AA6B2;  /* Darkest blue-gray */
     
-    /* Accent Colors - Pastel Palette */
-    --accent-warm: #F5F0E8;  /* Pastel cream - highlight */
-    --accent-cool: #A8B8BB;  /* Pastel blue-gray - accent */
-    --accent-success: #E8F0E3; /* Pastel sage green - nature */
-    --accent-warning: #F0F5E8; /* Pastel mint - warning */
-    --accent-error: #F2E0E0;  /* Pastel rose - error */
+    /* Accent Colors - Soft Pastel Gentle Palette */
+    --accent-warm: #EDE8DC;  /* Pastel cream - highlight */
+    --accent-cool: #BCCCDC;  /* Pastel blue-gray - accent */
+    --accent-success: #A5B68D; /* Pastel sage green - nature */
+    --accent-warning: #C1CFA1; /* Pastel mint - warning */
+    --accent-error: #E7CCCC;  /* Pastel rose - error */
     
-    /* Solid Colors - Pastel Palette */
-    --gradient-primary: #F8F9FA;
-    --gradient-warm: #F5F0E8;
-    --gradient-cool: #A8B8BB;
-    --gradient-neutral: #F0F2F3;
-    --gradient-nature: #E8F0E3;
+    /* Solid Colors - Soft Pastel Gentle Palette */
+    --gradient-primary: #F8FAFC;
+    --gradient-warm: #EDE8DC;
+    --gradient-cool: #BCCCDC;
+    --gradient-neutral: #D9EAFD;
+    --gradient-nature: #A5B68D;
     
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
