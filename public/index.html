@@ -61,27 +61,27 @@
 <body class="bg-primary">
 
 
-    <header class="bg-white sticky top-0 z-50 shadow-md">
-        <nav class="container mx-auto px-6 py-3">
-            <div class="flex justify-between items-center">
-                <a href="#" class="text-xl font-bold text-accent">ז'נבה עם קטנטנים 🧸</a>
+    <header class="site-header">
+        <nav class="site-header__nav container">
+            <div class="site-header__content">
+                <a href="#" class="site-header__logo">ז'נבה עם קטנטנים 🧸</a>
                 
                 <!-- Time and Weather Info -->
-                <div class="hidden md:flex items-center space-x-4 space-x-reverse">
-                    <div class="flex items-center gap-2 text-sm">
-                        <span class="text-blue-600">🌤️</span>
-                        <span id="nav-weather" class="text-gray-700 font-medium">טוען מזג אוויר...</span>
+                <div class="site-header__weather-info">
+                    <div class="weather-item">
+                        <span class="weather-icon">🌤️</span>
+                        <span id="nav-weather" class="weather-text">טוען מזג אוויר...</span>
                     </div>
-                    <div class="flex items-center gap-2 text-sm">
-                        <span class="text-orange-600">🕐</span>
-                        <span id="nav-time" class="text-gray-700 font-medium">--:--</span>
+                    <div class="weather-item">
+                        <span class="time-icon">🕐</span>
+                        <span id="nav-time" class="time-text">--:--</span>
                     </div>
                 </div>
                 
-                <div class="desktop-nav items-center space-x-6 space-x-reverse">
-                    <a href="#plan" class="hover:text-accent">🗺️ מסלול</a>
-                    <a href="#activities" class="hover:text-accent">🎈 פעילויות</a>
-                    <button id="open-packing-modal-btn" class="hover:text-accent flex items-center">
+                <div class="site-header__desktop-nav">
+                    <a href="#plan" class="nav-link">🗺️ מסלול</a>
+                    <a href="#activities" class="nav-link">🎈 פעילויות</a>
+                    <button id="open-packing-modal-btn" class="nav-button">
                         <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -89,7 +89,7 @@
                             </svg>
                         מדריך אריזה
                         </button>
-                    <button class="nav-family-btn hover:text-accent flex items-center">
+                    <button class="nav-family-btn nav-button">
                         <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -97,7 +97,7 @@
                             </svg>
                         פרטי משפחה
                         </button>
-                    <button class="nav-nearby-btn hover:text-accent flex items-center">
+                    <button class="nav-nearby-btn nav-button">
                         <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -107,7 +107,7 @@
                             </svg>
                         קרוב אליי
                         </button>
-                    <button class="nav-gemini-btn hover:text-accent flex items-center">
+                    <button class="nav-gemini-btn nav-button">
                         <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -115,7 +115,7 @@
                             </svg>
                         שאל מומחה
                         </button>
-                    <button class="nav-photos-btn hover:text-accent flex items-center">
+                    <button class="nav-photos-btn nav-button">
                         <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -124,9 +124,9 @@
                         אלבום תמונות
                         </button>
                     </div>
-                <div>
-                    <button id="menu-btn" class="text-gray-700 focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                <div class="site-header__mobile-toggle">
+                    <button id="menu-btn" class="mobile-menu-btn">
+                        <svg class="mobile-menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -134,7 +134,7 @@
                     </button>
                 </div>
             </div>
-            <div id="mobile-menu" class="mobile-menu-hidden mt-3 space-y-2">
+            <div id="mobile-menu" class="mobile-menu">
                 <!-- Mobile Time and Weather -->
                 <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg mb-2">
                     <div class="flex items-center gap-2 text-sm">
