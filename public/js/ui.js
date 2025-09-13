@@ -764,25 +764,25 @@ function renderItinerary() {
                                 <div class="border-t pt-6 mt-6">
                             <h5 class="text-sm font-semibold text-gray-600 mb-4 text-center">פעולות חכמות ליום זה</h5>
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3">
-                                <button class="btn-primary-standard gemini-plan-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="btn btn-primary gemini-plan-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">✨</span>
                                         <span class="whitespace-nowrap">תכנן בוקר</span>
                                     </span>
                                 </button>
-                                <button class="btn-secondary-standard gemini-summary-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="btn btn-secondary gemini-summary-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">📝</span>
                                         <span class="whitespace-nowrap">סכם לילדים</span>
                                     </span>
                                 </button>
-                                <button class="btn-accent-standard gemini-story-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="btn btn-accent gemini-story-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">📖</span>
                                         <span class="whitespace-nowrap">סיפור לילדים</span>
                                     </span>
                                 </button>
-                                <button class="btn-warning-standard swap-activity-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="btn btn-warm swap-activity-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">🔄</span>
                                         <span class="whitespace-nowrap">החלף פעילות</span>
@@ -950,9 +950,9 @@ export function renderActivities() {
                     ` : ''}
                     
                     <div class="flex flex-wrap gap-2 justify-between md:justify-stretch">
-                        ${activity.link ? `<a href="${activity.link}" target="_blank" class="btn-primary text-xs px-3 py-2 rounded-lg hover:shadow-md transition-shadow flex-1 md:flex-none md:flex-grow text-center">לאתר הרשמי</a>` : ''}
-                        ${googleMapsUrl ? `<a href="${googleMapsUrl}" target="_blank" class="bg-sage-500 hover:bg-sage-600 text-white text-xs px-3 py-2 rounded-lg transition-colors flex-1 md:flex-none md:flex-grow text-center">🗺️ נווט</a>` : ''}
-                        <button class="activity-details-btn bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-3 py-2 rounded-lg transition-colors flex-1 md:flex-none md:flex-grow text-center" data-activity-id="${activity.id || activity.name}">
+                        ${activity.link ? `<a href="${activity.link}" target="_blank" class="btn btn-primary text-xs flex-1 md:flex-none md:flex-grow text-center">לאתר הרשמי</a>` : ''}
+                        ${googleMapsUrl ? `<a href="${googleMapsUrl}" target="_blank" class="btn btn-accent text-xs flex-1 md:flex-none md:flex-grow text-center">🗺️ נווט</a>` : ''}
+                        <button class="btn btn-filter activity-details-btn text-xs flex-1 md:flex-none md:flex-grow text-center" data-activity-id="${activity.id || activity.name}">
                             👁️ פרטים
                         </button>
                     </div>
