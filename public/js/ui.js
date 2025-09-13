@@ -764,33 +764,29 @@ function renderItinerary() {
                                 <div class="border-t pt-6 mt-6">
                             <h5 class="text-sm font-semibold text-gray-600 mb-4 text-center">פעולות חכמות ליום זה</h5>
                             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3">
-                                <button class="group relative bg-gradient-to-r from-sage-500 to-sage-600 hover:from-sage-600 hover:to-sage-700 text-sage-800 py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-plan-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="btn-primary-standard gemini-plan-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">✨</span>
                                         <span class="whitespace-nowrap">תכנן בוקר</span>
                                     </span>
-                                    <div class="absolute inset-0 bg-sage-100 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative bg-gradient-to-r from-mint-500 to-mint-600 hover:from-mint-600 hover:to-mint-700 text-mint-800 py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-summary-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="btn-secondary-standard gemini-summary-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">📝</span>
                                         <span class="whitespace-nowrap">סכם לילדים</span>
                                     </span>
-                                    <div class="absolute inset-0 bg-sage-100 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-rose-800 py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg gemini-story-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="btn-accent-standard gemini-story-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">📖</span>
                                         <span class="whitespace-nowrap">סיפור לילדים</span>
                                     </span>
-                                    <div class="absolute inset-0 bg-sage-100 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-200"></div>
                                 </button>
-                                <button class="group relative bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-amber-800 py-2 px-3 md:py-3 md:px-4 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg swap-activity-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
+                                <button class="btn-warning-standard swap-activity-btn text-sm md:text-base" data-day-index="${day.dayIndex || day.day}">
                                     <span class="flex items-center justify-center gap-1 md:gap-2">
                                         <span class="text-base md:text-lg">🔄</span>
                                         <span class="whitespace-nowrap">החלף פעילות</span>
                                     </span>
-                                    <div class="absolute inset-0 bg-sage-100 opacity-0 group-hover:opacity-20 rounded-lg transition-opacity duration-200"></div>
                                 </button>
                 </div>
             </div>
@@ -1823,13 +1819,13 @@ export function renderDailySpecial() {
             </div>
             
             <div class="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
-                <button id="daily-special-ai-btn" class="bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-rose-800 px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm md:text-base">
+                <button id="daily-special-ai-btn" class="btn-accent-standard text-sm md:text-base">
                     <span class="flex items-center justify-center gap-1 md:gap-2">
                         <span class="text-base md:text-lg">✨</span>
                         <span class="whitespace-nowrap">ספר לי עוד על המלצה זו</span>
                     </span>
                 </button>
-                <button id="add-to-plan-btn" class="bg-gradient-to-r from-mint-500 to-mint-600 hover:from-mint-600 hover:to-mint-700 text-mint-800 px-4 py-2 md:px-6 md:py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm md:text-base">
+                <button id="add-to-plan-btn" class="btn-secondary-standard text-sm md:text-base">
                     <span class="flex items-center justify-center gap-1 md:gap-2">
                         <span class="text-base md:text-lg">➕</span>
                         <span class="whitespace-nowrap">הוסף למסלול שלי</span>
@@ -2403,7 +2399,11 @@ export function renderQuickStatus() {
     const updateWeather = () => {
         let weatherContent = 'טוען מזג אוויר...';
         
-        if (currentData && currentData.weather && currentData.weather.daily) {
+        if (currentData && currentData.weather && currentData.weather.daily && 
+            currentData.weather.daily.temperature_2m_max && 
+            currentData.weather.daily.temperature_2m_max[0] !== undefined &&
+            currentData.weather.daily.weather_code && 
+            currentData.weather.daily.weather_code[0] !== undefined) {
             const todayTemp = Math.round(currentData.weather.daily.temperature_2m_max[0]);
             const weatherCode = currentData.weather.daily.weather_code[0];
             const weatherIcon = getWeatherIcon(weatherCode);

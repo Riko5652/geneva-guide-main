@@ -739,7 +739,7 @@ async function generateMoreActivitiesWithGemini() {
                 <span class="text-sm font-semibold">🤖 מחפש פעילויות נוספות עם AI...</span>
             </div>
         `;
-        loadMoreBtn.className = 'bg-gradient-to-r from-sage-500 to-sage-600 hover:from-sage-600 hover:to-sage-700 text-white px-8 py-4 rounded-2xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-not-allowed opacity-90';
+        loadMoreBtn.className = 'btn-primary-standard cursor-not-allowed opacity-90';
     }
     
     try {
@@ -826,7 +826,7 @@ Respond with JSON array only:
                     <span class="text-sm font-semibold">שגיאה ביצירת פעילויות חדשות</span>
                 </div>
             `;
-            loadMoreBtn.className = 'bg-gradient-to-r from-rose-500 to-rose-600 text-white px-8 py-4 rounded-2xl font-medium shadow-lg transition-all duration-300';
+            loadMoreBtn.className = 'btn-accent-standard';
             
             // Reset button after 3 seconds
             setTimeout(() => {
@@ -837,7 +837,7 @@ Respond with JSON array only:
                         <span class="whitespace-nowrap">נסה שוב ליצור פעילויות</span>
                     </span>
                 `;
-                loadMoreBtn.className = 'bg-gradient-to-r from-sage-500 to-sage-600 hover:from-sage-600 hover:to-sage-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg';
+                loadMoreBtn.className = 'btn-primary-standard';
             }, 3000);
         }
     }

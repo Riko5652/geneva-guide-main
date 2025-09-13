@@ -406,14 +406,14 @@
             <div class="text-center mt-8 space-y-4">
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <div id="load-more-container" class="hidden">
-                        <button id="load-more-btn" class="bg-gradient-to-r from-sage-400 to-sage-500 hover:from-sage-500 hover:to-sage-600 text-sage-800 px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                        <button id="load-more-btn" class="btn-primary-standard">
                             <span class="flex items-center justify-center gap-2">
                                 <span class="text-lg">🎈</span>
                                 <span class="whitespace-nowrap">טען עוד פעילויות</span>
                             </span>
                         </button>
                     </div>
-                    <button id="show-map-btn" class="bg-gradient-to-r from-mint-400 to-mint-500 hover:from-mint-500 hover:to-mint-600 text-mint-800 px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                    <button id="show-map-btn" class="btn-secondary-standard">
                         <span class="flex items-center justify-center gap-2">
                             <span class="text-lg">🗺️</span>
                             <span class="whitespace-nowrap">הצג את כל הפעילויות על המפה</span>
@@ -432,13 +432,13 @@
                 
                 <!-- Quick Share Buttons -->
                 <div class="quick-share-buttons flex flex-wrap justify-center gap-2 md:gap-4 mt-4 md:mt-6">
-                    <button id="quick-photo-btn" class="bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-rose-800 px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg border border-rose-400">
+                    <button id="quick-photo-btn" class="btn-accent-standard">
                         📷 צלמו רגע
                     </button>
-                    <button id="quick-note-btn" class="bg-gradient-to-r from-mint-500 to-mint-600 hover:from-mint-600 hover:to-mint-700 text-mint-800 px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg border border-mint-400">
+                    <button id="quick-note-btn" class="btn-secondary-standard">
                         📝 הערה מהירה
                     </button>
-                    <button id="quick-memory-btn" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-amber-800 px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg border border-amber-400">
+                    <button id="quick-memory-btn" class="btn-warning-standard">
                         💫 זיכרון חדש
                     </button>
                 </div>
@@ -456,7 +456,7 @@
                         
                         <div class="text-center mb-4 md:mb-8">
                             <input type="file" id="photo-upload-input" class="hidden" accept="image/*" multiple aria-label="העלאת תמונות">
-                            <button id="photo-upload-btn" class="bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-rose-800 px-4 py-2 md:px-8 md:py-4 rounded-xl md:rounded-2xl text-sm md:text-base font-bold transition-all duration-300 transform hover:scale-105 md:hover:scale-110 hover:-translate-y-1 shadow-lg md:shadow-2xl border border-rose-400">
+                            <button id="photo-upload-btn" class="btn-accent-standard">
                                 <span class="flex items-center gap-1 md:gap-2">
                                     <span class="text-base md:text-lg">📷</span>
                                     <span>הוסיפו תמונה</span>
@@ -488,7 +488,7 @@
                         <div class="mb-4 md:mb-8">
                             <div class="flex gap-2 md:gap-4">
                                 <input type="text" id="bulletin-note-input" class="flex-1 border-2 border-emerald-300 focus:border-emerald-500 focus:ring-2 md:focus:ring-4 focus:ring-emerald-200 rounded-xl md:rounded-2xl py-2 px-3 md:py-4 md:px-5 text-sm md:text-base font-medium transition-all duration-300 bg-white shadow-md md:shadow-lg hover:shadow-lg md:hover:shadow-xl focus:shadow-lg md:focus:shadow-2xl" placeholder="הערה מהירה..." aria-label="הערה מהירה">
-                                <button id="add-bulletin-note-btn" class="bg-gradient-to-r from-mint-500 to-mint-600 hover:from-mint-600 hover:to-mint-700 text-mint-800 px-3 py-2 md:px-6 md:py-4 rounded-xl md:rounded-2xl text-base md:text-lg font-bold transition-all duration-300 transform hover:scale-105 md:hover:scale-110 hover:-translate-y-1 shadow-lg md:shadow-2xl border border-mint-400">
+                                <button id="add-bulletin-note-btn" class="btn-secondary-standard">
                                     ➕
                                 </button>
                             </div>
@@ -511,7 +511,7 @@
                         <div class="mb-4 md:mb-8 space-y-2 md:space-y-4">
                             <input type="text" id="memory-title-input" class="w-full border-2 border-amber-300 focus:border-amber-500 focus:ring-2 md:focus:ring-4 focus:ring-amber-200 rounded-xl md:rounded-2xl py-2 px-3 md:py-4 md:px-5 text-sm md:text-base font-medium transition-all duration-300 bg-white shadow-md md:shadow-lg hover:shadow-lg md:hover:shadow-xl focus:shadow-lg md:focus:shadow-2xl" placeholder="כותרת זיכרון..." aria-label="כותרת זיכרון">
                             <textarea id="memory-content-input" class="w-full border-2 border-amber-300 focus:border-amber-500 focus:ring-2 md:focus:ring-4 focus:ring-amber-200 rounded-xl md:rounded-2xl py-2 px-3 md:py-4 md:px-5 text-sm md:text-base font-medium transition-all duration-300 bg-white shadow-md md:shadow-lg hover:shadow-lg md:hover:shadow-xl focus:shadow-lg md:focus:shadow-2xl resize-none" rows="3" placeholder="תארו את החוויה..."></textarea>
-                            <button id="add-memory-btn" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-amber-800 px-4 py-2 md:px-6 md:py-4 rounded-xl md:rounded-2xl text-sm md:text-base font-bold transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-lg md:shadow-2xl border border-amber-400">
+                            <button id="add-memory-btn" class="btn-warning-standard w-full">
                                 <span class="flex items-center justify-center gap-1 md:gap-2">
                                     <span class="text-base md:text-lg">💫</span>
                                     <span>שמרו זיכרון</span>

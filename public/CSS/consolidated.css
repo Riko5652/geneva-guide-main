@@ -39,6 +39,17 @@
   --btn-mint-light: #C1CFA1;
   --btn-mint-dark: #A8B88A;
   
+  /* Standardized Button Styles */
+  --btn-primary-bg: linear-gradient(135deg, var(--btn-sage-light) 0%, var(--btn-sage-dark) 100%);
+  --btn-secondary-bg: linear-gradient(135deg, var(--btn-mint-light) 0%, var(--btn-mint-dark) 100%);
+  --btn-accent-bg: linear-gradient(135deg, var(--btn-rose-light) 0%, var(--btn-rose-dark) 100%);
+  --btn-warning-bg: linear-gradient(135deg, var(--btn-warm-light) 0%, var(--btn-warm-dark) 100%);
+  
+  --btn-primary-text: #2D3748;
+  --btn-secondary-text: #2D3748;
+  --btn-accent-text: #2D3748;
+  --btn-warning-text: #2D3748;
+  
   /* Custom Color Classes for Tailwind - Soft Pastel Gentle */
   --rose-300: #E7CCCC;
   --rose-400: #D4B8B8;
@@ -331,6 +342,82 @@ header {
   #menu-btn {
     display: none;
   }
+}
+
+/* ========================================
+   STANDARDIZED BUTTONS
+   ======================================== */
+
+/* Primary Button Style (Sage) */
+.btn-primary-standard {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 2px solid var(--btn-sage-dark);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary-standard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--btn-sage-dark) 0%, var(--btn-sage-light) 100%);
+}
+
+/* Secondary Button Style (Mint) */
+.btn-secondary-standard {
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 2px solid var(--btn-mint-dark);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary-standard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--btn-mint-dark) 0%, var(--btn-mint-light) 100%);
+}
+
+/* Accent Button Style (Rose) */
+.btn-accent-standard {
+  background: var(--btn-accent-bg);
+  color: var(--btn-accent-text);
+  border: 2px solid var(--btn-rose-dark);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-accent-standard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--btn-rose-dark) 0%, var(--btn-rose-light) 100%);
+}
+
+/* Warning Button Style (Warm) */
+.btn-warning-standard {
+  background: var(--btn-warning-bg);
+  color: var(--btn-warning-text);
+  border: 2px solid var(--btn-warm-dark);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-warning-standard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--btn-warm-dark) 0%, var(--btn-warm-light) 100%);
 }
 
 /* ========================================
