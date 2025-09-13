@@ -23,6 +23,53 @@
   --color-accent: #89A8B2;
   --color-border: #B3C8CF;
   
+  /* New Aesthetic Color Palette */
+  --color-rose: #E7CCCC;
+  --color-warm: #EDE8DC;
+  --color-sage: #A5B68D;
+  --color-mint: #C1CFA1;
+  
+  /* Button Gradient Colors */
+  --btn-rose-light: #E7CCCC;
+  --btn-rose-dark: #D4B5B5;
+  --btn-warm-light: #EDE8DC;
+  --btn-warm-dark: #E0D6C4;
+  --btn-sage-light: #A5B68D;
+  --btn-sage-dark: #8FA077;
+  --btn-mint-light: #C1CFA1;
+  --btn-mint-dark: #A8B88A;
+  
+  /* Custom Color Classes for Tailwind */
+  --rose-300: #E7CCCC;
+  --rose-400: #D4B5B5;
+  --rose-500: #C19E9E;
+  --rose-600: #B08A8A;
+  --mint-300: #C1CFA1;
+  --mint-400: #A8B88A;
+  --mint-500: #8FA077;
+  --mint-600: #7A8B65;
+  --sage-300: #A5B68D;
+  --sage-400: #8FA077;
+  --sage-500: #7A8B65;
+  --sage-600: #6B7A55;
+  
+  /* Custom Color Classes */
+  .from-rose-400 { background: linear-gradient(to right, var(--rose-400), transparent); }
+  .to-rose-500 { background: linear-gradient(to right, transparent, var(--rose-500)); }
+  .from-rose-500 { background: linear-gradient(to right, var(--rose-500), transparent); }
+  .to-rose-600 { background: linear-gradient(to right, transparent, var(--rose-600)); }
+  .from-mint-400 { background: linear-gradient(to right, var(--mint-400), transparent); }
+  .to-mint-500 { background: linear-gradient(to right, transparent, var(--mint-500)); }
+  .from-mint-500 { background: linear-gradient(to right, var(--mint-500), transparent); }
+  .to-mint-600 { background: linear-gradient(to right, transparent, var(--mint-600)); }
+  .from-sage-400 { background: linear-gradient(to right, var(--sage-400), transparent); }
+  .to-sage-500 { background: linear-gradient(to right, transparent, var(--sage-500)); }
+  .from-sage-500 { background: linear-gradient(to right, var(--sage-500), transparent); }
+  .to-sage-600 { background: linear-gradient(to right, transparent, var(--sage-600)); }
+  .border-rose-300 { border-color: var(--rose-300); }
+  .border-mint-300 { border-color: var(--mint-300); }
+  .border-sage-300 { border-color: var(--sage-300); }
+  
   /* Colors - Teal-inspired palette from New Folder 2 */
   --accent-orange: #f97316;
   --accent-yellow: #f59e0b;
@@ -1338,8 +1385,8 @@ button[class*="hover:scale"] {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: #F1F0E8;
-  border: 2px solid #B3C8CF;
+  background: linear-gradient(135deg, #EDE8DC 0%, #E0D6C4 100%);
+  border: 2px solid #A5B68D;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -1352,10 +1399,10 @@ button[class*="hover:scale"] {
 }
 
 .modal-close-btn:hover {
-  background: #E5E1DA;
+  background: linear-gradient(135deg, #E0D6C4 0%, #D4C7B0 100%);
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: #89A8B2;
+  border-color: #8FA077;
 }
 
 .modal-close-btn svg {
@@ -1900,11 +1947,11 @@ li {
     animation: float-up-down 15s ease-in-out infinite;
 }
 
-/* "Fun Fact" button styled with new color palette */
+/* "Fun Fact" button styled with light gradient and contrast */
 .btn-themed {
-    background: #F1F0E8;
+    background: linear-gradient(135deg, #EDE8DC 0%, #E0D6C4 100%);
     color: #4A6B7A;
-    border: 2px solid #B3C8CF;
+    border: 2px solid #A5B68D;
     padding: 0.75rem 1.5rem;
     border-radius: 9999px;
     font-weight: 600;
@@ -1912,23 +1959,27 @@ li {
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 .btn-themed:hover {
-    background: #E5E1DA;
-    border-color: #89A8B2;
+    background: linear-gradient(135deg, #E0D6C4 0%, #D4C7B0 100%);
+    border-color: #8FA077;
     color: #4A6B7A;
     transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 
-/* Main CTA button updated to new color palette */
+/* Main CTA button with light gradient and contrast */
 .btn-cta-themed {
-    background: #89A8B2;
+    background: linear-gradient(135deg, #A5B68D 0%, #8FA077 100%);
+    color: #4A6B7A;
     transition: all 0.3s ease-in-out;
     position: relative;
     overflow: hidden;
+    border: 2px solid #8FA077;
 }
 .btn-cta-themed:hover {
-    background: #B3C8CF;
+    background: linear-gradient(135deg, #8FA077 0%, #7A8B65 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(137, 168, 178, 0.3);
+    box-shadow: 0 8px 25px rgba(165, 182, 141, 0.3);
+    border-color: #7A8B65;
 }
 .btn-cta-themed:active {
     transform: scale(0.95);
@@ -1936,10 +1987,10 @@ li {
 
 /* Card styling for the fun fact result */
 #fun-fact-result {
-    background: #F1F0E8;
+    background: linear-gradient(135deg, #EDE8DC 0%, #E0D6C4 100%);
     padding: 24px; /* p-6 */
     border-radius: 12px; /* rounded-xl */
-    border: 2px solid #B3C8CF;
+    border: 2px solid #A5B68D;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
