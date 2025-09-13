@@ -14,17 +14,14 @@
    1. CSS CUSTOM PROPERTIES (DESIGN TOKENS)
    ======================================== */
 :root {
-  /* Baseline Design Color Scheme */
-  --baseline-cream: #FFF8DE;
-  --baseline-beige: #E5E1DA;
-  --baseline-blue: #D2E0FB;
-  --baseline-teal: #B3C8CF;
-  --baseline-sage: #C8D5B1;
-  --baseline-yellow: #F4E4BC;
-  --baseline-rose: #F5B7B1;
-  --baseline-dark: #4A6B7A;
-  --baseline-accent: #C5D3E8;
-  --baseline-border: #D0E8C5;
+  /* Updated Color Scheme */
+  --color-primary: #89A8B2;
+  --color-secondary: #B3C8CF;
+  --color-light: #E5E1DA;
+  --color-cream: #F1F0E8;
+  --color-dark: #4A6B7A;
+  --color-accent: #89A8B2;
+  --color-border: #B3C8CF;
   
   /* Colors - Teal-inspired palette from New Folder 2 */
   --accent-orange: #f97316;
@@ -50,20 +47,20 @@
   --gray-800: #1f2937;
   --gray-900: #111827;
   
-  /* Semantic colors - Baseline Design */
+  /* Semantic colors - Updated Palette */
   --text-primary: #4A6B7A;
   --text-secondary: #6B7280;
-  --text-accent: #4A6B7A;
+  --text-accent: #89A8B2;
   --text-success: #059669;
   --text-warning: #d97706;
   --text-error: #dc2626;
   --text-white: #ffffff;
   
-  /* Background colors - Baseline Design */
-  --bg-primary: linear-gradient(135deg, #FFF8DE 0%, #C5D3E8 100%);
-  --bg-secondary: #FFF8DE;
-  --bg-accent: #C5D3E8;
-  --bg-glass: rgba(255, 248, 222, 0.8);
+  /* Background colors - Updated Palette */
+  --bg-primary: #F1F0E8;
+  --bg-secondary: #E5E1DA;
+  --bg-accent: #B3C8CF;
+  --bg-glass: rgba(241, 240, 232, 0.8);
   
   /* Spacing scale */
   --space-1: 0.25rem;
@@ -492,15 +489,15 @@ header {
   transition: all 0.3s ease-in-out;
   padding: 4px 8px;
   border-radius: 6px;
-  background: rgba(255, 248, 222, 0.8);
+  background: rgba(241, 240, 232, 0.8);
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(208, 232, 197, 0.5);
+  border: 1px solid rgba(179, 200, 207, 0.5);
 }
 
 #nav-weather:hover, #nav-time:hover {
-  background: rgba(197, 211, 232, 0.8);
+  background: rgba(229, 225, 218, 0.8);
   transform: translateY(-1px);
-  border-color: rgba(179, 200, 207, 0.8);
+  border-color: rgba(137, 168, 178, 0.8);
 }
 
 /* ========================================
@@ -1301,11 +1298,11 @@ button[class*="hover:scale"] {
   visibility: visible;
 }
 
-/* Modal Content - Swiss-inspired */
+/* Modal Content - Updated Color Palette */
 .modal-content {
-  background: linear-gradient(135deg, #FFF8DE 0%, #C5D3E8 100%);
+  background: #F1F0E8;
   border-radius: 20px;
-  border: 2px solid #D0E8C5;
+  border: 2px solid #B3C8CF;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   max-width: 90vw;
   max-height: 90vh;
@@ -1319,12 +1316,12 @@ button[class*="hover:scale"] {
   transform: scale(1) translateY(0);
 }
 
-/* Modal Header - Baseline Design */
+/* Modal Header - Updated Color Palette */
 .modal-header {
-  background: linear-gradient(135deg, #D2E0FB 0%, #B3C8CF 100%);
+  background: #B3C8CF;
   padding: 24px 32px 16px;
   border-radius: 20px 20px 0 0;
-  border-bottom: 2px solid #D0E8C5;
+  border-bottom: 2px solid #89A8B2;
   position: relative;
 }
 
@@ -1336,13 +1333,13 @@ button[class*="hover:scale"] {
   text-align: center;
 }
 
-/* Modal Close Button - Baseline Design */
+/* Modal Close Button - Updated Color Palette */
 .modal-close-btn {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: linear-gradient(135deg, #FFF8DE 0%, #C5D3E8 100%);
-  border: 2px solid #D0E8C5;
+  background: #F1F0E8;
+  border: 2px solid #B3C8CF;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -1355,10 +1352,10 @@ button[class*="hover:scale"] {
 }
 
 .modal-close-btn:hover {
-  background: linear-gradient(135deg, #C5D3E8 0%, #D2E0FB 100%);
+  background: #E5E1DA;
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  border-color: #B3C8CF;
+  border-color: #89A8B2;
 }
 
 .modal-close-btn svg {
@@ -1367,12 +1364,12 @@ button[class*="hover:scale"] {
   color: #5A7A8A;
 }
 
-/* Modal Body - Baseline Design */
+/* Modal Body - Updated Color Palette */
 .modal-body {
   padding: 24px 32px;
   line-height: 1.6;
   color: #4A6B7A;
-  background: #FFF8DE;
+  background: #F1F0E8;
 }
 
 /* Modal Footer - Action buttons */
@@ -1380,15 +1377,15 @@ button[class*="hover:scale"] {
   padding: 16px 32px 24px;
   display: flex;
   gap: 12px;
-  background: linear-gradient(135deg, #FFF8DE 0%, #C5D3E8 100%);
+  background: #E5E1DA;
   justify-content: center;
   border-radius: 0 0 20px 20px;
 }
 
 /* Modal Warm - Enhanced warm styling */
 .modal-warm {
-  background: linear-gradient(135deg, #FFF8DE 0%, #C5D3E8 100%);
-  border: 2px solid #D0E8C5;
+  background: #F1F0E8;
+  border: 2px solid #B3C8CF;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
 }
 
@@ -1885,10 +1882,10 @@ li {
 
 /* === HERO SECTION ENHANCED STYLES === */
 
-/* Background updated to match baseline design */
+/* Background updated to new color palette */
 .hero-banner-themed {
-    background: #FFF8DE;
-    border: 1px solid #D0E8C5;
+    background: #F1F0E8;
+    border: 1px solid #B3C8CF;
 }
 
 /* Animation for the floating elements */
@@ -1903,11 +1900,11 @@ li {
     animation: float-up-down 15s ease-in-out infinite;
 }
 
-/* "Fun Fact" button styled with baseline design palette */
+/* "Fun Fact" button styled with new color palette */
 .btn-themed {
-    background: linear-gradient(135deg, #FFF8DE 0%, #C5D3E8 100%);
+    background: #F1F0E8;
     color: #4A6B7A;
-    border: 2px solid #D0E8C5;
+    border: 2px solid #B3C8CF;
     padding: 0.75rem 1.5rem;
     border-radius: 9999px;
     font-weight: 600;
@@ -1915,23 +1912,23 @@ li {
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 .btn-themed:hover {
-    background: linear-gradient(135deg, #C5D3E8 0%, #D2E0FB 100%);
-    border-color: #B3C8CF;
+    background: #E5E1DA;
+    border-color: #89A8B2;
     color: #4A6B7A;
     transform: scale(1.05);
 }
 
-/* Main CTA button updated to match baseline design */
+/* Main CTA button updated to new color palette */
 .btn-cta-themed {
-    background: linear-gradient(135deg, #4A6B7A 0%, #5A7A8A 100%);
+    background: #89A8B2;
     transition: all 0.3s ease-in-out;
     position: relative;
     overflow: hidden;
 }
 .btn-cta-themed:hover {
-    background: linear-gradient(135deg, #5A7A8A 0%, #6B8A9A 100%);
+    background: #B3C8CF;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(74, 107, 122, 0.3);
+    box-shadow: 0 8px 25px rgba(137, 168, 178, 0.3);
 }
 .btn-cta-themed:active {
     transform: scale(0.95);
@@ -1939,10 +1936,10 @@ li {
 
 /* Card styling for the fun fact result */
 #fun-fact-result {
-    background: linear-gradient(135deg, #FFF8DE 0%, #C5D3E8 100%);
+    background: #F1F0E8;
     padding: 24px; /* p-6 */
     border-radius: 12px; /* rounded-xl */
-    border: 2px solid #D0E8C5;
+    border: 2px solid #B3C8CF;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
