@@ -1,41 +1,41 @@
 /* Modern CSS Variables for Consistent Design System */
 :root {
-    /* Primary Colors - Swiss-Inspired Blue-Gray Palette */
-    --primary-50: #F1F0E8;   /* Cream - lightest background */
+    /* Primary Colors - Baseline Design Palette */
+    --primary-50: #FFF8DE;   /* Baseline cream - lightest background */
     --primary-100: #E5E1DA;  /* Warm beige - light background */
     --primary-200: #B3C8CF;  /* Light blue-gray - secondary */
-    --primary-300: #89A8B2;  /* Muted blue-gray - primary */
-    --primary-400: #8EACCD;  /* Muted blue - accent */
+    --primary-300: #C5D3E8;  /* Baseline accent - primary */
+    --primary-400: #D2E0FB;  /* Light blue - accent */
     --primary-500: #6B8FA3;  /* Medium blue-gray */
     --primary-600: #5A7A8A;  /* Darker blue-gray */
-    --primary-700: #4A6B7A;  /* Dark blue-gray */
+    --primary-700: #4A6B7A;  /* Baseline dark - primary text */
     --primary-800: #3A5B6A;  /* Darker blue-gray */
     --primary-900: #2A4B5A;  /* Darkest blue-gray */
     
-    /* Neutral Colors - Refined Grays */
-    --neutral-50: #FEF9D9;   /* Soft yellow - highlight */
-    --neutral-100: #F1F0E8;  /* Cream */
+    /* Neutral Colors - Baseline Design */
+    --neutral-50: #FFF8DE;   /* Baseline cream - highlight */
+    --neutral-100: #FFF8DE;  /* Baseline cream */
     --neutral-200: #E5E1DA;  /* Warm beige */
     --neutral-300: #D2E0FB;  /* Light blue - accent */
     --neutral-400: #B3C8CF;  /* Light blue-gray */
     --neutral-500: #89A8B2;  /* Muted blue-gray */
     --neutral-600: #6B8FA3;  /* Medium blue-gray */
     --neutral-700: #5A7A8A;  /* Dark blue-gray */
-    --neutral-800: #4A6B7A;  /* Darker blue-gray */
+    --neutral-800: #4A6B7A;  /* Baseline dark - primary text */
     --neutral-900: #3A5B6A;  /* Darkest blue-gray */
     
-    /* Accent Colors - Family-Friendly Palette */
-    --accent-warm: #FEF9D9;  /* Soft yellow - highlight */
-    --accent-cool: #D2E0FB;  /* Light blue - accent */
+    /* Accent Colors - Baseline Design Palette */
+    --accent-warm: #FFF8DE;  /* Baseline cream - highlight */
+    --accent-cool: #C5D3E8;  /* Baseline accent - primary */
     --accent-success: #DEE5D4; /* Sage green - nature */
-    --accent-warning: #FEF9D9; /* Soft yellow - warning */
+    --accent-warning: #FFF8DE; /* Baseline cream - warning */
     --accent-error: #F5B7B1;  /* Soft coral - error */
     
-    /* Gradients - Swiss-Inspired */
-    --gradient-primary: linear-gradient(135deg, var(--primary-300) 0%, var(--primary-500) 100%);
-    --gradient-warm: linear-gradient(135deg, var(--accent-warm) 0%, #F4E4BC 100%);
-    --gradient-cool: linear-gradient(135deg, var(--accent-cool) 0%, var(--primary-200) 100%);
-    --gradient-neutral: linear-gradient(135deg, var(--neutral-100) 0%, var(--neutral-200) 100%);
+    /* Gradients - Baseline Design */
+    --gradient-primary: linear-gradient(135deg, #FFF8DE 0%, #C5D3E8 100%);
+    --gradient-warm: linear-gradient(135deg, #FFF8DE 0%, #F4E4BC 100%);
+    --gradient-cool: linear-gradient(135deg, #C5D3E8 0%, #D2E0FB 100%);
+    --gradient-neutral: linear-gradient(135deg, #FFF8DE 0%, #E5E1DA 100%);
     --gradient-nature: linear-gradient(135deg, var(--accent-success) 0%, #C8D5B1 100%);
     
     /* Shadows */
