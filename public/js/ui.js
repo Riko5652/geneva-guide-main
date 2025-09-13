@@ -1,6 +1,6 @@
 import { currentData, currentCategoryFilter, currentTimeFilter, newlyAddedItems, clearNewlyAddedItems } from './Main.js';
 import { fetchAndRenderWeather } from './services.js';
-import { getFormattedOpeningHours, getStatusClass } from './utils.js';
+import { getFormattedOpeningHours, getStatusClass, getWeatherInfo } from './utils.js';
 import { initMap } from './Map.js';
 import { showFlowLoading, hideFlowLoading, showFlowProgress, showFlowFeedback, showFlowSuccess, handleFlowError } from './handlers.js';
 
@@ -2397,17 +2397,24 @@ export function renderQuickStatus() {
     
     // Update weather status in navigation bar (desktop and mobile)
     const updateWeather = () => {
-        let weatherContent = 'טוען מזג אוויר...';
+        let weatherContent = '🌤️ מזג אוויר';
         
-        if (currentData && currentData.weather && currentData.weather.daily && 
-            currentData.weather.daily.temperature_2m_max && 
-            currentData.weather.daily.temperature_2m_max[0] !== undefined &&
-            currentData.weather.daily.weather_code && 
-            currentData.weather.daily.weather_code[0] !== undefined) {
-            const todayTemp = Math.round(currentData.weather.daily.temperature_2m_max[0]);
-            const weatherCode = currentData.weather.daily.weather_code[0];
-            const weatherIcon = getWeatherIcon(weatherCode);
-            weatherContent = `${weatherIcon} ${todayTemp}°C`;
+        try {
+            if (currentData && currentData.weather && currentData.weather.daily && 
+                currentData.weather.daily.temperature_2m_max && 
+                currentData.weather.daily.temperature_2m_max[0] !== undefined &&
+                currentData.weather.daily.weathercode && 
+                currentData.weather.daily.weathercode[0] !== undefined) {
+                const todayTemp = Math.round(currentData.weather.daily.temperature_2m_max[0]);
+                const weatherCode = currentData.weather.daily.weathercode[0];
+                const weatherInfo = getWeatherInfo(weatherCode);
+                weatherContent = `${weatherInfo.icon} ${todayTemp}°C`;
+            } else {
+                console.log('🌤️ Weather data not available or incomplete:', currentData?.weather);
+            }
+        } catch (error) {
+            console.error('🌤️ Error updating weather:', error);
+            weatherContent = '🌤️ מזג אוויר';
         }
         
         // Update desktop nav
