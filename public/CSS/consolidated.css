@@ -72,7 +72,9 @@
   --color-secondary-light: var(--secondary-500);
   --color-accent: var(--accent-600);
   --color-accent-light: var(--accent-500);
+  --color-accent-dark: var(--accent-700);
   --color-warning: var(--warning-600);
+  --color-warning-dark: var(--warning-700);
   --color-error: var(--error-600);
   --color-success: var(--success-600);
   
@@ -124,6 +126,25 @@ h5 { font-size: 1.125rem; }
 h6 { font-size: 1rem; }
 
 /* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
 .btn-primary {
   background: var(--color-primary);
   color: var(--color-text-inverse);
@@ -156,6 +177,40 @@ h6 { font-size: 1rem; }
   border-color: var(--color-border-hover);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+  border: 1px solid var(--color-accent);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-accent:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+
+.btn-warm {
+  background: var(--color-warning);
+  color: var(--color-text-inverse);
+  border: 1px solid var(--color-warning);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-warm:hover {
+  background: var(--color-warning-dark);
+  border-color: var(--color-warning-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
 }
 
 /* Cards */
