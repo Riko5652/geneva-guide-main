@@ -246,7 +246,8 @@ class ModalManager {
             modalElement.style.setProperty('display', 'none', 'important'); // Force hide
             console.log('🎭 Modal hidden and display set to none');
             
-            // Always restore scroll - improved logic
+            // Clean up the stack and restore scroll
+            this.cleanupModalStack();
             this.restoreBodyScroll();
             
             // Back button removal not needed - no back button exists
@@ -257,6 +258,9 @@ class ModalManager {
      * Restore body scroll with improved logic
      */
     restoreBodyScroll() {
+        // Clean up the modal stack first - remove any modals that are actually hidden
+        this.cleanupModalStack();
+        
         // Check if any modals are actually visible (not just in stack)
         const visibleModals = document.querySelectorAll('.modal:not(.hidden)');
         const actuallyVisibleModals = Array.from(visibleModals).filter(modal => {
@@ -270,14 +274,47 @@ class ModalManager {
             actuallyVisible: actuallyVisibleModals.length
         });
         
-        if (actuallyVisibleModals.length === 0) {
+        if (actuallyVisibleModals.length === 0 && this.modalStack.length === 0) {
             // Force remove overflow restrictions while preserving other styles
             document.body.style.overflow = 'auto';
             document.body.style.overflowY = 'auto';
             document.body.style.overflowX = 'hidden';
             console.log('🎭 Body scroll restored - overflow: auto, overflowY: auto, overflowX: hidden');
         } else {
-            console.log('⚠️ Found actually visible modals, not restoring body overflow:', actuallyVisibleModals.length);
+            console.log('⚠️ Found actually visible modals or modals in stack, not restoring body overflow:', {
+                visible: actuallyVisibleModals.length,
+                inStack: this.modalStack.length
+            });
+        }
+    }
+    
+    /**
+     * Clean up the modal stack by removing hidden modals
+     */
+    cleanupModalStack() {
+        const originalLength = this.modalStack.length;
+        this.modalStack = this.modalStack.filter(modalInfo => {
+            const modal = modalInfo.element;
+            if (!modal) return false;
+            
+            const style = window.getComputedStyle(modal);
+            const isHidden = modal.classList.contains('hidden') || 
+                           style.display === 'none' || 
+                           style.visibility === 'hidden' || 
+                           style.opacity === '0';
+            
+            if (isHidden) {
+                console.log('🧹 Removing hidden modal from stack:', modal.id);
+                return false;
+            }
+            return true;
+        });
+        
+        if (this.modalStack.length !== originalLength) {
+            console.log('🧹 Modal stack cleaned up:', {
+                original: originalLength,
+                current: this.modalStack.length
+            });
         }
     }
     
@@ -412,11 +449,27 @@ export function closeAllModals() {
  * Force restore body overflow - useful as a fallback
  */
 export function forceRestoreBodyOverflow() {
+    // Clear the modal stack completely
+    modalManager.modalStack = [];
+    
+    // Force remove all overflow restrictions
     document.body.style.overflow = 'auto';
     document.body.style.overflowY = 'auto';
     document.body.style.overflowX = 'hidden';
-    console.log('🔧 Force restored body overflow');
+    
+    // Hide all modals
+    const allModals = document.querySelectorAll('.modal');
+    allModals.forEach(modal => {
+        modal.classList.add('hidden');
+        modal.style.setProperty('display', 'none', 'important');
+        modal.style.opacity = '0';
+    });
+    
+    console.log('🔧 Force restored body overflow and cleared all modals');
 }
+
+// Make the force restore function available globally for emergency use
+window.forceRestoreBodyOverflow = forceRestoreBodyOverflow;
 
 /**
  * Translates a weather code from the Open-Meteo API to a human-readable description and an icon.
