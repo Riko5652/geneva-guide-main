@@ -111,24 +111,24 @@
     <header class="bg-white sticky top-0 z-50 shadow-md">
         <nav class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
-                <a href="#" class="text-xl font-bold text-accent">ז'נבה עם קטנטנים 🧸</a>
+                <a href="#" class="text-xl font-bold" style="color: var(--color-primary);">ז'נבה עם קטנטנים 🧸</a>
                 
                 <!-- Time and Weather Info -->
                 <div class="hidden md:flex items-center space-x-4 space-x-reverse">
                     <div class="flex items-center gap-2 text-sm">
-                        <span class="text-blue-600">🌤️</span>
-                        <span id="nav-weather" class="text-gray-700 font-medium">טוען מזג אוויר...</span>
+                        <span style="color: var(--color-primary);">🌤️</span>
+                        <span id="nav-weather" style="color: var(--color-text-secondary);" class="font-medium">טוען מזג אוויר...</span>
                     </div>
                     <div class="flex items-center gap-2 text-sm">
-                        <span class="text-orange-600">🕐</span>
-                        <span id="nav-time" class="text-gray-700 font-medium">--:--</span>
+                        <span style="color: var(--color-warning);">🕐</span>
+                        <span id="nav-time" style="color: var(--color-text-secondary);" class="font-medium">--:--</span>
                     </div>
                 </div>
                 
                 <div class="hidden lg:flex items-center space-x-6 space-x-reverse">
-                    <a href="#plan" class="hover:text-accent">🗺️ מסלול</a>
-                    <a href="#activities" class="hover:text-accent">🎈 פעילויות</a>
-                    <button id="open-packing-modal-btn" class="hover:text-accent flex items-center">
+                    <a href="#plan" class="nav-link">🗺️ מסלול</a>
+                    <a href="#activities" class="nav-link">🎈 פעילויות</a>
+                    <button id="open-packing-modal-btn" class="nav-link flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -136,7 +136,7 @@
                             </svg>
                         מדריך אריזה
                         </button>
-                    <button class="nav-family-btn hover:text-accent flex items-center">
+                    <button class="nav-family-btn nav-link flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -144,7 +144,7 @@
                             </svg>
                         פרטי משפחה
                         </button>
-                    <button class="nav-nearby-btn hover:text-accent flex items-center">
+                    <button class="nav-nearby-btn nav-link flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -154,7 +154,7 @@
                             </svg>
                         קרוב אליי
                         </button>
-                    <button class="nav-gemini-btn hover:text-accent flex items-center">
+                    <button class="nav-gemini-btn nav-link flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -162,7 +162,7 @@
                             </svg>
                         שאל מומחה
                         </button>
-                    <button class="nav-photos-btn hover:text-accent flex items-center">
+                    <button class="nav-photos-btn nav-link flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" class="nav-icon" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -745,7 +745,7 @@
                 </svg>
             </button>
             <div class="p-2 pb-1 flex-shrink-0 bg-transparent">
-                <h3 class="text-lg font-semibold mb-1 text-accent">מקומות קרובים אליך</h3>
+                <h3 class="text-lg font-semibold mb-1" style="color: var(--color-accent);">מקומות קרובים אליך</h3>
             </div>
             <div class="flex-1 overflow-y-auto px-6 pb-6">
                 <div id="nearby-results" class="space-y-4"></div>
@@ -764,8 +764,8 @@
             </button>
             <div class="p-2 pb-1 flex-shrink-0 bg-transparent">
                 <div class="text-center mb-2">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-1 flex items-center justify-center">
-                        <span class="w-5 h-5 mr-2 text-blue-600">🏨</span>
+                    <h3 class="text-lg font-semibold mb-1 flex items-center justify-center" style="color: var(--color-text-primary);">
+                        <span class="w-5 h-5 mr-2" style="color: var(--color-primary);">🏨</span>
                         השהות שלכם בז'נבה
                     </h3>
                     <div class="w-12 h-0.5 bg-gradient-to-r from-sage-500 to-mint-500 mx-auto rounded-full"></div>
@@ -789,7 +789,7 @@
                 </svg>
             </button>
             <div class="p-2 pb-1 flex-shrink-0 bg-transparent">
-                <h3 class="text-lg font-semibold mb-1 text-gray-800">פירוט טיסות מלא</h3>
+                <h3 class="text-lg font-semibold mb-1" style="color: var(--color-text-primary);">פירוט טיסות מלא</h3>
             </div>
             <div class="flex-1 overflow-y-auto px-6 pb-6">
                 <div class="space-y-6" id="flight-details-content">
@@ -809,7 +809,7 @@
                 </svg>
             </button>
             <div class="p-2 pb-1 flex-shrink-0 bg-transparent">
-                <h3 class="text-lg font-semibold mb-1 text-gray-800">פרטי דרכונים</h3>
+                <h3 class="text-lg font-semibold mb-1" style="color: var(--color-text-primary);">פרטי דרכונים</h3>
             </div>
             <div class="flex-1 overflow-y-auto px-6 pb-6">
                 <div id="family-details-content" class="space-y-2">
