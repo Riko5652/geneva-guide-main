@@ -2940,10 +2940,11 @@ li {
 
 /* === HERO SECTION ENHANCED STYLES === */
 
-/* Background updated to pastel color palette */
+/* Background updated to unified color system */
 .hero-banner-themed {
-    background: #F8F9FA;
-    border: 1px solid #D1D9DC;
+    background: var(--color-bg-primary);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Animation for the floating elements */
