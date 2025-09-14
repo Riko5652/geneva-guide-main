@@ -246,25 +246,39 @@ class ModalManager {
             modalElement.style.setProperty('display', 'none', 'important'); // Force hide
             console.log('🎭 Modal hidden and display set to none');
             
-            // Restore scroll if no modals are open
-            if (this.modalStack.length === 0) {
-                // Double-check that no modals are actually visible
-                const visibleModals = document.querySelectorAll('.modal:not(.hidden)');
-                if (visibleModals.length === 0) {
-                    // Force remove overflow restrictions while preserving other styles
-                    document.body.style.overflow = 'auto';
-                    document.body.style.overflowY = 'auto';
-                    document.body.style.overflowX = 'hidden';
-                    console.log('🎭 Body scroll restored - overflow: auto, overflowY: auto, overflowX: hidden');
-                } else {
-                    console.log('⚠️ Found visible modals, not restoring body overflow:', visibleModals.length);
-                }
-            } else {
-                console.log('📋 Still have modals in stack, not restoring body overflow:', this.modalStack.length);
-            }
+            // Always restore scroll - improved logic
+            this.restoreBodyScroll();
             
             // Back button removal not needed - no back button exists
         }, 200);
+    }
+    
+    /**
+     * Restore body scroll with improved logic
+     */
+    restoreBodyScroll() {
+        // Check if any modals are actually visible (not just in stack)
+        const visibleModals = document.querySelectorAll('.modal:not(.hidden)');
+        const actuallyVisibleModals = Array.from(visibleModals).filter(modal => {
+            const style = window.getComputedStyle(modal);
+            return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+        });
+        
+        console.log('🔍 Visible modals check:', {
+            stackLength: this.modalStack.length,
+            hiddenModals: visibleModals.length,
+            actuallyVisible: actuallyVisibleModals.length
+        });
+        
+        if (actuallyVisibleModals.length === 0) {
+            // Force remove overflow restrictions while preserving other styles
+            document.body.style.overflow = 'auto';
+            document.body.style.overflowY = 'auto';
+            document.body.style.overflowX = 'hidden';
+            console.log('🎭 Body scroll restored - overflow: auto, overflowY: auto, overflowX: hidden');
+        } else {
+            console.log('⚠️ Found actually visible modals, not restoring body overflow:', actuallyVisibleModals.length);
+        }
     }
     
     /**
@@ -297,17 +311,20 @@ class ModalManager {
             setTimeout(() => {
                 modalInfo.element.classList.add('hidden');
                 modalInfo.element.style.opacity = '';
+                modalInfo.element.style.setProperty('display', 'none', 'important');
                 this.removeBackButton(modalInfo.element);
             }, 200);
         });
-        
-        document.body.style.overflow = 'auto';
-        document.body.style.overflowX = 'hidden'; // Maintain CSS overflow-x: hidden
         
         // Restore scroll position to the first modal's position
         if (modalsToClose.length > 0) {
             window.scrollTo(0, modalsToClose[0].scrollPosition);
         }
+        
+        // Use the improved restore logic
+        setTimeout(() => {
+            this.restoreBodyScroll();
+        }, 250); // Slightly longer delay to ensure all modals are hidden
     }
     
     /**

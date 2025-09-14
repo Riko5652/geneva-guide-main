@@ -1265,27 +1265,39 @@ header {
 
 .modal-content {
   padding: var(--space-6);
-  max-height: 60vh;
+  max-height: 70vh;
   overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
 }
 
 /* Custom scrollbar for modal content */
-.modal-content::-webkit-scrollbar {
+.modal-content::-webkit-scrollbar,
+.overflow-y-auto::-webkit-scrollbar {
   width: 6px;
 }
 
-.modal-content::-webkit-scrollbar-track {
+.modal-content::-webkit-scrollbar-track,
+.overflow-y-auto::-webkit-scrollbar-track {
   background: var(--gray-100);
   border-radius: var(--radius-full);
 }
 
-.modal-content::-webkit-scrollbar-thumb {
+.modal-content::-webkit-scrollbar-thumb,
+.overflow-y-auto::-webkit-scrollbar-thumb {
   background: var(--gray-300);
   border-radius: var(--radius-full);
 }
 
-.modal-content::-webkit-scrollbar-thumb:hover {
+.modal-content::-webkit-scrollbar-thumb:hover,
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
   background: var(--gray-400);
+}
+
+/* Ensure modal content areas are properly scrollable */
+.modal .flex-1.overflow-y-auto {
+  min-height: 0; /* Important for flexbox scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 /* ========================================
