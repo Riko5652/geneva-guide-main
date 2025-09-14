@@ -232,8 +232,10 @@ class ModalManager {
         if (stackIndex !== -1) {
             this.modalStack.splice(stackIndex, 1);
             console.log('📋 Removed modal from stack, remaining:', this.modalStack.length);
+            console.log('📋 Current stack:', this.modalStack.map(m => m.id));
         } else {
             console.log('⚠️ Modal not found in stack, but closing anyway');
+            console.log('📋 Current stack:', this.modalStack.map(m => m.id));
         }
         
         // Add fade-out animation
@@ -470,6 +472,22 @@ export function forceRestoreBodyOverflow() {
 
 // Make the force restore function available globally for emergency use
 window.forceRestoreBodyOverflow = forceRestoreBodyOverflow;
+
+// Add global modal debugging function
+window.debugModals = function() {
+    console.log('🔍 Modal Debug Info:');
+    console.log('📋 Modal Stack:', modalManager.modalStack.map(m => ({ id: m.id, element: m.element?.id })));
+    console.log('🔍 All Modals:', Array.from(document.querySelectorAll('.modal')).map(m => ({
+        id: m.id,
+        classes: m.className,
+        display: getComputedStyle(m).display,
+        visibility: getComputedStyle(m).visibility,
+        opacity: getComputedStyle(m).opacity
+    })));
+    console.log('🔒 Body Overflow:', document.body.style.overflow);
+    console.log('🔒 Body OverflowY:', document.body.style.overflowY);
+    console.log('🔒 Body OverflowX:', document.body.style.overflowX);
+};
 
 /**
  * Translates a weather code from the Open-Meteo API to a human-readable description and an icon.
