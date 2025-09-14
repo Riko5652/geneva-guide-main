@@ -1648,6 +1648,15 @@ header {
   pointer-events: auto;
 }
 
+/* Modal header scroll hiding styles */
+.modal .relative.bg-gradient-to-l,
+.modal .p-2.pb-1.flex-shrink-0 {
+  position: relative;
+  z-index: 10;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
 /* ========================================
    9. FORMS
    ======================================== */

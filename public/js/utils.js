@@ -83,9 +83,88 @@ export const familyLoader = new FamilyLoader();
 class ModalManager {
     constructor() {
         this.modalStack = [];
+        this.scrollHandlers = new Map(); // Track scroll handlers for each modal
         this.setupBackNavigation();
     }
     
+    /**
+     * Setup scroll-based header hiding for modal
+     */
+    setupScrollHeaderHiding(modal) {
+        const modalId = modal.id;
+        const scrollableContent = modal.querySelector('.flex-1.overflow-y-auto, #packing-modal-content');
+        const header = modal.querySelector('.relative.bg-gradient-to-l, .p-2.pb-1.flex-shrink-0');
+        
+        if (!scrollableContent || !header) {
+            console.log('⚠️ No scrollable content or header found for modal:', modalId);
+            return;
+        }
+
+        let lastScrollTop = 0;
+        let isHeaderHidden = false;
+        const scrollThreshold = 50; // Hide header after scrolling 50px
+
+        const scrollHandler = () => {
+            const currentScrollTop = scrollableContent.scrollTop;
+            
+            // Show header when at top
+            if (currentScrollTop <= 10) {
+                if (isHeaderHidden) {
+                    header.style.transform = 'translateY(0)';
+                    header.style.opacity = '1';
+                    header.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+                    isHeaderHidden = false;
+                }
+            }
+            // Hide header when scrolling down
+            else if (currentScrollTop > scrollThreshold && currentScrollTop > lastScrollTop) {
+                if (!isHeaderHidden) {
+                    header.style.transform = 'translateY(-100%)';
+                    header.style.opacity = '0';
+                    header.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+                    isHeaderHidden = true;
+                }
+            }
+            // Show header when scrolling up
+            else if (currentScrollTop < lastScrollTop && currentScrollTop > scrollThreshold) {
+                if (isHeaderHidden) {
+                    header.style.transform = 'translateY(0)';
+                    header.style.opacity = '1';
+                    header.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+                    isHeaderHidden = false;
+                }
+            }
+            
+            lastScrollTop = currentScrollTop;
+        };
+
+        // Store the handler for cleanup
+        this.scrollHandlers.set(modalId, scrollHandler);
+        
+        // Add scroll listener
+        scrollableContent.addEventListener('scroll', scrollHandler, { passive: true });
+        
+        console.log('📜 Scroll header hiding setup for modal:', modalId);
+    }
+
+    /**
+     * Remove scroll handler for modal
+     */
+    removeScrollHandler(modalId) {
+        const handler = this.scrollHandlers.get(modalId);
+        if (handler) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                const scrollableContent = modal.querySelector('.flex-1.overflow-y-auto, #packing-modal-content');
+                if (scrollableContent) {
+                    scrollableContent.removeEventListener('scroll', handler);
+                }
+            }
+            this.scrollHandlers.delete(modalId);
+            console.log('🧹 Removed scroll handler for modal:', modalId);
+        }
+    }
+
     /**
      * Show loading state for modal
      */
@@ -178,6 +257,9 @@ class ModalManager {
         modal.style.setProperty('display', 'flex', 'important'); // Force display to flex with !important
         document.body.style.overflow = 'hidden'; // Prevent background scroll
         
+        // Setup scroll-based header hiding
+        this.setupScrollHeaderHiding(modal);
+        
         console.log('🎭 Modal shown, classes:', modal.className);
         console.log('🎭 Modal computed styles:', {
             display: getComputedStyle(modal).display,
@@ -247,6 +329,9 @@ class ModalManager {
             modalElement.style.opacity = ''; // Reset for next time
             modalElement.style.setProperty('display', 'none', 'important'); // Force hide
             console.log('🎭 Modal hidden and display set to none');
+            
+            // Remove scroll handler
+            this.removeScrollHandler(modalId);
             
             // Clean up the stack and restore scroll
             this.cleanupModalStack();
